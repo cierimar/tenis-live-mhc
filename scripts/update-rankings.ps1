@@ -1,0 +1,34 @@
+name: Actualizar rankings de dobles
+
+on:
+  schedule:
+    - cron: '17 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ejecutar actualizacion
+        shell: pwsh
+        run: ./scripts/update-rankings.ps1
+
+      - name: Commit y push si hubo cambios
+        shell: pwsh
+        run: |
+          git config user.name "cierimar"
+          git config user.email "cierimar@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m "Actualizar rankings de dobles (automatico)"
+            git push
+          } else {
+            Write-Host "Sin cambios en los rankings."
+          }
