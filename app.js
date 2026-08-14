@@ -15,6 +15,7 @@
     challPoints: [],
     challLive: { tournaments: [], matches: [] },
     itfLive: { tournaments: [], matches: [] },
+    cal: { atp: [], wta: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
@@ -428,6 +429,80 @@
     }
   }
 
+  /* ---------------- calendario --------------- */
+
+  async function refreshCalendar() {
+    try {
+      const urls = useLocalBackend()
+        ? ['api/calendar/atp', 'api/calendar/wta']
+        : ['calendar_atp.json', 'calendar_wta.json'];
+      const [a, w] = await Promise.all([
+        fetchJson(urls[0]).catch(() => ({ tournaments: [] })),
+        fetchJson(urls[1]).catch(() => ({ tournaments: [] }))
+      ]);
+      state.cal.atp = a.tournaments || [];
+      state.cal.wta = w.tournaments || [];
+      state.cal.loaded = true;
+      if (state.tab === 'calendar') render();
+    } catch (err) {
+      state.cal.loaded = true;
+      if (state.tab === 'calendar') render();
+    }
+  }
+
+  function calLevelLabel(t) {
+    if (t.circuit === 'atp') return t.level === 'main' ? 'ATP' : 'CHALL';
+    return t.level === 'main' ? 'WTA' : 'WTA 125';
+  }
+
+  function renderCalendar() {
+    const el = $('calContent');
+    if (!state.cal.loaded) { el.innerHTML = '<div class="loading">Cargando calendario...</div>'; return; }
+    if (!state.cal.atp.length && !state.cal.wta.length) {
+      el.innerHTML = '<div class="error-box">No se pudo cargar el calendario.</div>';
+      $('calMeta').textContent = '';
+      return;
+    }
+    const circuits = state.cal.tab === 'todos' ? ['atp', 'wta'] : [state.cal.tab];
+    const list = [];
+    for (const c of circuits) for (const t of state.cal[c]) list.push(t);
+    if (!list.length) { el.innerHTML = '<div class="error-box">Sin torneos para este circuito.</div>'; $('calMeta').textContent = ''; return; }
+    list.sort((a, b) => a.date.localeCompare(b.date));
+    const months = [];
+    const byMonth = new Map();
+    for (const t of list) {
+      const key = (t.date || '').slice(0, 7);
+      if (!byMonth.has(key)) byMonth.set(key, []);
+      byMonth.get(key).push(t);
+    }
+    for (const key of Array.from(byMonth.keys()).sort()) {
+      const [y, m] = key.split('-').map(Number);
+      const label = new Date(y, m - 1, 1).toLocaleDateString('es', { month: 'long', year: 'numeric' });
+      months.push({ label, items: byMonth.get(key) });
+    }
+    const surfaceDot = s => '<span class="cal-dot" style="background:' + (s === 'Clay' ? '#c97d47' : s === 'Grass' ? '#4caf50' : s === 'Carpet' ? '#9e9e9e' : '#43749b') + '"></span>' + esc(s);
+    const html = months.map(mo => {
+      const rows = mo.items.map(t =>
+        '<div class="cal-item">' +
+          '<div class="cal-date">' + esc(fmtDate(t.date)) + '</div>' +
+          '<div class="cal-body">' +
+            '<div class="cal-name">' + esc(t.name) + (t.current ? '<span class="cal-now">ESTA SEMANA</span>' : '') + '</div>' +
+            '<div class="cal-info">' +
+              '<span class="cal-level">' + esc(calLevelLabel(t)) + '</span>' +
+              '<span class="cal-surf">' + surfaceDot(t.surface) + '</span>' +
+              (t.prize ? '<span class="cal-prize">' + esc(t.prize) + '</span>' : '') +
+              (t.draw ? '<span class="cal-draw">Cuadro ' + t.draw + '</span>' : '') +
+            '</div>' +
+            (t.winner && t.winner !== '-' ? '<div class="cal-winner">Campeón: <b>' + esc(t.winner) + '</b></div>' : '') +
+          '</div>' +
+        '</div>'
+      ).join('');
+      return '<div class="cal-month"><h3>' + esc(mo.label) + '</h3>' + rows + '</div>';
+    }).join('');
+    el.innerHTML = html;
+    $('calMeta').textContent = list.length + ' torneo(s)';
+  }
+
   /* ---------------- filters ---------------- */
 
   function allMatches() {
@@ -728,11 +803,18 @@
     else if (state.tab === 'tournaments') renderTournaments();
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
+    else if (state.tab === 'calendar') renderCalendar();
   }
 
   function setTab(tab) {
     state.tab = tab;
     document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.body.classList.toggle('tab-calendar', tab === 'calendar');
+    if (tab === 'calendar' && !state.cal.loaded) {
+      render();
+      refreshCalendar();
+      return;
+    }
     render();
     if ((tab === 'rankings' || tab === 'draws' || tab === 'tournaments') && !state.matches.length) {
       refreshAll();
@@ -788,8 +870,20 @@
     });
 
     $('btnRefresh').addEventListener('click', () => {
+      if (state.tab === 'calendar') { refreshCalendar(); return; }
       refreshAll(true);
     });
+
+    const segCal = document.getElementById('segCal');
+    if (segCal) {
+      segCal.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.cal.tab = b.dataset.cal;
+        document.querySelectorAll('#segCal .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        renderCalendar();
+      });
+    }
 
     let savedTheme = 'oscuro';
     try { savedTheme = localStorage.getItem('mhc-theme') || 'oscuro'; } catch (e) {}
