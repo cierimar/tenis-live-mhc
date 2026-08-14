@@ -231,10 +231,8 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .ball {
   position: absolute; border-radius: 50%;
   width: 22px; height: 22px;
-  background:
-    linear-gradient(50deg, transparent 42%, rgba(255,255,255,.95) 45%, rgba(255,255,255,.95) 55%, transparent 58%),
-    linear-gradient(-50deg, transparent 42%, rgba(255,255,255,.95) 45%, rgba(255,255,255,.95) 55%, transparent 58%),
-    radial-gradient(circle at 32% 28%, #f6fa86 0%, #d9ea34 55%, #9fb31c 100%);
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='35%25' cy='28%25' r='85%25'><stop offset='0%25' stop-color='%23f7ff72'/><stop offset='45%25' stop-color='%23d8f63c'/><stop offset='100%25' stop-color='%239dbd20'/></radialGradient><filter id='f' x='-10%25' y='-10%25' width='120%25' height='120%25'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' seed='4' result='n'/><feColorMatrix in='n' type='matrix' values='0 0 0 0 0.8 0 0 0 0 0.9 0 0 0 0 0.12 0 0 0 0.45 0' result='fz'/></filter></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><circle cx='50' cy='50' r='46' filter='url(%23f)' opacity='0.5'/><path d='M50 4 C 76 34, 76 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='5' stroke-linecap='round' opacity='0.95'/><path d='M50 4 C 24 34, 24 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='5' stroke-linecap='round' opacity='0.95'/><circle cx='50' cy='50' r='46' fill='none' stroke='rgba(0,0,0,0.25)' stroke-width='1.5'/></svg>");
+  background-size: 100% 100%;
   box-shadow: inset -3px -4px 6px rgba(0,0,0,.25), 0 3px 7px rgba(0,0,0,.35);
   animation: ball-float 5.5s ease-in-out infinite;
 }
