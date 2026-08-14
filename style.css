@@ -191,6 +191,15 @@ body[data-theme="dorado"] {
   --tabs-bg: linear-gradient(180deg, rgba(26,21,5,.97), rgba(26,21,5,.92));
 }
 
+/* ---------- fuentes ---------- */
+body[data-font="arial"] { --font: 'Arial', 'Helvetica Neue', 'Segoe UI', sans-serif; }
+body[data-font="verdana"] { --font: 'Verdana', Geneva, 'DejaVu Sans', sans-serif; }
+body[data-font="trebuchet"] { --font: 'Trebuchet MS', 'Segoe UI', sans-serif; }
+body[data-font="georgia"] { --font: Georgia, 'Times New Roman', 'Liberation Serif', serif; }
+body[data-font="times"] { --font: 'Times New Roman', Times, 'Liberation Serif', serif; }
+body[data-font="courier"] { --font: 'Courier New', Consolas, Menlo, monospace; }
+body[data-font="comic"] { --font: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive; }
+
 /* ---------- header ---------- */
 .topbar {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
@@ -275,11 +284,11 @@ body[data-theme="dorado"] {
 }
 .seg-btn.active { background: var(--accent); color: var(--on-accent); }
 .controls-spacer { flex: 1; }
-.select-theme {
+.select-theme, .select-font {
   background: var(--bg2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
   font-family: var(--font); font-size: 12px; font-weight: 600; padding: 8px 10px; cursor: pointer;
 }
-.select-theme option { background: var(--bg2); color: var(--text); }
+.select-theme option, .select-font option { background: var(--bg2); color: var(--text); }
 .btn-refresh {
   background: var(--card); color: var(--text); border: 1px solid var(--line); font-family: var(--font);
   font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all .15s;
@@ -448,7 +457,7 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
   .seg { flex: 1; min-width: 0; }
   .seg-btn { flex: 1; padding: 9px 8px; font-size: 12px; min-height: 40px; }
   .btn-refresh { min-height: 40px; padding: 8px 14px; }
-  .select-theme { min-height: 40px; }
+  .select-theme, .select-font { min-height: 40px; }
 
   .view { padding: 4px 12px 24px; }
   .section-head { margin: 12px 0 10px; gap: 10px; }
