@@ -379,6 +379,29 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .itf-info .itf-score { font-weight: 800; color: var(--text); font-variant-numeric: tabular-nums; }
 .itf-info .itf-round { margin-left: auto; }
 
+body.tab-calendar #segTour, body.tab-calendar #segMode { display: none; }
+
+/* ---------- calendario ---------- */
+.cal-month { margin-bottom: 18px; }
+.cal-month h3 { font-size: 15px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin: 0 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.cal-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; margin-bottom: 8px;
+}
+.cal-date { min-width: 62px; font-size: 12px; font-weight: 700; color: var(--muted); padding-top: 2px; }
+.cal-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.cal-name { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cal-now {
+  font-size: 10px; font-weight: 800; letter-spacing: 1px; color: #fff;
+  background: var(--live); border-radius: 999px; padding: 2px 8px;
+}
+.cal-info { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+.cal-level { font-weight: 800; color: var(--accent); font-size: 11px; letter-spacing: .5px; }
+.cal-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; }
+.cal-winner { font-size: 12px; color: var(--muted); }
+.cal-winner b { color: var(--text); }
+
 /* ---------- tournaments ---------- */
 .grid-tournaments { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
 .tour-card {
