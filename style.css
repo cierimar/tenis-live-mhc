@@ -15,7 +15,7 @@
   --down: #ff5d5d;
   --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
   --bg-glow: #14204a;
-  --topbar-bg: #182348;
+  --topbar-bg: #5b21b6;
   --net-line: rgba(255,255,255,.13);
   --net-band: rgba(255,255,255,.32);
   --tabs-bg: linear-gradient(180deg, rgba(11,16,32,.97), rgba(11,16,32,.92));
@@ -47,7 +47,7 @@ body[data-theme="claro"] {
   --up: #16a34a;
   --down: #e03131;
   --bg-glow: #dbe5f5;
-  --topbar-bg: #d8e5f6;
+  --topbar-bg: #ece2fa;
   --net-line: rgba(23,35,60,.13);
   --net-band: rgba(23,35,60,.24);
   --tabs-bg: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
@@ -61,7 +61,7 @@ body[data-theme="azul"] {
   --accent: #4fc3f7;
   --accent2: #29b6f6;
   --win: #a5e3fb;
-  --topbar-bg: #13294f;
+  --topbar-bg: #482e8f;
 }
 body[data-theme="rosa"] {
   --bg: #1b0d16;
@@ -72,7 +72,7 @@ body[data-theme="rosa"] {
   --accent: #f759ab;
   --accent2: #e64980;
   --win: #ffc2e0;
-  --topbar-bg: #3b1c2c;
+  --topbar-bg: #57256b;
 }
 body[data-theme="ambar"] {
   --bg: #191306;
@@ -83,7 +83,7 @@ body[data-theme="ambar"] {
   --accent: #ffc94b;
   --accent2: #ffa726;
   --win: #ffe3a1;
-  --topbar-bg: #3a2b0e;
+  --topbar-bg: #4a2d8f;
 }
 
 /* ---------- header ---------- */
