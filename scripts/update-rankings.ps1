@@ -48,6 +48,7 @@ function ConvertFrom-AtpRanking([string]$html) {
         if ($names.Count -gt 0) {
             $name = (($names | ForEach-Object { $_.Groups[1].Value.Trim() }) -join ' / ').Trim()
         }
+        if (-not $name) { continue }
         $flags = [regex]::Matches($row, '#flag-([a-z0-9]+)')
         $flag = ''
         if ($flags.Count -gt 0) { $flag = $flags[0].Groups[1].Value.ToLowerInvariant() }
