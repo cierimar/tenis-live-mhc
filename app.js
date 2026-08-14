@@ -194,11 +194,11 @@
 
   async function refreshScoreboards() {
     const [atp, wta] = await Promise.all([
-      fetchJson(ESPN + '/atp/scoreboard'),
-      fetchJson(ESPN + '/wta/scoreboard')
+      fetchJson(ESPN + '/atp/scoreboard').catch(() => null),
+      fetchJson(ESPN + '/wta/scoreboard').catch(() => null)
     ]);
-    const a = normalizeScoreboard(atp, 'atp');
-    const w = normalizeScoreboard(wta, 'wta');
+    const a = atp ? normalizeScoreboard(atp, 'atp') : { matches: [], tournaments: [] };
+    const w = wta ? normalizeScoreboard(wta, 'wta') : { matches: [], tournaments: [] };
     const tmap = new Map();
     const mmap = new Map();
     for (const src of [a, w]) {
@@ -381,6 +381,39 @@
       tournaments.push({ id: t.id, name: t.name, date: null, status: null, previousWinners: [] });
       for (const m of (t.matches || [])) {
         const sex = t.cat === 'm' ? "Men's" : "Women's";
+        if (m.finished) {
+          const s1 = m.sets1 || [], s2 = m.sets2 || [];
+          const n = Math.min(s1.length, s2.length);
+          const ls1 = [], ls2 = [];
+          for (let i = 0; i < n; i++) {
+            const a = parseInt(s1[i], 10), b = parseInt(s2[i], 10);
+            ls1.push({ value: isNaN(a) ? null : a, winner: !isNaN(a) && !isNaN(b) && a > b });
+            ls2.push({ value: isNaN(b) ? null : b, winner: !isNaN(a) && !isNaN(b) && b > a });
+          }
+          const w1 = (m.res1 || 0) > (m.res2 || 0);
+          matches.push({
+            id: t.id + '-f-' + m.teId,
+            date: null,
+            state: 'post',
+            period: null,
+            type: sex + ' Singles',
+            round: m.round || '',
+            tournamentId: t.id,
+            tournamentName: t.name,
+            tour: 'itf',
+            cat: t.cat,
+            venue: '',
+            notes: '',
+            competitors: [
+              { homeAway: 'home', winner: w1, order: 1, name: m.p1 || 'TBD', flag: '', flagAlt: '', linescores: ls1 },
+              { homeAway: 'away', winner: !w1, order: 2, name: m.p2 || 'TBD', flag: '', flagAlt: '', linescores: ls2 }
+            ],
+            itfTime: m.time || '',
+            h2h: '',
+            teId: m.teId
+          });
+          continue;
+        }
         matches.push({
           id: t.id + '-' + (m.p1 || 'x') + '-' + (m.p2 || 'x'),
           date: null,
@@ -446,8 +479,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('api/rankings/atp?type=doubles'),
-      fetchJson('api/rankings/wta?type=doubles')
+      fetchJson('rankings/atp_doubles.json'),
+      fetchJson('rankings/wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -457,10 +490,10 @@
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.all([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive()]);
       if (useLocalBackend()) {
         refreshItfLive().then(() => {
-          if (state.tab === 'live' || state.tab === 'tournaments') render();
+          if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
         });
       }
       const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
@@ -636,6 +669,41 @@
   function rankMatch(m) {
     const w = m.state === 'in' ? 0 : m.state === 'pre' ? 1 : 2;
     return w;
+  }
+
+  /* ---------------- render: finalizados ---------------- */
+
+  function renderFinalizados() {
+    const el = $('finContent');
+    const list = filteredMatches().filter(m => m.state === 'post');
+    if (!state.matches.length && !state.challLive.matches.length && !state.itfLive.matches.length) {
+      el.innerHTML = '<div class="loading">Cargando partidos...</div>';
+      return;
+    }
+    if (!list.length) {
+      const label = state.tour === 'todos' ? 'finalizados' : 'de ' + state.tour.toUpperCase() + ' finalizados';
+      el.innerHTML = '<div class="error-box">No hay partidos ' + label + '.</div>';
+      $('finMeta').textContent = '0 partidos finalizados';
+      return;
+    }
+    const byTour = new Map();
+    for (const m of list) {
+      if (!byTour.has(m.tournamentId)) byTour.set(m.tournamentId, []);
+      byTour.get(m.tournamentId).push(m);
+    }
+    let html = '';
+    for (const [tid, ms] of byTour) {
+      const tour = allTournaments().find(t => t.id === tid);
+      const name = tour ? tour.name : (ms[0].tournamentName || 'Torneo');
+      const dates = todayStr();
+      ms.sort((a, b) => rankMatch(a) - rankMatch(b));
+      const cards = ms.map(m => matchCard(m)).join('');
+      const chip = state.tour === 'todos' ? '<span class="tour-chip">' + tourLabel(ms[0]) + '</span>' : '';
+      html += '<div class="tour-block"><div class="tour-head"><span class="t-name">' + esc(name) +
+        '</span>' + chip + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
+    }
+    el.innerHTML = html;
+    $('finMeta').textContent = list.length + ' partido(s) finalizado(s)';
   }
 
   function matchCard(m) {
@@ -922,6 +990,7 @@
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     $('view-' + state.tab).classList.add('active');
     if (state.tab === 'live') renderLive();
+    else if (state.tab === 'finalizados') renderFinalizados();
     else if (state.tab === 'tournaments') renderTournaments();
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
@@ -940,7 +1009,7 @@
       return;
     }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados') && !state.matches.length) {
       refreshAll();
     }
   }
