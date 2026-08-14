@@ -19,6 +19,7 @@
     rankSingles: { atp: null, wta: null },
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
+    rankSearch: '',
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -878,12 +879,19 @@
 
     if (!data || !data.length) return header + '<div class="loading">Cargando ranking...</div>';
 
-    const rows = data.map((r, i) => {
+    const q = state.rankSearch;
+    const filtered = q ? data.filter(r => String(r.name || r.athleteName || '').toLowerCase().indexOf(q) > -1) : data;
+    if (!filtered.length) {
+      return header + '<div class="error-box">No se encontraron jugadores que coincidan con "' +
+        esc(q || '') + '" en ' + tourLabelTxt + ' ' + modeLabel + '.</div>';
+    }
+
+    const rows = filtered.map((r, i) => {
       const name = r.name || r.athleteName || '—';
       const flag = mode === 'singles' ? r.flag : flagUrl(r.flag);
       const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
       const rankTxt = r.rankRaw || r.rank;
-      const rankCls = i === 0 ? 'r-rank top1' : 'r-rank';
+      const rankCls = String(rankTxt) === '1' ? 'r-rank top1' : 'r-rank';
       const trend = mode === 'singles' ? r.trend : r.movement;
       return '<tr>' +
         '<td class="' + rankCls + '">' + esc(rankTxt) + '</td>' +
@@ -922,7 +930,8 @@
     for (const t of selectedTours()) for (const m of selectedModes()) html.push(renderRankSection(t, m));
     el.innerHTML = html.join('');
     const total = selectedTours().length * selectedModes().length;
-    $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)';
+    $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
+      (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
   }
 
   /* ---------------- render: ranking Argentina ---------------- */
@@ -1105,6 +1114,21 @@
       state.drawTournamentId = e.target.value;
       renderDraws();
     });
+
+    const rankSearch = $('rankSearch');
+    if (rankSearch) {
+      rankSearch.addEventListener('input', () => {
+        state.rankSearch = rankSearch.value.toLowerCase().trim();
+        renderRankings();
+      });
+      const clear = $('rankSearchClear');
+      if (clear) clear.addEventListener('click', () => {
+        rankSearch.value = '';
+        state.rankSearch = '';
+        renderRankings();
+        rankSearch.focus();
+      });
+    }
 
     $('btnRefresh').addEventListener('click', () => {
       if (state.tab === 'calendar') { refreshCalendar(); return; }
