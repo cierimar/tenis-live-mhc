@@ -336,6 +336,18 @@ body[data-theme="dorado"] {
 .scores { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 10px; font-size: 12px; }
 .scores .note { color: var(--muted); font-style: italic; }
 .scores .time { color: var(--muted); white-space: nowrap; }
+.live-points {
+  grid-column: 1 / -1; display: flex; align-items: center; gap: 8px;
+  background: rgba(255,71,87,.08); border: 1px solid rgba(255,71,87,.35);
+  border-radius: 8px; padding: 6px 10px; font-size: 12px;
+}
+.live-points .lp-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--live); }
+.live-points .lp-score {
+  font-size: 15px; font-weight: 800; color: var(--accent);
+  font-variant-numeric: tabular-nums; letter-spacing: 1px; animation: pulse 1.4s infinite;
+}
+.live-points .lp-score.deuce { color: var(--live); }
+.live-points .lp-srv { color: var(--muted); font-size: 11px; }
 
 /* ---------- tournaments ---------- */
 .grid-tournaments { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
