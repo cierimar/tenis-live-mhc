@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+$ErrorActionPreference = 'Continue'
 
 $repoRoot = Split-Path $PSScriptRoot -Parent
 $outDir = Join-Path $repoRoot 'rankings'
@@ -74,8 +74,16 @@ function Get-WtaRankings([string]$type) {
     $tmp = Join-Path $env:TEMP ([guid]::NewGuid().ToString() + '.json')
     & $curl -s -L --connect-timeout 20 --max-time 60 -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' -o $tmp $url 2>$null
     if (-not (Test-Path $tmp)) { Remove-Item $tmp -Force -ErrorAction SilentlyContinue; return $null }
-    $data = Get-Content $tmp -Raw -Encoding UTF8 | ConvertFrom-Json
+    $raw = Get-Content $tmp -Raw -Encoding UTF8
     Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    if (-not $raw) { return $null }
+    $trimmed = $raw.TrimStart()
+    if (-not ($trimmed.StartsWith('[') -or $trimmed.StartsWith('{'))) { return $null }
+    try {
+        $data = $raw | ConvertFrom-Json
+    } catch {
+        return $null
+    }
     if (-not $data) { return $null }
     $players = [System.Collections.Generic.List[object]]::new()
     foreach ($p in $data) {
@@ -101,23 +109,33 @@ function Save-Json([string]$path, $obj) {
 
 $updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'
 
-$atpHtml = Get-AtpPage 'https://www.atptour.com/en/rankings/doubles'
-if ($atpHtml -and $atpHtml -match 'rankings-breakdown') {
-    $players = ConvertFrom-AtpRanking $atpHtml
-    if ($players.Count -gt 0) {
-        Save-Json (Join-Path $outDir 'atp_doubles.json') @{ ok = $true; updated = $updated; players = $players }
-        Write-Host "ATP dobles: $($players.Count) jugadores"
+try {
+    $atpHtml = Get-AtpPage 'https://www.atptour.com/en/rankings/doubles'
+    if ($atpHtml -and $atpHtml -match 'rankings-breakdown') {
+        $players = ConvertFrom-AtpRanking $atpHtml
+        if ($players.Count -gt 0) {
+            Save-Json (Join-Path $outDir 'atp_doubles.json') @{ ok = $true; updated = $updated; players = $players }
+            Write-Host "ATP dobles: $($players.Count) jugadores"
+        } else {
+            Write-Host 'ATP dobles: sin datos'
+        }
     } else {
-        Write-Host 'ATP dobles: sin datos'
+        Write-Host 'ATP dobles: no se pudo descargar (Cloudflare o red)'
     }
-} else {
-    Write-Host 'ATP dobles: no se pudo descargar (Cloudflare o red)'
+} catch {
+    Write-Host "ATP dobles: error inesperado: $($_.Exception.Message)"
 }
 
-$wta = Get-WtaRankings 'rankDoubles'
-if ($wta -and $wta.Count -gt 0) {
-    Save-Json (Join-Path $outDir 'wta_doubles.json') @{ ok = $true; updated = $updated; players = $wta }
-    Write-Host "WTA dobles: $($wta.Count) jugadores"
-} else {
-    Write-Host 'WTA dobles: sin datos'
+try {
+    $wta = Get-WtaRankings 'rankDoubles'
+    if ($wta -and $wta.Count -gt 0) {
+        Save-Json (Join-Path $outDir 'wta_doubles.json') @{ ok = $true; updated = $updated; players = $wta }
+        Write-Host "WTA dobles: $($wta.Count) jugadores"
+    } else {
+        Write-Host 'WTA dobles: sin datos'
+    }
+} catch {
+    Write-Host "WTA dobles: error inesperado: $($_.Exception.Message)"
 }
+
+exit 0
