@@ -318,6 +318,13 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 10px;
 }
 .tour-head .t-name { font-weight: 700; font-size: 15px; }
+.tour-chip {
+  font-size: 11px; font-weight: 700; letter-spacing: .5px;
+  color: var(--text); background: var(--bg2);
+  border: 1px solid var(--line); border-radius: 20px; padding: 2px 9px;
+  text-transform: uppercase; white-space: nowrap;
+}
+.chip-sm { font-size: 10px; margin-left: 6px; padding: 1px 7px; vertical-align: middle; }
 .tour-head .t-date { font-size: 12px; color: var(--muted); margin-left: auto; white-space: nowrap; }
 .match {
   display: grid; grid-template-columns: 1fr auto; gap: 6px 12px;
@@ -410,6 +417,10 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .draw-empty { color: var(--muted); font-size: 12px; text-align: center; padding: 8px; }
 
 /* ---------- rankings ---------- */
+.rank-section-title {
+  font-size: 13px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+  color: var(--accent); margin: 18px 2px 8px;
+}
 .rank-table-wrap { overflow-x: auto; }
 table.rank-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 520px; }
 .rank-table th {
