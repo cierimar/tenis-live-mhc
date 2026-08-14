@@ -157,19 +157,30 @@
             tour: circuit,
             venue: c.venue && c.venue.fullName ? c.venue.fullName : '',
             notes: c.notes && c.notes.text ? c.notes.text : '',
-            competitors: (c.competitors || []).map(p => ({
-              homeAway: p.homeAway,
-              winner: !!p.winner,
-              order: p.order,
-              name: p.athlete && p.athlete.displayName ? p.athlete.displayName : 'TBD',
-              flag: p.athlete && p.athlete.flag ? p.athlete.flag.href : '',
-              flagAlt: p.athlete && p.athlete.flag ? p.athlete.flag.alt : '',
-              linescores: (p.linescores || []).map(ls => ({
-                value: ls.value,
-                tiebreak: ls.tiebreak,
-                winner: !!ls.winner
-              }))
-            }))
+            competitors: (c.competitors || []).map(p => {
+              const ath = p.athlete;
+              const roster = p.roster;
+              const name = ath && ath.displayName ? ath.displayName
+                : roster && roster.displayName ? roster.displayName
+                : roster && roster.shortDisplayName ? roster.shortDisplayName : 'TBD';
+              const flag = ath && ath.flag ? ath.flag.href
+                : roster && roster.athletes && roster.athletes[0] && roster.athletes[0].flag ? roster.athletes[0].flag.href : '';
+              const flagAlt = ath && ath.flag ? ath.flag.alt
+                : roster && roster.athletes && roster.athletes[0] && roster.athletes[0].flag ? roster.athletes[0].flag.alt : '';
+              return {
+                homeAway: p.homeAway,
+                winner: !!p.winner,
+                order: p.order,
+                name: name,
+                flag: flag,
+                flagAlt: flagAlt,
+                linescores: (p.linescores || []).map(ls => ({
+                  value: ls.value,
+                  tiebreak: ls.tiebreak,
+                  winner: !!ls.winner
+                }))
+              };
+            })
           });
         }
       }
@@ -272,28 +283,73 @@
   function parseChallenger(j) {
     const matches = [], tournaments = [], points = [];
     const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
-    for (const t of (j.tournaments || [])) {
-      tournaments.push({ id: t.id, name: t.name, date: t.date, status: null, previousWinners: [] });
-      for (const m of (t.matches || [])) {
-        matches.push({
-          id: m.id,
-          date: null,
-          state: m.state || 'pre',
-          period: null,
-          type: m.type || "Men's Singles",
-          round: m.round || '',
-          tournamentId: t.id,
-          tournamentName: t.name,
-          tour: 'chall',
-          venue: ((t.city || '') + (t.country ? ', ' + t.country : '')).trim(),
-          notes: m.notes || '',
-          competitors: [
-            { homeAway: 'home', winner: false, order: 1, name: m.p1 || 'TBD', flag: flagUrl(m.p1flag), flagAlt: '', linescores: (m.sets1 || []).map(v => ({ value: v, tiebreak: null, winner: false })) },
-            { homeAway: 'away', winner: false, order: 2, name: m.p2 || 'TBD', flag: flagUrl(m.p2flag), flagAlt: '', linescores: (m.sets2 || []).map(v => ({ value: v, tiebreak: null, winner: false })) }
-          ]
-        });
-        if (m.status === 'P' || m.status === 'W') {
-          points.push({ status: 'P', p1: norm(m.p1), p2: norm(m.p2), g1: m.g1, g2: m.g2, server: m.server });
+    const tourById = new Map();
+    const getTour = (id, name, date, city, country) => {
+      if (!tourById.has(id)) {
+        const t = { id: id, name: name || 'Torneo', date: date || null, city: '', country: '', status: null, previousWinners: [] };
+        tourById.set(id, t);
+        tournaments.push(t);
+      }
+      const t = tourById.get(id);
+      if (name) t.name = name;
+      if (date) t.date = date;
+      if (city) t.city = city;
+      if (country) t.country = country;
+      return t;
+    };
+    const push = (tid, m) => {
+      const t = getTour(tid, m.tournamentName, m.tournamentDate, m.tournamentCity, m.tournamentCountry);
+      matches.push({
+        id: m.id || tid + '-' + (m.p1 || 'x') + '-' + (m.p2 || 'x'),
+        date: null,
+        state: m.state || 'pre',
+        period: null,
+        type: m.type || "Men's Singles",
+        round: m.round || '',
+        tournamentId: tid,
+        tournamentName: t.name,
+        tour: 'chall',
+        venue: ((t.city || '') + (t.country ? ', ' + t.country : '')).trim(),
+        notes: m.notes || '',
+        competitors: [
+          { homeAway: 'home', winner: false, order: 1, name: m.p1 || 'TBD', flag: flagUrl(m.p1flag), flagAlt: '', linescores: (m.sets1 || []).map(v => ({ value: v, tiebreak: null, winner: false })) },
+          { homeAway: 'away', winner: false, order: 2, name: m.p2 || 'TBD', flag: flagUrl(m.p2flag), flagAlt: '', linescores: (m.sets2 || []).map(v => ({ value: v, tiebreak: null, winner: false })) }
+        ]
+      });
+      if (m.status === 'P' || m.status === 'W') {
+        points.push({ status: 'P', p1: norm(m.p1), p2: norm(m.p2), g1: m.g1, g2: m.g2, server: m.server });
+      }
+    };
+    for (const t of ((j && j.tournaments) || [])) {
+      getTour(t.id, t.name, t.date, t.city, t.country);
+    }
+    for (const m of ((j && j.matches) || [])) {
+      push(m.tournamentId || 'chall-0', m);
+    }
+    const gw = j && j.Data && j.Data.LiveMatchesTournamentsOrdered;
+    if (gw) {
+      for (const t of gw) {
+        if (!t.EventTitle) continue;
+        const tid = 'chall-' + t.EventId;
+        getTour(tid, t.EventTitle, t.EventStartDate, t.EventCity, t.EventCountryCode);
+        for (const m of (t.LiveMatches || [])) {
+          push(tid, {
+            id: tid + '-' + m.MatchId,
+            type: m.IsDoubles ? "Men's Doubles" : "Men's Singles",
+            state: m.MatchStatus === 'P' || m.MatchStatus === 'W' ? 'in' : m.MatchStatus === 'F' ? 'post' : 'pre',
+            round: m.RoundName || '',
+            notes: m.ExtendedMessage || '',
+            status: m.MatchStatus,
+            g1: m.PlayerTeam.GameScore,
+            g2: m.OpponentTeam.GameScore,
+            server: m.ServerTeam,
+            p1: (((m.PlayerTeam.Player.PlayerFirstName || '') + ' ' + (m.PlayerTeam.Player.PlayerLastName || '')).trim()),
+            p2: (((m.OpponentTeam.Player.PlayerFirstName || '') + ' ' + (m.OpponentTeam.Player.PlayerLastName || '')).trim()),
+            p1flag: m.PlayerTeam.Player.PlayerCountry,
+            p2flag: m.OpponentTeam.Player.PlayerCountry,
+            sets1: (m.PlayerTeam.SetScores || []).map(s => s.SetScore),
+            sets2: (m.OpponentTeam.SetScores || []).map(s => s.SetScore)
+          });
         }
       }
     }
@@ -320,12 +376,11 @@
     for (const t of (j.tournaments || [])) {
       tournaments.push({ id: t.id, name: t.name, date: null, status: null, previousWinners: [] });
       for (const m of (t.matches || [])) {
-        const sex = t.cat === 'm' ? 'Men' : 'Women';
-        const inPlay = !!m.score && m.score.trim() !== '0-0';
+        const sex = t.cat === 'm' ? "Men's" : "Women's";
         matches.push({
           id: t.id + '-' + (m.p1 || 'x') + '-' + (m.p2 || 'x'),
           date: null,
-          state: inPlay ? 'in' : 'pre',
+          state: 'pre',
           period: null,
           type: sex + ' Singles',
           round: m.round || '',
@@ -339,8 +394,9 @@
             { homeAway: 'home', winner: false, order: 1, name: m.p1 || 'TBD', flag: '', flagAlt: '', linescores: [] },
             { homeAway: 'away', winner: false, order: 2, name: m.p2 || 'TBD', flag: '', flagAlt: '', linescores: [] }
           ],
-          itfScore: m.score,
-          itfTime: m.time
+          itfTime: m.time,
+          h2h: m.h2h,
+          teId: m.teId
         });
       }
     }
@@ -386,8 +442,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -506,18 +562,22 @@
   /* ---------------- filters ---------------- */
 
   function allMatches() {
-    return state.itfLive && state.itfLive.matches ? [...state.matches, ...state.itfLive.matches] : [...state.matches];
+    const chall = state.challLive && state.challLive.matches ? state.challLive.matches : [];
+    const itf = state.itfLive && state.itfLive.matches ? state.itfLive.matches : [];
+    return [...state.matches, ...chall, ...itf];
   }
   function allTournaments() {
-    return state.itfLive && state.itfLive.tournaments ? [...state.tournaments, ...state.itfLive.tournaments] : [...state.tournaments];
+    const chall = state.challLive && state.challLive.tournaments ? state.challLive.tournaments : [];
+    const itf = state.itfLive && state.itfLive.tournaments ? state.itfLive.tournaments : [];
+    return [...state.tournaments, ...chall, ...itf];
   }
   function filteredMatches() {
     const types = new Set(selectedTypes());
-    return allMatches().filter(m => types.has(m.type));
+    const tours = new Set(selectedTours());
+    return allMatches().filter(m => types.has(m.type) && tours.has(tourOf(m)));
   }
   function filteredTournaments() {
-    const types = new Set(selectedTypes());
-    const ids = new Set(allMatches().filter(m => types.has(m.type)).map(m => m.tournamentId));
+    const ids = new Set(filteredMatches().map(m => m.tournamentId));
     return allTournaments().filter(t => ids.has(t.id));
   }
 
@@ -555,7 +615,7 @@
     let liveCount = 0;
     let html = '';
     for (const [tid, ms] of byTour) {
-      const tour = state.tournaments.find(t => t.id === tid);
+      const tour = allTournaments().find(t => t.id === tid);
       const name = tour ? tour.name : (ms[0].tournamentName || 'Torneo');
       const dates = tour && tour.date ? fmtDate(tour.date) : '';
       ms.sort((a, b) => rankMatch(a) - rankMatch(b));
@@ -583,8 +643,7 @@
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
     const itfInfo = m.tour === 'itf'
       ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' +
-        (m.itfScore ? '<span class="itf-score">' + esc(m.itfScore) + '</span>' : '') +
-        (m.round ? '<span class="itf-round">' + esc(m.round) + '</span>' : '') + '</div>' : '';
+        (m.teId ? '<button class="itf-h2h" data-teid="' + esc(m.teId) + '">H2H ' + esc(m.h2h || '0-0') + '</button>' : '') + '</div>' : '';
     const pts = livePoints(m);
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
@@ -836,6 +895,47 @@
     $('countdown').textContent = state.countdown;
   }
 
+  /* ---------------- H2H ---------------- */
+
+  async function openH2H(teId) {
+    const body = $('h2hBody');
+    const overlay = $('h2hOverlay');
+    if (!body || !overlay) return;
+    body.innerHTML = '<div class="h2h-loading">Cargando H2H...</div>';
+    overlay.classList.remove('hidden');
+    try {
+      const j = await fetchJson('api/h2h?matchId=' + encodeURIComponent(teId));
+      renderH2H(body, j);
+    } catch (err) {
+      body.innerHTML = '<div class="error-box">No se pudo cargar el H2H: ' + esc(err.message) + '</div>';
+    }
+  }
+
+  function renderH2H(body, j) {
+    if (!j.ok) { body.innerHTML = '<div class="error-box">' + esc(j.error || 'Error') + '</div>'; return; }
+    const title = '<div class="h2h-title">' + esc(j.p1 || '') + ' <span class="h2h-vs">vs</span> ' + esc(j.p2 || '') +
+      ' <span class="h2h-count">' + esc(j.h2h) + '</span></div>';
+    if (!j.meetings || !j.meetings.length) {
+      body.innerHTML = title + '<div class="h2h-empty">Sin enfrentamientos previos.</div>';
+      return;
+    }
+    const rows = j.meetings.map(mc =>
+      '<tr><td>' + esc(mc.year) + '</td><td>' + esc(mc.tournament) + '</td>' +
+      '<td>' + esc(mc.round) + '</td><td>' + esc(mc.surface) + '</td>' +
+      '<td><span class="h2h-win">' + esc(mc.winner) + '</span> ' + esc(mc.loser) + '</td>' +
+      '<td class="h2h-set">' + esc(mc.sets1.map((s, i) => s + '-' + (mc.sets2[i] || '')).join(', ')) + '</td></tr>'
+    ).join('');
+    body.innerHTML = title +
+      '<div class="h2h-table-wrap"><table class="h2h-table"><thead><tr>' +
+      '<th>A&ntilde;o</th><th>Torneo</th><th>Ronda</th><th>Superficie</th><th>Resultado</th><th>Sets</th>' +
+      '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  function closeH2H() {
+    const overlay = $('h2hOverlay');
+    if (overlay) overlay.classList.add('hidden');
+  }
+
   /* ---------------- wiring ---------------- */
 
   function init() {
@@ -882,6 +982,17 @@
         state.cal.tab = b.dataset.cal;
         document.querySelectorAll('#segCal .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderCalendar();
+      });
+    }
+
+    const h2hOverlay = document.getElementById('h2hOverlay');
+    if (h2hOverlay) {
+      h2hOverlay.addEventListener('click', e => {
+        if (e.target === h2hOverlay || e.target.closest('.h2h-close')) closeH2H();
+      });
+      document.addEventListener('click', e => {
+        const b = e.target.closest('.itf-h2h');
+        if (b) openH2H(b.getAttribute('data-teid'));
       });
     }
 
