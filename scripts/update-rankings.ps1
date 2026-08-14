@@ -1,34 +1,123 @@
-name: Actualizar rankings de dobles
+$ErrorActionPreference = 'Stop'
 
-on:
-  schedule:
-    - cron: '17 */2 * * *'
-  workflow_dispatch:
+$repoRoot = Split-Path $PSScriptRoot -Parent
+$outDir = Join-Path $repoRoot 'rankings'
+New-Item -ItemType Directory -Path $outDir -Force | Out-Null
 
-permissions:
-  contents: write
+$curl = if ($IsWindows -or $env:OS -match 'Windows') { 'curl.exe' } else { 'curl' }
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+function Get-AtpPage([string]$url) {
+    $tmp = Join-Path $env:TEMP ([guid]::NewGuid().ToString() + '.html')
+    for ($i = 1; $i -le 3; $i++) {
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        $args = @(
+            '-s', '-L', '--compressed', '--connect-timeout', '20', '--max-time', '60',
+            '-A', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0 Safari/537.36',
+            '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            '-H', 'Accept-Language: en-US,en;q=0.9',
+            '-H', 'Referer: https://www.google.com/',
+            '-o', $tmp, $url
+        )
+        & $curl @args 2>$null
+        if ((Test-Path $tmp) -and ((Get-Item $tmp).Length -gt 5000)) {
+            $content = Get-Content $tmp -Raw -Encoding UTF8
+            Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+            return $content
+        }
+        Start-Sleep -Seconds 8
+    }
+    Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    return $null
+}
 
-      - name: Ejecutar actualizacion
-        shell: pwsh
-        run: ./scripts/update-rankings.ps1
+function ConvertFrom-AtpRanking([string]$html) {
+    $result = [System.Collections.Generic.List[object]]::new()
+    $rows = [regex]::Matches($html, '<tr[^>]*>.*?</tr>', 'Singleline')
+    foreach ($m in $rows) {
+        $row = $m.Value
+        $rankM = [regex]::Match($row, 'class="rank[^"]*"[^>]*>([^<]+)<')
+        if (-not $rankM.Success) { continue }
+        $rankRaw = $rankM.Groups[1].Value.Trim()
+        $rankNum = [regex]::Match($rankRaw, '\d+').Value
+        if (-not $rankNum) { continue }
+        $pointsM = [regex]::Match($row, 'class="points[^"]*"[^>]*>.*?([\d,]+)\s*</a>', 'Singleline')
+        $points = 0
+        if ($pointsM.Success) { [void][int]::TryParse(($pointsM.Groups[1].Value -replace ',', ''), [ref]$points) }
+        $names = [regex]::Matches($row, 'class="lastName">([^<]+)<')
+        $name = ''
+        if ($names.Count -gt 0) {
+            $name = (($names | ForEach-Object { $_.Groups[1].Value.Trim() }) -join ' / ').Trim()
+        }
+        $flags = [regex]::Matches($row, '#flag-([a-z0-9]+)')
+        $flag = ''
+        if ($flags.Count -gt 0) { $flag = $flags[0].Groups[1].Value.ToLowerInvariant() }
+        $up = [regex]::Match($row, 'rank-up">(\d+)<')
+        $down = [regex]::Match($row, 'rank-down">(\d+)<')
+        $movement = 0
+        if ($up.Success) { [void][int]::TryParse($up.Groups[1].Value, [ref]$movement) }
+        elseif ($down.Success) { $d = 0; [void][int]::TryParse($down.Groups[1].Value, [ref]$d); $movement = -$d }
+        $result.Add([pscustomobject]@{
+            rank = [int]$rankNum
+            rankRaw = $rankRaw
+            name = $name
+            flag = $flag
+            points = $points
+            movement = $movement
+            source = 'atptour.com'
+        })
+    }
+    return $result
+}
 
-      - name: Commit y push si hubo cambios
-        shell: pwsh
-        run: |
-          git config user.name "cierimar"
-          git config user.email "cierimar@users.noreply.github.com"
-          git add -A
-          git diff --cached --quiet
-          if ($LASTEXITCODE -ne 0) {
-            git commit -m "Actualizar rankings de dobles (automatico)"
-            git push
-          } else {
-            Write-Host "Sin cambios en los rankings."
-          }
+function Get-WtaRankings([string]$type) {
+    $url = "https://api.wtatennis.com/tennis/players/ranked?type=$type&metric=doubles&pageSize=100"
+    $tmp = Join-Path $env:TEMP ([guid]::NewGuid().ToString() + '.json')
+    & $curl -s -L --connect-timeout 20 --max-time 60 -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' -o $tmp $url 2>$null
+    if (-not (Test-Path $tmp)) { Remove-Item $tmp -Force -ErrorAction SilentlyContinue; return $null }
+    $data = Get-Content $tmp -Raw -Encoding UTF8 | ConvertFrom-Json
+    Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    if (-not $data) { return $null }
+    $players = [System.Collections.Generic.List[object]]::new()
+    foreach ($p in $data) {
+        $movement = 0
+        if ($null -ne $p.movement) { try { $movement = [int]$p.movement } catch {} }
+        $players.Add([pscustomobject]@{
+            rank = if ($null -eq $p.ranking) { 0 } else { [int]$p.ranking }
+            rankRaw = [string]$p.ranking
+            name = $p.player.fullName
+            flag = ('' + $p.player.countryCode).ToLowerInvariant()
+            points = if ($null -eq $p.points) { 0 } else { [int]$p.points }
+            movement = $movement
+            source = 'api.wtatennis.com'
+        })
+    }
+    return $players
+}
+
+function Save-Json([string]$path, $obj) {
+    $json = $obj | ConvertTo-Json -Depth 8
+    [System.IO.File]::WriteAllText($path, $json, [System.Text.UTF8Encoding]::new($false))
+}
+
+$updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'
+
+$atpHtml = Get-AtpPage 'https://www.atptour.com/en/rankings/doubles'
+if ($atpHtml -and $atpHtml -match 'rankings-breakdown') {
+    $players = ConvertFrom-AtpRanking $atpHtml
+    if ($players.Count -gt 0) {
+        Save-Json (Join-Path $outDir 'atp_doubles.json') @{ ok = $true; updated = $updated; players = $players }
+        Write-Host "ATP dobles: $($players.Count) jugadores"
+    } else {
+        Write-Host 'ATP dobles: sin datos'
+    }
+} else {
+    Write-Host 'ATP dobles: no se pudo descargar (Cloudflare o red)'
+}
+
+$wta = Get-WtaRankings 'rankDoubles'
+if ($wta -and $wta.Count -gt 0) {
+    Save-Json (Join-Path $outDir 'wta_doubles.json') @{ ok = $true; updated = $updated; players = $wta }
+    Write-Host "WTA dobles: $($wta.Count) jugadores"
+} else {
+    Write-Host 'WTA dobles: sin datos'
+}
