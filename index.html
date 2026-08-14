@@ -41,6 +41,7 @@
   <button class="tab" data-tab="tournaments">TORNEOS</button>
   <button class="tab" data-tab="draws">CUADROS</button>
   <button class="tab" data-tab="rankings">RANKINGS</button>
+  <button class="tab" data-tab="calendar">CALENDARIO</button>
 </nav>
 
 <div class="controls">
@@ -111,6 +112,16 @@
   <div id="view-rankings" class="view">
     <div class="section-head"><h2>Ranking</h2><span class="section-meta" id="rankMeta"></span></div>
     <div id="rankContent" class="content"><div class="loading">Cargando ranking...</div></div>
+  </div>
+
+  <div id="view-calendar" class="view">
+    <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
+    <div class="seg" id="segCal">
+      <button class="seg-btn active" data-cal="todos">TODOS</button>
+      <button class="seg-btn" data-cal="atp">ATP</button>
+      <button class="seg-btn" data-cal="wta">WTA</button>
+    </div>
+    <div id="calContent" class="content"><div class="loading">Cargando calendario...</div></div>
   </div>
 </main>
 
