@@ -18,7 +18,8 @@
     refreshing: false,
     countdown: REFRESH_SEC,
     drawTournamentId: null,
-    theme: 'oscuro'
+    theme: 'oscuro',
+    font: 'defecto'
   };
 
   const ROUND_ORDER = [
@@ -43,6 +44,12 @@
     state.theme = t || 'oscuro';
     document.body.setAttribute('data-theme', state.theme);
     try { localStorage.setItem('mhc-theme', state.theme); } catch (e) {}
+  }
+
+  function applyFont(f) {
+    state.font = f || 'defecto';
+    document.body.setAttribute('data-font', state.font);
+    try { localStorage.setItem('mhc-font', state.font); } catch (e) {}
   }
 
   function fmtTime(iso) {
@@ -606,6 +613,12 @@
     applyTheme(savedTheme);
     $('themeSelect').value = state.theme;
     $('themeSelect').addEventListener('change', e => applyTheme(e.target.value));
+
+    let savedFont = 'defecto';
+    try { savedFont = localStorage.getItem('mhc-font') || 'defecto'; } catch (e) {}
+    applyFont(savedFont);
+    $('fontSelect').value = state.font;
+    $('fontSelect').addEventListener('change', e => applyFont(e.target.value));
 
     refreshAll(true);
   }
