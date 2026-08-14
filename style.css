@@ -419,7 +419,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .h2h-table .h2h-win { font-weight: 800; }
 .h2h-table .h2h-set { font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-body.tab-calendar #segTour, body.tab-calendar #segMode { display: none; }
+body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segTour, body.tab-argentina #segMode { display: none; }
 
 /* ---------- calendario ---------- */
 .cal-month { margin-bottom: 18px; }
