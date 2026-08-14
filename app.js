@@ -76,6 +76,10 @@
     if (isNaN(d)) return '';
     return d.toLocaleDateString('es', { day: 'numeric', month: 'short' });
   }
+  function todayStr() {
+    const s = new Date().toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
   function typeFor(tour, mode) {
     const men = tour === 'atp' || tour === 'chall';
     return mode === 'doubles'
@@ -617,7 +621,7 @@
     for (const [tid, ms] of byTour) {
       const tour = allTournaments().find(t => t.id === tid);
       const name = tour ? tour.name : (ms[0].tournamentName || 'Torneo');
-      const dates = tour && tour.date ? fmtDate(tour.date) : '';
+      const dates = todayStr();
       ms.sort((a, b) => rankMatch(a) - rankMatch(b));
       const cards = ms.map(m => matchCard(m)).join('');
       const chip = state.tour === 'todos' ? '<span class="tour-chip">' + tourLabel(ms[0]) + '</span>' : '';
@@ -945,6 +949,9 @@
 
   function tickClock() {
     $('clock').textContent = new Date().toLocaleTimeString('es');
+    const t = todayStr();
+    const els = document.querySelectorAll('.tour-head .t-date');
+    for (let i = 0; i < els.length; i++) els[i].textContent = t;
   }
   function tickCountdown() {
     if (!state.refreshing && state.countdown <= 0) {
