@@ -12,6 +12,9 @@
     tournaments: [],
     matches: [],
     atpLive: [],
+    challPoints: [],
+    challLive: { tournaments: [], matches: [] },
+    itfLive: { tournaments: [], matches: [] },
     rankSingles: { atp: null, wta: null },
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
@@ -73,25 +76,41 @@
     return d.toLocaleDateString('es', { day: 'numeric', month: 'short' });
   }
   function typeFor(tour, mode) {
-    if (tour === 'atp') return mode === 'doubles' ? "Men's Doubles" : "Men's Singles";
-    return mode === 'doubles' ? "Women's Doubles" : "Women's Singles";
+    const men = tour === 'atp' || tour === 'chall';
+    return mode === 'doubles'
+      ? (men ? "Men's Doubles" : "Women's Doubles")
+      : (men ? "Men's Singles" : "Women's Singles");
   }
   function selectedTours() {
-    return state.tour === 'todos' ? ['atp', 'wta'] : [state.tour];
+    if (state.tour === 'todos') return ['atp', 'wta', 'chall', 'itf'];
+    return [state.tour];
   }
   function selectedModes() {
     return state.mode === 'todos' ? ['singles', 'doubles'] : [state.mode];
   }
+  function typeSetFor(tour, mode) {
+    if (tour === 'itf') {
+      if (mode === 'todos') return ["Men's Singles", "Men's Doubles", "Women's Singles", "Women's Doubles"];
+      const sex = mode === 'singles' ? 'Singles' : 'Doubles';
+      return ["Men's " + sex, "Women's " + sex];
+    }
+    return [typeFor(tour, mode)];
+  }
   function selectedTypes() {
     const types = [];
-    for (const t of selectedTours()) for (const m of selectedModes()) types.push(typeFor(t, m));
+    for (const t of selectedTours()) for (const m of selectedModes()) types.push(...typeSetFor(t, m));
     return types;
   }
   function tourOf(m) {
+    if (m.tour === 'chall') return 'chall';
+    if (m.tour === 'itf') return 'itf';
     return m.type.indexOf("Men") === 0 ? 'atp' : 'wta';
   }
   function tourLabel(m) {
-    return tourOf(m) === 'atp' ? 'ATP' : 'WTA';
+    const t = tourOf(m);
+    if (t === 'chall') return 'CHALL';
+    if (t === 'itf') return m.cat === 'w' ? 'ITF W' : 'ITF M';
+    return t === 'atp' ? 'ATP' : 'WTA';
   }
   function flagUrl(code) {
     return code ? 'https://a.espncdn.com/i/teamlogos/countries/500/' + code.toLowerCase() + '.png' : '';
@@ -109,7 +128,7 @@
     return r.json();
   }
 
-  function normalizeScoreboard(json) {
+  function normalizeScoreboard(json, circuit) {
     const matches = [];
     const tourMap = new Map();
     for (const ev of (json.events || [])) {
@@ -134,6 +153,7 @@
             round: c.round ? c.round.displayName : '',
             tournamentId: tid,
             tournamentName: ev.name || '',
+            tour: circuit,
             venue: c.venue && c.venue.fullName ? c.venue.fullName : '',
             notes: c.notes && c.notes.text ? c.notes.text : '',
             competitors: (c.competitors || []).map(p => ({
@@ -161,8 +181,8 @@
       fetchJson(ESPN + '/atp/scoreboard'),
       fetchJson(ESPN + '/wta/scoreboard')
     ]);
-    const a = normalizeScoreboard(atp);
-    const w = normalizeScoreboard(wta);
+    const a = normalizeScoreboard(atp, 'atp');
+    const w = normalizeScoreboard(wta, 'wta');
     const tmap = new Map();
     const mmap = new Map();
     for (const src of [a, w]) {
@@ -248,12 +268,100 @@
     }
   }
 
+  function parseChallenger(j) {
+    const matches = [], tournaments = [], points = [];
+    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    for (const t of (j.tournaments || [])) {
+      tournaments.push({ id: t.id, name: t.name, date: t.date, status: null, previousWinners: [] });
+      for (const m of (t.matches || [])) {
+        matches.push({
+          id: m.id,
+          date: null,
+          state: m.state || 'pre',
+          period: null,
+          type: m.type || "Men's Singles",
+          round: m.round || '',
+          tournamentId: t.id,
+          tournamentName: t.name,
+          tour: 'chall',
+          venue: ((t.city || '') + (t.country ? ', ' + t.country : '')).trim(),
+          notes: m.notes || '',
+          competitors: [
+            { homeAway: 'home', winner: false, order: 1, name: m.p1 || 'TBD', flag: flagUrl(m.p1flag), flagAlt: '', linescores: (m.sets1 || []).map(v => ({ value: v, tiebreak: null, winner: false })) },
+            { homeAway: 'away', winner: false, order: 2, name: m.p2 || 'TBD', flag: flagUrl(m.p2flag), flagAlt: '', linescores: (m.sets2 || []).map(v => ({ value: v, tiebreak: null, winner: false })) }
+          ]
+        });
+        if (m.status === 'P' || m.status === 'W') {
+          points.push({ status: 'P', p1: norm(m.p1), p2: norm(m.p2), g1: m.g1, g2: m.g2, server: m.server });
+        }
+      }
+    }
+    return { matches, tournaments, points };
+  }
+
+  async function refreshChallLive() {
+    try {
+      const url = useLocalBackend()
+        ? 'api/live/chall'
+        : 'https://app.atptour.com/api/v2/gateway/livematches/website?scoringTournamentLevel=challenger';
+      const j = await fetchJson(url);
+      const r = parseChallenger(j);
+      state.challLive = r;
+      state.challPoints = r.points;
+    } catch (err) {
+      state.challLive = { tournaments: [], matches: [] };
+      state.challPoints = [];
+    }
+  }
+
+  function parseItf(j) {
+    const matches = [], tournaments = [];
+    for (const t of (j.tournaments || [])) {
+      tournaments.push({ id: t.id, name: t.name, date: null, status: null, previousWinners: [] });
+      for (const m of (t.matches || [])) {
+        const sex = t.cat === 'm' ? 'Men' : 'Women';
+        const inPlay = !!m.score && m.score.trim() !== '0-0';
+        matches.push({
+          id: t.id + '-' + (m.p1 || 'x') + '-' + (m.p2 || 'x'),
+          date: null,
+          state: inPlay ? 'in' : 'pre',
+          period: null,
+          type: sex + ' Singles',
+          round: m.round || '',
+          tournamentId: t.id,
+          tournamentName: t.name,
+          tour: 'itf',
+          cat: t.cat,
+          venue: '',
+          notes: '',
+          competitors: [
+            { homeAway: 'home', winner: false, order: 1, name: m.p1 || 'TBD', flag: '', flagAlt: '', linescores: [] },
+            { homeAway: 'away', winner: false, order: 2, name: m.p2 || 'TBD', flag: '', flagAlt: '', linescores: [] }
+          ],
+          itfScore: m.score,
+          itfTime: m.time
+        });
+      }
+    }
+    return { matches, tournaments };
+  }
+
+  async function refreshItfLive() {
+    if (!useLocalBackend()) { state.itfLive = { tournaments: [], matches: [] }; return; }
+    try {
+      const j = await fetchJson('api/itf/live');
+      state.itfLive = parseItf(j);
+    } catch (err) {
+      state.itfLive = { tournaments: [], matches: [] };
+    }
+  }
+
   function livePoints(m) {
     if (m.state !== 'in' || m.type !== "Men's Singles") return null;
     const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
     const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
     if (names.length < 2) return null;
-    const hit = state.atpLive.find(e => e.status === 'P' &&
+    const hit = [...state.atpLive, ...state.challPoints].find(e => e.status === 'P' &&
       (e.p1 === names[0] || e.p1 === names[1] || e.p2 === names[0] || e.p2 === names[1]));
     if (!hit) return null;
     const side0 = hit.p1 === names[0] && hit.p2 === names[1];
@@ -288,7 +396,12 @@
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.all([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive()]);
+      await Promise.all([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive()]);
+      if (useLocalBackend()) {
+        refreshItfLive().then(() => {
+          if (state.tab === 'live' || state.tab === 'tournaments') render();
+        });
+      }
       const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
       if (state.tab === 'rankings' && wantsDoubles) {
         await refreshRankingsDoubles();
@@ -317,14 +430,20 @@
 
   /* ---------------- filters ---------------- */
 
+  function allMatches() {
+    return state.itfLive && state.itfLive.matches ? [...state.matches, ...state.itfLive.matches] : [...state.matches];
+  }
+  function allTournaments() {
+    return state.itfLive && state.itfLive.tournaments ? [...state.tournaments, ...state.itfLive.tournaments] : [...state.tournaments];
+  }
   function filteredMatches() {
     const types = new Set(selectedTypes());
-    return state.matches.filter(m => types.has(m.type));
+    return allMatches().filter(m => types.has(m.type));
   }
   function filteredTournaments() {
     const types = new Set(selectedTypes());
-    const ids = new Set(state.matches.filter(m => types.has(m.type)).map(m => m.tournamentId));
-    return state.tournaments.filter(t => ids.has(t.id));
+    const ids = new Set(allMatches().filter(m => types.has(m.type)).map(m => m.tournamentId));
+    return allTournaments().filter(t => ids.has(t.id));
   }
 
   /* ---------------- render: live ---------------- */
@@ -339,6 +458,13 @@
     const list = filteredMatches();
     const el = $('liveContent');
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
+    if (state.tour === 'itf') {
+      if (!useLocalBackend()) {
+        el.innerHTML = '<div class="error-box">ITF en vivo solo está disponible en la versión local (PC con el servidor).</div>';
+        return;
+      }
+      if (!state.itfLive.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos ITF...</div>'; return; }
+    }
     if (!list.length) {
       const label = state.tour === 'todos' ? 'en este momento' : 'de ' + state.tour.toUpperCase() + ' ' + (state.mode === 'singles' ? 'singles' : state.mode === 'doubles' ? 'dobles' : 'en este momento');
       el.innerHTML = '<div class="error-box">No hay partidos ' + label + '.</div>';
@@ -365,7 +491,7 @@
       liveCount += ms.filter(m => m.state === 'in').length;
     }
     el.innerHTML = html;
-    $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + state.matches.filter(m => m.state === 'in').length + ' en total';
+    $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total';
   }
 
   function rankMatch(m) {
@@ -380,6 +506,10 @@
     const rows = comps.map(p => playerRow(p, m)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
+    const itfInfo = m.tour === 'itf'
+      ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' +
+        (m.itfScore ? '<span class="itf-score">' + esc(m.itfScore) + '</span>' : '') +
+        (m.round ? '<span class="itf-round">' + esc(m.round) + '</span>' : '') + '</div>' : '';
     const pts = livePoints(m);
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
@@ -389,7 +519,7 @@
     return '<div class="' + cls + '">' +
       '<div class="m-top"><span class="round">' + esc(ROUND_LABEL[m.round] || m.round) + '</span>' + statusBadge(m) + period + '</div>' +
       rows +
-      '<div class="scores">' + note + time + '</div>' + points + '</div>';
+      '<div class="scores">' + note + time + '</div>' + itfInfo + points + '</div>';
   }
 
   function playerRow(p, m) {
@@ -416,7 +546,7 @@
 
     let html = '';
     for (const t of tours) {
-      const ms = state.matches.filter(m => m.tournamentId === t.id);
+      const ms = allMatches().filter(m => m.tournamentId === t.id);
       const live = ms.some(m => m.state === 'in');
       const upcoming = ms.some(m => m.state === 'pre');
       const st = live ? '<span class="tc-status live">● EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
@@ -457,9 +587,8 @@
     populateDrawSelect();
     if (!state.drawTournamentId) { el.innerHTML = '<div class="loading">No hay torneos para mostrar el cuadro.</div>'; return; }
 
-    const type = typeFor(state.tour, state.mode);
     const selTypes = new Set(selectedTypes());
-    let ms = state.matches.filter(m => m.tournamentId === state.drawTournamentId && selTypes.has(m.type));
+    let ms = allMatches().filter(m => m.tournamentId === state.drawTournamentId && selTypes.has(m.type));
     if (!ms.length) {
       el.innerHTML = '<div class="error-box">Sin datos de cuadro para este torneo y categoria.</div>';
       $('drawMeta').textContent = '';
@@ -469,7 +598,7 @@
     const roundMap = new Map();
     for (const m of ms) {
       const key = state.mode === 'todos' ? m.type + '|' + m.round : m.round;
-      if (!roundMap.has(key)) roundMap.set(key, { type: state.mode === 'todos' ? m.type : type, matches: [] });
+      if (!roundMap.has(key)) roundMap.set(key, { type: m.type, matches: [] });
       roundMap.get(key).matches.push(m);
     }
     const keys = Array.from(roundMap.keys()).sort((a, b) => {
@@ -479,7 +608,7 @@
       return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || (a < b ? -1 : 1);
     });
 
-    const tour = state.tournaments.find(t => t.id === state.drawTournamentId);
+    const tour = allTournaments().find(t => t.id === state.drawTournamentId);
     const drawTypes = new Set(ms.map(m => m.type));
     $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + Array.from(drawTypes).join(' / ') + ' · ' + ms.length + ' partidos';
 
@@ -567,6 +696,11 @@
 
   function renderRankings() {
     const el = $('rankContent');
+    if (state.tour === 'chall' || state.tour === 'itf') {
+      el.innerHTML = '<div class="error-box">No hay rankings disponibles para ' + state.tour.toUpperCase() + '.</div>';
+      $('rankMeta').textContent = '';
+      return;
+    }
     const needsDoubles = selectedModes().includes('doubles') && selectedTours().some(t => !state.rankDoubles[t]);
     if (needsDoubles && !state.rankDoublesLoading) {
       state.rankDoublesLoading = true;
