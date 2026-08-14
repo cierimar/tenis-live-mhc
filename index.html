@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>TENIS LIVE MHC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23c9f24b'/><circle cx='50' cy='50' r='40' fill='%23b5e038'/><path stroke='%23fff' stroke-width='3' fill='none' d='M50 10 A40 40 0 0 1 50 90 M50 10 A40 40 0 0 0 50 90 M10 50 H90'/></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-ball">&#127934;</span>
+    <div class="brand-text">
+      <h1>TENIS <span>LIVE</span> MHC</h1>
+      <p>Resultados en tiempo real &middot; ATP &amp; WTA</p>
+    </div>
+  </div>
+  <div class="status-area">
+    <div id="livePill" class="live-pill"><span class="dot"></span> EN VIVO</div>
+    <div class="clock"><span id="clock">--:--:--</span></div>
+    <div class="updated">Actualizado: <span id="lastUpdate">--</span></div>
+    <div class="countdown">Auto-refresh <span id="countdown">30</span>s</div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="live">EN VIVO</button>
+  <button class="tab" data-tab="tournaments">TORNEOS</button>
+  <button class="tab" data-tab="draws">CUADROS</button>
+  <button class="tab" data-tab="rankings">RANKINGS</button>
+</nav>
+
+<div class="controls">
+  <div class="seg" id="segTour">
+    <button class="seg-btn active" data-tour="atp">ATP</button>
+    <button class="seg-btn" data-tour="wta">WTA</button>
+  </div>
+  <div class="seg" id="segMode">
+    <button class="seg-btn active" data-mode="singles">SINGLES</button>
+    <button class="seg-btn" data-mode="doubles">DOBLES</button>
+  </div>
+  <div class="controls-spacer"></div>
+  <select id="themeSelect" class="select-theme" title="Tema de color">
+    <option value="oscuro">Tema: Oscuro</option>
+    <option value="claro">Tema: Claro</option>
+    <option value="azul">Tema: Azul</option>
+    <option value="rosa">Tema: Rosa</option>
+    <option value="ambar">Tema: Ámbar</option>
+  </select>
+  <button id="btnRefresh" class="btn-refresh">&#x21bb; Actualizar</button>
+</div>
+
+<main>
+  <div id="view-live" class="view active">
+    <div class="section-head"><h2>Partidos</h2><span class="section-meta" id="liveMeta"></span></div>
+    <div id="liveContent" class="content"><div class="loading">Cargando partidos...</div></div>
+  </div>
+
+  <div id="view-tournaments" class="view">
+    <div class="section-head"><h2>Torneos</h2><span class="section-meta" id="tourMeta"></span></div>
+    <div id="tourContent" class="content grid-tournaments"><div class="loading">Cargando torneos...</div></div>
+  </div>
+
+  <div id="view-draws" class="view">
+    <div class="section-head">
+      <h2>Cuadros</h2>
+      <select id="drawSelect" class="select-tour"></select>
+    </div>
+    <div id="drawMeta" class="section-meta"></div>
+    <div id="drawContent" class="content"><div class="loading">Cargando cuadros...</div></div>
+  </div>
+
+  <div id="view-rankings" class="view">
+    <div class="section-head"><h2>Ranking</h2><span class="section-meta" id="rankMeta"></span></div>
+    <div id="rankContent" class="content"><div class="loading">Cargando ranking...</div></div>
+  </div>
+</main>
+
+<footer>
+  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking oficial)</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
