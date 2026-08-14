@@ -11,6 +11,7 @@
     tab: 'live',
     tournaments: [],
     matches: [],
+    atpLive: [],
     rankSingles: { atp: null, wta: null },
     rankDoubles: { atp: null, wta: null },
     lastUpdate: null,
@@ -165,6 +166,83 @@
     state.rankSingles.wta = normalizeEspnRank(wta);
   }
 
+  /* ---------- ATP live (conteo de puntos 15/30/40) ---------- */
+
+  function useLocalBackend() {
+    return !/\.github\.io$/i.test(location.hostname);
+  }
+
+  function parseAtpLive(raw) {
+    const out = [];
+    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    if (Array.isArray(raw && raw.matches)) {
+      for (const m of raw.matches) {
+        out.push({
+          status: m.status,
+          p1: norm(m.p1), p2: norm(m.p2),
+          g1: m.g1, g2: m.g2, server: m.server,
+          sets1: m.sets1 || [], sets2: m.sets2 || []
+        });
+      }
+      return out;
+    }
+    const tours = (raw && raw.Data && raw.Data.LiveMatchesTournamentsOrdered) || [];
+    for (const t of tours) {
+      for (const m of (t.LiveMatches || [])) {
+        if (m.Type !== 'singles') continue;
+        out.push({
+          status: m.MatchStatus,
+          p1: norm((m.PlayerTeam.Player.PlayerFirstName || '') + ' ' + (m.PlayerTeam.Player.PlayerLastName || '')),
+          p2: norm((m.OpponentTeam.Player.PlayerFirstName || '') + ' ' + (m.OpponentTeam.Player.PlayerLastName || '')),
+          g1: m.PlayerTeam.GameScore, g2: m.OpponentTeam.GameScore,
+          server: m.ServerTeam,
+          sets1: (m.PlayerTeam.SetScores || []).map(s => s.SetScore),
+          sets2: (m.OpponentTeam.SetScores || []).map(s => s.SetScore)
+        });
+      }
+    }
+    return out;
+  }
+
+  async function refreshAtpLive() {
+    try {
+      const url = useLocalBackend()
+        ? 'api/live/atp'
+        : 'https://app.atptour.com/api/v2/gateway/livematches/website?scoringTournamentLevel=tour';
+      const j = await fetchJson(url);
+      state.atpLive = parseAtpLive(j);
+    } catch (err) {
+      state.atpLive = [];
+    }
+  }
+
+  function livePoints(m) {
+    if (m.state !== 'in' || state.tour !== 'atp' || state.mode !== 'singles') return null;
+    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
+    if (names.length < 2) return null;
+    const hit = state.atpLive.find(e => e.status === 'P' &&
+      (e.p1 === names[0] || e.p1 === names[1] || e.p2 === names[0] || e.p2 === names[1]));
+    if (!hit) return null;
+    const side0 = hit.p1 === names[0] && hit.p2 === names[1];
+    const g0 = side0 ? hit.g1 : hit.g2;
+    const g1 = side0 ? hit.g2 : hit.g1;
+    const serverName = hit.server === 1 ? hit.p1 : hit.server === 2 ? hit.p2 : '';
+    return { g0, g1, serverName };
+  }
+
+  function pointLabel(g) {
+    const v = String(g == null ? '' : g).toUpperCase().trim();
+    if (v === 'A' || v === 'AD' || v === 'ADV') return 'A';
+    return v;
+  }
+  function pointPair(g0, g1) {
+    const a = pointLabel(g0), b = pointLabel(g1);
+    if (!a && !b) return null;
+    if (a === '40' && b === '40') return 'DEUCE';
+    return a + '-' + b;
+  }
+
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
       fetchJson('rankings/atp_doubles.json'),
@@ -178,7 +256,7 @@
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.all([refreshScoreboards(), refreshRankingsSingles()]);
+      await Promise.all([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive()]);
       if (state.tab === 'rankings' && state.mode === 'doubles') {
         await refreshRankingsDoubles();
       } else if (force && state.mode === 'doubles' && !state.rankDoubles[state.tour]) {
@@ -264,10 +342,16 @@
     const rows = comps.map(p => playerRow(p, m)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
+    const pts = livePoints(m);
+    const points = pts ? '<div class="live-points">' +
+      '<span class="lp-label">PUNTO</span>' +
+      '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
+      (pts.serverName ? '<span class="lp-srv">&middot; Saca ' + esc(pts.serverName.split(' ')[0]) + '</span>' : '') +
+      '</div>' : '';
     return '<div class="' + cls + '">' +
       '<div class="m-top"><span class="round">' + esc(ROUND_LABEL[m.round] || m.round) + '</span>' + statusBadge(m) + period + '</div>' +
       rows +
-      '<div class="scores">' + note + time + '</div></div>';
+      '<div class="scores">' + note + time + '</div>' + points + '</div>';
   }
 
   function playerRow(p, m) {
