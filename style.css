@@ -459,6 +459,22 @@ body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segT
 .tour-card .btn-draw { margin-top: auto; }
 
 /* ---------- draws ---------- */
+.rank-search-wrap {
+  position: relative;
+  display: flex; align-items: center;
+  max-width: 420px;
+  margin: 12px 0 4px;
+}
+.rank-search {
+  background: var(--bg2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+  font-family: var(--font); font-size: 13px; padding: 8px 34px 8px 12px; width: 100%;
+}
+.rank-search:focus { outline: none; border-color: var(--accent); }
+.rank-search-clear {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 2px 6px;
+}
+.rank-search-clear:hover { color: var(--text); }
 .select-tour {
   background: var(--bg2); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
   font-family: var(--font); font-size: 13px; padding: 8px 12px; min-width: 260px;
