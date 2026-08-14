@@ -460,7 +460,7 @@
         });
       }
       const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
-      if (state.tab === 'rankings' && wantsDoubles) {
+      if ((state.tab === 'rankings' && wantsDoubles) || state.tab === 'argentina') {
         await refreshRankingsDoubles();
       } else if (force && wantsDoubles && !(state.rankDoubles.atp && state.rankDoubles.wta)) {
         await refreshRankingsDoubles();
@@ -853,6 +853,65 @@
     $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)';
   }
 
+  /* ---------------- render: ranking Argentina ---------------- */
+
+  function isArgentina(r) {
+    const alt = String(r.flagAlt || '').toLowerCase();
+    const flag = String(r.flag || '').toLowerCase();
+    if (alt.indexOf('argentin') > -1) return true;
+    if (/^(ar|arg)$/.test(flag) || flag.indexOf('/arg.') > -1 || flag.indexOf('arg.png') > -1) return true;
+    return false;
+  }
+
+  function renderArgSection(title, data) {
+    const header = '<div class="rank-section-title">' + title + '</div>';
+    if (!data) return header + '<div class="loading">Cargando ranking...</div>';
+    if (!data.length) return header + '<div class="error-box">No hay ranking disponible.</div>';
+    const rows = data.filter(isArgentina).map(r => {
+      const name = r.name || '—';
+      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
+      const trend = r.trend != null ? r.trend : r.movement;
+      const flag = typeof r.flag === 'string' && /^https?:\/\//.test(r.flag) ? r.flag : flagUrl(r.flag);
+      return '<tr>' +
+        '<td class="r-rank">' + esc(r.rankRaw || r.rank) + '</td>' +
+        '<td class="r-name">' + flagImg(flag, r.flagAlt) + esc(name) + '</td>' +
+        '<td>' + movementHtml(trend) + '</td>' +
+        '<td class="r-pts">' + pts + '<span> pts</span></td>' +
+        '</tr>';
+    }).join('');
+    return header +
+      '<div class="rank-table-wrap"><table class="rank-table">' +
+      '<thead><tr><th>#</th><th>Jugador</th><th>Mov.</th><th style="text-align:right">Puntos</th></tr></thead>' +
+      '<tbody>' + rows + '</tbody></table></div>';
+  }
+
+  function renderArgentina() {
+    const el = $('argContent');
+    const needsDoubles = !state.rankDoubles.atp || !state.rankDoubles.wta;
+    if (needsDoubles && !state.rankDoublesLoading) {
+      state.rankDoublesLoading = true;
+      refreshRankingsDoubles().then(() => {
+        state.rankDoublesLoading = false;
+        renderArgentina();
+      }).catch(() => {
+        state.rankDoublesLoading = false;
+        renderArgentina();
+      });
+    }
+    const html = [
+      renderArgSection('ATP Singles · Argentina', state.rankSingles.atp),
+      renderArgSection('WTA Singles · Argentina', state.rankSingles.wta),
+      renderArgSection('ATP Dobles · Argentina', state.rankDoubles.atp && state.rankDoubles.atp.players),
+      renderArgSection('WTA Dobles · Argentina', state.rankDoubles.wta && state.rankDoubles.wta.players)
+    ];
+    el.innerHTML = html.join('');
+    let count = 0;
+    for (const d of [state.rankSingles.atp, state.rankSingles.wta, state.rankDoubles.atp && state.rankDoubles.atp.players, state.rankDoubles.wta && state.rankDoubles.wta.players]) {
+      if (d) count += d.filter(isArgentina).length;
+    }
+    $('argMeta').textContent = count + ' jugador(es) de Argentina';
+  }
+
   /* ---------------- render dispatcher ---------------- */
 
   function render() {
@@ -862,6 +921,7 @@
     else if (state.tab === 'tournaments') renderTournaments();
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
+    else if (state.tab === 'argentina') renderArgentina();
     else if (state.tab === 'calendar') renderCalendar();
   }
 
@@ -869,13 +929,14 @@
     state.tab = tab;
     document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
+    document.body.classList.toggle('tab-argentina', tab === 'argentina');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
       return;
     }
     render();
-    if ((tab === 'rankings' || tab === 'draws' || tab === 'tournaments') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments') && !state.matches.length) {
       refreshAll();
     }
   }
