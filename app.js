@@ -6,14 +6,15 @@
   const ESPN = 'https://site.api.espn.com/apis/site/v2/sports/tennis';
 
   const state = {
-    tour: 'atp',
-    mode: 'singles',
+    tour: 'todos',
+    mode: 'todos',
     tab: 'live',
     tournaments: [],
     matches: [],
     atpLive: [],
     rankSingles: { atp: null, wta: null },
     rankDoubles: { atp: null, wta: null },
+    rankDoublesLoading: false,
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -74,6 +75,23 @@
   function typeFor(tour, mode) {
     if (tour === 'atp') return mode === 'doubles' ? "Men's Doubles" : "Men's Singles";
     return mode === 'doubles' ? "Women's Doubles" : "Women's Singles";
+  }
+  function selectedTours() {
+    return state.tour === 'todos' ? ['atp', 'wta'] : [state.tour];
+  }
+  function selectedModes() {
+    return state.mode === 'todos' ? ['singles', 'doubles'] : [state.mode];
+  }
+  function selectedTypes() {
+    const types = [];
+    for (const t of selectedTours()) for (const m of selectedModes()) types.push(typeFor(t, m));
+    return types;
+  }
+  function tourOf(m) {
+    return m.type.indexOf("Men") === 0 ? 'atp' : 'wta';
+  }
+  function tourLabel(m) {
+    return tourOf(m) === 'atp' ? 'ATP' : 'WTA';
   }
   function flagUrl(code) {
     return code ? 'https://a.espncdn.com/i/teamlogos/countries/500/' + code.toLowerCase() + '.png' : '';
@@ -231,7 +249,7 @@
   }
 
   function livePoints(m) {
-    if (m.state !== 'in' || state.tour !== 'atp' || state.mode !== 'singles') return null;
+    if (m.state !== 'in' || m.type !== "Men's Singles") return null;
     const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
     const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
     if (names.length < 2) return null;
@@ -271,9 +289,10 @@
     state.refreshing = true;
     try {
       await Promise.all([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive()]);
-      if (state.tab === 'rankings' && state.mode === 'doubles') {
+      const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
+      if (state.tab === 'rankings' && wantsDoubles) {
         await refreshRankingsDoubles();
-      } else if (force && state.mode === 'doubles' && !state.rankDoubles[state.tour]) {
+      } else if (force && wantsDoubles && !(state.rankDoubles.atp && state.rankDoubles.wta)) {
         await refreshRankingsDoubles();
       }
       state.lastUpdate = new Date();
@@ -299,12 +318,12 @@
   /* ---------------- filters ---------------- */
 
   function filteredMatches() {
-    const type = typeFor(state.tour, state.mode);
-    return state.matches.filter(m => m.type === type);
+    const types = new Set(selectedTypes());
+    return state.matches.filter(m => types.has(m.type));
   }
   function filteredTournaments() {
-    const type = typeFor(state.tour, state.mode);
-    const ids = new Set(state.matches.filter(m => m.type === type).map(m => m.tournamentId));
+    const types = new Set(selectedTypes());
+    const ids = new Set(state.matches.filter(m => types.has(m.type)).map(m => m.tournamentId));
     return state.tournaments.filter(t => ids.has(t.id));
   }
 
@@ -320,7 +339,11 @@
     const list = filteredMatches();
     const el = $('liveContent');
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
-    if (!list.length) { el.innerHTML = '<div class="error-box">No hay partidos de ' + state.tour.toUpperCase() + ' ' + (state.mode === 'singles' ? 'singles' : 'dobles') + ' en este momento.</div>'; return; }
+    if (!list.length) {
+      const label = state.tour === 'todos' ? 'en este momento' : 'de ' + state.tour.toUpperCase() + ' ' + (state.mode === 'singles' ? 'singles' : state.mode === 'doubles' ? 'dobles' : 'en este momento');
+      el.innerHTML = '<div class="error-box">No hay partidos ' + label + '.</div>';
+      return;
+    }
 
     const byTour = new Map();
     for (const m of list) {
@@ -336,8 +359,9 @@
       const dates = tour && tour.date ? fmtDate(tour.date) : '';
       ms.sort((a, b) => rankMatch(a) - rankMatch(b));
       const cards = ms.map(m => matchCard(m)).join('');
+      const chip = state.tour === 'todos' ? '<span class="tour-chip">' + tourLabel(ms[0]) + '</span>' : '';
       html += '<div class="tour-block"><div class="tour-head"><span class="t-name">' + esc(name) +
-        '</span><span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
+        '</span>' + chip + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
     }
     el.innerHTML = html;
@@ -434,7 +458,8 @@
     if (!state.drawTournamentId) { el.innerHTML = '<div class="loading">No hay torneos para mostrar el cuadro.</div>'; return; }
 
     const type = typeFor(state.tour, state.mode);
-    let ms = state.matches.filter(m => m.tournamentId === state.drawTournamentId && m.type === type);
+    const selTypes = new Set(selectedTypes());
+    let ms = state.matches.filter(m => m.tournamentId === state.drawTournamentId && selTypes.has(m.type));
     if (!ms.length) {
       el.innerHTML = '<div class="error-box">Sin datos de cuadro para este torneo y categoria.</div>';
       $('drawMeta').textContent = '';
@@ -443,19 +468,25 @@
 
     const roundMap = new Map();
     for (const m of ms) {
-      if (!roundMap.has(m.round)) roundMap.set(m.round, []);
-      roundMap.get(m.round).push(m);
+      const key = state.mode === 'todos' ? m.type + '|' + m.round : m.round;
+      if (!roundMap.has(key)) roundMap.set(key, { type: state.mode === 'todos' ? m.type : type, matches: [] });
+      roundMap.get(key).matches.push(m);
     }
-    const rounds = Array.from(roundMap.keys()).sort((a, b) => {
-      const ia = ROUND_ORDER.indexOf(a), ib = ROUND_ORDER.indexOf(b);
-      return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib);
+    const keys = Array.from(roundMap.keys()).sort((a, b) => {
+      const ta = tourOf(ms[0]) === 'atp' ? 'a' : 'w';
+      const [r1] = a.split('|'), [r2] = b.split('|');
+      const ia = ROUND_ORDER.indexOf(r1), ib = ROUND_ORDER.indexOf(r2);
+      return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || (a < b ? -1 : 1);
     });
 
     const tour = state.tournaments.find(t => t.id === state.drawTournamentId);
-    $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + type + ' · ' + ms.length + ' partidos';
+    const drawTypes = new Set(ms.map(m => m.type));
+    $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + Array.from(drawTypes).join(' / ') + ' · ' + ms.length + ' partidos';
 
-    const cols = rounds.map(r => {
-      const matches = roundMap.get(r).slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+    const cols = keys.map(key => {
+      const grp = roundMap.get(key);
+      const round = key.split('|')[1] || key;
+      const matches = grp.matches.slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
       const cards = matches.map(m => {
         const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
         const rows = comps.map(p => {
@@ -470,7 +501,8 @@
           : m.state === 'pre' ? '<div class="dm-status">' + fmtTime(m.date) + '</div>' : '';
         return '<div class="draw-match' + (m.state === 'in' ? ' live' : '') + '">' + rows + st + '</div>';
       }).join('');
-      return '<div class="draw-col"><h4>' + esc(ROUND_LABEL[r] || r) + '</h4>' + (cards || '<div class="draw-empty">-</div>') + '</div>';
+      const typeTag = state.mode === 'todos' ? '<span class="tour-chip chip-sm">' + esc(grp.type) + '</span>' : '';
+      return '<div class="draw-col"><h4>' + esc(ROUND_LABEL[round] || round) + typeTag + '</h4>' + (cards || '<div class="draw-empty">-</div>') + '</div>';
     }).join('');
 
     el.innerHTML = '<div class="draw-board"><div class="draw-cols">' + cols + '</div></div>';
@@ -493,42 +525,31 @@
     return '<span class="r-move ' + cls + '">' + sym + (num != null && num !== '' ? ' ' + esc(num) : '') + '</span>';
   }
 
-  function renderRankings() {
-    const el = $('rankContent');
+  function renderRankSection(tour, mode) {
+    const tourLabelTxt = tour === 'atp' ? 'ATP' : 'WTA';
+    const modeLabel = mode === 'singles' ? 'Singles' : 'Dobles';
+    const header = '<div class="rank-section-title">' + tourLabelTxt + ' ' + modeLabel + '</div>';
     let data, sourceNote;
-    if (state.mode === 'singles') {
-      data = state.rankSingles[state.tour];
+    if (mode === 'singles') {
+      data = state.rankSingles[tour];
       sourceNote = 'Fuente: ESPN';
     } else {
-      const d = state.rankDoubles[state.tour];
-      if (!d) {
-        refreshRankingsDoubles().then(() => renderRankings()).catch(e => {
-          el.innerHTML = '<div class="error-box">No se pudo cargar el ranking de dobles: ' + esc(e.message) + '</div>';
-        });
-        el.innerHTML = '<div class="loading">Cargando ranking de dobles...</div>';
-        return;
-      }
-      if (!d.ok) {
-        el.innerHTML = '<div class="error-box">' + esc(d.error || 'Error al cargar ranking de dobles') + '</div>';
-        return;
-      }
+      const d = state.rankDoubles[tour];
+      if (!d) return header + '<div class="loading">Cargando ranking de dobles...</div>';
+      if (!d.ok) return header + '<div class="error-box">' + esc(d.error || 'Error al cargar ranking de dobles') + '</div>';
       data = d.players;
       sourceNote = 'Fuente: ' + (d.players.length && d.players[0] ? d.players[0].source : '');
     }
 
-    if (!data || !data.length) { el.innerHTML = '<div class="loading">Cargando ranking...</div>'; return; }
-
-    const tourLabel = state.tour === 'atp' ? 'ATP' : 'WTA';
-    const modeLabel = state.mode === 'singles' ? 'Singles' : 'Dobles';
-    $('rankMeta').textContent = tourLabel + ' ' + modeLabel + ' · ' + data.length + ' jugadores · ' + sourceNote;
+    if (!data || !data.length) return header + '<div class="loading">Cargando ranking...</div>';
 
     const rows = data.map((r, i) => {
       const name = r.name || r.athleteName || '—';
-      const flag = state.mode === 'singles' ? r.flag : flagUrl(r.flag);
+      const flag = mode === 'singles' ? r.flag : flagUrl(r.flag);
       const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
       const rankTxt = r.rankRaw || r.rank;
       const rankCls = i === 0 ? 'r-rank top1' : 'r-rank';
-      const trend = state.mode === 'singles' ? r.trend : r.movement;
+      const trend = mode === 'singles' ? r.trend : r.movement;
       return '<tr>' +
         '<td class="' + rankCls + '">' + esc(rankTxt) + '</td>' +
         '<td class="r-name">' + flagImg(flag, r.flagAlt) + esc(name) + '</td>' +
@@ -537,10 +558,31 @@
         '</tr>';
     }).join('');
 
-    el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
+    return header +
+      '<div class="rank-table-wrap"><table class="rank-table">' +
       '<thead><tr><th>#</th><th>Jugador</th><th>Mov.</th><th style="text-align:right">Puntos</th></tr></thead>' +
       '<tbody>' + rows + '</tbody></table></div>' +
-      '<div class="rank-note">' + esc(sourceNote) + ' &middot; Los rankings de dobles se actualizan automaticamente cada pocas horas.</div>';
+      '<div class="rank-note">' + esc(sourceNote) + ' &middot; Los rankings de dobles se actualizan cada pocos minutos.</div>';
+  }
+
+  function renderRankings() {
+    const el = $('rankContent');
+    const needsDoubles = selectedModes().includes('doubles') && selectedTours().some(t => !state.rankDoubles[t]);
+    if (needsDoubles && !state.rankDoublesLoading) {
+      state.rankDoublesLoading = true;
+      refreshRankingsDoubles().then(() => {
+        state.rankDoublesLoading = false;
+        renderRankings();
+      }).catch(() => {
+        state.rankDoublesLoading = false;
+        renderRankings();
+      });
+    }
+    const html = [];
+    for (const t of selectedTours()) for (const m of selectedModes()) html.push(renderRankSection(t, m));
+    el.innerHTML = html.join('');
+    const total = selectedTours().length * selectedModes().length;
+    $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)';
   }
 
   /* ---------------- render dispatcher ---------------- */
