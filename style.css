@@ -15,7 +15,7 @@
   --down: #ff5d5d;
   --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
   --bg-glow: #14204a;
-  --topbar-grad: linear-gradient(180deg, rgba(20,30,60,.9), rgba(11,16,32,.4));
+  --topbar-bg: #182348;
   --tabs-bg: linear-gradient(180deg, rgba(11,16,32,.97), rgba(11,16,32,.92));
 }
 
@@ -45,7 +45,7 @@ body[data-theme="claro"] {
   --up: #16a34a;
   --down: #e03131;
   --bg-glow: #dbe5f5;
-  --topbar-grad: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.75));
+  --topbar-bg: #d8e5f6;
   --tabs-bg: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
 }
 body[data-theme="azul"] {
@@ -57,6 +57,7 @@ body[data-theme="azul"] {
   --accent: #4fc3f7;
   --accent2: #29b6f6;
   --win: #a5e3fb;
+  --topbar-bg: #13294f;
 }
 body[data-theme="rosa"] {
   --bg: #1b0d16;
@@ -67,6 +68,7 @@ body[data-theme="rosa"] {
   --accent: #f759ab;
   --accent2: #e64980;
   --win: #ffc2e0;
+  --topbar-bg: #3b1c2c;
 }
 body[data-theme="ambar"] {
   --bg: #191306;
@@ -77,14 +79,16 @@ body[data-theme="ambar"] {
   --accent: #ffc94b;
   --accent2: #ffa726;
   --win: #ffe3a1;
+  --topbar-bg: #3a2b0e;
 }
 
 /* ---------- header ---------- */
 .topbar {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
   padding: 14px 22px;
-  border-bottom: 1px solid var(--line);
-  background: var(--topbar-grad);
+  border-bottom: 2px solid var(--line);
+  background: var(--topbar-bg);
+  box-shadow: 0 2px 14px rgba(0,0,0,.45);
   position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
 }
 .brand { display: flex; align-items: center; gap: 12px; }
