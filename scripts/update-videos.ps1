@@ -6,10 +6,12 @@ $outFile = Join-Path $repoRoot 'videos.json'
 $curl = if ($IsWindows -or $env:OS -match 'Windows') { 'curl.exe' } else { 'curl' }
 
 function Get-Feed([string]$url) {
-    $tmp = Join-Path $env:TEMP ([guid]::NewGuid().ToString() + '.xml')
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid().ToString() + '.xml')
     for ($i = 1; $i -le 3; $i++) {
         Remove-Item $tmp -Force -ErrorAction SilentlyContinue
-        & $curl -s -L --compressed --connect-timeout 20 --max-time 45 -A 'Mozilla/5.0' -o $tmp $url 2>$null
+        & $curl -s -L --compressed --connect-timeout 20 --max-time 45 `
+            -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36' `
+            -H 'Accept-Language: en-US,en;q=0.9' -H 'Cookie: CONSENT=YES+1' -o $tmp $url 2>$null
         if ((Test-Path $tmp) -and ((Get-Item $tmp).Length -gt 100)) {
             $content = Get-Content $tmp -Raw -Encoding UTF8
             Remove-Item $tmp -Force -ErrorAction SilentlyContinue
