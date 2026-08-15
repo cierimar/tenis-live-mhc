@@ -11,18 +11,8 @@
 <body>
 
 <header class="topbar">
-  <div class="net-balls" aria-hidden="true">
-    <span class="ball"></span>
-    <span class="ball"></span>
-    <span class="ball"></span>
-    <span class="ball"></span>
-    <span class="ball"></span>
-    <span class="ball"></span>
-    <span class="ball"></span>
-    <span class="ball"></span>
-  </div>
   <div class="brand">
-    <span class="brand-ball">&#127934;</span>
+    <span class="brand-ball" aria-hidden="true"></span>
     <div class="brand-text">
       <h1>TENIS <span>LIVE</span> MHC</h1>
       <p>Resultados en tiempo real &middot; ATP &amp; WTA</p>
@@ -39,6 +29,8 @@
 <nav class="tabs" id="tabs">
   <button class="tab active" data-tab="live">EN VIVO</button>
   <button class="tab" data-tab="finalizados">FINALIZADOS</button>
+  <button class="tab" data-tab="news">NOTICIAS</button>
+  <button class="tab" data-tab="videos">VIDEOS</button>
   <button class="tab" data-tab="tournaments">TORNEOS</button>
   <button class="tab" data-tab="draws">CUADROS</button>
   <button class="tab" data-tab="rankings">RANKINGS</button>
@@ -71,6 +63,13 @@
     <option value="celeste">Tema: Celeste</option>
     <option value="violeta">Tema: Violeta</option>
     <option value="dorado">Tema: Dorado</option>
+    <option value="negro">Tema: Negro</option>
+    <option value="purpura">Tema: Púrpura</option>
+    <option value="amarillo">Tema: Amarillo</option>
+    <option value="verdefluo">Tema: Verde fluorescente</option>
+    <option value="rojo">Tema: Rojo</option>
+    <option value="plateado">Tema: Plateado</option>
+    <option value="marron">Tema: Marrón oscuro y ocre</option>
   </select>
   <select id="fontSelect" class="select-font" title="Fuente del texto">
     <option value="defecto">Fuente: Segoe UI</option>
@@ -93,6 +92,10 @@
 
 <main>
   <div id="view-live" class="view active">
+    <div class="usopen-banner">
+      <img class="usopen-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/26/Usopen-header-logo.svg" alt="US Open" aria-hidden="true" />
+      <span>EN POCOS DÍAS ARRANCA EL US OPEN!</span>
+    </div>
     <div class="section-head"><h2>Partidos</h2><span class="section-meta" id="liveMeta"></span></div>
     <div id="liveContent" class="content"><div class="loading">Cargando partidos...</div></div>
   </div>
@@ -100,6 +103,16 @@
   <div id="view-finalizados" class="view">
     <div class="section-head"><h2>Partidos finalizados</h2><span class="section-meta" id="finMeta"></span></div>
     <div id="finContent" class="content"><div class="loading">Cargando partidos finalizados...</div></div>
+  </div>
+
+  <div id="view-news" class="view">
+    <div class="section-head"><h2>Noticias de tenis</h2><span class="section-meta" id="newsMeta"></span></div>
+    <div id="newsContent" class="content"><div class="loading">Cargando noticias...</div></div>
+  </div>
+
+  <div id="view-videos" class="view">
+    <div class="section-head"><h2>Videos y highlights</h2><span class="section-meta" id="videosMeta"></span></div>
+    <div id="videosContent" class="content"><div class="loading">Cargando videos...</div></div>
   </div>
 
   <div id="view-tournaments" class="view">
