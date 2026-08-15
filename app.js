@@ -20,6 +20,8 @@
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
     rankSearch: '',
+    news: { items: [], loaded: false, error: '' },
+    videos: { items: [], loaded: false, error: '' },
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -155,6 +157,12 @@
             date: c.date,
             state: c.status && c.status.type ? c.status.type.state : '',
             period: c.status ? c.status.period : 0,
+            suspended: !!(c.status && (function (s) {
+              const t = s.type || {};
+              return /suspend|delay|rain|postpon/i.test(
+                (s.detail || '') + ' ' + (s.name || '') + ' ' + (s.description || '') +
+                ' ' + (t.detail || '') + ' ' + (t.name || '') + ' ' + (t.description || ''));
+            })(c.status)),
             type: c.type ? c.type.text : '',
             round: c.round ? c.round.displayName : '',
             tournamentId: tid,
@@ -248,6 +256,7 @@
       for (const m of raw.matches) {
         out.push({
           status: m.status,
+          suspended: m.suspended === true || m.status === 'S' || m.status === 'D',
           p1: norm(m.p1), p2: norm(m.p2),
           g1: m.g1, g2: m.g2, server: m.server,
           sets1: m.sets1 || [], sets2: m.sets2 || []
@@ -261,6 +270,7 @@
         if (m.Type !== 'singles') continue;
         out.push({
           status: m.MatchStatus,
+          suspended: m.MatchStatus === 'S' || m.MatchStatus === 'D',
           p1: norm((m.PlayerTeam.Player.PlayerFirstName || '') + ' ' + (m.PlayerTeam.Player.PlayerLastName || '')),
           p2: norm((m.OpponentTeam.Player.PlayerFirstName || '') + ' ' + (m.OpponentTeam.Player.PlayerLastName || '')),
           g1: m.PlayerTeam.GameScore, g2: m.OpponentTeam.GameScore,
@@ -308,6 +318,7 @@
         id: m.id || tid + '-' + (m.p1 || 'x') + '-' + (m.p2 || 'x'),
         date: null,
         state: m.state || 'pre',
+        suspended: m.suspended === true || m.status === 'S' || m.status === 'D',
         period: null,
         type: m.type || "Men's Singles",
         round: m.round || '',
@@ -341,7 +352,8 @@
           push(tid, {
             id: tid + '-' + m.MatchId,
             type: m.IsDoubles ? "Men's Doubles" : "Men's Singles",
-            state: m.MatchStatus === 'P' || m.MatchStatus === 'W' ? 'in' : m.MatchStatus === 'F' ? 'post' : 'pre',
+            state: m.MatchStatus === 'P' || m.MatchStatus === 'W' ? 'in' : m.MatchStatus === 'F' ? 'post' : (m.MatchStatus === 'S' || m.MatchStatus === 'D') ? 'in' : 'pre',
+            suspended: m.MatchStatus === 'S' || m.MatchStatus === 'D',
             round: m.RoundName || '',
             notes: m.ExtendedMessage || '',
             status: m.MatchStatus,
@@ -373,6 +385,22 @@
     } catch (err) {
       state.challLive = { tournaments: [], matches: [] };
       state.challPoints = [];
+    }
+  }
+
+  function applySuspensions() {
+    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    for (const e of state.atpLive) {
+      if (!e.suspended) continue;
+      if (!e.p1 || !e.p2) continue;
+      for (const m of state.matches) {
+        if (m.suspended) continue;
+        const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
+        if (names.length < 2) continue;
+        if (names.indexOf(e.p1) === -1 || names.indexOf(e.p2) === -1) continue;
+        m.suspended = true;
+        m.state = 'in';
+      }
     }
   }
 
@@ -451,6 +479,36 @@
     }
   }
 
+  async function refreshNews() {
+    try {
+      const url = useLocalBackend() ? 'api/news' : 'news.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (!j || !j.items) {
+        state.news = { items: [], loaded: true, error: 'No se pudieron cargar las noticias.' };
+      } else {
+        state.news = { items: j.items, updated: j.updated, loaded: true, error: '' };
+      }
+    } catch (err) {
+      state.news = { items: [], loaded: true, error: err.message };
+    }
+    if (state.tab === 'news') render();
+  }
+
+  async function refreshVideos() {
+    try {
+      const url = useLocalBackend() ? 'api/videos' : 'videos.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (!j || !j.videos) {
+        state.videos = { items: [], loaded: true, error: 'No se pudieron cargar los videos.' };
+      } else {
+        state.videos = { items: j.videos, updated: j.updated, loaded: true, error: '' };
+      }
+    } catch (err) {
+      state.videos = { items: [], loaded: true, error: err.message };
+    }
+    if (state.tab === 'videos') render();
+  }
+
   function livePoints(m) {
     if (m.state !== 'in' || m.type !== "Men's Singles") return null;
     const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
@@ -491,7 +549,8 @@
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos()]);
+      applySuspensions();
       if (useLocalBackend()) {
         refreshItfLive().then(() => {
           if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
@@ -622,6 +681,7 @@
   /* ---------------- render: live ---------------- */
 
   function statusBadge(m) {
+    if (m.suspended) return '<span class="badge susp">SUSPENDIDO</span>';
     if (m.state === 'in') return '<span class="badge live">EN VIVO</span>';
     if (m.state === 'post') return '<span class="badge final">FINALIZADO</span>';
     return '<span class="badge upcoming">PROXIMO</span>';
@@ -668,11 +728,78 @@
   }
 
   function rankMatch(m) {
-    const w = m.state === 'in' ? 0 : m.state === 'pre' ? 1 : 2;
+    const w = m.state === 'in' ? 0 : m.suspended ? 1 : m.state === 'pre' ? 2 : 3;
     return w;
   }
 
   /* ---------------- render: finalizados ---------------- */
+
+  function renderNews() {
+    const el = $('newsContent');
+    const n = state.news;
+    if (!n.loaded) {
+      el.innerHTML = '<div class="loading">Cargando noticias...</div>';
+      return;
+    }
+    if (n.error || !n.items.length) {
+      el.innerHTML = '<div class="error-box">' + esc(n.error || 'No hay noticias disponibles.') + '</div>';
+      $('newsMeta').textContent = '';
+      return;
+    }
+    const srcs = {};
+    for (const it of n.items) srcs[it.source] = (srcs[it.source] || 0) + 1;
+    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' · ');
+    $('newsMeta').textContent = n.items.length + ' noticias · ' + srcLabel +
+      (n.updated ? ' · act. ' + fmtTime(n.updated) : '');
+    const html = n.items.map(it => {
+      const ago = timeAgo(it.published);
+      const time = ago ? '<span class="news-time">' + esc(ago) + '</span>' : '';
+      const desc = it.description ? '<div class="news-desc">' + esc(it.description) + '</div>' : '';
+      return '<a class="news-card" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">' +
+        '<div class="news-head"><span class="news-source">' + esc(it.source) + '</span>' + time + '</div>' +
+        '<div class="news-title">' + esc(it.title) + '</div>' + desc + '</a>';
+    }).join('');
+    el.innerHTML = html;
+  }
+
+  function renderVideos() {
+    const el = $('videosContent');
+    const v = state.videos;
+    if (!v.loaded) {
+      el.innerHTML = '<div class="loading">Cargando videos...</div>';
+      return;
+    }
+    if (v.error || !v.items.length) {
+      el.innerHTML = '<div class="error-box">' + esc(v.error || 'No hay videos disponibles.') + '</div>';
+      $('videosMeta').textContent = '';
+      return;
+    }
+    const srcs = {};
+    for (const it of v.items) srcs[it.channel] = (srcs[it.channel] || 0) + 1;
+    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' · ');
+    $('videosMeta').textContent = v.items.length + ' videos · ' + srcLabel +
+      (v.updated ? ' · act. ' + fmtTime(v.updated) : '');
+    const html = v.items.slice(0, 30).map(it => {
+      const ago = timeAgo(it.published);
+      const time = ago ? '<span class="video-time">' + esc(ago) + '</span>' : '';
+      const thumb = it.thumb ? '<img class="video-thumb" src="' + esc(it.thumb) + '" alt="" loading="lazy" />' : '';
+      return '<a class="video-card" href="' + esc(it.url) + '" target="_blank" rel="noopener noreferrer">' +
+        '<div class="video-thumb-wrap">' + thumb + '<span class="video-play">&#9654;</span></div>' +
+        '<div class="video-body"><div class="video-title">' + esc(it.title) + '</div>' +
+        '<div class="video-head"><span class="video-channel">' + esc(it.channel) + '</span>' + time + '</div></div></a>';
+    }).join('');
+    el.innerHTML = '<div class="videos-grid">' + html + '</div>';
+  }
+
+  function timeAgo(iso) {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const s = Math.max(0, (Date.now() - d.getTime()) / 1000);
+    if (s < 60) return 'ahora';
+    if (s < 3600) return 'hace ' + Math.floor(s / 60) + ' min';
+    if (s < 86400) return 'hace ' + Math.floor(s / 3600) + ' h';
+    return 'hace ' + Math.floor(s / 86400) + ' d';
+  }
 
   function renderFinalizados() {
     const el = $('finContent');
@@ -713,6 +840,7 @@
     const period = m.state === 'in' && m.period ? '<span class="period">SET ' + m.period + '</span>' : '';
     const rows = comps.map(p => playerRow(p, m)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
+    const suspNote = m.suspended ? '<div class="note susp-note">Partido suspendido por lluvia</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
     const itfInfo = m.tour === 'itf'
       ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' +
@@ -726,7 +854,7 @@
     return '<div class="' + cls + '">' +
       '<div class="m-top"><span class="round">' + esc(ROUND_LABEL[m.round] || m.round) + '</span>' + statusBadge(m) + period + '</div>' +
       rows +
-      '<div class="scores">' + note + time + '</div>' + itfInfo + points + '</div>';
+      '<div class="scores">' + note + suspNote + time + '</div>' + itfInfo + points + '</div>';
   }
 
   function playerRow(p, m) {
@@ -756,7 +884,10 @@
       const ms = allMatches().filter(m => m.tournamentId === t.id);
       const live = ms.some(m => m.state === 'in');
       const upcoming = ms.some(m => m.state === 'pre');
-      const st = live ? '<span class="tc-status live">● EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
+      const suspended = ms.some(m => m.suspended);
+      const st = suspended && !ms.some(m => m.state === 'in' && !m.suspended)
+        ? '<span class="tc-status susp">&#9209; SUSPENDIDO</span>'
+        : live ? '<span class="tc-status live">● EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
       const champs = (t.previousWinners || []).map(pw =>
         '<span><b>' + esc(pw.type ? pw.type.text : '') + ':</b> ' + esc(pw.displayName || '—') + '</span>'
       ).join('');
@@ -833,9 +964,10 @@
             '<span class="dp-name">' + flagImg(p.flag, p.flagAlt) + name + '</span>' +
             '<span class="dp-score">' + sc + (tb ? '<span class="tb">' + tb + '</span>' : '') + '</span></div>';
         }).join('');
-        const st = m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">● EN VIVO SET ' + (m.period || '') + '</div>'
+        const st = m.suspended ? '<div class="dm-status" style="color:var(--warn)">&#9209; SUSPENDIDO</div>'
+          : m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">● EN VIVO SET ' + (m.period || '') + '</div>'
           : m.state === 'pre' ? '<div class="dm-status">' + fmtTime(m.date) + '</div>' : '';
-        return '<div class="draw-match' + (m.state === 'in' ? ' live' : '') + '">' + rows + st + '</div>';
+        return '<div class="draw-match' + ((m.state === 'in' || m.suspended) ? ' live' : '') + '">' + rows + st + '</div>';
       }).join('');
       const typeTag = state.mode === 'todos' ? '<span class="tour-chip chip-sm">' + esc(grp.type) + '</span>' : '';
       return '<div class="draw-col"><h4>' + esc(ROUND_LABEL[round] || round) + typeTag + '</h4>' + (cards || '<div class="draw-empty">-</div>') + '</div>';
@@ -1000,6 +1132,8 @@
     $('view-' + state.tab).classList.add('active');
     if (state.tab === 'live') renderLive();
     else if (state.tab === 'finalizados') renderFinalizados();
+    else if (state.tab === 'news') renderNews();
+    else if (state.tab === 'videos') renderVideos();
     else if (state.tab === 'tournaments') renderTournaments();
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
@@ -1017,8 +1151,13 @@
       refreshCalendar();
       return;
     }
+    if (tab === 'videos' && !state.videos.loaded) {
+      render();
+      refreshVideos();
+      return;
+    }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados' || tab === 'news' || tab === 'videos') && !state.matches.length) {
       refreshAll();
     }
   }
