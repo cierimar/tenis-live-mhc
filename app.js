@@ -22,6 +22,8 @@
     rankSearch: '',
     news: { items: [], loaded: false, error: '' },
     videos: { items: [], loaded: false, error: '' },
+    seeds: { singles: {}, doubles: {}, loaded: false },
+    seedMap: {},
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -542,11 +544,57 @@
     state.rankDoubles.wta = wta;
   }
 
+  function buildSeedMap(seeds) {
+    const map = {};
+    if (!seeds || !seeds.singles) return map;
+    for (const [name, seed] of Object.entries(seeds.singles)) {
+      const norm = name.toLowerCase().replace(/-/g, ' ').replace(/\./g, '').trim();
+      map[norm] = seed;
+      map[norm.replace(/\s+/g, '')] = seed;
+    }
+    if (seeds.doubles) {
+      for (const [name, seed] of Object.entries(seeds.doubles)) {
+        const norm = name.toLowerCase().replace(/-/g, ' ').replace(/\./g, '').trim();
+        map[norm] = seed;
+        map[norm.replace(/\s+/g, '')] = seed;
+      }
+    }
+    return map;
+  }
+
+  async function refreshSeeds() {
+    if (!useLocalBackend()) return;
+    try {
+      const j = await fetchJson('api/seeds');
+      if (j && j.ok) {
+        state.seeds = j;
+        state.seedMap = buildSeedMap(j);
+      }
+    } catch (_) {}
+  }
+
+  function findSeed(name) {
+    if (!name || !Object.keys(state.seedMap).length) return null;
+    const n = name.toLowerCase().replace(/-/g, ' ').replace(/\./g, '').replace(/\s+/g, ' ').trim();
+    if (state.seedMap[n]) return state.seedMap[n];
+    const parts = n.split(' ').filter(Boolean);
+    if (parts.length >= 2) {
+      const two = parts.slice(-2).join(' ');
+      if (state.seedMap[two]) return state.seedMap[two];
+    }
+    const last = parts[parts.length - 1];
+    if (last && state.seedMap[last]) return state.seedMap[last];
+    for (const [k, v] of Object.entries(state.seedMap)) {
+      if (k.endsWith(' ' + last) || last.endsWith(k)) return v;
+    }
+    return null;
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds()]);
       applySuspensions();
       if (useLocalBackend()) {
         refreshItfLive().then(() => {
@@ -868,6 +916,8 @@
     const flag = flagImg(p.flag, p.flagAlt);
     const serving = pts && pts.serverName && norm(p.name) === norm(pts.serverName);
     const ball = serving ? '<span class="serve-ball"></span>' : '';
+    const seed = findSeed(p.name);
+    const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span>' : '';
     const sets = p.linescores.map((ls, i) => {
       const liveSet = m.state === 'in' && i === p.linescores.length - 1;
       const cls = 'set' + (ls.winner ? ' win' : '') + (liveSet ? ' live-set' : '');
@@ -876,7 +926,7 @@
       return '<span class="' + cls + '">' + txt + tb + '</span>';
     }).join('');
     return '<div class="player-row"><span class="flag">' + flag + '</span>' +
-      '<span class="pname' + (p.winner ? ' winner' : '') + '">' + ball + esc(p.name) + '</span>' +
+      '<span class="pname' + (p.winner ? ' winner' : '') + '">' + ball + esc(p.name) + seedHtml + '</span>' +
       '<span class="sets">' + (sets || '<span class="set">-</span>') + '</span></div>';
   }
 
