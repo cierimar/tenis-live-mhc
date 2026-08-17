@@ -1,4 +1,4 @@
-/* TENIS LIVE MHC — app.js */
+/* TENIS LIVE MHC â€” app.js */
 (function () {
   'use strict';
 
@@ -229,7 +229,7 @@
       previous: r.previous,
       points: r.points,
       trend: r.trend || '-',
-      name: r.athlete && r.athlete.displayName ? r.athlete.displayName : '—',
+      name: r.athlete && r.athlete.displayName ? r.athlete.displayName : 'â€”',
       flag: r.athlete && r.athlete.flag ? r.athlete.flag : '',
       flagAlt: r.athlete && r.athlete.flagAltText ? r.athlete.flagAltText : ''
     }));
@@ -643,7 +643,7 @@
               (t.prize ? '<span class="cal-prize">' + esc(t.prize) + '</span>' : '') +
               (t.draw ? '<span class="cal-draw">Cuadro ' + t.draw + '</span>' : '') +
             '</div>' +
-            (t.winner && t.winner !== '-' ? '<div class="cal-winner">Campeón: <b>' + esc(t.winner) + '</b></div>' : '') +
+            (t.winner && t.winner !== '-' ? '<div class="cal-winner">CampeÃ³n: <b>' + esc(t.winner) + '</b></div>' : '') +
           '</div>' +
         '</div>'
       ).join('');
@@ -690,7 +690,7 @@
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
       if (!useLocalBackend()) {
-        el.innerHTML = '<div class="error-box">ITF en vivo solo está disponible en la versión local (PC con el servidor).</div>';
+        el.innerHTML = '<div class="error-box">ITF en vivo solo estÃ¡ disponible en la versiÃ³n local (PC con el servidor).</div>';
         return;
       }
       if (!state.itfLive.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos ITF...</div>'; return; }
@@ -745,9 +745,9 @@
     }
     const srcs = {};
     for (const it of n.items) srcs[it.source] = (srcs[it.source] || 0) + 1;
-    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' · ');
-    $('newsMeta').textContent = n.items.length + ' noticias · ' + srcLabel +
-      (n.updated ? ' · act. ' + fmtTime(n.updated) : '');
+    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' Â· ');
+    $('newsMeta').textContent = n.items.length + ' noticias Â· ' + srcLabel +
+      (n.updated ? ' Â· act. ' + fmtTime(n.updated) : '');
     const html = n.items.map(it => {
       const ago = timeAgo(it.published);
       const time = ago ? '<span class="news-time">' + esc(ago) + '</span>' : '';
@@ -773,9 +773,9 @@
     }
     const srcs = {};
     for (const it of v.items) srcs[it.channel] = (srcs[it.channel] || 0) + 1;
-    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' · ');
-    $('videosMeta').textContent = v.items.length + ' videos · ' + srcLabel +
-      (v.updated ? ' · act. ' + fmtTime(v.updated) : '');
+    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' Â· ');
+    $('videosMeta').textContent = v.items.length + ' videos Â· ' + srcLabel +
+      (v.updated ? ' Â· act. ' + fmtTime(v.updated) : '');
     const html = v.items.slice(0, 30).map(it => {
       const ago = timeAgo(it.published);
       const time = ago ? '<span class="video-time">' + esc(ago) + '</span>' : '';
@@ -855,7 +855,7 @@
       : (h2hBtn ? '<div class="m-h2h-wrap">' + h2hBtn + '</div>' : '');
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
-      '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
+      '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || 'â€”') + '</span>' +
       (pts.serverName ? '<span class="lp-srv">&middot; Saca ' + esc(pts.serverName.split(' ')[0]) + '</span>' : '') +
       '</div>' : '';
     return '<div class="' + cls + '">' +
@@ -896,9 +896,9 @@
       const suspended = ms.some(m => m.suspended);
       const st = suspended && !ms.some(m => m.state === 'in' && !m.suspended)
         ? '<span class="tc-status susp">&#9209; SUSPENDIDO</span>'
-        : live ? '<span class="tc-status live">● EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
+        : live ? '<span class="tc-status live">â— EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
       const champs = (t.previousWinners || []).map(pw =>
-        '<span><b>' + esc(pw.type ? pw.type.text : '') + ':</b> ' + esc(pw.displayName || '—') + '</span>'
+        '<span><b>' + esc(pw.type ? pw.type.text : '') + ':</b> ' + esc(pw.displayName || 'â€”') + '</span>'
       ).join('');
       html += '<div class="tour-card">' +
         '<div class="tc-top"><div><h3>' + esc(t.name) + '</h3>' +
@@ -957,7 +957,7 @@
 
     const tour = allTournaments().find(t => t.id === state.drawTournamentId);
     const drawTypes = new Set(ms.map(m => m.type));
-    $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + Array.from(drawTypes).join(' / ') + ' · ' + ms.length + ' partidos';
+    $('drawMeta').textContent = (tour ? tour.name + ' Â· ' : '') + Array.from(drawTypes).join(' / ') + ' Â· ' + ms.length + ' partidos';
 
     const cols = keys.map(key => {
       const grp = roundMap.get(key);
@@ -974,7 +974,7 @@
             '<span class="dp-score">' + sc + (tb ? '<span class="tb">' + tb + '</span>' : '') + '</span></div>';
         }).join('');
         const st = m.suspended ? '<div class="dm-status" style="color:var(--warn)">&#9209; SUSPENDIDO</div>'
-          : m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">● EN VIVO SET ' + (m.period || '') + '</div>'
+          : m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">â— EN VIVO SET ' + (m.period || '') + '</div>'
           : m.state === 'pre' ? '<div class="dm-status">' + fmtTime(m.date) + '</div>' : '';
         return '<div class="draw-match' + ((m.state === 'in' || m.suspended) ? ' live' : '') + '">' + rows + st + '</div>';
       }).join('');
@@ -988,7 +988,7 @@
   /* ---------------- render: rankings ---------------- */
 
   function movementHtml(trend) {
-    let num = trend, cls = 'flat', sym = '—';
+    let num = trend, cls = 'flat', sym = 'â€”';
     if (typeof trend === 'string') {
       if (trend.startsWith('+')) { cls = 'up'; sym = '&uarr;'; num = trend.slice(1); }
       else if (trend.startsWith('-') && trend !== '-') { cls = 'down'; sym = '&darr;'; num = trend.slice(1); }
@@ -1028,9 +1028,9 @@
     }
 
     const rows = filtered.map((r, i) => {
-      const name = r.name || r.athleteName || '—';
+      const name = r.name || r.athleteName || 'â€”';
       const flag = mode === 'singles' ? r.flag : flagUrl(r.flag);
-      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
+      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : 'â€”';
       const rankTxt = r.rankRaw || r.rank;
       const rankCls = String(rankTxt) === '1' ? 'r-rank top1' : 'r-rank';
       const trend = mode === 'singles' ? r.trend : r.movement;
@@ -1071,8 +1071,8 @@
     for (const t of selectedTours()) for (const m of selectedModes()) html.push(renderRankSection(t, m));
     el.innerHTML = html.join('');
     const total = selectedTours().length * selectedModes().length;
-    $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
-      (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
+    $('rankMeta').textContent = 'Rankings Â· ' + total + ' lista(s)' +
+      (state.rankSearch ? ' Â· buscando "' + state.rankSearch + '"' : '');
   }
 
   /* ---------------- render: ranking Argentina ---------------- */
@@ -1090,8 +1090,8 @@
     if (!data) return header + '<div class="loading">Cargando ranking...</div>';
     if (!data.length) return header + '<div class="error-box">No hay ranking disponible.</div>';
     const rows = data.filter(isArgentina).map(r => {
-      const name = r.name || '—';
-      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
+      const name = r.name || 'â€”';
+      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : 'â€”';
       const trend = r.trend != null ? r.trend : r.movement;
       const flag = typeof r.flag === 'string' && /^https?:\/\//.test(r.flag) ? r.flag : flagUrl(r.flag);
       return '<tr>' +
@@ -1121,10 +1121,10 @@
       });
     }
     const html = [
-      renderArgSection('ATP Singles · Argentina', state.rankSingles.atp),
-      renderArgSection('WTA Singles · Argentina', state.rankSingles.wta),
-      renderArgSection('ATP Dobles · Argentina', state.rankDoubles.atp && state.rankDoubles.atp.players),
-      renderArgSection('WTA Dobles · Argentina', state.rankDoubles.wta && state.rankDoubles.wta.players)
+      renderArgSection('ATP Singles Â· Argentina', state.rankSingles.atp),
+      renderArgSection('WTA Singles Â· Argentina', state.rankSingles.wta),
+      renderArgSection('ATP Dobles Â· Argentina', state.rankDoubles.atp && state.rankDoubles.atp.players),
+      renderArgSection('WTA Dobles Â· Argentina', state.rankDoubles.wta && state.rankDoubles.wta.players)
     ];
     el.innerHTML = html.join('');
     let count = 0;
