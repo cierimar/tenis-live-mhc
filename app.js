@@ -840,9 +840,19 @@
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const suspNote = m.suspended ? '<div class="note susp-note">Partido suspendido por lluvia</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
+    let h2hBtn = '';
+    if (m.tour === 'itf') {
+      h2hBtn = m.teId ? '<button class="itf-h2h" data-teid="' + esc(m.teId) + '">H2H ' + esc(m.h2h || '0-0') + '</button>' : '';
+    } else if (comps.length === 2 && m.state !== 'in') {
+      const p1n = comps[0].name || '';
+      const p2n = comps[1].name || '';
+      if (p1n && p2n) {
+        h2hBtn = '<button class="m-h2h" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">H2H</button>';
+      }
+    }
     const itfInfo = m.tour === 'itf'
-      ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' +
-        (m.teId ? '<button class="itf-h2h" data-teid="' + esc(m.teId) + '">H2H ' + esc(m.h2h || '0-0') + '</button>' : '') + '</div>' : '';
+      ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' + h2hBtn + '</div>'
+      : (h2hBtn ? '<div class="m-h2h-wrap">' + h2hBtn + '</div>' : '');
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
       '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
@@ -1195,6 +1205,20 @@
     }
   }
 
+  async function openH2HByName(p1, p2) {
+    const body = $('h2hBody');
+    const overlay = $('h2hOverlay');
+    if (!body || !overlay) return;
+    body.innerHTML = '<div class="h2h-loading">Cargando H2H...</div>';
+    overlay.classList.remove('hidden');
+    try {
+      const j = await fetchJson('api/h2h/byname?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      renderH2H(body, j);
+    } catch (err) {
+      body.innerHTML = '<div class="error-box">No se pudo cargar el H2H: ' + esc(err.message) + '</div>';
+    }
+  }
+
   function renderH2H(body, j) {
     if (!j.ok) { body.innerHTML = '<div class="error-box">' + esc(j.error || 'Error') + '</div>'; return; }
     const title = '<div class="h2h-title">' + esc(j.p1 || '') + ' <span class="h2h-vs">vs</span> ' + esc(j.p2 || '') +
@@ -1290,8 +1314,10 @@
         if (e.target === h2hOverlay || e.target.closest('.h2h-close')) closeH2H();
       });
       document.addEventListener('click', e => {
-        const b = e.target.closest('.itf-h2h');
-        if (b) openH2H(b.getAttribute('data-teid'));
+        const itfBtn = e.target.closest('.itf-h2h');
+        if (itfBtn) { openH2H(itfBtn.getAttribute('data-teid')); return; }
+        const h2hBtn = e.target.closest('.m-h2h');
+        if (h2hBtn) { openH2HByName(h2hBtn.getAttribute('data-p1'), h2hBtn.getAttribute('data-p2')); }
       });
     }
 
