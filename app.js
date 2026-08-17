@@ -83,6 +83,7 @@
     const s = new Date().toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'short', year: 'numeric' });
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
+  function norm(s) { return String(s || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
   function typeFor(tour, mode) {
     const men = tour === 'atp' || tour === 'chall';
     return mode === 'doubles'
@@ -251,7 +252,6 @@
 
   function parseAtpLive(raw) {
     const out = [];
-    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
     if (Array.isArray(raw && raw.matches)) {
       for (const m of raw.matches) {
         out.push({
@@ -297,7 +297,6 @@
 
   function parseChallenger(j) {
     const matches = [], tournaments = [], points = [];
-    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
     const tourById = new Map();
     const getTour = (id, name, date, city, country) => {
       if (!tourById.has(id)) {
@@ -389,7 +388,6 @@
   }
 
   function applySuspensions() {
-    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
     for (const e of state.atpLive) {
       if (!e.suspended) continue;
       if (!e.p1 || !e.p2) continue;
@@ -511,7 +509,6 @@
 
   function livePoints(m) {
     if (m.state !== 'in' || m.type !== "Men's Singles") return null;
-    const norm = s => String(s || '').toLowerCase().replace(/\s+/g, ' ').trim();
     const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
     if (names.length < 2) return null;
     const hit = [...state.atpLive, ...state.challPoints].find(e => e.status === 'P' &&
@@ -838,14 +835,14 @@
     const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
     const cls = m.state === 'in' ? 'match live' : m.state === 'post' ? 'match finished' : 'match upcoming';
     const period = m.state === 'in' && m.period ? '<span class="period">SET ' + m.period + '</span>' : '';
-    const rows = comps.map(p => playerRow(p, m)).join('');
+    const pts = livePoints(m);
+    const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const suspNote = m.suspended ? '<div class="note susp-note">Partido suspendido por lluvia</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
     const itfInfo = m.tour === 'itf'
       ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' +
         (m.teId ? '<button class="itf-h2h" data-teid="' + esc(m.teId) + '">H2H ' + esc(m.h2h || '0-0') + '</button>' : '') + '</div>' : '';
-    const pts = livePoints(m);
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
       '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
@@ -857,8 +854,10 @@
       '<div class="scores">' + note + suspNote + time + '</div>' + itfInfo + points + '</div>';
   }
 
-  function playerRow(p, m) {
+  function playerRow(p, m, pts) {
     const flag = flagImg(p.flag, p.flagAlt);
+    const serving = pts && pts.serverName && norm(p.name) === norm(pts.serverName);
+    const ball = serving ? '<span class="serve-ball"></span>' : '';
     const sets = p.linescores.map((ls, i) => {
       const liveSet = m.state === 'in' && i === p.linescores.length - 1;
       const cls = 'set' + (ls.winner ? ' win' : '') + (liveSet ? ' live-set' : '');
@@ -867,7 +866,7 @@
       return '<span class="' + cls + '">' + txt + tb + '</span>';
     }).join('');
     return '<div class="player-row"><span class="flag">' + flag + '</span>' +
-      '<span class="pname' + (p.winner ? ' winner' : '') + '">' + esc(p.name) + '</span>' +
+      '<span class="pname' + (p.winner ? ' winner' : '') + '">' + ball + esc(p.name) + '</span>' +
       '<span class="sets">' + (sets || '<span class="set">-</span>') + '</span></div>';
   }
 
