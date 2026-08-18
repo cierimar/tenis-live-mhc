@@ -130,6 +130,8 @@
   function tourOf(m) {
     if (m.tour === 'chall') return 'chall';
     if (m.tour === 'itf') return 'itf';
+    if (m.tour === 'atp' || m.tour === 'wta') return m.tour;
+    if (!m.type) return m.tour || 'atp';
     return m.type.indexOf("Men") === 0 ? 'atp' : 'wta';
   }
   function tourLabel(m) {
