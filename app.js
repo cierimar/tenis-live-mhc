@@ -35,6 +35,7 @@
     seedMap: {},
     seedMapATP: {},
     seedMapWTA: {},
+    finishedAt: {},
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -173,10 +174,14 @@
             period: c.status ? c.status.period : 0,
             suspended: !!(c.status && (function (s) {
               const t = s.type || {};
-              return /suspend|delay|rain|postpon/i.test(
+              return /suspend|delay|rain|postpon|toilet|medical|changeover/i.test(
                 (s.detail || '') + ' ' + (s.name || '') + ' ' + (s.description || '') +
                 ' ' + (t.detail || '') + ' ' + (t.name || '') + ' ' + (t.description || ''));
             })(c.status)),
+            suspReason: (function (s) {
+              if (!s) return '';
+              return s.detail || s.description || (s.type && s.type.detail) || (s.type && s.type.name) || '';
+            })(c.status),
             type: c.type ? c.type.text : '',
             round: c.round ? c.round.displayName : '',
             tournamentId: tid,
@@ -411,6 +416,7 @@
         if (names.length < 2) continue;
         if (names.indexOf(e.p1) === -1 || names.indexOf(e.p2) === -1) continue;
         m.suspended = true;
+        m.suspReason = m.suspReason || 'SUSPENDIDO';
         m.state = 'in';
       }
     }
@@ -646,14 +652,26 @@
     return null;
   }
 
+  function stampFinished() {
+    const now = Date.now();
+    const all = allMatches();
+    for (const m of all) {
+      if (m.state === 'post' && !state.finishedAt[m.id]) {
+        state.finishedAt[m.id] = now;
+      }
+    }
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo()]);
       applySuspensions();
+      stampFinished();
       if (useLocalBackend()) {
         refreshItfLive().then(() => {
+          stampFinished();
           if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
         });
       }
@@ -782,7 +800,10 @@
   /* ---------------- render: live ---------------- */
 
   function statusBadge(m) {
-    if (m.suspended) return '<span class="badge susp">SUSPENDIDO</span>';
+    if (m.suspended) {
+      const reason = (m.suspReason || 'SUSPENDIDO').toUpperCase();
+      return '<span class="badge susp">' + esc(reason) + '</span>';
+    }
     if (m.state === 'in') return '<span class="badge live">EN VIVO</span>';
     if (m.state === 'post') return '<span class="badge final">FINALIZADO</span>';
     return '<span class="badge upcoming">PROXIMO</span>';
@@ -915,21 +936,34 @@
       $('finMeta').textContent = '0 partidos finalizados';
       return;
     }
-    const byTour = new Map();
+    list.sort((a, b) => (state.finishedAt[b.id] || 0) - (state.finishedAt[a.id] || 0));
+    const CIRCUIT_ORDER = ['atp', 'wta', 'chall', 'itf'];
+    const CIRCUIT_LABEL = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF' };
+    const byCircuit = new Map();
     for (const m of list) {
-      if (!byTour.has(m.tournamentId)) byTour.set(m.tournamentId, []);
-      byTour.get(m.tournamentId).push(m);
+      const c = tourOf(m);
+      if (!byCircuit.has(c)) byCircuit.set(c, []);
+      byCircuit.get(c).push(m);
     }
+    const orderedCircuits = CIRCUIT_ORDER.filter(c => byCircuit.has(c));
     let html = '';
-    for (const [tid, ms] of byTour) {
-      const tour = allTournaments().find(t => t.id === tid);
-      const name = tour ? tour.name : (ms[0].tournamentName || 'Torneo');
-      const dates = todayStr();
-      ms.sort((a, b) => rankMatch(a) - rankMatch(b));
-      const cards = ms.map(m => matchCard(m)).join('');
-      const chip = state.tour === 'todos' ? '<span class="tour-chip">' + tourLabel(ms[0]) + '</span>' : '';
-      html += '<div class="tour-block"><div class="tour-head"><span class="t-name">' + esc(name) +
-        '</span>' + chip + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
+    for (const c of orderedCircuits) {
+      const ms = byCircuit.get(c);
+      const chip = '<span class="tour-chip">' + CIRCUIT_LABEL[c] + '</span>';
+      let cards = '';
+      const byTournament = new Map();
+      for (const m of ms) {
+        if (!byTournament.has(m.tournamentId)) byTournament.set(m.tournamentId, []);
+        byTournament.get(m.tournamentId).push(m);
+      }
+      for (const [tid, tms] of byTournament) {
+        const tour = allTournaments().find(t => t.id === tid);
+        const name = tour ? tour.name : (tms[0].tournamentName || 'Torneo');
+        cards += '<div class="fin-tournament"><div class="fin-tournament-name">' + esc(name) + '</div>' +
+          tms.map(m => matchCard(m)).join('') + '</div>';
+      }
+      html += '<div class="tour-block"><div class="tour-head">' + chip +
+        '<span class="t-date">' + todayStr() + '</span></div>' + cards + '</div>';
     }
     el.innerHTML = html;
     $('finMeta').textContent = list.length + ' partido(s) finalizado(s)';
@@ -942,7 +976,7 @@
     const pts = livePoints(m);
     const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
-    const suspNote = m.suspended ? '<div class="note susp-note">Partido suspendido por lluvia</div>' : '';
+    const suspNote = m.suspended ? '<div class="note susp-note">' + esc(m.suspReason || 'Partido suspendido') + '</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
     let h2hBtn = '';
     let statsBtn = '';
@@ -1004,8 +1038,10 @@
       const live = ms.some(m => m.state === 'in');
       const upcoming = ms.some(m => m.state === 'pre');
       const suspended = ms.some(m => m.suspended);
+      const suspMatch = suspended ? ms.find(m => m.suspended && m.suspReason) : null;
+      const suspLabel = suspMatch ? esc(suspMatch.suspReason) : 'SUSPENDIDO';
       const st = suspended && !ms.some(m => m.state === 'in' && !m.suspended)
-        ? '<span class="tc-status susp">&#9209; SUSPENDIDO</span>'
+        ? '<span class="tc-status susp">&#9209; ' + suspLabel + '</span>'
         : live ? '<span class="tc-status live">â— EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
       const champs = (t.previousWinners || []).map(pw =>
         '<span><b>' + esc(pw.type ? pw.type.text : '') + ':</b> ' + esc(pw.displayName || 'â€”') + '</span>'
