@@ -25,68 +25,84 @@ function Get-WebFile([string]$url) {
 $html = Get-WebFile 'https://www.tennisexplorer.com/matches/?type=all'
 if (-not $html) { Write-Host 'tennisexplorer no disponible'; exit 1 }
 
-$matches = [System.Collections.Generic.List[object]]::new()
-$pairs = [regex]::Matches($html, '<tr[^>]*>.*?</tr>\s*<tr[^>]*>.*?</tr>', 'Singleline')
+$finished = [System.Collections.Generic.List[object]]::new()
+$allRows = [regex]::Matches($html, '<tr\b[^>]*>(.*?)</tr>', 'Singleline')
+$currentTournament = ''
+$currentTour = 'atp'
+$prevRow = $null
 
-foreach ($pr in $pairs) {
-    $r1 = $pr.Groups[1].Value
-    $r2 = $pr.Groups[2].Value
-
-    $idM = [regex]::Match($r1, 'href="/match-detail/\?id=(\d+)"')
-    if (-not $idM.Success) { continue }
-
-    $name1M = [regex]::Match($r1, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
-    $name2M = [regex]::Match($r2, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
-    if (-not $name1M.Success -or -not $name2M.Success) { continue }
-
-    $p1 = (($name1M.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
-    $p2 = (($name2M.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
-
-    $res1M = [regex]::Match($r1, 'class="result">([^<]+)<')
-    $res2M = [regex]::Match($r2, 'class="result">([^<]+)<')
-    if (-not $res1M.Success -or -not $res2M.Success) { continue }
-
-    $res1 = $res1M.Groups[1].Value.Trim()
-    $res2 = $res2M.Groups[1].Value.Trim()
-    if ($res1 -eq '' -or $res2 -eq '') { continue }
-
-    $s1 = @(); foreach ($sm in [regex]::Matches($r1, 'class="score">([^<]*)<')) { $v = $sm.Groups[1].Value -replace '&nbsp;', ''; if ($v -ne '') { $s1 += $v } }
-    $s2 = @(); foreach ($sm in [regex]::Matches($r2, 'class="score">([^<]*)<')) { $v = $sm.Groups[1].Value -replace '&nbsp;', ''; if ($v -ne '') { $s2 += $v } }
-
-    $roundM = [regex]::Match($r1, 'class="round"[^>]*>([^<]+)<')
-    $surfM = [regex]::Match($r1, 'class="s-color"[^>]*>\s*<span[^>]*>([^<]+)</span>')
-    $tournM = [regex]::Match($r1, 'class="t-name"[^>]*>.*?<a[^>]*href="(/[^"]*)"[^>]*>([^<]+)</a>', 'Singleline')
-    if (-not $tournM.Success) { $tournM = [regex]::Match($r1, '<a[^>]*href="/[^"]*">([^<]+)</a>') }
-
-    $linescores1 = @(); $linescores2 = @()
-    foreach ($v in $s1) { $val = $v -as [int]; $linescores1 += @{ value = if ($null -ne $val) { $val } else { $null }; tiebreak = $null; winner = $false } }
-    foreach ($v in $s2) { $val = $v -as [int]; $linescores2 += @{ value = if ($null -ne $val) { $val } else { $null }; tiebreak = $null; winner = $false } }
-    for ($i = 0; $i -lt [Math]::Max($linescores1.Count, $linescores2.Count); $i++) {
-        $v1 = if ($i -lt $linescores1.Count) { $linescores1[$i].value } else { $null }
-        $v2 = if ($i -lt $linescores2.Count) { $linescores2[$i].value } else { $null }
-        if ($null -ne $v1 -and $null -ne $v2) {
-            if ($v1 -gt $v2) { $linescores1[$i].winner = $true } else { $linescores2[$i].winner = $true }
+foreach ($m in $allRows) {
+    $rowHtml = $m.Groups[1].Value
+    if ($rowHtml -match 'class="head\s+flags"') {
+        $tnameM = [regex]::Match($rowHtml, '<a[^>]*>(?:<[^>]+>)*([^<]+)</a>')
+        if ($tnameM.Success) {
+            $raw = [System.Net.WebUtility]::HtmlDecode($tnameM.Groups[1].Value).Trim()
+            $currentTournament = $raw -replace '\s+', ' '
         }
+        $hrefM = [regex]::Match($rowHtml, 'href="(/[^"]*?/(atp-men|wta-women)/[^"]*)"')
+        if ($hrefM.Success) {
+            $currentTour = if ($hrefM.Groups[2].Value -eq 'atp-men') { 'atp' } else { 'wta' }
+        }
+        $prevRow = $null
+        continue
     }
-
-    $r1Num = [int]($res1 -replace '[^0-9]', '')
-    $r2Num = [int]($res2 -replace '[^0-9]', '')
-    $w1 = $r1Num -gt $r2Num
-
-    $matches.Add([pscustomobject]@{
-        id = 'te-' + $idM.Groups[1].Value
-        state = 'post'
-        round = if ($roundM.Success) { $roundM.Groups[1].Value.Trim() } else { '' }
-        surface = if ($surfM.Success) { $surfM.Groups[1].Value.Trim() } else { '' }
-        tournamentName = if ($tournM.Success) { (($tournM.Groups[2].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
-        competitors = @(
-            @{ name = $p1; winner = $w1; homeAway = 'home'; flag = ''; flagAlt = ''; linescores = $linescores1 }
-            @{ name = $p2; winner = (-not $w1); homeAway = 'away'; flag = ''; flagAlt = ''; linescores = $linescores2 }
-        )
-    })
+    if ($null -ne $prevRow) {
+        $r1 = $prevRow
+        $r2 = $rowHtml
+        $idM = [regex]::Match($r1, 'href="/match-detail/\?id=(\d+)"')
+        if (-not $idM.Success) { $prevRow = $null; continue }
+        $name1M = [regex]::Match($r1, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
+        $name2M = [regex]::Match($r2, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
+        if (-not $name1M.Success -or -not $name2M.Success) { $prevRow = $null; continue }
+        $p1 = (($name1M.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+        $p2 = (($name2M.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+        $res1M = [regex]::Match($r1, 'class="result">([^<]+)<')
+        $res2M = [regex]::Match($r2, 'class="result">([^<]+)<')
+        if (-not $res1M.Success -or -not $res2M.Success) { $prevRow = $null; continue }
+        $res1 = $res1M.Groups[1].Value.Trim()
+        $res2 = $res2M.Groups[1].Value.Trim()
+        if ($res1 -eq '' -or $res2 -eq '' -or $res1 -eq '&nbsp;' -or $res2 -eq '&nbsp;') { $prevRow = $null; continue }
+        if ($res1 -notmatch '\d' -or $res2 -notmatch '\d') { $prevRow = $null; continue }
+        $s1 = @(); foreach ($sm in [regex]::Matches($r1, 'class="score">([^<]*)<')) { $v = $sm.Groups[1].Value -replace '&nbsp;', ''; if ($v -ne '') { $s1 += $v } }
+        $s2 = @(); foreach ($sm in [regex]::Matches($r2, 'class="score">([^<]*)<')) { $v = $sm.Groups[1].Value -replace '&nbsp;', ''; if ($v -ne '') { $s2 += $v } }
+        $roundM = [regex]::Match($r1, 'class="round"[^>]*>([^<]+)<')
+        $surfM = [regex]::Match($r1, 'class="s-color"[^>]*>\s*<span[^>]*>([^<]+)</span>')
+        $r1Num = 0; $r2Num = 0; [void][int]::TryParse(($res1 -replace '[^0-9]', ''), [ref]$r1Num); [void][int]::TryParse(($res2 -replace '[^0-9]', ''), [ref]$r2Num)
+        $w1 = $r1Num -gt $r2Num
+        $ls1 = @(); foreach ($v in $s1) { $val = 0; $ok = [int]::TryParse($v, [ref]$val); $ls1 += @{ value = if ($ok) { $val } else { $null }; tiebreak = $null; winner = $false } }
+        $ls2 = @(); foreach ($v in $s2) { $val = 0; $ok = [int]::TryParse($v, [ref]$val); $ls2 += @{ value = if ($ok) { $val } else { $null }; tiebreak = $null; winner = $false } }
+        for ($i = 0; $i -lt [Math]::Max($ls1.Count, $ls2.Count); $i++) {
+            $v1 = if ($i -lt $ls1.Count) { $ls1[$i].value } else { $null }
+            $v2 = if ($i -lt $ls2.Count) { $ls2[$i].value } else { $null }
+            if ($null -ne $v1 -and $null -ne $v2) { if ($v1 -gt $v2) { $ls1[$i].winner = $true } else { $ls2[$i].winner = $true } }
+        }
+        $isDoubles = $currentTournament -match 'doubles' -or $p1 -match ' / '
+        $type = if ($currentTour -eq 'atp') {
+            if ($isDoubles) { "Men's Doubles" } else { "Men's Singles" }
+        } else {
+            if ($isDoubles) { "Women's Doubles" } else { "Women's Singles" }
+        }
+        $finished.Add([pscustomobject]@{
+            id = 'te-' + $idM.Groups[1].Value
+            state = 'post'
+            tour = $currentTour
+            type = $type
+            round = if ($roundM.Success) { $roundM.Groups[1].Value.Trim() } else { '' }
+            tournamentId = 'te-' + $idM.Groups[1].Value
+            tournamentName = $currentTournament
+            surface = if ($surfM.Success) { $surfM.Groups[1].Value.Trim() } else { '' }
+            competitors = @(
+                @{ name = $p1; winner = $w1; homeAway = 'home'; flag = ''; flagAlt = ''; linescores = $ls1 }
+                @{ name = $p2; winner = (-not $w1); homeAway = 'away'; flag = ''; flagAlt = ''; linescores = $ls2 }
+            )
+        })
+        $prevRow = $null
+    } else {
+        $prevRow = $rowHtml
+    }
 }
 
-$payload = @{ ok = $true; updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; count = $matches.Count; matches = @($matches) }
+$payload = @{ ok = $true; updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; count = $finished.Count; matches = @($finished) }
 $json = $payload | ConvertTo-Json -Depth 8
 [System.IO.File]::WriteAllText($outFile, $json, [System.Text.UTF8Encoding]::new($false))
-Write-Host "results.json: $($matches.Count) partidos finalizados"
+Write-Host "results.json: $($finished.Count) partidos finalizados"
