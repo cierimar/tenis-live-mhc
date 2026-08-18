@@ -1228,17 +1228,11 @@
           '<td class="r-name">' + esc(r.player) + '</td>' +
           '<td class="r-r">' + esc(r.age) + '</td>' +
           '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
-          '<td class="r-r">' + esc(r.hElo) + '</td>' +
-          '<td class="r-r">' + esc(r.cElo) + '</td>' +
-          '<td class="r-r">' + esc(r.gElo) + '</td>' +
-          '<td class="r-r">' + esc(r.peakElo) + '</td>' +
-          '<td class="r-r">' + esc(r.peakMonth) + '</td>' +
-          '<td class="r-r">' + esc(r.officialRank) + '</td>' +
           '</tr>';
       }).join('');
       return header +
         '<div class="rank-table-wrap"><table class="rank-table elo-table">' +
-        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Elo</th><th>hElo</th><th>cElo</th><th>gElo</th><th>Pico</th><th>Mes</th><th>Rank Oficial</th></tr></thead>' +
+        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Puntos</th></tr></thead>' +
         '<tbody>' + rows + '</tbody></table></div>';
     };
     const showAtp = state.eloTab === 'todos' || state.eloTab === 'atp';
