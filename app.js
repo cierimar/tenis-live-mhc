@@ -36,6 +36,8 @@
     seedMapATP: {},
     seedMapWTA: {},
     finishedAt: {},
+    h2hCache: null,
+    statsCache: null,
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -488,9 +490,9 @@
   }
 
   async function refreshItfLive() {
-    if (!useLocalBackend()) { state.itfLive = { tournaments: [], matches: [] }; return; }
     try {
-      const j = await fetchJson('api/itf/live');
+      const url = useLocalBackend() ? 'api/itf/live' : 'itf_live.json';
+      const j = await fetchJson(url);
       state.itfLive = parseItf(j);
     } catch (err) {
       state.itfLive = { tournaments: [], matches: [] };
@@ -614,9 +616,9 @@
   }
 
   async function refreshSeeds() {
-    if (!useLocalBackend()) return;
     try {
-      const j = await fetchJson('api/seeds');
+      const url = useLocalBackend() ? 'api/seeds' : 'seeds.json';
+      const j = await fetchJson(url).catch(() => null);
       if (j && j.ok) {
         state.seeds = j;
         const maps = buildSeedMaps(j);
@@ -669,12 +671,10 @@
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo()]);
       applySuspensions();
       stampFinished();
-      if (useLocalBackend()) {
-        refreshItfLive().then(() => {
-          stampFinished();
-          if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
-        });
-      }
+      refreshItfLive().then(() => {
+        stampFinished();
+        if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
+      });
       const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
       if ((state.tab === 'rankings' && wantsDoubles) || state.tab === 'argentina') {
         await refreshRankingsDoubles();
@@ -987,9 +987,7 @@
       const p2n = comps[1].name || '';
       if (p1n && p2n) {
         h2hBtn = '<button class="m-h2h" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">H2H</button>';
-        if (useLocalBackend()) {
-          statsBtn = '<button class="m-stats" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">STATS</button>';
-        }
+        statsBtn = '<button class="m-stats" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">STATS</button>';
       }
     }
     const itfInfo = m.tour === 'itf'
@@ -1336,9 +1334,9 @@
   }
 
   async function refreshBirthdays() {
-    if (!useLocalBackend()) { state.birthdays = { data: null, loaded: true }; renderBirthdays(); return; }
     try {
-      const j = await fetchJson('api/birthdays');
+      const url = useLocalBackend() ? 'api/birthdays' : 'birthdays.json';
+      const j = await fetchJson(url).catch(() => null);
       if (j && j.ok) { state.birthdays = { data: j, loaded: true }; } else { state.birthdays = { data: null, loaded: true }; }
     } catch (_) { state.birthdays = { data: null, loaded: true }; }
     if (state.tab === 'birthdays') renderBirthdays();
@@ -1511,7 +1509,13 @@
     body.innerHTML = '<div class="h2h-loading">Cargando H2H...</div>';
     overlay.classList.remove('hidden');
     try {
-      const j = await fetchJson('api/h2h?matchId=' + encodeURIComponent(teId));
+      let j;
+      if (useLocalBackend()) {
+        j = await fetchJson('api/h2h?matchId=' + encodeURIComponent(teId));
+      } else {
+        body.innerHTML = '<div class="error-box">H2H no disponible en la version web. UsÃ¡ la version local para ver el H2H.</div>';
+        return;
+      }
       renderH2H(body, j);
     } catch (err) {
       body.innerHTML = '<div class="error-box">No se pudo cargar el H2H: ' + esc(err.message) + '</div>';
@@ -1525,7 +1529,22 @@
     body.innerHTML = '<div class="h2h-loading">Cargando H2H...</div>';
     overlay.classList.remove('hidden');
     try {
-      const j = await fetchJson('api/h2h/byname?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      let j;
+      if (useLocalBackend()) {
+        j = await fetchJson('api/h2h/byname?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      } else {
+        if (!state.h2hCache) {
+          state.h2hCache = await fetchJson('h2h_cache.json').catch(() => ({ pairs: {} }));
+        }
+        const key1 = p1.toLowerCase().replace(/ /g, '') + '::' + p2.toLowerCase().replace(/ /g, '');
+        const key2 = p2.toLowerCase().replace(/ /g, '') + '::' + p1.toLowerCase().replace(/ /g, '');
+        const cached = (state.h2hCache.pairs || {})[key1] || (state.h2hCache.pairs || {})[key2];
+        if (cached) { j = cached; }
+        else {
+          body.innerHTML = '<div class="error-box">H2H no disponible para este partido en la version web. Intenta con la version local.</div>';
+          return;
+        }
+      }
       renderH2H(body, j);
     } catch (err) {
       body.innerHTML = '<div class="error-box">No se pudo cargar el H2H: ' + esc(err.message) + '</div>';
@@ -1566,7 +1585,22 @@
     body.innerHTML = '<div class="h2h-loading">Cargando estadÃ­sticas...</div>';
     overlay.classList.remove('hidden');
     try {
-      const j = await fetchJson('api/stats?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      let j;
+      if (useLocalBackend()) {
+        j = await fetchJson('api/stats?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      } else {
+        if (!state.statsCache) {
+          state.statsCache = await fetchJson('stats_cache.json').catch(() => ({ pairs: {} }));
+        }
+        const key1 = p1.toLowerCase().replace(/ /g, '') + '::' + p2.toLowerCase().replace(/ /g, '');
+        const key2 = p2.toLowerCase().replace(/ /g, '') + '::' + p1.toLowerCase().replace(/ /g, '');
+        const cached = (state.statsCache.pairs || {})[key1] || (state.statsCache.pairs || {})[key2];
+        if (cached) { j = cached; }
+        else {
+          body.innerHTML = '<div class="error-box">Stats no disponibles para este partido en la version web. Intenta con la version local.</div>';
+          return;
+        }
+      }
       renderStats(body, j, p1, p2);
     } catch (err) {
       body.innerHTML = '<div class="error-box">No se pudieron cargar las estadÃ­sticas: ' + esc(err.message) + '</div>';
