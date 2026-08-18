@@ -651,7 +651,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .brand, .status-area { position: relative; z-index: 1; }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-text h1 { font-size: 26px; letter-spacing: 1px; font-weight: 800; }
-.brand-text h1 span { color: var(--accent); }
+.brand-text h1 span.live-text { color: var(--accent); }
 .mhc-logo {
   display: inline-flex; align-items: center; justify-content: center;
   width: 42px; height: 42px; border-radius: 50%;
