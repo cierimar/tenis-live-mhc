@@ -759,7 +759,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 }
 .player-row:last-of-type { border-bottom: none; }
 .player-row .flag { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; border: 1px solid rgba(255,255,255,.12); }
-.player-row .pname { font-size: 13px; font-weight: 700; letter-spacing: .2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player-row .pname { font-size: 13px; font-weight: 700; letter-spacing: .2px; white-space: nowrap; }
 .player-row .pname.winner { color: #fff; }
 .seed-badge {
   display: inline-block; margin-left: 5px; padding: 0 5px;
@@ -793,10 +793,10 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .live-points .lp-srv { color: var(--muted); font-size: 10px; }
 
 .serve-ball {
-  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%;
   background: linear-gradient(135deg, #c8e64a, #a0cc29);
-  margin-right: 5px; vertical-align: middle;
-  box-shadow: 0 0 6px rgba(168,204,41,.5);
+  margin-right: 5px; vertical-align: middle; position: relative; top: -1px;
+  box-shadow: 0 0 8px rgba(168,204,41,.6);
   animation: servePulse 1s ease-in-out infinite;
 }
 
