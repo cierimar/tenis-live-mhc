@@ -37,6 +37,7 @@
     seedMapWTA: {},
     finishedAt: {},
     finishedMatches: {},
+    liveSnapshot: {},
     h2hCache: null,
     statsCache: null,
     lastUpdate: null,
@@ -583,8 +584,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -712,12 +713,38 @@
     } catch (_) {}
   }
 
+  function snapshotLiveMatches() {
+    const snap = {};
+    for (const m of allMatches()) {
+      if (m.state === 'in' || m.state === 'pre') {
+        snap[m.id] = JSON.parse(JSON.stringify(m));
+      }
+    }
+    state.liveSnapshot = snap;
+  }
+
+  function detectDisappearedMatches() {
+    const now = Date.now();
+    const currentIds = new Set(allMatches().map(m => m.id));
+    for (const [id, prev] of Object.entries(state.liveSnapshot)) {
+      if (currentIds.has(id)) continue;
+      if (state.finishedMatches[id]) continue;
+      const finished = JSON.parse(JSON.stringify(prev));
+      finished.state = 'post';
+      if (!state.finishedAt[id]) state.finishedAt[id] = now;
+      state.finishedMatches[id] = finished;
+    }
+    state.liveSnapshot = {};
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
+      snapshotLiveMatches();
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults()]);
       applySuspensions();
+      detectDisappearedMatches();
       stampFinished();
       refreshItfLive().then(() => {
         stampFinished();
