@@ -26,6 +26,8 @@
     eloTab: 'todos',
     eloSearch: '',
     eloTop: 0,
+    playerTab: 'todos',
+    playerSearch: '',
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     lastUpdate: null,
@@ -526,7 +528,7 @@
     } catch (_) {
       state.elo = { atp: null, wta: null, loaded: true };
     }
-    if (state.tab === 'elo') render();
+    if (state.tab === 'elo' || state.tab === 'players') render();
   }
 
   function matchLiveName(espnName, liveName) {
@@ -565,8 +567,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('api/rankings/atp?type=doubles'),
-      fetchJson('api/rankings/wta?type=doubles')
+      fetchJson('rankings/atp_doubles.json'),
+      fetchJson('rankings/wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -1262,6 +1264,58 @@
     $('eloMeta').textContent = parts.join(' · ') + (q ? ' · buscando "' + q + '"' : '');
   }
 
+  /* ---------------- render: players ---------------- */
+
+  function taSlug(name) {
+    return (name || '').replace(/[^a-zA-Z\s'-]/g, '').replace(/[\s'-]+/g, '').split('').map((c, i) => {
+      if (i === 0 || name[i - 1] === ' ' || name[i - 1] === '-' || name[i - 1] === "'") return c.toUpperCase();
+      return c.toLowerCase();
+    }).join('');
+  }
+
+  function renderPlayers() {
+    const el = $('playersContent');
+    if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
+    const q = state.playerSearch;
+    const filterData = (data) => {
+      if (!data || !data.length) return [];
+      if (q) return data.filter(r => (r.player || '').toLowerCase().indexOf(q) > -1);
+      return data;
+    };
+    const sec = (title, data, circuit) => {
+      const filtered = filterData(data);
+      const header = '<div class="rank-section-title">' + title + '</div>';
+      if (!data || !data.length) return header + '<div class="error-box">No hay datos disponibles.</div>';
+      if (q && !filtered.length) return header + '<div class="error-box">No se encontraron jugadores que coincidan con "' + esc(q) + '" en ' + title + '.</div>';
+      const rows = filtered.map(r => {
+        const slug = taSlug(r.player);
+        const href = 'https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug;
+        return '<tr class="player-row-click" data-href="' + esc(href) + '">' +
+          '<td class="r-r">' + esc(r.rank) + '</td>' +
+          '<td class="r-name"><a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(r.player) + '</a></td>' +
+          '<td class="r-r">' + esc(r.age) + '</td>' +
+          '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
+          '</tr>';
+      }).join('');
+      return header +
+        '<div class="rank-table-wrap"><table class="rank-table elo-table">' +
+        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Elo</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table></div>';
+    };
+    const showAtp = state.playerTab === 'todos' || state.playerTab === 'atp';
+    const showWta = state.playerTab === 'todos' || state.playerTab === 'wta';
+    let html = '';
+    if (showAtp) html += sec('ATP', state.elo.atp, 'atp');
+    if (showWta) html += sec('WTA', state.elo.wta, 'wta');
+    el.innerHTML = html || '<div class="error-box">Sin datos.</div>';
+    const atpCount = showAtp ? filterData(state.elo.atp).length : 0;
+    const wtaCount = showWta ? filterData(state.elo.wta).length : 0;
+    const parts = [];
+    if (showAtp) parts.push(atpCount + ' ATP');
+    if (showWta) parts.push(wtaCount + ' WTA');
+    $('playersMeta').textContent = parts.join(' · ') + (q ? ' · buscando "' + q + '"' : '');
+  }
+
   /* ---------------- render dispatcher ---------------- */
 
   function render() {
@@ -1276,6 +1330,7 @@
     else if (state.tab === 'rankings') renderRankings();
     else if (state.tab === 'argentina') renderArgentina();
     else if (state.tab === 'elo') renderElo();
+    else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'calendar') renderCalendar();
   }
 
@@ -1296,6 +1351,11 @@
       return;
     }
     if (tab === 'elo' && !state.elo.loaded) {
+      render();
+      refreshElo();
+      return;
+    }
+    if (tab === 'players' && !state.elo.loaded) {
       render();
       refreshElo();
       return;
@@ -1535,6 +1595,31 @@
         state.cal.tab = b.dataset.cal;
         document.querySelectorAll('#segCal .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderCalendar();
+      });
+    }
+
+    const segPlayerTab = document.getElementById('segPlayerTab');
+    if (segPlayerTab) {
+      segPlayerTab.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.playerTab = b.dataset.playertab;
+        document.querySelectorAll('#segPlayerTab .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        renderPlayers();
+      });
+    }
+    const playerSearch = $('playerSearch');
+    if (playerSearch) {
+      playerSearch.addEventListener('input', () => {
+        state.playerSearch = playerSearch.value.toLowerCase().trim();
+        renderPlayers();
+      });
+      const playerClear = $('playerSearchClear');
+      if (playerClear) playerClear.addEventListener('click', () => {
+        playerSearch.value = '';
+        state.playerSearch = '';
+        renderPlayers();
+        playerSearch.focus();
       });
     }
 
