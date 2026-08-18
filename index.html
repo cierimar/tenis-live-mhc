@@ -35,6 +35,7 @@
   <button class="tab" data-tab="rankings">RANKINGS</button>
   <button class="tab" data-tab="elo">RANKING ANUAL</button>
   <button class="tab" data-tab="argentina">ARG</button>
+  <button class="tab" data-tab="players">PLAYERS</button>
   <button class="tab" data-tab="calendar">CALENDARIO</button>
 </nav>
 
@@ -158,6 +159,20 @@
       <button id="eloSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
     </div>
     <div id="eloContent" class="content"><div class="loading">Cargando ranking Elo...</div></div>
+  </div>
+
+  <div id="view-players" class="view">
+    <div class="section-head"><h2>Player Search</h2><span class="section-meta" id="playersMeta"></span></div>
+    <div class="seg" id="segPlayerTab">
+      <button class="seg-btn active" data-playertab="todos">TODOS</button>
+      <button class="seg-btn" data-playertab="atp">ATP</button>
+      <button class="seg-btn" data-playertab="wta">WTA</button>
+    </div>
+    <div class="rank-search-wrap">
+      <input type="text" id="playerSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+      <button id="playerSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+    </div>
+    <div id="playersContent" class="content"><div class="loading">Cargando jugadores...</div></div>
   </div>
 
   <div id="view-calendar" class="view">
