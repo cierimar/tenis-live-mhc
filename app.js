@@ -1290,9 +1290,11 @@
       const rows = filtered.map(r => {
         const slug = taSlug(r.player);
         const href = 'https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug;
+        const seed = findSeed(r.player);
+        const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span> ' : '';
         return '<tr class="player-row-click" data-href="' + esc(href) + '">' +
           '<td class="r-r">' + esc(r.rank) + '</td>' +
-          '<td class="r-name"><a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(r.player) + '</a></td>' +
+          '<td class="r-name">' + seedHtml + '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(r.player) + '</a></td>' +
           '<td class="r-r">' + esc(r.age) + '</td>' +
           '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
           '</tr>';
@@ -1358,6 +1360,7 @@
     if (tab === 'players' && !state.elo.loaded) {
       render();
       refreshElo();
+      if (!state.seeds.loaded) refreshSeeds();
       return;
     }
     render();
