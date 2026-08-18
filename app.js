@@ -262,6 +262,7 @@
       for (const m of raw.matches) {
         out.push({
           status: m.status,
+          type: m.type || 'singles',
           suspended: m.suspended === true || m.status === 'S' || m.status === 'D',
           p1: norm(m.p1), p2: norm(m.p2),
           g1: m.g1, g2: m.g2, server: m.server,
@@ -273,9 +274,9 @@
     const tours = (raw && raw.Data && raw.Data.LiveMatchesTournamentsOrdered) || [];
     for (const t of tours) {
       for (const m of (t.LiveMatches || [])) {
-        if (m.Type !== 'singles') continue;
         out.push({
           status: m.MatchStatus,
+          type: m.IsDoubles ? 'doubles' : 'singles',
           suspended: m.MatchStatus === 'S' || m.MatchStatus === 'D',
           p1: norm((m.PlayerTeam.Player.PlayerFirstName || '') + ' ' + (m.PlayerTeam.Player.PlayerLastName || '')),
           p2: norm((m.OpponentTeam.Player.PlayerFirstName || '') + ' ' + (m.OpponentTeam.Player.PlayerLastName || '')),
@@ -528,14 +529,22 @@
     if (state.tab === 'elo') render();
   }
 
+  function matchLiveName(espnName, liveName) {
+    if (espnName === liveName) return true;
+    if (espnName.indexOf(liveName) > -1 || liveName.indexOf(espnName) > -1) return true;
+    return false;
+  }
+
   function livePoints(m) {
-    if (m.state !== 'in' || m.type !== "Men's Singles") return null;
+    if (m.state !== 'in') return null;
     const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
     if (names.length < 2) return null;
-    const hit = [...state.atpLive, ...state.challPoints].find(e => e.status === 'P' &&
-      ((e.p1 === names[0] && e.p2 === names[1]) || (e.p1 === names[1] && e.p2 === names[0])));
+    const allLive = [...state.atpLive, ...state.challPoints];
+    const hit = allLive.find(e => e.status === 'P' &&
+      ((matchLiveName(names[0], e.p1) && matchLiveName(names[1], e.p2)) ||
+       (matchLiveName(names[1], e.p1) && matchLiveName(names[0], e.p2))));
     if (!hit) return null;
-    const side0 = hit.p1 === names[0] && hit.p2 === names[1];
+    const side0 = matchLiveName(names[0], hit.p1) && matchLiveName(names[1], hit.p2);
     const g0 = side0 ? hit.g1 : hit.g2;
     const g1 = side0 ? hit.g2 : hit.g1;
     const serverName = hit.server === 1 ? hit.p1 : hit.server === 2 ? hit.p2 : '';
@@ -937,7 +946,7 @@
 
   function playerRow(p, m, pts) {
     const flag = flagImg(p.flag, p.flagAlt);
-    const serving = pts && pts.serverName && norm(p.name) === norm(pts.serverName);
+    const serving = pts && pts.serverName && matchLiveName(norm(p.name), norm(pts.serverName));
     const ball = serving ? '<span class="serve-ball"></span>' : '';
     const seed = findSeed(p.name);
     const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span>' : '';
