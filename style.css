@@ -1129,3 +1129,5 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
 .gender-m { background: #2196f3; color: #fff; }
 .gender-w { background: #e91e9c; color: #fff; }
 .bd-table { overflow-x: auto; }
+.fin-tournament { margin-bottom: 4px; }
+.fin-tournament-name { padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--accent); opacity: 0.85; border-bottom: 1px solid rgba(255,255,255,0.06); }
