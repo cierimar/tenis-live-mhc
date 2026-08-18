@@ -28,7 +28,7 @@ try {
     $payload = @{ ok = $true; date = (Get-Date).ToString('yyyy-MM-dd'); players = $players }
     $json = $payload | ConvertTo-Json -Depth 8
     [System.IO.File]::WriteAllText($outFile, $json, [System.Text.UTF8Encoding]::new($false))
-    Write-Host "birthdays.json: $($players.Count) cumpleaÃ±eros"
+    Write-Host "birthdays.json: $($players.Count) cumpleañeros"
 } catch {
     Write-Host "Error: $($_.Exception.Message)"; exit 1
 } finally {
