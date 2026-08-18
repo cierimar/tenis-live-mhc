@@ -36,6 +36,7 @@
     seedMapATP: {},
     seedMapWTA: {},
     finishedAt: {},
+    finishedMatches: {},
     h2hCache: null,
     statsCache: null,
     lastUpdate: null,
@@ -658,10 +659,37 @@
     const now = Date.now();
     const all = allMatches();
     for (const m of all) {
-      if (m.state === 'post' && !state.finishedAt[m.id]) {
-        state.finishedAt[m.id] = now;
+      if (m.state === 'post') {
+        if (!state.finishedAt[m.id]) {
+          state.finishedAt[m.id] = now;
+        }
+        state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
       }
     }
+    saveFinishedToStorage();
+  }
+
+  function loadFinishedFromStorage() {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const raw = localStorage.getItem('finishedMatches');
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data.date !== today) { localStorage.removeItem('finishedMatches'); return; }
+      for (const [id, m] of Object.entries(data.matches || {})) {
+        if (!state.finishedMatches[id]) {
+          state.finishedMatches[id] = m;
+          if (!state.finishedAt[id]) state.finishedAt[id] = Date.now();
+        }
+      }
+    } catch (_) {}
+  }
+
+  function saveFinishedToStorage() {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      localStorage.setItem('finishedMatches', JSON.stringify({ date: today, matches: state.finishedMatches }));
+    } catch (_) {}
   }
 
   async function refreshAll(force) {
@@ -925,8 +953,13 @@
 
   function renderFinalizados() {
     const el = $('finContent');
-    const list = filteredMatches().filter(m => m.state === 'post');
-    if (!state.matches.length && !state.challLive.matches.length && !state.itfLive.matches.length) {
+    const currentFinished = filteredMatches().filter(m => m.state === 'post');
+    for (const m of currentFinished) {
+      if (!state.finishedAt[m.id]) state.finishedAt[m.id] = Date.now();
+      state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
+    }
+    const list = Object.values(state.finishedMatches);
+    if (!state.matches.length && !state.challLive.matches.length && !state.itfLive.matches.length && !list.length) {
       el.innerHTML = '<div class="loading">Cargando partidos...</div>';
       return;
     }
@@ -1654,6 +1687,7 @@
   /* ---------------- wiring ---------------- */
 
   function init() {
+    loadFinishedFromStorage();
     tickClock();
     setInterval(tickClock, 1000);
     setInterval(tickCountdown, 1000);
