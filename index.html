@@ -33,6 +33,7 @@
   <button class="tab" data-tab="tournaments">TORNEOS</button>
   <button class="tab" data-tab="draws">CUADROS</button>
   <button class="tab" data-tab="rankings">RANKINGS</button>
+  <button class="tab" data-tab="elo">RANKING ANUAL</button>
   <button class="tab" data-tab="argentina">ARG</button>
   <button class="tab" data-tab="calendar">CALENDARIO</button>
 </nav>
@@ -56,19 +57,19 @@
     <option value="claro">Tema: Claro</option>
     <option value="azul">Tema: Azul</option>
     <option value="rosa">Tema: Rosa</option>
-    <option value="ambar">Tema: Ãmbar</option>
+    <option value="ambar">Tema: Ámbar</option>
     <option value="naranja">Tema: Naranja</option>
     <option value="verde">Tema: Verde</option>
     <option value="celeste">Tema: Celeste</option>
     <option value="violeta">Tema: Violeta</option>
     <option value="dorado">Tema: Dorado</option>
     <option value="negro">Tema: Negro</option>
-    <option value="purpura">Tema: PÃºrpura</option>
+    <option value="purpura">Tema: Púrpura</option>
     <option value="amarillo">Tema: Amarillo</option>
     <option value="verdefluo">Tema: Verde fluorescente</option>
     <option value="rojo">Tema: Rojo</option>
     <option value="plateado">Tema: Plateado</option>
-    <option value="marron">Tema: MarrÃ³n oscuro y ocre</option>
+    <option value="marron">Tema: Marrón oscuro y ocre</option>
   </select>
   <select id="fontSelect" class="select-font" title="Fuente del texto">
     <option value="defecto">Fuente: Segoe UI</option>
@@ -80,8 +81,8 @@
     <option value="courier">Fuente: Courier New</option>
     <option value="comic">Fuente: Comic Sans</option>
   </select>
-  <select id="fsizeSelect" class="select-font" title="TamaÃ±o del texto">
-    <option value="pequena">Texto: PequeÃ±o</option>
+  <select id="fsizeSelect" class="select-font" title="Tamaño del texto">
+    <option value="pequena">Texto: Pequeño</option>
     <option value="normal" selected>Texto: Normal</option>
     <option value="grande">Texto: Grande</option>
     <option value="muygrande">Texto: Muy grande</option>
@@ -138,6 +139,27 @@
     <div id="argContent" class="content"><div class="loading">Cargando jugadores de Argentina...</div></div>
   </div>
 
+  <div id="view-elo" class="view">
+    <div class="section-head"><h2>Ranking Anual &middot; Elo</h2><span class="section-meta" id="eloMeta"></span></div>
+    <div class="seg" id="segElo">
+      <button class="seg-btn active" data-elotab="todos">TODOS</button>
+      <button class="seg-btn" data-elotab="atp">ATP</button>
+      <button class="seg-btn" data-elotab="wta">WTA</button>
+    </div>
+    <div class="seg" id="segEloTop">
+      <button class="seg-btn active" data-elotop="0">Todos</button>
+      <button class="seg-btn" data-elotop="10">Top 10</button>
+      <button class="seg-btn" data-elotop="20">Top 20</button>
+      <button class="seg-btn" data-elotop="50">Top 50</button>
+      <button class="seg-btn" data-elotop="100">Top 100</button>
+    </div>
+    <div class="rank-search-wrap">
+      <input type="text" id="eloSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+      <button id="eloSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+    </div>
+    <div id="eloContent" class="content"><div class="loading">Cargando ranking Elo...</div></div>
+  </div>
+
   <div id="view-calendar" class="view">
     <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
     <div class="seg" id="segCal">
@@ -150,7 +172,7 @@
 </main>
 
 <footer>
-  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking oficial)</p>
+  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking oficial) &middot; TennisAbstract (Elo ratings)</p>
 </footer>
 
 <div id="h2hOverlay" class="h2h-overlay hidden">
