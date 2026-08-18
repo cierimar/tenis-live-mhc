@@ -349,7 +349,7 @@ body[data-font="times"] { --font: 'Times New Roman', Times, 'Liberation Serif', 
 body[data-font="courier"] { --font: 'Courier New', Consolas, Menlo, monospace; }
 body[data-font="comic"] { --font: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive; }
 
-/* ---------- tamaÃ±o de texto ---------- */
+/* ---------- tamaño de texto ---------- */
 body[data-fsize="pequena"] { zoom: 0.9; }
 body[data-fsize="grande"] { zoom: 1.2; }
 body[data-fsize="muygrande"] { zoom: 1.35; }
@@ -578,7 +578,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .h2h-table .h2h-win { font-weight: 800; }
 .h2h-table .h2h-set { font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segTour, body.tab-argentina #segMode { display: none; }
+body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segTour, body.tab-argentina #segMode, body.tab-elo #segTour, body.tab-elo #segMode { display: none; }
 
 /* ---------- calendario ---------- */
 .cal-month { margin-bottom: 18px; }
@@ -636,43 +636,6 @@ body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segT
   background: none; border: none; color: var(--muted); font-size: 16px; cursor: pointer; padding: 2px 6px;
 }
 .rank-search-clear:hover { color: var(--text); }
-
-/* ---------- us open banner ---------- */
-.usopen-banner {
-  display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px;
-  text-align: center;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-style: italic;
-  font-weight: 900;
-  font-size: clamp(18px, 4.5vw, 30px);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  line-height: 1.2;
-  background: linear-gradient(90deg, #ff2d2d, #ff8a2d, #ffd52d, #37d437, #2da2ff, #7a2dff, #ff2d9d, #ff2d2d);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 18px rgba(255, 45, 90, .25);
-  animation: usopenShift 6s linear infinite;
-}
-.usopen-text {
-  display: inline-block;
-  border: 2px solid #ffd52d;
-  border-radius: 12px;
-  padding: 6px 16px;
-  box-shadow: 0 0 0 2px rgba(255, 45, 90, .35), 0 0 22px rgba(255, 45, 90, .3);
-}
-.usopen-logo { height: clamp(20px, 3.5vw, 30px); width: auto; flex: 0 0 auto; filter: drop-shadow(0 0 8px rgba(255,45,90,.35)); }
-@keyframes usopenShift {
-  to { background-position: 200% center; }
-}
-@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
-  .usopen-banner { color: var(--accent); -webkit-text-fill-color: currentColor; }
-}
 
 /* ---------- news ---------- */.news-card {
   display: block; text-decoration: none;
@@ -824,3 +787,8 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
   .tab { padding: 12px 8px; font-size: 11px; }
   .player-row .sets .set { min-width: 18px; }
 }
+
+.elo-table { min-width: 700px; }
+.elo-table .r-r { text-align: right; font-variant-numeric: tabular-nums; }
+.elo-table .elo-main { font-weight: 800; color: var(--accent); }
+.elo-table td.r-r { padding: 6px 10px; }
