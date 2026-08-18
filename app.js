@@ -28,6 +28,7 @@
     eloTop: 0,
     playerTab: 'todos',
     playerSearch: '',
+    playerCountry: '',
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     lastUpdate: null,
@@ -549,7 +550,7 @@
     const side0 = matchLiveName(names[0], hit.p1) && matchLiveName(names[1], hit.p2);
     const g0 = side0 ? hit.g1 : hit.g2;
     const g1 = side0 ? hit.g2 : hit.g1;
-    const serverName = hit.server === 1 ? hit.p1 : hit.server === 2 ? hit.p2 : '';
+    const serverName = hit.server === 2 ? hit.p1 : hit.server === 1 ? hit.p2 : '';
     return { g0, g1, serverName };
   }
 
@@ -1290,18 +1291,16 @@
       const rows = filtered.map(r => {
         const slug = taSlug(r.player);
         const href = 'https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug;
-        const seed = findSeed(r.player);
-        const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span> ' : '';
         return '<tr class="player-row-click" data-href="' + esc(href) + '">' +
           '<td class="r-r">' + esc(r.rank) + '</td>' +
-          '<td class="r-name">' + seedHtml + '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(r.player) + '</a></td>' +
+          '<td class="r-name"><a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(r.player) + '</a></td>' +
           '<td class="r-r">' + esc(r.age) + '</td>' +
           '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
           '</tr>';
       }).join('');
       return header +
         '<div class="rank-table-wrap"><table class="rank-table elo-table">' +
-        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Elo</th></tr></thead>' +
+        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Puntos</th></tr></thead>' +
         '<tbody>' + rows + '</tbody></table></div>';
     };
     const showAtp = state.playerTab === 'todos' || state.playerTab === 'atp';
