@@ -692,11 +692,29 @@
     } catch (_) {}
   }
 
+  async function refreshTennisExplorerResults() {
+    try {
+      const url = useLocalBackend() ? 'api/results' : 'results.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (!j || !j.ok || !j.matches) return;
+      const now = Date.now();
+      for (const m of j.matches) {
+        if (m.state === 'post') {
+          if (!state.finishedAt[m.id]) state.finishedAt[m.id] = now - 1;
+          if (!state.finishedMatches[m.id]) {
+            state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
+          }
+        }
+      }
+      saveFinishedToStorage();
+    } catch (_) {}
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults()]);
       applySuspensions();
       stampFinished();
       refreshItfLive().then(() => {
