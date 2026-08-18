@@ -1,4 +1,4 @@
-/* TENIS LIVE MHC â€” app.js */
+/* TENIS LIVE MHC — app.js */
 (function () {
   'use strict';
 
@@ -22,6 +22,10 @@
     rankSearch: '',
     news: { items: [], loaded: false, error: '' },
     videos: { items: [], loaded: false, error: '' },
+    elo: { atp: null, wta: null, loaded: false },
+    eloTab: 'todos',
+    eloSearch: '',
+    eloTop: 0,
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     lastUpdate: null,
@@ -231,7 +235,7 @@
       previous: r.previous,
       points: r.points,
       trend: r.trend || '-',
-      name: r.athlete && r.athlete.displayName ? r.athlete.displayName : 'â€”',
+      name: r.athlete && r.athlete.displayName ? r.athlete.displayName : '—',
       flag: r.athlete && r.athlete.flag ? r.athlete.flag : '',
       flagAlt: r.athlete && r.athlete.flagAltText ? r.athlete.flagAltText : ''
     }));
@@ -509,12 +513,27 @@
     if (state.tab === 'videos') render();
   }
 
+  async function refreshElo() {
+    try {
+      const url = useLocalBackend() ? 'api/elo' : 'elo.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (j && j.ok) {
+        state.elo = { atp: j.atp || null, wta: j.wta || null, loaded: true };
+      } else {
+        state.elo = { atp: null, wta: null, loaded: true };
+      }
+    } catch (_) {
+      state.elo = { atp: null, wta: null, loaded: true };
+    }
+    if (state.tab === 'elo') render();
+  }
+
   function livePoints(m) {
     if (m.state !== 'in' || m.type !== "Men's Singles") return null;
     const names = m.competitors.map(p => norm(p.name)).filter(Boolean);
     if (names.length < 2) return null;
     const hit = [...state.atpLive, ...state.challPoints].find(e => e.status === 'P' &&
-      (e.p1 === names[0] || e.p1 === names[1] || e.p2 === names[0] || e.p2 === names[1]));
+      ((e.p1 === names[0] && e.p2 === names[1]) || (e.p1 === names[1] && e.p2 === names[0])));
     if (!hit) return null;
     const side0 = hit.p1 === names[0] && hit.p2 === names[1];
     const g0 = side0 ? hit.g1 : hit.g2;
@@ -537,8 +556,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -594,7 +613,7 @@
     if (state.refreshing) return;
     state.refreshing = true;
     try {
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo()]);
       applySuspensions();
       if (useLocalBackend()) {
         refreshItfLive().then(() => {
@@ -691,7 +710,7 @@
               (t.prize ? '<span class="cal-prize">' + esc(t.prize) + '</span>' : '') +
               (t.draw ? '<span class="cal-draw">Cuadro ' + t.draw + '</span>' : '') +
             '</div>' +
-            (t.winner && t.winner !== '-' ? '<div class="cal-winner">CampeÃ³n: <b>' + esc(t.winner) + '</b></div>' : '') +
+            (t.winner && t.winner !== '-' ? '<div class="cal-winner">Campeón: <b>' + esc(t.winner) + '</b></div>' : '') +
           '</div>' +
         '</div>'
       ).join('');
@@ -738,7 +757,7 @@
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
       if (!useLocalBackend()) {
-        el.innerHTML = '<div class="error-box">ITF en vivo solo estÃ¡ disponible en la versiÃ³n local (PC con el servidor).</div>';
+        el.innerHTML = '<div class="error-box">ITF en vivo solo está disponible en la versión local (PC con el servidor).</div>';
         return;
       }
       if (!state.itfLive.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos ITF...</div>'; return; }
@@ -793,9 +812,9 @@
     }
     const srcs = {};
     for (const it of n.items) srcs[it.source] = (srcs[it.source] || 0) + 1;
-    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' Â· ');
-    $('newsMeta').textContent = n.items.length + ' noticias Â· ' + srcLabel +
-      (n.updated ? ' Â· act. ' + fmtTime(n.updated) : '');
+    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' · ');
+    $('newsMeta').textContent = n.items.length + ' noticias · ' + srcLabel +
+      (n.updated ? ' · act. ' + fmtTime(n.updated) : '');
     const html = n.items.map(it => {
       const ago = timeAgo(it.published);
       const time = ago ? '<span class="news-time">' + esc(ago) + '</span>' : '';
@@ -821,9 +840,9 @@
     }
     const srcs = {};
     for (const it of v.items) srcs[it.channel] = (srcs[it.channel] || 0) + 1;
-    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' Â· ');
-    $('videosMeta').textContent = v.items.length + ' videos Â· ' + srcLabel +
-      (v.updated ? ' Â· act. ' + fmtTime(v.updated) : '');
+    const srcLabel = Object.keys(srcs).map(s => s + ' (' + srcs[s] + ')').join(' · ');
+    $('videosMeta').textContent = v.items.length + ' videos · ' + srcLabel +
+      (v.updated ? ' · act. ' + fmtTime(v.updated) : '');
     const html = v.items.slice(0, 30).map(it => {
       const ago = timeAgo(it.published);
       const time = ago ? '<span class="video-time">' + esc(ago) + '</span>' : '';
@@ -903,7 +922,7 @@
       : (h2hBtn ? '<div class="m-h2h-wrap">' + h2hBtn + '</div>' : '');
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
-      '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || 'â€”') + '</span>' +
+      '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
       (pts.serverName ? '<span class="lp-srv">&middot; Saca ' + esc(pts.serverName.split(' ')[0]) + '</span>' : '') +
       '</div>' : '';
     return '<div class="' + cls + '">' +
@@ -946,9 +965,9 @@
       const suspended = ms.some(m => m.suspended);
       const st = suspended && !ms.some(m => m.state === 'in' && !m.suspended)
         ? '<span class="tc-status susp">&#9209; SUSPENDIDO</span>'
-        : live ? '<span class="tc-status live">â— EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
+        : live ? '<span class="tc-status live">● EN CURSO</span>' : (upcoming ? '<span class="tc-status now">PROXIMO</span>' : '<span class="tc-status done">FINALIZADO</span>');
       const champs = (t.previousWinners || []).map(pw =>
-        '<span><b>' + esc(pw.type ? pw.type.text : '') + ':</b> ' + esc(pw.displayName || 'â€”') + '</span>'
+        '<span><b>' + esc(pw.type ? pw.type.text : '') + ':</b> ' + esc(pw.displayName || '—') + '</span>'
       ).join('');
       html += '<div class="tour-card">' +
         '<div class="tc-top"><div><h3>' + esc(t.name) + '</h3>' +
@@ -1007,7 +1026,7 @@
 
     const tour = allTournaments().find(t => t.id === state.drawTournamentId);
     const drawTypes = new Set(ms.map(m => m.type));
-    $('drawMeta').textContent = (tour ? tour.name + ' Â· ' : '') + Array.from(drawTypes).join(' / ') + ' Â· ' + ms.length + ' partidos';
+    $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + Array.from(drawTypes).join(' / ') + ' · ' + ms.length + ' partidos';
 
     const cols = keys.map(key => {
       const grp = roundMap.get(key);
@@ -1024,7 +1043,7 @@
             '<span class="dp-score">' + sc + (tb ? '<span class="tb">' + tb + '</span>' : '') + '</span></div>';
         }).join('');
         const st = m.suspended ? '<div class="dm-status" style="color:var(--warn)">&#9209; SUSPENDIDO</div>'
-          : m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">â— EN VIVO SET ' + (m.period || '') + '</div>'
+          : m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">● EN VIVO SET ' + (m.period || '') + '</div>'
           : m.state === 'pre' ? '<div class="dm-status">' + fmtTime(m.date) + '</div>' : '';
         return '<div class="draw-match' + ((m.state === 'in' || m.suspended) ? ' live' : '') + '">' + rows + st + '</div>';
       }).join('');
@@ -1038,7 +1057,7 @@
   /* ---------------- render: rankings ---------------- */
 
   function movementHtml(trend) {
-    let num = trend, cls = 'flat', sym = 'â€”';
+    let num = trend, cls = 'flat', sym = '—';
     if (typeof trend === 'string') {
       if (trend.startsWith('+')) { cls = 'up'; sym = '&uarr;'; num = trend.slice(1); }
       else if (trend.startsWith('-') && trend !== '-') { cls = 'down'; sym = '&darr;'; num = trend.slice(1); }
@@ -1078,9 +1097,9 @@
     }
 
     const rows = filtered.map((r, i) => {
-      const name = r.name || r.athleteName || 'â€”';
+      const name = r.name || r.athleteName || '—';
       const flag = mode === 'singles' ? r.flag : flagUrl(r.flag);
-      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : 'â€”';
+      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
       const rankTxt = r.rankRaw || r.rank;
       const rankCls = String(rankTxt) === '1' ? 'r-rank top1' : 'r-rank';
       const trend = mode === 'singles' ? r.trend : r.movement;
@@ -1121,8 +1140,8 @@
     for (const t of selectedTours()) for (const m of selectedModes()) html.push(renderRankSection(t, m));
     el.innerHTML = html.join('');
     const total = selectedTours().length * selectedModes().length;
-    $('rankMeta').textContent = 'Rankings Â· ' + total + ' lista(s)' +
-      (state.rankSearch ? ' Â· buscando "' + state.rankSearch + '"' : '');
+    $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
+      (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
   }
 
   /* ---------------- render: ranking Argentina ---------------- */
@@ -1140,8 +1159,8 @@
     if (!data) return header + '<div class="loading">Cargando ranking...</div>';
     if (!data.length) return header + '<div class="error-box">No hay ranking disponible.</div>';
     const rows = data.filter(isArgentina).map(r => {
-      const name = r.name || 'â€”';
-      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : 'â€”';
+      const name = r.name || '—';
+      const pts = r.points != null ? Math.round(r.points).toLocaleString('es') : '—';
       const trend = r.trend != null ? r.trend : r.movement;
       const flag = typeof r.flag === 'string' && /^https?:\/\//.test(r.flag) ? r.flag : flagUrl(r.flag);
       return '<tr>' +
@@ -1171,10 +1190,10 @@
       });
     }
     const html = [
-      renderArgSection('ATP Singles Â· Argentina', state.rankSingles.atp),
-      renderArgSection('WTA Singles Â· Argentina', state.rankSingles.wta),
-      renderArgSection('ATP Dobles Â· Argentina', state.rankDoubles.atp && state.rankDoubles.atp.players),
-      renderArgSection('WTA Dobles Â· Argentina', state.rankDoubles.wta && state.rankDoubles.wta.players)
+      renderArgSection('ATP Singles · Argentina', state.rankSingles.atp),
+      renderArgSection('WTA Singles · Argentina', state.rankSingles.wta),
+      renderArgSection('ATP Dobles · Argentina', state.rankDoubles.atp && state.rankDoubles.atp.players),
+      renderArgSection('WTA Dobles · Argentina', state.rankDoubles.wta && state.rankDoubles.wta.players)
     ];
     el.innerHTML = html.join('');
     let count = 0;
@@ -1182,6 +1201,58 @@
       if (d) count += d.filter(isArgentina).length;
     }
     $('argMeta').textContent = count + ' jugador(es) de Argentina';
+  }
+
+  /* ---------------- render: ranking anual (elo) ---------------- */
+
+  function renderElo() {
+    const el = $('eloContent');
+    if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando ranking Elo...</div>'; return; }
+    const q = state.eloSearch;
+    const topN = state.eloTop;
+    const filterData = (data) => {
+      if (!data || !data.length) return [];
+      let d = data;
+      if (topN > 0) d = d.slice(0, topN);
+      if (q) d = d.filter(r => (r.player || '').toLowerCase().indexOf(q) > -1);
+      return d;
+    };
+    const sec = (title, data) => {
+      const header = '<div class="rank-section-title">' + title + '</div>';
+      const filtered = filterData(data);
+      if (!data || !data.length) return header + '<div class="error-box">No hay datos Elo disponibles.</div>';
+      if (q && !filtered.length) return header + '<div class="error-box">No se encontraron jugadores que coincidan con "' + esc(q) + '" en ' + title + '.</div>';
+      const rows = filtered.map(r => {
+        return '<tr>' +
+          '<td class="r-r">' + esc(r.rank) + '</td>' +
+          '<td class="r-name">' + esc(r.player) + '</td>' +
+          '<td class="r-r">' + esc(r.age) + '</td>' +
+          '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
+          '<td class="r-r">' + esc(r.hElo) + '</td>' +
+          '<td class="r-r">' + esc(r.cElo) + '</td>' +
+          '<td class="r-r">' + esc(r.gElo) + '</td>' +
+          '<td class="r-r">' + esc(r.peakElo) + '</td>' +
+          '<td class="r-r">' + esc(r.peakMonth) + '</td>' +
+          '<td class="r-r">' + esc(r.officialRank) + '</td>' +
+          '</tr>';
+      }).join('');
+      return header +
+        '<div class="rank-table-wrap"><table class="rank-table elo-table">' +
+        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Elo</th><th>hElo</th><th>cElo</th><th>gElo</th><th>Pico</th><th>Mes</th><th>Rank Oficial</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table></div>';
+    };
+    const showAtp = state.eloTab === 'todos' || state.eloTab === 'atp';
+    const showWta = state.eloTab === 'todos' || state.eloTab === 'wta';
+    let html = '';
+    if (showAtp) html += sec('ATP Singles', state.elo.atp);
+    if (showWta) html += sec('WTA Singles', state.elo.wta);
+    el.innerHTML = html || '<div class="error-box">Sin datos.</div>';
+    const atpCount = showAtp && state.elo.atp ? filterData(state.elo.atp).length : 0;
+    const wtaCount = showWta && state.elo.wta ? filterData(state.elo.wta).length : 0;
+    const parts = [];
+    if (showAtp) parts.push(atpCount + ' jugadores ATP');
+    if (showWta) parts.push(wtaCount + ' jugadores WTA');
+    $('eloMeta').textContent = parts.join(' · ') + (q ? ' · buscando "' + q + '"' : '');
   }
 
   /* ---------------- render dispatcher ---------------- */
@@ -1197,6 +1268,7 @@
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
     else if (state.tab === 'argentina') renderArgentina();
+    else if (state.tab === 'elo') renderElo();
     else if (state.tab === 'calendar') renderCalendar();
   }
 
@@ -1205,6 +1277,7 @@
     document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
+    document.body.classList.toggle('tab-elo', tab === 'elo');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
@@ -1215,8 +1288,13 @@
       refreshVideos();
       return;
     }
+    if (tab === 'elo' && !state.elo.loaded) {
+      render();
+      refreshElo();
+      return;
+    }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados' || tab === 'news' || tab === 'videos') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados' || tab === 'news' || tab === 'videos' || tab === 'elo') && !state.matches.length) {
       refreshAll();
     }
   }
@@ -1339,6 +1417,41 @@
         state.rankSearch = '';
         renderRankings();
         rankSearch.focus();
+      });
+    }
+
+    const segElo = document.getElementById('segElo');
+    if (segElo) {
+      segElo.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.eloTab = b.dataset.elotab;
+        document.querySelectorAll('#segElo .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        render();
+      });
+    }
+    const segEloTop = document.getElementById('segEloTop');
+    if (segEloTop) {
+      segEloTop.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.eloTop = parseInt(b.dataset.elotop, 10) || 0;
+        document.querySelectorAll('#segEloTop .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        render();
+      });
+    }
+    const eloSearch = $('eloSearch');
+    if (eloSearch) {
+      eloSearch.addEventListener('input', () => {
+        state.eloSearch = eloSearch.value.toLowerCase().trim();
+        render();
+      });
+      const eloClear = $('eloSearchClear');
+      if (eloClear) eloClear.addEventListener('click', () => {
+        eloSearch.value = '';
+        state.eloSearch = '';
+        render();
+        eloSearch.focus();
       });
     }
 
