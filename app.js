@@ -908,6 +908,7 @@
     const suspNote = m.suspended ? '<div class="note susp-note">Partido suspendido por lluvia</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
     let h2hBtn = '';
+    let statsBtn = '';
     if (m.tour === 'itf') {
       h2hBtn = m.teId ? '<button class="itf-h2h" data-teid="' + esc(m.teId) + '">H2H ' + esc(m.h2h || '0-0') + '</button>' : '';
     } else if (comps.length === 2 && m.state !== 'in') {
@@ -915,11 +916,14 @@
       const p2n = comps[1].name || '';
       if (p1n && p2n) {
         h2hBtn = '<button class="m-h2h" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">H2H</button>';
+        if (useLocalBackend()) {
+          statsBtn = '<button class="m-stats" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">STATS</button>';
+        }
       }
     }
     const itfInfo = m.tour === 'itf'
       ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' + h2hBtn + '</div>'
-      : (h2hBtn ? '<div class="m-h2h-wrap">' + h2hBtn + '</div>' : '');
+      : ((h2hBtn || statsBtn) ? '<div class="m-h2h-wrap">' + h2hBtn + statsBtn + '</div>' : '');
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
       '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
@@ -1366,6 +1370,66 @@
     if (overlay) overlay.classList.add('hidden');
   }
 
+  /* ---------------- STATS ---------------- */
+
+  async function openStats(p1, p2) {
+    const body = $('statsBody');
+    const overlay = $('statsOverlay');
+    if (!body || !overlay) return;
+    body.innerHTML = '<div class="h2h-loading">Cargando estadísticas...</div>';
+    overlay.classList.remove('hidden');
+    try {
+      const j = await fetchJson('api/stats?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      renderStats(body, j, p1, p2);
+    } catch (err) {
+      body.innerHTML = '<div class="error-box">No se pudieron cargar las estadísticas: ' + esc(err.message) + '</div>';
+    }
+  }
+
+  function renderStats(body, j, p1, p2) {
+    if (!j.ok) { body.innerHTML = '<div class="error-box">' + esc(j.error || 'Error') + '</div>'; return; }
+    const s = j.stats;
+    const num = v => parseInt(v, 10) || 0;
+    const pct = (a, b) => { const n = num(a), d = num(b); return d ? ((n / d) * 100).toFixed(1) + '%' : '—'; };
+    const dateStr = s.date ? (s.date.slice(0, 4) + '-' + s.date.slice(4, 6) + '-' + s.date.slice(6, 8)) : '';
+    const resultCls = s.result === 'W' ? 'stats-win' : 'stats-loss';
+    const header = '<div class="stats-title">' + esc(p1) + ' <span class="h2h-vs">vs</span> ' + esc(p2) + '</div>' +
+      '<div class="stats-match-info">' +
+        '<span class="' + resultCls + '">' + esc(s.result) + '</span> · ' +
+        esc(s.tournament) + ' · ' + esc(s.round) + ' · ' + esc(s.surface) + ' · ' + esc(dateStr) +
+      '</div>' +
+      '<div class="stats-score">' + esc(s.score) + '</div>';
+    const rows = [
+      ['', esc(p1), esc(p2)],
+      ['Aces', esc(s.aces), esc(s.oaces)],
+      ['Doble faltas', esc(s.dfs), esc(s.odfs)],
+      ['Puntos de saque', esc(s.pts), esc(s.opts)],
+      ['1ros en', esc(s.firsts), esc(s.ofirsts)],
+      ['1ros ganados', esc(s.fwon), esc(s.ofwon)],
+      ['2dos ganados', esc(s.swon), esc(s.oswon)],
+      ['Juegos de saque', esc(s.games), esc(s.ogames)],
+      ['BP salvados', esc(s.saved) + '/' + esc(s.chances), esc(s.osaved) + '/' + esc(s.ochances)],
+      ['%', ''],
+      ['Ace%', pct(s.aces, s.pts), pct(s.oaces, s.opts)],
+      ['DF%', pct(s.dfs, s.pts), pct(s.odfs, s.opts)],
+      ['1st%', pct(s.firsts, s.pts), pct(s.ofirsts, s.opts)],
+      ['1st ganados%', pct(s.fwon, s.firsts), pct(s.ofwon, s.ofirsts)],
+      ['2nd ganados%', pct(s.swon, num(s.pts) - num(s.firsts)), pct(s.oswon, num(s.opts) - num(s.ofirsts))],
+    ];
+    const tableRows = rows.map((r, i) => {
+      if (r.length === 2) return '<tr class="stats-sep"><td colspan="3">' + r[0] + '</td></tr>';
+      return '<tr><td class="stats-label">' + r[0] + '</td><td class="stats-val">' + r[1] + '</td><td class="stats-val">' + r[2] + '</td></tr>';
+    }).join('');
+    body.innerHTML = header +
+      '<table class="stats-table"><thead><tr><th></th><th>' + esc(p1.split(' ').pop()) + '</th><th>' + esc(p2.split(' ').pop()) + '</th></tr></thead>' +
+      '<tbody>' + tableRows + '</tbody></table>';
+  }
+
+  function closeStats() {
+    const overlay = $('statsOverlay');
+    if (overlay) overlay.classList.add('hidden');
+  }
+
   /* ---------------- wiring ---------------- */
 
   function init() {
@@ -1470,13 +1534,21 @@
       h2hOverlay.addEventListener('click', e => {
         if (e.target === h2hOverlay || e.target.closest('.h2h-close')) closeH2H();
       });
-      document.addEventListener('click', e => {
-        const itfBtn = e.target.closest('.itf-h2h');
-        if (itfBtn) { openH2H(itfBtn.getAttribute('data-teid')); return; }
-        const h2hBtn = e.target.closest('.m-h2h');
-        if (h2hBtn) { openH2HByName(h2hBtn.getAttribute('data-p1'), h2hBtn.getAttribute('data-p2')); }
+    }
+    const statsOverlay = document.getElementById('statsOverlay');
+    if (statsOverlay) {
+      statsOverlay.addEventListener('click', e => {
+        if (e.target === statsOverlay || e.target.closest('.h2h-close')) closeStats();
       });
     }
+    document.addEventListener('click', e => {
+      const itfBtn = e.target.closest('.itf-h2h');
+      if (itfBtn) { openH2H(itfBtn.getAttribute('data-teid')); return; }
+      const h2hBtn = e.target.closest('.m-h2h');
+      if (h2hBtn) { openH2HByName(h2hBtn.getAttribute('data-p1'), h2hBtn.getAttribute('data-p2')); return; }
+      const statsBtn = e.target.closest('.m-stats');
+      if (statsBtn) { openStats(statsBtn.getAttribute('data-p1'), statsBtn.getAttribute('data-p2')); }
+    });
 
     let savedTheme = 'oscuro';
     try { savedTheme = localStorage.getItem('mhc-theme') || 'oscuro'; } catch (e) {}
