@@ -1005,7 +1005,18 @@
       if (!state.finishedAt[m.id]) state.finishedAt[m.id] = Date.now();
       state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
     }
-    const list = Object.values(state.finishedMatches);
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const todayTs = todayStart.getTime();
+    const list = Object.values(state.finishedMatches).filter(m => {
+      const ts = state.finishedAt[m.id] || 0;
+      if (ts >= todayTs) return true;
+      if (m.date) {
+        const d = new Date(m.date);
+        if (!isNaN(d) && d.getTime() >= todayTs) return true;
+      }
+      return false;
+    });
     if (!state.matches.length && !state.challLive.matches.length && !state.itfLive.matches.length && !list.length) {
       el.innerHTML = '<div class="loading">Cargando partidos...</div>';
       return;
