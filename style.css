@@ -815,3 +815,5 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
 .elo-table .r-r { text-align: right; font-variant-numeric: tabular-nums; }
 .elo-table .elo-main { font-weight: 800; color: var(--accent); }
 .elo-table td.r-r { padding: 6px 10px; }
+.elo-table .r-name a { color: inherit; text-decoration: none; }
+.elo-table .r-name a:hover { text-decoration: underline; color: var(--accent); }
