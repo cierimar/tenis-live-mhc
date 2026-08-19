@@ -830,19 +830,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .topbar-phrase {
   flex: 1; text-align: center; min-width: 0;
   font-family: 'Bebas Neue', sans-serif; font-size: clamp(22px, 3vw, 34px); font-weight: 400; letter-spacing: 3px;
-  -webkit-text-stroke: 0.5px var(--accent);
-  mask-image:
-    linear-gradient(transparent 0%, #000 3%, #000 5%, transparent 5.5%),
-    linear-gradient(170deg, transparent 0%, #000 8%, #000 12%, transparent 13%),
-    linear-gradient(350deg, transparent 20%, #000 22%, #000 30%, transparent 31%),
-    linear-gradient(85deg, transparent 40%, #000 42%, #000 48%, transparent 49%),
-    linear-gradient(175deg, transparent 55%, #000 57%, #000 63%, transparent 64%),
-    linear-gradient(5deg, transparent 70%, #000 72%, #000 78%, transparent 79%),
-    linear-gradient(160deg, transparent 85%, #000 87%, #000 92%, transparent 93%);
-  mask-size: 100% 100%;
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
-  opacity: .9;
+  -webkit-text-stroke: 0.5px var(--accent); opacity: .9;
   text-shadow: 1px 1px 0 rgba(0,0,0,.4), -1px 0 2px rgba(255,255,255,.05);
   color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 6px;
 }
