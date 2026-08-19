@@ -789,8 +789,8 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   animation: marquee 25s linear infinite, mottoGlow 3s ease-in-out infinite alternate;
 }
 @keyframes marquee {
-  0%   { transform: translateX(100vw); }
-  100% { transform: translateX(-100%); }
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
 }
 @keyframes mottoGlow {
   from { text-shadow: 0 0 6px #fff, 0 0 18px #fff, 0 0 36px rgba(255,255,255,.1); }
