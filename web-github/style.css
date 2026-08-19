@@ -787,7 +787,9 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-text h1 { font-family: 'Teko', sans-serif; font-size: 36px; letter-spacing: 2px; font-weight: 700; }
-.brand-text h1 span.live-text { color: var(--accent); }
+.brand-text h1 span.live-text {
+  color: var(--accent); text-shadow: 0 0 10px var(--accent), 0 0 30px var(--accent), 0 0 50px var(--accent);
+}
 .mhc-logo {
   display: inline-flex; align-items: center; justify-content: center;
   width: 42px; height: 42px; border-radius: 50%;
