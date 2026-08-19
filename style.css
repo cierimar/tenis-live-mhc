@@ -779,9 +779,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 }
 .brand, .status-area { position: relative; z-index: 1; }
 .motto {
-  text-align: center; font-size: 11px; font-style: italic; letter-spacing: .3px;
-  padding: 6px 22px 8px; color: rgba(255,255,255,.6);
-  background: #000; border-bottom: 1px solid var(--line);
+  height: 6px; background: var(--accent); border: none;
 }
 @keyframes mottoGlow {
   from { text-shadow: 0 0 6px #fff, 0 0 18px #fff, 0 0 36px rgba(255,255,255,.1); }
