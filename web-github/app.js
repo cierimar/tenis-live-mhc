@@ -1,4 +1,4 @@
-﻿/* TENIS LIVE MHC — app.js */
+/* TENIS LIVE MHC — app.js */
 (function () {
   'use strict';
 
@@ -31,6 +31,7 @@
     playerCountry: '',
     birthdays: { data: null, loaded: false },
     bdTab: 'all',
+    currentTour: { data: null, loaded: false, tab: 'women' },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -584,8 +585,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -744,13 +745,13 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour()]);
       applySuspensions();
       detectDisappearedMatches();
       stampFinished();
       refreshItfLive().then(() => {
         stampFinished();
-        if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
+        if (state.tab === 'live' || state.tab === 'tournaments') render();
       });
       const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
       if ((state.tab === 'rankings' && wantsDoubles) || state.tab === 'argentina') {
@@ -1000,67 +1001,6 @@
     return 'hace ' + Math.floor(s / 86400) + ' d';
   }
 
-  function renderFinalizados() {
-    const el = $('finContent');
-    const currentFinished = filteredMatches().filter(m => m.state === 'post');
-    for (const m of currentFinished) {
-      if (!state.finishedAt[m.id]) state.finishedAt[m.id] = Date.now();
-      state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
-    }
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayTs = todayStart.getTime();
-    const list = Object.values(state.finishedMatches).filter(m => {
-      const ts = state.finishedAt[m.id] || 0;
-      if (ts >= todayTs) return true;
-      if (m.date) {
-        const d = new Date(m.date);
-        if (!isNaN(d) && d.getTime() >= todayTs) return true;
-      }
-      return false;
-    });
-    if (!state.matches.length && !state.challLive.matches.length && !state.itfLive.matches.length && !list.length) {
-      el.innerHTML = '<div class="loading">Cargando partidos...</div>';
-      return;
-    }
-    if (!list.length) {
-      const label = state.tour === 'todos' ? 'finalizados' : 'de ' + state.tour.toUpperCase() + ' finalizados';
-      el.innerHTML = '<div class="error-box">No hay partidos ' + label + '.</div>';
-      $('finMeta').textContent = '0 partidos finalizados';
-      return;
-    }
-    list.sort((a, b) => (state.finishedAt[b.id] || 0) - (state.finishedAt[a.id] || 0));
-    const CIRCUIT_ORDER = ['atp', 'wta', 'chall', 'itf'];
-    const CIRCUIT_LABEL = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF' };
-    const byCircuit = new Map();
-    for (const m of list) {
-      const c = tourOf(m);
-      if (!byCircuit.has(c)) byCircuit.set(c, []);
-      byCircuit.get(c).push(m);
-    }
-    const orderedCircuits = CIRCUIT_ORDER.filter(c => byCircuit.has(c));
-    let html = '';
-    for (const c of orderedCircuits) {
-      const ms = byCircuit.get(c);
-      const chip = '<span class="tour-chip">' + CIRCUIT_LABEL[c] + '</span>';
-      let cards = '';
-      const byTournament = new Map();
-      for (const m of ms) {
-        if (!byTournament.has(m.tournamentId)) byTournament.set(m.tournamentId, []);
-        byTournament.get(m.tournamentId).push(m);
-      }
-      for (const [tid, tms] of byTournament) {
-        const tour = allTournaments().find(t => t.id === tid);
-        const name = tour ? tour.name : (tms[0].tournamentName || 'Torneo');
-        cards += '<div class="fin-tournament"><div class="fin-tournament-name">' + esc(name) + '</div>' +
-          tms.map(m => matchCard(m)).join('') + '</div>';
-      }
-      html += '<div class="tour-block"><div class="tour-head">' + chip +
-        '<span class="t-date">' + todayStr() + '</span></div>' + cards + '</div>';
-    }
-    el.innerHTML = html;
-    $('finMeta').textContent = list.length + ' partido(s) finalizado(s)';
-  }
 
   function matchCard(m) {
     const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
@@ -1475,6 +1415,55 @@
     el.innerHTML = html;
   }
 
+  async function refreshCurrentTour() {
+    try {
+      const url = useLocalBackend() ? 'api/current-tour' : 'current-tour.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (j && j.ok) { state.currentTour = { ...state.currentTour, data: j, loaded: true }; }
+      else { state.currentTour = { ...state.currentTour, loaded: true }; }
+    } catch (_) { state.currentTour = { ...state.currentTour, loaded: true }; }
+    if (state.tab === 'currenttour') render();
+  }
+
+  function renderCurrentTour() {
+    const el = $('ctContent');
+    const meta = $('ctMeta');
+    const ct = state.currentTour;
+    if (!ct.loaded || !ct.data) { el.innerHTML = '<div class="loading">Cargando torneos actuales...</div>'; return; }
+    const t = ct.data.tour || {};
+    const list = t[ct.tab] || [];
+    if (meta) meta.textContent = 'Actualizado: ' + (ct.data.updated || '--');
+    if (!list.length) { el.innerHTML = '<div class="loading">No hay torneos activos en esta categoría.</div>'; return; }
+    let html = '';
+    list.forEach(tour => {
+      html += '<div class="ct-card">';
+      html += '<div class="ct-card-head"><a href="' + esc(tour.url) + '" target="_blank" class="ta-link">' + esc(tour.name) + '</a></div>';
+      html += '<div class="ct-card-fav">Favorito: <b>' + esc(tour.favorite) + '</b> (' + tour.favoritePct + '%)</div>';
+      if (tour.detail) {
+        if (tour.detail.completed) {
+          const cHtml = tour.detail.completed;
+          if (cHtml && cHtml.trim() && cHtml.trim() !== '&nbsp;') {
+            html += '<div class="ct-section"><div class="ct-section-title">Resultados</div>';
+            html += '<div class="ct-matches">' + cHtml + '</div></div>';
+          }
+        }
+        if (tour.detail.upcoming) {
+          const uHtml = tour.detail.upcoming;
+          if (uHtml && uHtml.trim() && uHtml.trim() !== '&nbsp;') {
+            html += '<div class="ct-section"><div class="ct-section-title">Próximos partidos</div>';
+            html += '<div class="ct-matches">' + uHtml + '</div></div>';
+          }
+        }
+        if (tour.detail.forecast) {
+          html += '<div class="ct-section"><div class="ct-section-title">Forecast</div>';
+          html += '<div class="ct-forecast">' + tour.detail.forecast + '</div></div>';
+        }
+      }
+      html += '</div>';
+    });
+    el.innerHTML = html;
+  }
+
   function renderPlayers() {
     const el = $('playersContent');
     if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
@@ -1524,7 +1513,6 @@
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     $('view-' + state.tab).classList.add('active');
     if (state.tab === 'live') renderLive();
-    else if (state.tab === 'finalizados') renderFinalizados();
     else if (state.tab === 'news') renderNews();
     else if (state.tab === 'videos') renderVideos();
     else if (state.tab === 'tournaments') renderTournaments();
@@ -1535,6 +1523,7 @@
     else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
+    else if (state.tab === 'currenttour') renderCurrentTour();
   }
 
   function setTab(tab) {
@@ -1569,8 +1558,13 @@
       refreshBirthdays();
       return;
     }
+    if (tab === 'currenttour' && !state.currentTour.loaded) {
+      render();
+      refreshCurrentTour();
+      return;
+    }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados' || tab === 'news' || tab === 'videos' || tab === 'elo') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'news' || tab === 'videos' || tab === 'elo') && !state.matches.length) {
       refreshAll();
     }
   }
@@ -1862,6 +1856,16 @@
         state.bdTab = b.dataset.bdtab;
         document.querySelectorAll('#segBirthdays .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderBirthdays();
+      });
+    }
+    const segCT = document.getElementById('segCT');
+    if (segCT) {
+      segCT.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.currentTour.tab = b.dataset.ct;
+        document.querySelectorAll('#segCT .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        renderCurrentTour();
       });
     }
     const playerSearch = $('playerSearch');
