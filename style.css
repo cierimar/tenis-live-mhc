@@ -1020,21 +1020,21 @@ body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segT
   display: grid; gap: 16px; min-width: 960px;
   grid-auto-columns: minmax(220px, 1fr); grid-auto-flow: column;
 }
-.draw-col { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+.draw-col { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 14px; min-width: 260px; }
 .draw-col h4 {
   font-size: 11px; letter-spacing: 1px; color: var(--accent); text-transform: uppercase;
   text-align: center; padding-bottom: 8px; border-bottom: 1px solid var(--line); margin-bottom: 10px;
 }
-.draw-match { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; margin-bottom: 8px; font-size: 12px; }
+.draw-match { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; font-size: 14px; }
 .draw-match.live { border-color: var(--live); }
-.draw-player { display: flex; align-items: center; gap: 6px; justify-content: space-between; padding: 1px 0; }
-.draw-player .dp-name { display: flex; align-items: center; gap: 6px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.draw-player .dp-name img { width: 17px; height: 12px; object-fit: cover; border-radius: 2px; }
+.draw-player { display: flex; align-items: center; gap: 8px; justify-content: space-between; padding: 3px 0; }
+.draw-player .dp-name { display: flex; align-items: center; gap: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.draw-player .dp-name img { width: 20px; height: 14px; object-fit: cover; border-radius: 2px; }
 .draw-player.winner .dp-name { color: var(--win); font-weight: 700; }
-.draw-player .dp-score { font-weight: 700; display: flex; gap: 4px; }
+.draw-player .dp-score { font-weight: 700; display: flex; gap: 6px; font-size: 14px; }
 .draw-player.winner .dp-score { color: var(--win); }
-.draw-player .tb { font-size: 10px; color: var(--muted); }
-.draw-match .dm-status { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.draw-player .tb { font-size: 11px; color: var(--muted); }
+.draw-match .dm-status { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .draw-empty { color: var(--muted); font-size: 12px; text-align: center; padding: 8px; }
 
 /* ---------- rankings ---------- */
@@ -1106,7 +1106,7 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
 
   .grid-tournaments { grid-template-columns: 1fr; }
   .select-tour { width: 100%; min-width: 0; }
-  .draw-cols { grid-auto-columns: minmax(200px, 1fr); min-width: 640px; }
+  .draw-cols { grid-auto-columns: minmax(260px, 1fr); min-width: 640px; }
 
   .rank-table { min-width: 440px; font-size: 12px; }
   footer { padding: 12px; }
