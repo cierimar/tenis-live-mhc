@@ -751,7 +751,7 @@
       stampFinished();
       refreshItfLive().then(() => {
         stampFinished();
-        if (state.tab === 'live' || state.tab === 'tournaments' || state.tab === 'finalizados') render();
+        if (state.tab === 'live' || state.tab === 'tournaments') render();
       });
       const wantsDoubles = state.mode === 'doubles' || state.mode === 'todos';
       if ((state.tab === 'rankings' && wantsDoubles) || state.tab === 'argentina') {
@@ -1001,67 +1001,6 @@
     return 'hace ' + Math.floor(s / 86400) + ' d';
   }
 
-  function renderFinalizados() {
-    const el = $('finContent');
-    const currentFinished = filteredMatches().filter(m => m.state === 'post');
-    for (const m of currentFinished) {
-      if (!state.finishedAt[m.id]) state.finishedAt[m.id] = Date.now();
-      state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
-    }
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-    const todayTs = todayStart.getTime();
-    const list = Object.values(state.finishedMatches).filter(m => {
-      const ts = state.finishedAt[m.id] || 0;
-      if (ts >= todayTs) return true;
-      if (m.date) {
-        const d = new Date(m.date);
-        if (!isNaN(d) && d.getTime() >= todayTs) return true;
-      }
-      return false;
-    });
-    if (!state.matches.length && !state.challLive.matches.length && !state.itfLive.matches.length && !list.length) {
-      el.innerHTML = '<div class="loading">Cargando partidos...</div>';
-      return;
-    }
-    if (!list.length) {
-      const label = state.tour === 'todos' ? 'finalizados' : 'de ' + state.tour.toUpperCase() + ' finalizados';
-      el.innerHTML = '<div class="error-box">No hay partidos ' + label + '.</div>';
-      $('finMeta').textContent = '0 partidos finalizados';
-      return;
-    }
-    list.sort((a, b) => (state.finishedAt[b.id] || 0) - (state.finishedAt[a.id] || 0));
-    const CIRCUIT_ORDER = ['atp', 'wta', 'chall', 'itf'];
-    const CIRCUIT_LABEL = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF' };
-    const byCircuit = new Map();
-    for (const m of list) {
-      const c = tourOf(m);
-      if (!byCircuit.has(c)) byCircuit.set(c, []);
-      byCircuit.get(c).push(m);
-    }
-    const orderedCircuits = CIRCUIT_ORDER.filter(c => byCircuit.has(c));
-    let html = '';
-    for (const c of orderedCircuits) {
-      const ms = byCircuit.get(c);
-      const chip = '<span class="tour-chip">' + CIRCUIT_LABEL[c] + '</span>';
-      let cards = '';
-      const byTournament = new Map();
-      for (const m of ms) {
-        if (!byTournament.has(m.tournamentId)) byTournament.set(m.tournamentId, []);
-        byTournament.get(m.tournamentId).push(m);
-      }
-      for (const [tid, tms] of byTournament) {
-        const tour = allTournaments().find(t => t.id === tid);
-        const name = tour ? tour.name : (tms[0].tournamentName || 'Torneo');
-        cards += '<div class="fin-tournament"><div class="fin-tournament-name">' + esc(name) + '</div>' +
-          tms.map(m => matchCard(m)).join('') + '</div>';
-      }
-      html += '<div class="tour-block"><div class="tour-head">' + chip +
-        '<span class="t-date">' + todayStr() + '</span></div>' + cards + '</div>';
-    }
-    el.innerHTML = html;
-    $('finMeta').textContent = list.length + ' partido(s) finalizado(s)';
-  }
 
   function matchCard(m) {
     const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
@@ -1574,7 +1513,6 @@
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     $('view-' + state.tab).classList.add('active');
     if (state.tab === 'live') renderLive();
-    else if (state.tab === 'finalizados') renderFinalizados();
     else if (state.tab === 'news') renderNews();
     else if (state.tab === 'videos') renderVideos();
     else if (state.tab === 'tournaments') renderTournaments();
@@ -1626,7 +1564,7 @@
       return;
     }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'finalizados' || tab === 'news' || tab === 'videos' || tab === 'elo') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'news' || tab === 'videos' || tab === 'elo') && !state.matches.length) {
       refreshAll();
     }
   }
