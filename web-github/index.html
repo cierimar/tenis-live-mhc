@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>TENIS LIVE MHC</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='35%25' cy='28%25' r='85%25'><stop offset='0%25' stop-color='%23f7ff72'/><stop offset='45%25' stop-color='%23d8f63c'/><stop offset='100%25' stop-color='%239dbd20'/></radialGradient></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><path d='M50 4 C 76 34, 76 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><path d='M50 4 C 24 34, 24 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='50' r='46' fill='none' stroke='rgba(0,0,0,0.25)' stroke-width='1.5'/></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-text">
+      <h1>TENIS <span class="live-text">LIVE</span> <span class="mhc-logo"><span class="mhc-text">MHC</span></span></h1>
+      <p>Resultados en tiempo real &middot; ATP &amp; WTA</p>
+    </div>
+  </div>
+  <div class="status-area">
+    <div id="livePill" class="live-pill"><span class="dot"></span> EN VIVO</div>
+    <div class="clock"><span id="clock">--:--:--</span></div>
+    <div class="updated">Actualizado: <span id="lastUpdate">--</span></div>
+    <div class="countdown">Auto-refresh <span id="countdown">30</span>s</div>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="live">EN VIVO</button>
+  <button class="tab" data-tab="finalizados">FINALIZADOS</button>
+  <button class="tab" data-tab="news">NOTICIAS</button>
+  <button class="tab" data-tab="videos">VIDEOS</button>
+  <button class="tab" data-tab="tournaments">TORNEOS</button>
+  <button class="tab" data-tab="draws">CUADROS</button>
+  <button class="tab" data-tab="rankings">RANKINGS</button>
+  <button class="tab" data-tab="elo">RANKING ANUAL</button>
+  <button class="tab" data-tab="argentina">ARG</button>
+  <button class="tab" data-tab="players">PLAYERS</button>
+  <button class="tab" data-tab="birthdays">CUMPLEAÑOS</button>
+  <button class="tab" data-tab="calendar">CALENDARIO</button>
+</nav>
+
+<div class="controls">
+  <div class="seg" id="segTour">
+    <button class="seg-btn active" data-tour="todos">TODOS</button>
+    <button class="seg-btn" data-tour="atp">ATP</button>
+    <button class="seg-btn" data-tour="wta">WTA</button>
+    <button class="seg-btn" data-tour="chall">CHALL</button>
+    <button class="seg-btn" data-tour="itf">ITF</button>
+  </div>
+  <div class="seg" id="segMode">
+    <button class="seg-btn active" data-mode="todos">TODOS</button>
+    <button class="seg-btn" data-mode="singles">SINGLES</button>
+    <button class="seg-btn" data-mode="doubles">DOBLES</button>
+  </div>
+  <div class="controls-spacer"></div>
+  <select id="themeSelect" class="select-theme" title="Tema de color">
+    <option value="oscuro">Tema: Oscuro</option>
+    <option value="claro">Tema: Claro</option>
+    <option value="azul">Tema: Azul</option>
+    <option value="rosa">Tema: Rosa</option>
+    <option value="ambar">Tema: Ámbar</option>
+    <option value="naranja">Tema: Naranja</option>
+    <option value="verde">Tema: Verde</option>
+    <option value="celeste">Tema: Celeste</option>
+    <option value="violeta">Tema: Violeta</option>
+    <option value="dorado">Tema: Dorado</option>
+    <option value="negro">Tema: Negro</option>
+    <option value="purpura">Tema: Púrpura</option>
+    <option value="amarillo">Tema: Amarillo</option>
+    <option value="verdefluo">Tema: Verde fluorescente</option>
+    <option value="rojo">Tema: Rojo</option>
+    <option value="amarilloneon">Tema: Amarillo neon</option>
+    <option value="verdeneon">Tema: Verde neon</option>
+    <option value="rosaneon">Tema: Rosa neon</option>
+    <option value="fucsianeon">Tema: Fucsia neon</option>
+    <option value="naranjaneon">Tema: Naranja neon</option>
+    <option value="azulelectrico">Tema: Azul eléctrico</option>
+    <option value="rojoneon">Tema: Rojo neon</option>
+    <option value="violetaneon">Tema: Violeta neon</option>
+    <option value="morado">Tema: Morado</option>
+    <option value="amarillofluo">Tema: Amarillo fluorescente</option>
+    <option value="naranjafluo">Tema: Naranja fluorescente</option>
+    <option value="multicolor">Tema: Multicolor</option>
+    <option value="plateado">Tema: Plateado</option>
+    <option value="marron">Tema: Marrón oscuro y ocre</option>
+    <option value="violetaelectrico">Tema: Violeta eléctrico</option>
+    <option value="verdeacido">Tema: Verde ácido</option>
+    <option value="azulpetroleo">Tema: Azul petróleo iridiscente</option>
+    <option value="rosholografico">Tema: Rosa holográfico</option>
+    <option value="rojocarmesi">Tema: Rojo carmesí metálico</option>
+    <option value="cianelectrico">Tema: Cian eléctrico</option>
+    <option value="marroncobrizo">Tema: Marrón cobrizo iridiscente</option>
+    <option value="negrocromado">Tema: Negro cromado</option>
+    <option value="blancoperlado">Tema: Blanco perlado holográfico</option>
+    <option value="azulultramar">Tema: Azul ultramar violeta</option>
+    <option value="verdeenmeralda">Tema: Verde esmeralda fosforescente</option>
+    <option value="magentauv">Tema: Magenta UV</option>
+    <option value="naranjacobre">Tema: Naranja cobre líquido</option>
+    <option value="arcoirismetalico">Tema: Arcoíris metálico</option>
+    <option value="purpuragalactico">Tema: Púrpura galáctico</option>
+    <option value="turquesacromado">Tema: Turquesa cromado</option>
+    <option value="doradoliquido">Tema: Dorado líquido</option>
+    <option value="fucsiatornasolado">Tema: Fucsia tornasolado</option>
+  </select>
+  <select id="fontSelect" class="select-font" title="Fuente del texto">
+    <option value="defecto">Fuente: Segoe UI</option>
+    <option value="arial">Fuente: Arial</option>
+    <option value="verdana">Fuente: Verdana</option>
+    <option value="trebuchet">Fuente: Trebuchet MS</option>
+    <option value="georgia">Fuente: Georgia</option>
+    <option value="times">Fuente: Times New Roman</option>
+    <option value="courier">Fuente: Courier New</option>
+    <option value="comic">Fuente: Comic Sans</option>
+  </select>
+  <select id="fsizeSelect" class="select-font" title="Tamaño del texto">
+    <option value="pequena">Texto: Pequeño</option>
+    <option value="normal" selected>Texto: Normal</option>
+    <option value="grande">Texto: Grande</option>
+    <option value="muygrande">Texto: Muy grande</option>
+  </select>
+  <button id="btnRefresh" class="btn-refresh">&#x21bb; Actualizar</button>
+</div>
+
+<main>
+  <div id="view-live" class="view active">
+    <div class="section-head"><h2>Partidos</h2><span class="section-meta" id="liveMeta"></span></div>
+    <div id="liveContent" class="content"><div class="loading">Cargando partidos...</div></div>
+  </div>
+
+  <div id="view-finalizados" class="view">
+    <div class="section-head"><h2>Partidos finalizados</h2><span class="section-meta" id="finMeta"></span></div>
+    <div id="finContent" class="content"><div class="loading">Cargando partidos finalizados...</div></div>
+  </div>
+
+  <div id="view-news" class="view">
+    <div class="section-head"><h2>Noticias de tenis</h2><span class="section-meta" id="newsMeta"></span></div>
+    <div id="newsContent" class="content"><div class="loading">Cargando noticias...</div></div>
+  </div>
+
+  <div id="view-videos" class="view">
+    <div class="section-head"><h2>Videos y highlights</h2><span class="section-meta" id="videosMeta"></span></div>
+    <div id="videosContent" class="content"><div class="loading">Cargando videos...</div></div>
+  </div>
+
+  <div id="view-tournaments" class="view">
+    <div class="section-head"><h2>Torneos</h2><span class="section-meta" id="tourMeta"></span></div>
+    <div id="tourContent" class="content grid-tournaments"><div class="loading">Cargando torneos...</div></div>
+  </div>
+
+  <div id="view-draws" class="view">
+    <div class="section-head">
+      <h2>Cuadros</h2>
+      <select id="drawSelect" class="select-tour"></select>
+    </div>
+    <div id="drawMeta" class="section-meta"></div>
+    <div id="drawContent" class="content"><div class="loading">Cargando cuadros...</div></div>
+  </div>
+
+  <div id="view-rankings" class="view">
+    <div class="section-head"><h2>Ranking</h2><span class="section-meta" id="rankMeta"></span></div>
+    <div class="rank-search-wrap">
+      <input type="text" id="rankSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+      <button id="rankSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+    </div>
+    <div id="rankContent" class="content"><div class="loading">Cargando ranking...</div></div>
+  </div>
+
+  <div id="view-argentina" class="view">
+    <div class="section-head"><h2>Ranking Argentina</h2><span class="section-meta" id="argMeta"></span></div>
+    <div id="argContent" class="content"><div class="loading">Cargando jugadores de Argentina...</div></div>
+  </div>
+
+  <div id="view-elo" class="view">
+    <div class="section-head"><h2>Ranking Anual</h2><span class="section-meta" id="eloMeta"></span></div>
+    <div class="seg" id="segElo">
+      <button class="seg-btn active" data-elotab="todos">TODOS</button>
+      <button class="seg-btn" data-elotab="atp">ATP</button>
+      <button class="seg-btn" data-elotab="wta">WTA</button>
+    </div>
+    <div class="seg" id="segEloTop">
+      <button class="seg-btn active" data-elotop="0">Todos</button>
+      <button class="seg-btn" data-elotop="10">Top 10</button>
+      <button class="seg-btn" data-elotop="20">Top 20</button>
+      <button class="seg-btn" data-elotop="50">Top 50</button>
+      <button class="seg-btn" data-elotop="100">Top 100</button>
+    </div>
+    <div class="rank-search-wrap">
+      <input type="text" id="eloSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+      <button id="eloSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+    </div>
+    <div id="eloContent" class="content"><div class="loading">Cargando ranking Elo...</div></div>
+  </div>
+
+  <div id="view-players" class="view">
+    <div class="section-head"><h2>Player Search</h2><span class="section-meta" id="playersMeta"></span></div>
+    <div class="seg" id="segPlayerTab">
+      <button class="seg-btn active" data-playertab="todos">TODOS</button>
+      <button class="seg-btn" data-playertab="atp">ATP</button>
+      <button class="seg-btn" data-playertab="wta">WTA</button>
+    </div>
+    <div class="rank-search-wrap">
+      <input type="text" id="playerSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+      <button id="playerSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+    </div>
+    <div id="playersContent" class="content"><div class="loading">Cargando jugadores...</div></div>
+  </div>
+
+  <div id="view-birthdays" class="view">
+    <div class="section-head"><h2>Cumpleaños de Hoy</h2><span class="section-meta" id="birthdaysMeta"></span></div>
+    <div class="seg" id="segBirthdays">
+      <button class="seg-btn active" data-bdtab="all">TODOS</button>
+      <button class="seg-btn" data-bdtab="atp">ATP</button>
+      <button class="seg-btn" data-bdtab="wta">WTA</button>
+    </div>
+    <div id="birthdaysContent" class="content"><div class="loading">Cargando cumpleaños...</div></div>
+  </div>
+
+  <div id="view-calendar" class="view">
+    <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
+    <div class="seg" id="segCal">
+      <button class="seg-btn active" data-cal="todos">TODOS</button>
+      <button class="seg-btn" data-cal="atp">ATP</button>
+      <button class="seg-btn" data-cal="wta">WTA</button>
+    </div>
+    <div id="calContent" class="content"><div class="loading">Cargando calendario...</div></div>
+  </div>
+</main>
+
+<footer>
+  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking oficial) &middot; TennisAbstract (Elo ratings)</p>
+</footer>
+
+<div id="h2hOverlay" class="h2h-overlay hidden">
+  <div class="h2h-modal">
+    <button class="h2h-close" aria-label="Cerrar">&times;</button>
+    <div id="h2hBody"></div>
+  </div>
+</div>
+
+<div id="statsOverlay" class="h2h-overlay hidden">
+  <div class="h2h-modal">
+    <button class="h2h-close" aria-label="Cerrar">&times;</button>
+    <div id="statsBody"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
