@@ -780,10 +780,17 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .brand, .status-area { position: relative; z-index: 1; }
 .motto {
   text-align: center; font-size: 11px; font-style: italic; letter-spacing: .3px;
-  padding: 6px 22px 8px; color: #fff;
+  padding: 6px 0; color: #fff; overflow: hidden; white-space: nowrap;
+  background: #000; border-bottom: 1px solid var(--line); position: relative;
+}
+.motto span {
+  display: inline-block;
   text-shadow: 0 0 6px #fff, 0 0 18px #fff, 0 0 36px rgba(255,255,255,.15);
-  background: #000; border-bottom: 1px solid var(--line);
-  animation: mottoGlow 3s ease-in-out infinite alternate;
+  animation: marquee 25s linear infinite, mottoGlow 3s ease-in-out infinite alternate;
+}
+@keyframes marquee {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
 }
 @keyframes mottoGlow {
   from { text-shadow: 0 0 6px #fff, 0 0 18px #fff, 0 0 36px rgba(255,255,255,.1); }
