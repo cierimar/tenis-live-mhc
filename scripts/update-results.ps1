@@ -102,6 +102,11 @@ foreach ($m in $allRows) {
     }
 }
 
+if ($finished.Count -eq 0) {
+    Write-Host 'Scraping devolvió 0 resultados — probablemente bloqueado por IP de datacenter. No se sobreescribe results.json existente.'
+    exit 1
+}
+
 $payload = @{ ok = $true; updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; count = $finished.Count; matches = @($finished) }
 $json = $payload | ConvertTo-Json -Depth 8
 [System.IO.File]::WriteAllText($outFile, $json, [System.Text.UTF8Encoding]::new($false))
