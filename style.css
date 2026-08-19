@@ -797,6 +797,14 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   position: relative; vertical-align: middle; margin-left: 4px;
   border: 2px solid #fff;
   box-shadow: 0 0 8px #fff, 0 0 16px rgba(255,255,255,.4), 0 2px 6px rgba(0,0,0,.3), inset 0 -1px 2px rgba(0,0,0,.15);
+  animation: ballBounce 1.5s ease-in-out infinite;
+}
+@keyframes ballBounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  50% { transform: translateY(0); }
+  65% { transform: translateY(-4px); }
+  80% { transform: translateY(0); }
 }
 .mhc-logo::before {
   content: '';
