@@ -829,7 +829,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .brand-text p { font-size: 12px; color: rgba(255,255,255,.45); letter-spacing: .5px; }
 .topbar-phrase {
   flex: 1; text-align: center; min-width: 0;
-  font-family: 'Bebas Neue', sans-serif; font-size: clamp(16px, 2.2vw, 24px); font-weight: 400; letter-spacing: 3px;
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(18px, 2.5vw, 28px); font-weight: 400; letter-spacing: 3px;
   -webkit-text-stroke: 0.5px var(--accent);
   color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 6px;
 }
