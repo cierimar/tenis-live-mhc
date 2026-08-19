@@ -31,6 +31,7 @@
     playerCountry: '',
     birthdays: { data: null, loaded: false },
     bdTab: 'all',
+    currentTour: { data: null, loaded: false, tab: 'women' },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -744,7 +745,7 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour()]);
       applySuspensions();
       detectDisappearedMatches();
       stampFinished();
@@ -1475,6 +1476,55 @@
     el.innerHTML = html;
   }
 
+  async function refreshCurrentTour() {
+    try {
+      const url = useLocalBackend() ? 'api/current-tour' : 'current-tour.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (j && j.ok) { state.currentTour = { ...state.currentTour, data: j, loaded: true }; }
+      else { state.currentTour = { ...state.currentTour, loaded: true }; }
+    } catch (_) { state.currentTour = { ...state.currentTour, loaded: true }; }
+    if (state.tab === 'currenttour') render();
+  }
+
+  function renderCurrentTour() {
+    const el = $('ctContent');
+    const meta = $('ctMeta');
+    const ct = state.currentTour;
+    if (!ct.loaded || !ct.data) { el.innerHTML = '<div class="loading">Cargando torneos actuales...</div>'; return; }
+    const t = ct.data.tour || {};
+    const list = t[ct.tab] || [];
+    if (meta) meta.textContent = 'Actualizado: ' + (ct.data.updated || '--');
+    if (!list.length) { el.innerHTML = '<div class="loading">No hay torneos activos en esta categoría.</div>'; return; }
+    let html = '';
+    list.forEach(tour => {
+      html += '<div class="ct-card">';
+      html += '<div class="ct-card-head"><a href="' + esc(tour.url) + '" target="_blank" class="ta-link">' + esc(tour.name) + '</a></div>';
+      html += '<div class="ct-card-fav">Favorito: <b>' + esc(tour.favorite) + '</b> (' + tour.favoritePct + '%)</div>';
+      if (tour.detail) {
+        if (tour.detail.completed) {
+          const cHtml = tour.detail.completed;
+          if (cHtml && cHtml.trim() && cHtml.trim() !== '&nbsp;') {
+            html += '<div class="ct-section"><div class="ct-section-title">Resultados</div>';
+            html += '<div class="ct-matches">' + cHtml + '</div></div>';
+          }
+        }
+        if (tour.detail.upcoming) {
+          const uHtml = tour.detail.upcoming;
+          if (uHtml && uHtml.trim() && uHtml.trim() !== '&nbsp;') {
+            html += '<div class="ct-section"><div class="ct-section-title">Próximos partidos</div>';
+            html += '<div class="ct-matches">' + uHtml + '</div></div>';
+          }
+        }
+        if (tour.detail.forecast) {
+          html += '<div class="ct-section"><div class="ct-section-title">Forecast</div>';
+          html += '<div class="ct-forecast">' + tour.detail.forecast + '</div></div>';
+        }
+      }
+      html += '</div>';
+    });
+    el.innerHTML = html;
+  }
+
   function renderPlayers() {
     const el = $('playersContent');
     if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
@@ -1535,6 +1585,7 @@
     else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
+    else if (state.tab === 'currenttour') renderCurrentTour();
   }
 
   function setTab(tab) {
@@ -1567,6 +1618,11 @@
     if (tab === 'birthdays' && !state.birthdays.loaded) {
       render();
       refreshBirthdays();
+      return;
+    }
+    if (tab === 'currenttour' && !state.currentTour.loaded) {
+      render();
+      refreshCurrentTour();
       return;
     }
     render();
@@ -1862,6 +1918,16 @@
         state.bdTab = b.dataset.bdtab;
         document.querySelectorAll('#segBirthdays .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderBirthdays();
+      });
+    }
+    const segCT = document.getElementById('segCT');
+    if (segCT) {
+      segCT.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.currentTour.tab = b.dataset.ct;
+        document.querySelectorAll('#segCT .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        renderCurrentTour();
       });
     }
     const playerSearch = $('playerSearch');
