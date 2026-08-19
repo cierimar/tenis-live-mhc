@@ -1,4 +1,4 @@
-/* TENIS LIVE MHC — app.js */
+﻿/* TENIS LIVE MHC — app.js */
 (function () {
   'use strict';
 
@@ -672,9 +672,13 @@
     saveFinishedToStorage();
   }
 
+  function localDateStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
   function loadFinishedFromStorage() {
     try {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = localDateStr();
       const raw = localStorage.getItem('finishedMatches');
       if (!raw) return;
       const data = JSON.parse(raw);
@@ -690,7 +694,7 @@
 
   function saveFinishedToStorage() {
     try {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = localDateStr();
       localStorage.setItem('finishedMatches', JSON.stringify({ date: today, matches: state.finishedMatches }));
     } catch (_) {}
   }
@@ -703,10 +707,8 @@
       const now = Date.now();
       for (const m of j.matches) {
         if (m.state === 'post') {
-          if (!state.finishedAt[m.id]) state.finishedAt[m.id] = now - 1;
-          if (!state.finishedMatches[m.id]) {
-            state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
-          }
+          if (!state.finishedAt[m.id]) state.finishedAt[m.id] = now;
+          state.finishedMatches[m.id] = JSON.parse(JSON.stringify(m));
         }
       }
       saveFinishedToStorage();
