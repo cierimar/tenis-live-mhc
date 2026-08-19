@@ -824,9 +824,9 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   animation: mottoGlow 3s ease-in-out infinite alternate;
 }
 .topbar-phrase {
-  position: relative; z-index: 1;
-  font-size: 40px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-  color: var(--accent); white-space: nowrap; padding: 0 6px;
+  flex: 1; text-align: center; min-width: 0;
+  font-size: clamp(10px, 1.5vw, 16px); font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 6px;
   text-shadow: 0 0 8px var(--accent), 0 0 20px var(--accent);
 }
 
@@ -834,6 +834,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .live-pill {
   display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700;
   color: #fff; background: var(--live); padding: 5px 12px; border-radius: 20px;
+  border: 2px solid #fff; font-size: 10px;
   box-shadow: 0 0 14px rgba(255,71,87,.55);
 }
 .live-pill .dot { width: 9px; height: 9px; background: #fff; border-radius: 50%; animation: pulse 1.2s infinite; }
