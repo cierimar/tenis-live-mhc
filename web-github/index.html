@@ -25,7 +25,7 @@
     <div class="countdown">Auto-refresh <span id="countdown">30</span>s</div>
   </div>
 </header>
-<div class="motto">🎾 El tenis no es solo un deporte: es pasión, esfuerzo y emoción en cada punto. Es luchar hasta la última pelota, disfrutar cada golpe y volver a la cancha una y otra vez, porque cuando el tenis entra en el corazón, se convierte en una forma de vivir. 🎾</div>
+<div class="motto"></div>
 
 <nav class="tabs" id="tabs">
   <button class="tab active" data-tab="live">EN VIVO</button>
@@ -40,6 +40,7 @@
   <button class="tab" data-tab="players">PLAYERS</button>
   <button class="tab" data-tab="birthdays">CUMPLEAÑOS</button>
   <button class="tab" data-tab="calendar">CALENDARIO</button>
+  <button class="tab" data-tab="currenttour">CURRENT TOUR</button>
 </nav>
 
 <div class="controls">
@@ -226,6 +227,15 @@
       <button class="seg-btn" data-cal="wta">WTA</button>
     </div>
     <div id="calContent" class="content"><div class="loading">Cargando calendario...</div></div>
+  </div>
+  <div id="view-currenttour" class="view">
+    <div class="section-head"><h2>Current Tour</h2><span class="section-meta" id="ctMeta"></span></div>
+    <div class="seg" id="segCT">
+      <button class="seg-btn active" data-ct="women">WOMEN'S TOUR</button>
+      <button class="seg-btn" data-ct="men">MEN'S TOUR</button>
+      <button class="seg-btn" data-ct="challenger">CHALLENGER TOUR</button>
+    </div>
+    <div id="ctContent" class="content"><div class="loading">Cargando torneos actuales...</div></div>
   </div>
 </main>
 
