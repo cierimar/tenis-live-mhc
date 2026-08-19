@@ -907,7 +907,8 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .tour-block { margin-bottom: 22px; }
 .tour-head {
   display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-  background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 10px;
+  background: var(--card); border: 1px solid var(--accent); border-radius: 12px; margin-bottom: 10px;
+  box-shadow: 0 0 8px var(--accent), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 .tour-head .t-name { font-weight: 700; font-size: 15px; }
 .tour-chip {
