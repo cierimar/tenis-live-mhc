@@ -780,14 +780,14 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .brand, .status-area { position: relative; z-index: 1; }
 .motto {
   text-align: center; font-size: 11px; font-style: italic; letter-spacing: .3px;
-  padding: 6px 22px 8px; color: var(--accent);
-  text-shadow: 0 0 6px var(--accent), 0 0 18px var(--accent), 0 0 36px rgba(255,255,255,.15);
+  padding: 6px 22px 8px; color: #fff;
+  text-shadow: 0 0 6px #fff, 0 0 18px #fff, 0 0 36px rgba(255,255,255,.15);
   background: #000; border-bottom: 1px solid var(--line);
   animation: mottoGlow 3s ease-in-out infinite alternate;
 }
 @keyframes mottoGlow {
-  from { text-shadow: 0 0 6px var(--accent), 0 0 18px var(--accent), 0 0 36px rgba(255,255,255,.1); }
-  to   { text-shadow: 0 0 10px var(--accent), 0 0 28px var(--accent), 0 0 52px var(--accent), 0 0 70px rgba(255,255,255,.08); }
+  from { text-shadow: 0 0 6px #fff, 0 0 18px #fff, 0 0 36px rgba(255,255,255,.1); }
+  to   { text-shadow: 0 0 10px #fff, 0 0 28px #fff, 0 0 52px #fff, 0 0 70px rgba(255,255,255,.08); }
 }
 .brand { display: flex; align-items: center; gap: 12px; }
 .brand-text h1 { font-size: 26px; letter-spacing: 1px; font-weight: 800; }
