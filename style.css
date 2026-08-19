@@ -823,6 +823,12 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   text-shadow: 0 0 6px #fff, 0 0 16px rgba(255,255,255,.3);
   animation: mottoGlow 3s ease-in-out infinite alternate;
 }
+.topbar-phrase {
+  position: relative; z-index: 1;
+  font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); white-space: nowrap; padding: 0 6px;
+  text-shadow: 0 0 8px var(--accent), 0 0 20px var(--accent);
+}
 
 .status-area { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .live-pill {
