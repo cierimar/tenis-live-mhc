@@ -1,4 +1,4 @@
-/* TENIS LIVE MHC — app.js */
+﻿/* TENIS LIVE MHC — app.js */
 (function () {
   'use strict';
 
@@ -588,8 +588,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('api/rankings/atp?type=doubles'),
-      fetchJson('api/rankings/wta?type=doubles')
+      fetchJson('rankings/atp_doubles.json'),
+      fetchJson('rankings/wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -1446,22 +1446,34 @@
   async function refreshWcLive() {
     try {
       const today = new Date().toISOString().slice(0, 10);
-      const url = 'https://api.sofascore.com/api/v1/sport/tennis/wheelchairs/scheduled-events/' + today;
+      const url = 'https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1';
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(resp.status);
       const j = await resp.json();
-      const events = (j.events || []).map(ev => ({
-        id: ev.id,
-        tournament: (ev.tournament || {}).name || '',
-        category: (ev.tournament || {}).category || '',
-        home: (ev.homeTeam || {}).name || '',
-        away: (ev.awayTeam || {}).name || '',
-        status: ev.status ? ev.status.type : '',
-        statusDesc: ev.status ? ev.status.description : '',
-        homeScore: ev.homeScore ? ev.homeScore.current : '',
-        awayScore: ev.awayScore ? ev.awayScore.current : '',
-        startTimestamp: ev.startTimestamp || 0
-      }));
+      const events = [];
+      const tours = j.tournaments || [];
+      tours.forEach(t => {
+        const tName = ((t.tournament || {}).name || '').toLowerCase();
+        const catName = ((t.tournament || {}).category || {}).name || '';
+        const isWC = tName.indexOf('wheelchair') > -1 || catName.toLowerCase().indexOf('wheelchair') > -1 || tName.indexOf('uniqlo wheel') > -1;
+        if (!isWC) return;
+        const matches = t.events || [];
+        matches.forEach(ev => {
+          events.push({
+            id: ev.id,
+            tournament: (t.tournament || {}).name || '',
+            category: catName,
+            home: (ev.homeTeam || {}).name || '',
+            away: (ev.awayTeam || {}).name || '',
+            status: ev.status ? ev.status.type : '',
+            statusDesc: ev.status ? ev.status.description : '',
+            homeScore: ev.homeScore ? ev.homeScore.current : '',
+            awayScore: ev.awayScore ? ev.awayScore.current : '',
+            startTimestamp: ev.startTimestamp || 0
+          });
+        });
+      });
+      events.sort((a, b) => b.startTimestamp - a.startTimestamp);
       state.wcLive = { events: events, loaded: true, error: '' };
     } catch (e) {
       state.wcLive = { events: [], loaded: true, error: e.message || 'Error loading live scores' };
@@ -1538,7 +1550,7 @@
       }
       const liveRows = wcLive.events.map(ev => {
         const isLive = ev.status === 1;
-        const isFinished = ev.status === 100;
+        const isFinished = ev.status === 2;
         const statusBadge = isLive ? '<span class="wc-live-badge">LIVE</span>' : (isFinished ? '<span class="wc-finished-badge">FT</span>' : '');
         const scoreHtml = ev.homeScore ? '<span class="wc-score">' + esc(ev.homeScore) + ' - ' + esc(ev.awayScore) + '</span>' : '';
         return '<tr class="' + (isLive ? 'wc-row-live' : '') + '">' +
