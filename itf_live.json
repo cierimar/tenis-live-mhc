@@ -1,6 +1,5 @@
 {
-  "time": "2026-08-20T19:18:56Z",
-  "ok": true,
+  "time": "2026-08-20T20:52:27Z",
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -1102,19 +1101,19 @@
           "finished": false
         },
         {
-          "teId": "3300189",
-          "p1": "Zanolini",
-          "p2": "Ewald",
+          "teId": "3300273",
+          "p1": "Simionescu",
+          "p2": "Miron",
           "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300273",
-          "p1": "Simionescu",
-          "p2": "Miron",
-          "time": "11:30",
+          "teId": "3300189",
+          "p1": "Zanolini",
+          "p2": "Ewald",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3178,19 +3177,19 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3299979",
-          "p1": "Schincariol Barbosa",
+          "teId": "3300413",
+          "p1": "Candiotto",
           "p2": "Barrera Aguirre",
-          "time": "19:00",
-          "round": "R16",
-          "h2h": "0-0",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
           "teId": "3300369",
           "p1": "Laron",
           "p2": "Barros",
-          "time": "",
+          "time": "15:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3199,7 +3198,7 @@
           "teId": "3300363",
           "p1": "Sanchez Uribe",
           "p2": "Bohrer Martins",
-          "time": "",
+          "time": "15:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3212,6 +3211,27 @@
           "round": "QF",
           "h2h": "2-1",
           "finished": false
+        },
+        {
+          "teId": "3299979",
+          "p1": "Barrera Aguirre",
+          "p2": "Schincariol Barbosa",
+          "round": "round of 16",
+          "date": "20.08.",
+          "time": "19:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "0",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3299695",
@@ -4690,10 +4710,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300371",
-          "p1": "Longueville",
-          "p2": "Pohle",
-          "time": "",
+          "teId": "3300301",
+          "p1": "De Koning",
+          "p2": "Brune Olsen",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4702,18 +4722,27 @@
           "teId": "3300331",
           "p1": "Ait El Bachir",
           "p2": "Claeys",
-          "time": "10:00",
+          "time": "12:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300301",
-          "p1": "De Koning",
-          "p2": "Brune Olsen",
-          "time": "10:00",
+          "teId": "3300371",
+          "p1": "Longueville",
+          "p2": "Pohle",
+          "time": "12:15",
           "round": "QF",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3300415",
+          "p1": "Andrienko",
+          "p2": "Maquet",
+          "time": "14:30",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -5192,5 +5221,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
