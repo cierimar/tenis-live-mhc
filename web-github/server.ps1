@@ -1,0 +1,1351 @@
+param(
+    [int]$Port = 8080,
+    [switch]$NoBrowser
+)
+
+$ErrorActionPreference = 'Stop'
+$root = $PSScriptRoot
+$cache = @{}
+
+function Get-Cached([string]$key, [scriptblock]$fn, [int]$ttlSeconds) {
+    $now = Get-Date
+    $item = $null
+    if ($cache.ContainsKey($key)) { $item = $cache[$key] }
+    if ($item -and (($now - $item.last).TotalSeconds) -lt $ttlSeconds) {
+        return $item.data
+    }
+    $data = & $fn
+    $cache[$key] = @{ last = $now; data = $data }
+    return $data
+}
+
+function Send-Json([System.Net.HttpListenerResponse]$resp, $obj) {
+    $json = $obj | ConvertTo-Json -Depth 12 -Compress
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($json)
+    $resp.StatusCode = 200
+    $resp.ContentType = 'application/json; charset=utf-8'
+    $resp.ContentLength64 = $bytes.Length
+    $resp.OutputStream.Write($bytes, 0, $bytes.Length)
+    $resp.OutputStream.Close()
+}
+
+function Send-Error([System.Net.HttpListenerResponse]$resp, [int]$code, [string]$message) {
+    $json = @{ error = $message } | ConvertTo-Json -Compress
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($json)
+    $resp.StatusCode = $code
+    $resp.ContentType = 'application/json; charset=utf-8'
+    $resp.ContentLength64 = $bytes.Length
+    $resp.OutputStream.Write($bytes, 0, $bytes.Length)
+    $resp.OutputStream.Close()
+}
+
+function Send-File([System.Net.HttpListenerResponse]$resp, [string]$path) {
+    if (-not (Test-Path -LiteralPath $path)) {
+        Send-Error $resp 404 'Not found'
+        return
+    }
+    $ext = [System.IO.Path]::GetExtension($path).ToLowerInvariant()
+    $mime = switch ($ext) {
+        '.html' { 'text/html; charset=utf-8' }
+        '.css'  { 'text/css; charset=utf-8' }
+        '.js'   { 'application/javascript; charset=utf-8' }
+        '.json' { 'application/json; charset=utf-8' }
+        '.svg'  { 'image/svg+xml' }
+        '.png'  { 'image/png' }
+        '.jpg'  { 'image/jpeg' }
+        '.ico'  { 'image/x-icon' }
+        default { 'application/octet-stream' }
+    }
+    $bytes = [System.IO.File]::ReadAllBytes($path)
+    $resp.StatusCode = 200
+    $resp.ContentType = $mime
+    $resp.Headers['Cache-Control'] = 'no-cache'
+    $resp.ContentLength64 = $bytes.Length
+    $resp.OutputStream.Write($bytes, 0, $bytes.Length)
+    $resp.OutputStream.Close()
+}
+
+function Get-UriQuery([System.Uri]$uri) {
+    $q = @{}
+    if (-not $uri.Query) { return $q }
+    foreach ($part in $uri.Query.TrimStart('?').Split('&')) {
+        if (-not $part) { continue }
+        $kv = $part.Split('=', 2)
+        $k = [System.Uri]::UnescapeDataString($kv[0])
+        $v = if ($kv.Count -gt 1) { [System.Uri]::UnescapeDataString($kv[1]) } else { '' }
+        $q[$k] = $v
+    }
+    return $q
+}
+
+function Get-WebFile([string]$url, [string]$UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36') {
+    $ua = $UserAgent
+    for ($try = 0; $try -lt 3; $try++) {
+        $tmp = [System.IO.Path]::GetTempFileName()
+        try {
+            $args = @('-s', '--compressed', '--max-time', '45', '-L',
+                '-A', $ua,
+                '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                '-H', 'Accept-Language: en-US,en;q=0.9,es;q=0.8',
+                '-H', 'Referer: https://www.google.com/',
+                '-H', 'Upgrade-Insecure-Requests: 1',
+                '-H', 'Sec-Fetch-Dest: document',
+                '-H', 'Sec-Fetch-Mode: navigate',
+                '-H', 'Sec-Fetch-Site: cross-site',
+                '-w', '%{http_code}',
+                '-o', $tmp,
+                $url)
+            $code = (& curl.exe @args) -join ''
+            $code = [int]([regex]::Match($code, '\d{3}').Value)
+            if ($code -ne 200) { return $null }
+            if ((Get-Item $tmp).Length -eq 0) { return $null }
+            $text = [System.IO.File]::ReadAllText($tmp)
+            if ($text -match '<title>Just a moment') {
+                Start-Sleep -Seconds 3
+                continue
+            }
+            return $text
+        } catch {
+            try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) URL=$url ERR=$($_.Exception.Message)" } catch {}
+            Start-Sleep -Seconds 3
+        } finally {
+            Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        }
+    }
+    return $null
+}
+
+function Parse-AtpRanking([string]$html) {
+    $result = [System.Collections.Generic.List[object]]::new()
+    $rows = [regex]::Matches($html, '<tr[^>]*>.*?</tr>', 'Singleline')
+    foreach ($m in $rows) {
+        $row = $m.Value
+        $rankM = [regex]::Match($row, 'class="rank[^"]*"[^>]*>([^<]+)<')
+        if (-not $rankM.Success) { continue }
+        $rankRaw = $rankM.Groups[1].Value.Trim()
+        $rankNum = [regex]::Match($rankRaw, '\d+').Value
+        if (-not $rankNum) { continue }
+        $pointsM = [regex]::Match($row, 'class="points[^"]*"[^>]*>.*?([\d,]+)\s*</a>', 'Singleline')
+        $points = 0
+        if ($pointsM.Success) { [void][int]::TryParse(($pointsM.Groups[1].Value -replace ',', ''), [ref]$points) }
+        $names = [regex]::Matches($row, 'class="lastName">([^<]+)<')
+        $name = ''
+        if ($names.Count -gt 0) {
+            $name = (($names | ForEach-Object { $_.Groups[1].Value.Trim() }) -join ' / ').Trim()
+        }
+        if (-not $name) { continue }
+        $flags = [regex]::Matches($row, '#flag-([a-z0-9]+)')
+        $flag = ''
+        if ($flags.Count -gt 0) { $flag = $flags[0].Groups[1].Value.ToLowerInvariant() }
+        $up = [regex]::Match($row, 'rank-up">(\d+)<')
+        $down = [regex]::Match($row, 'rank-down">(\d+)<')
+        $movement = 0
+        if ($up.Success) { [void][int]::TryParse($up.Groups[1].Value, [ref]$movement) }
+        elseif ($down.Success) { $d = 0; [void][int]::TryParse($down.Groups[1].Value, [ref]$d); $movement = -$d }
+        $result.Add([pscustomobject]@{
+            rank = [int]$rankNum
+            rankRaw = $rankRaw
+            name = $name
+            flag = $flag
+            points = $points
+            movement = $movement
+            source = 'atptour.com'
+        })
+    }
+    return $result
+}
+
+function Get-AtpRankings([string]$type) {
+    $url = "https://www.atptour.com/en/rankings/$type"
+    $html = Get-WebFile $url
+    if (-not $html) { return @{ ok = $false; error = 'No se pudo descargar atptour.com' } }
+    if ($html -match '<title>Just a moment' -or $html -notmatch 'rankings-breakdown') {
+        return @{ ok = $false; error = 'atptour.com bloqueo la peticion (Cloudflare). Reintente en unos minutos.' }
+    }
+    $list = Parse-AtpRanking $html
+    return @{ ok = $true; type = $type; count = $list.Count; players = $list }
+}
+
+function Get-WtaRankings([string]$type) {
+    $apiType = if ($type -eq 'doubles') { 'rankDoubles' } else { 'rankSingles' }
+    $metric = if ($type -eq 'doubles') { 'doubles' } else { 'singles' }
+    $url = "https://api.wtatennis.com/tennis/players/ranked?type=$apiType&metric=$metric&pageSize=100"
+    $raw = Get-WebFile $url
+    if (-not $raw) { return @{ ok = $false; error = 'No se pudo descargar la API de la WTA' } }
+    $arr = $raw | ConvertFrom-Json
+    $list = [System.Collections.Generic.List[object]]::new()
+    foreach ($p in $arr) {
+        $list.Add([pscustomobject]@{
+            rank = [int]$p.ranking
+            rankRaw = [string]$p.ranking
+            name = $p.player.fullName
+            flag = ('' + $p.player.countryCode).ToLowerInvariant()
+            points = [int]$p.points
+            movement = [int]$p.movement
+            source = 'api.wtatennis.com'
+        })
+    }
+    return @{ ok = $true; type = $type; count = $list.Count; players = $list }
+}
+
+function Get-AtpLive([string]$level = 'tour') {
+    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    $url = "https://app.atptour.com/api/v2/gateway/livematches/website?scoringTournamentLevel=$level"
+    for ($try = 0; $try -lt 3; $try++) {
+        $tmp = [System.IO.Path]::GetTempFileName()
+        try {
+            $args = @('-s', '--compressed', '--max-time', '40', '-L',
+                '-A', $ua,
+                '-H', 'Accept: application/json,text/plain,*/*',
+                '-H', 'Accept-Language: en-US,en;q=0.9',
+                '-H', 'Referer: https://www.atptour.com/en/scores/current',
+                '-w', '%{http_code}',
+                '-o', $tmp, $url)
+            $code = [int]([regex]::Match(((& curl.exe @args) -join ''), '\d{3}').Value)
+            if ($code -ne 200) { Start-Sleep -Seconds 2; continue }
+            $text = [System.IO.File]::ReadAllText($tmp)
+            if (-not $text.StartsWith('{')) { Start-Sleep -Seconds 2; continue }
+            $j = $text | ConvertFrom-Json
+            $list = [System.Collections.Generic.List[object]]::new()
+            foreach ($t in $j.Data.LiveMatchesTournamentsOrdered) {
+                foreach ($m in $t.LiveMatches) {
+                    $isDoubles = $m.IsDoubles -eq $true -or $m.Type -eq 'doubles'
+                    $list.Add([pscustomobject]@{
+                        status = $m.MatchStatus
+                        type = if ($isDoubles) { "doubles" } else { "singles" }
+                        p1 = ('' + $m.PlayerTeam.Player.PlayerFirstName).Trim() + ' ' + ('' + $m.PlayerTeam.Player.PlayerLastName).Trim()
+                        p2 = ('' + $m.OpponentTeam.Player.PlayerFirstName).Trim() + ' ' + ('' + $m.OpponentTeam.Player.PlayerLastName).Trim()
+                        g1 = $m.PlayerTeam.GameScore
+                        g2 = $m.OpponentTeam.GameScore
+                        server = $m.ServerTeam
+                        sets1 = @($m.PlayerTeam.SetScores | ForEach-Object { $_.SetScore })
+                        sets2 = @($m.OpponentTeam.SetScores | ForEach-Object { $_.SetScore })
+                    })
+                }
+            }
+            return @{ ok = $true; time = (Get-Date).ToString('s'); matches = $list }
+        } catch {
+            Start-Sleep -Seconds 2
+        } finally {
+            Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        }
+    }
+    return @{ ok = $false; error = 'gateway no disponible'; matches = @() }
+}
+
+function Get-ChallengerLive {
+    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    $url = 'https://app.atptour.com/api/v2/gateway/livematches/website?scoringTournamentLevel=challenger'
+    for ($try = 0; $try -lt 3; $try++) {
+        $tmp = [System.IO.Path]::GetTempFileName()
+        try {
+            $args = @('-s', '--compressed', '--max-time', '40', '-L',
+                '-A', $ua,
+                '-H', 'Accept: application/json,text/plain,*/*',
+                '-H', 'Accept-Language: en-US,en;q=0.9',
+                '-H', 'Referer: https://www.atptour.com/en/scores/current',
+                '-w', '%{http_code}',
+                '-o', $tmp, $url)
+            $code = [int]([regex]::Match(((& curl.exe @args) -join ''), '\d{3}').Value)
+            if ($code -ne 200) { Start-Sleep -Seconds 2; continue }
+            $text = [System.IO.File]::ReadAllText($tmp)
+            if (-not $text.StartsWith('{')) { Start-Sleep -Seconds 2; continue }
+            $j = $text | ConvertFrom-Json
+            $tournaments = [System.Collections.Generic.List[object]]::new()
+            $matches = [System.Collections.Generic.List[object]]::new()
+            foreach ($t in $j.Data.LiveMatchesTournamentsOrdered) {
+                if (-not $t.EventTitle) { continue }
+                $tid = 'chall-' + $t.EventId
+                $tournaments.Add([pscustomobject]@{
+                    id = $tid
+                    name = [string]$t.EventTitle
+                    city = [string]$t.EventCity
+                    country = [string]$t.EventCountryCode
+                    date = $t.EventStartDate
+                })
+                foreach ($m in $t.LiveMatches) {
+                    $p1 = ((('' + $m.PlayerTeam.Player.PlayerFirstName).Trim() + ' ' + ('' + $m.PlayerTeam.Player.PlayerLastName).Trim())).Trim()
+                    $p2 = ((('' + $m.OpponentTeam.Player.PlayerFirstName).Trim() + ' ' + ('' + $m.OpponentTeam.Player.PlayerLastName).Trim())).Trim()
+        $finished.Add([pscustomobject]@{
+                        id = $tid + '-' + $m.MatchId
+                        tournamentId = $tid
+                        round = [string]$m.RoundName
+                        type = if ($m.IsDoubles) { "Men's Doubles" } else { "Men's Singles" }
+                        state = if ($m.MatchStatus -eq 'P' -or $m.MatchStatus -eq 'W') { 'in' } elseif ($m.MatchStatus -eq 'F') { 'post' } else { 'pre' }
+                        notes = [string]$m.ExtendedMessage
+                        status = [string]$m.MatchStatus
+                        g1 = $m.PlayerTeam.GameScore
+                        g2 = $m.OpponentTeam.GameScore
+                        server = $m.ServerTeam
+                        p1 = $p1
+                        p2 = $p2
+                        p1flag = [string]$m.PlayerTeam.Player.PlayerCountry
+                        p2flag = [string]$m.OpponentTeam.Player.PlayerCountry
+                        sets1 = @($m.PlayerTeam.SetScores | ForEach-Object { $_.SetScore })
+                        sets2 = @($m.OpponentTeam.SetScores | ForEach-Object { $_.SetScore })
+                    })
+                }
+            }
+            return @{ ok = $true; time = (Get-Date).ToString('s'); tournaments = $tournaments; matches = $matches }
+        } catch {
+            Start-Sleep -Seconds 2
+        } finally {
+            Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        }
+    }
+    return @{ ok = $false; error = 'gateway no disponible'; tournaments = @(); matches = @() }
+}
+
+function Get-TennisComServing {
+    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+        $args = @('-s', '--compressed', '--max-time', '20', '-L', '-A', $ua,
+            '-H', 'Accept: text/html,*/*',
+            '-o', $tmp, 'https://www.tennis.com/')
+        & curl.exe @args | Out-Null
+        $html = [System.IO.File]::ReadAllText($tmp)
+        $serving = @{}
+        $matchPattern = [regex]'"homeCompetitor":\{[^}]*"name":"([^"]*)"[^}]*\}[^}]*"awayCompetitor":\{[^}]*"name":"([^"]*)"[^}]*\}[^}]*?"score":\{[^}]*?"currentGame":\{"homePointDisplay":"[^"]*","awayPointDisplay":"[^"]*","servingSide":"(home|away|null)"'
+        foreach ($m in $matchPattern.Matches($html)) {
+            $hName = $m.Groups[1].Value
+            $aName = $m.Groups[2].Value
+            $side = $m.Groups[3].Value
+            if ($side -eq 'home') {
+                $serving[$hName] = $true
+            } elseif ($side -eq 'away') {
+                $serving[$aName] = $true
+            }
+        }
+        return @{ ok = $true; serving = $serving }
+    } catch {
+        return @{ ok = $false; error = $_.Exception.Message; serving = @{} }
+    } finally {
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    }
+}
+
+function Get-TodaysBirthdays {
+    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+        $args = @('-s', '--compressed', '--max-time', '20', '-L', '-A', $ua,
+            '-H', 'Accept: text/html,*/*',
+            '-o', $tmp, 'https://tennisabstract.com/reports/todays_birthdays.html')
+        & curl.exe @args | Out-Null
+        $html = [System.IO.File]::ReadAllText($tmp)
+        $players = [System.Collections.Generic.List[object]]::new()
+        $rowPattern = [regex]::Matches($html, '<tr><td[^>]*>(M|W)</td><td[^>]*><a[^>]*>([^<]+)</a></td><td[^>]*>([A-Z]{3})</td><td[^>]*>(\d*)</td><td[^>]*>(\d*|)</td><td[^>]*>(\d*|)</td></tr>')
+        foreach ($m in $rowPattern) {
+            $gender = $m.Groups[1].Value
+            $name = $m.Groups[2].Value.Trim()
+            $country = $m.Groups[3].Value
+            $age = if ($m.Groups[4].Value) { [int]$m.Groups[4].Value } else { 0 }
+            $currentRank = if ($m.Groups[5].Value) { [int]$m.Groups[5].Value } else { 0 }
+            $peakRank = if ($m.Groups[6].Value) { [int]$m.Groups[6].Value } else { 0 }
+            [void]$players.Add([pscustomobject]@{
+                gender = $gender
+                name = $name
+                country = $country
+                age = $age
+                currentRank = $currentRank
+                peakRank = $peakRank
+            })
+        }
+        return @{ ok = $true; date = (Get-Date).ToString('yyyy-MM-dd'); players = $players }
+    } catch {
+        return @{ ok = $false; error = $_.Exception.Message; players = @() }
+    } finally {
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    }
+}
+
+$ItfFetchSb = {
+    param($slug)
+    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+        $args = @('-s', '--compressed', '--max-time', '30', '-L', '-A', $ua, '-o', $tmp,
+            "https://www.tennisexplorer.com$slug")
+        & curl.exe @args | Out-Null
+        $text = [System.IO.File]::ReadAllText($tmp)
+        $out = @()
+        foreach ($m in [regex]::Matches($text, '<tr class="(?:one|two)">(.*?)</tr>', 'Singleline')) {
+            $row = $m.Groups[1].Value
+            $link = [regex]::Match($row, 'class="t-name"><a href="/match-detail/\?id=(\d+)"[^>]*>(.*?)</a>', 'Singleline')
+            if (-not $link.Success) { continue }
+            $teId = $link.Groups[1].Value
+            $playersTxt = (($link.Groups[2].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+            $timeM = [regex]::Match($row, 'class="first time">.*?>?\s*([\d]{1,2}:[\d]{2})\s*</td>', 'Singleline')
+            $roundM = [regex]::Match($row, 'class="round">([^<]+)<')
+            $h2hM = [regex]::Match($row, 'class="h2h">([^<]+)<')
+            $parts = $playersTxt -split '\s+-\s+', 2
+            $out += [pscustomobject]@{
+                teId = $teId
+                p1 = ($parts[0] -replace '\s*\(\d+\)\s*$', '')
+                p2 = if ($parts.Count -gt 1) { ($parts[1] -replace '\s*\(\d+\)\s*$', '') } else { '' }
+                time = $timeM.Groups[1].Value
+                round = $roundM.Groups[1].Value
+                h2h = $h2hM.Groups[1].Value
+                finished = $false
+            }
+        }
+        $finished = @()
+        foreach ($m in [regex]::Matches($text, '<tr[^>]*>(.*?)</tr>', 'Singleline')) {
+            $row = $m.Groups[1].Value
+            if ($row -match 'class="result"' -and $row -match 'class="score"') { $finished += $row }
+        }
+        for ($i = 0; $i -lt $finished.Count; $i += 2) {
+            if ($i + 1 -ge $finished.Count) { break }
+            $r1 = $finished[$i]
+            $r2 = $finished[$i + 1]
+            $idM = [regex]::Match($r1, '/match-detail/\?id=(\d+)')
+            if (-not $idM.Success) { $idM = [regex]::Match($r2, '/match-detail/\?id=(\d+)') }
+            if (-not $idM.Success) { continue }
+            $name1 = [regex]::Match($r1, 'class="t-name">.*?<a[^>]*>(.*?)</a>', 'Singleline')
+            $name2 = [regex]::Match($r2, 'class="t-name">.*?<a[^>]*>(.*?)</a>', 'Singleline')
+            $dateM = [regex]::Match($r1, 'class="first time"[^>]*>\s*([\d.]+)<br\s*/?>\s*([\d:]+)')
+            $roundM = [regex]::Match($r1, 'title="([^"]+)"[^>]*rowspan="2"')
+            $res1 = [regex]::Match($r1, 'class="result">([^<]+)<')
+            $res2 = [regex]::Match($r2, 'class="result">([^<]+)<')
+            $s1 = @()
+            foreach ($sm in [regex]::Matches($r1, 'class="score">([^<]+)<')) {
+                $v = $sm.Groups[1].Value -replace '&nbsp;', ''
+                if ($v -ne '') { $s1 += $v }
+            }
+            $s2 = @()
+            foreach ($sm in [regex]::Matches($r2, 'class="score">([^<]+)<')) {
+                $v = $sm.Groups[1].Value -replace '&nbsp;', ''
+                if ($v -ne '') { $s2 += $v }
+            }
+            $out += [pscustomobject]@{
+                teId = $idM.Groups[1].Value
+                p1 = (($name1.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+                p2 = (($name2.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+                round = $roundM.Groups[1].Value
+                date = $dateM.Groups[1].Value
+                time = $dateM.Groups[2].Value
+                res1 = [int]$res1.Groups[1].Value
+                res2 = [int]$res2.Groups[1].Value
+                sets1 = $s1
+                sets2 = $s2
+                finished = $true
+            }
+        }
+        return $out
+    } catch {
+        return @()
+    } finally {
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    }
+}
+
+function Get-ItfLive {
+    $live = Get-WebFile 'https://www.tennisexplorer.com/live/'
+    if (-not $live) { return @{ ok = $false; error = 'tennisexplorer no disponible'; tournaments = @() } }
+    $candidates = [System.Collections.Generic.List[object]]::new()
+    foreach ($m in [regex]::Matches($live, '<tr class="one">.*?</tr>', 'Singleline')) {
+        $row = $m.Value
+        $hrefM = [regex]::Match($row, 'href="(/[^"]+/2026/(atp-men|wta-women)/)"')
+        if (-not $hrefM.Success) { continue }
+        $slug = $hrefM.Groups[1].Value
+        if ($slug -notmatch 'itf') { continue }
+        $nameM = [regex]::Match($row, 'class="t-name">.*?>([^<]+)</a>', 'Singleline')
+        $cntM = [regex]::Match($row, 'class="nxGame[^"]*"[^>]*>(\d+)</td>')
+        $cnt = 0
+        if ($cntM.Success) { [void][int]::TryParse($cntM.Groups[1].Value, [ref]$cnt) }
+        if ($cnt -gt 0) {
+            $candidates.Add([pscustomobject]@{
+                slug = $slug
+                cat = $hrefM.Groups[2].Value
+                name = if ($nameM.Success) { (($nameM.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim() } else { $slug }
+            })
+        }
+    }
+    $tournaments = [System.Collections.Generic.List[object]]::new()
+    $pool = [runspacefactory]::CreateRunspacePool(1, 6)
+    $pool.Open()
+    $jobs = @()
+    foreach ($c in ($candidates | Select-Object -First 12)) {
+        $ps = [powershell]::Create()
+        $ps.RunspacePool = $pool
+        [void]$ps.AddScript($ItfFetchSb)
+        [void]$ps.AddArgument($c.slug)
+        $jobs += , @{ handle = $ps.BeginInvoke(); ps = $ps; cat = $c.cat; name = $c.name; slug = $c.slug }
+    }
+    foreach ($job in $jobs) {
+        try {
+            $ms = $job.ps.EndInvoke($job.handle)
+        } catch {
+            $ms = @()
+        }
+        $job.ps.Dispose()
+        if ($ms -and $ms.Count -gt 0) {
+            $tournaments.Add([pscustomobject]@{
+                id = 'itf-' + (($job.slug -replace '/', '') -replace '-itf', '')
+                name = $job.name
+                cat = if ($job.cat -eq 'atp-men') { 'm' } else { 'w' }
+                matches = @($ms)
+            })
+        }
+    }
+    $pool.Dispose()
+    return @{ ok = $true; time = (Get-Date).ToString('s'); tournaments = $tournaments }
+}
+
+function Get-TennisNews {
+    $feeds = @(
+        @{ url = 'https://www.espn.com/espn/rss/tennis/news'; source = 'ESPN'; tz = 'GMT' },
+        @{ url = 'https://www.puntodebreak.com/rss.xml'; source = 'Punto de Break'; tz = 'GMT' },
+        @{ url = 'https://www.bbc.com/sport/tennis/rss.xml'; source = 'BBC'; tz = 'GMT' }
+    )
+    $out = [System.Collections.Generic.List[object]]::new()
+    foreach ($f in $feeds) {
+        try {
+            $xml = Get-WebFile $f.url 'Mozilla/5.0'
+            if (-not $xml -or $xml.Length -lt 100) { continue }
+            [xml]$doc = $null
+            try { $doc = [xml]$xml } catch { continue }
+            if (-not $doc.rss -or -not $doc.rss.channel) { continue }
+            foreach ($item in $doc.rss.channel.item) {
+                $title = ''
+                $titleNode = $item.SelectSingleNode('title')
+                if ($titleNode) { $title = $titleNode.InnerText.Trim() }
+                if (-not $title) { continue }
+                $link = ''
+                $linkNode = $item.SelectSingleNode('link')
+                if ($linkNode) { $link = $linkNode.InnerText.Trim() }
+                if (-not $link) { continue }
+                if ($f.source -eq 'Punto de Break' -and $link -match 'puntodebreak\.com/(en|it|fr)/') { continue }
+                $pubRaw = ''
+                $pubNode = $item.SelectSingleNode('pubDate')
+                if ($pubNode) { $pubRaw = $pubNode.InnerText.Trim() }
+                if (-not $pubRaw) {
+                    $dcNode = $item.SelectSingleNode('dc:date')
+                    if ($dcNode) { $pubRaw = $dcNode.InnerText.Trim() }
+                }
+                $pubIso = $pubRaw
+                if ($pubRaw) {
+                    $dt = [datetime]::MinValue
+                    if ([datetime]::TryParse($pubRaw, [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::AssumeUniversal, [ref]$dt)) {
+                        $pubIso = $dt.ToUniversalTime().ToString('s') + 'Z'
+                    }
+                }
+                $desc = ''
+                $descNode = $item.SelectSingleNode('description')
+                if ($descNode -and $descNode.InnerText) {
+                    $desc = ([Net.WebUtility]::HtmlDecode($descNode.InnerText) -replace '&nbsp;', ' ' -replace '\s+', ' ').Trim()
+                    if ($desc.Length -gt 300) { $desc = $desc.Substring(0, 300) + '...' }
+                }
+                [void]$out.Add([pscustomobject]@{
+                    id = [guid]::NewGuid().ToString('N')
+                    title = $title
+                    link = $link
+                    published = $pubIso
+                    source = $f.source
+                    description = $desc
+                })
+            }
+        } catch {
+            try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
+        }
+    }
+    $sorted = @($out | Sort-Object @{ Expression = { try { [datetime]$_.published } catch { [datetime]::MinValue } }; Descending = $true })
+    if ($sorted.Count -gt 60) { $sorted = $sorted[0..59] }
+    return @{ ok = ($sorted.Count -gt 0); updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; items = @($sorted) }
+}
+
+function Get-TournamentCalendar {
+    param([ValidateSet('atp', 'wta')][string]$Circuit)
+    $slug = if ($Circuit -eq 'atp') { 'atp-men' } else { 'wta-women' }
+    $url = "https://www.tennisexplorer.com/calendar/$slug/"
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+        Invoke-WebRequest -Uri $url -Headers @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36' } -UseBasicParsing -TimeoutSec 20 -OutFile $tmp
+        $html = [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8)
+    } finally {
+        Remove-Item -LiteralPath $tmp -ErrorAction SilentlyContinue
+    }
+    $rx = [regex]'<tr[^>]*class="one([^"]*)" data-type="(main|lower)"[^>]*>([\s\S]*?)</tr>'
+    $out = New-Object System.Collections.ArrayList
+    foreach ($m in $rx.Matches($html)) {
+        $row = $m.Groups[3].Value
+        $dateM = [regex]::Match($row, 'class="first shortdate[^"]*"[^>]*>\s*(\d{2})\.(\d{2})\.\s*<br>\s*(\d{4})')
+        if (-not $dateM.Success) { continue }
+        $date = $dateM.Groups[3].Value + '-' + $dateM.Groups[2].Value + '-' + $dateM.Groups[1].Value
+        $nameM = [regex]::Match($row, '<th class="t-name"[^>]*>[\s\S]*?<a href="[^"]+"[^>]*>\s*<strong>\s*(?:<span title="([^"]+)">)?([^<]+)')
+        if (-not $nameM.Success) { continue }
+        $name = if ($nameM.Groups[1].Value) { $nameM.Groups[1].Value } else { $nameM.Groups[2].Value }
+        $name = (($name -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+        $surfM = [regex]::Match($row, '<td class="s-color"[^>]*>[\s\S]*?<span title="([^"]+)"')
+        $prizeM = [regex]::Match($row, '<td class="tr"[^>]*>([^<]*)')
+        $drawM = [regex]::Match($row, '<td class="draw"[^>]*>(\d+)')
+        $winnerM = [regex]::Match($row, '<td class="winner"[^>]*>\s*(.*?)\s*</td>')
+        $winner = ''
+        if ($winnerM.Success) {
+            $winner = (($winnerM.Groups[1].Value -replace '<[^>]+>', '') -replace '&nbsp;', ' ').Trim()
+        }
+        [void]$out.Add([pscustomobject]@{
+            date    = $date
+            name    = $name
+            circuit = $Circuit
+            surface = if ($surfM.Success) { $surfM.Groups[1].Value } else { '' }
+            prize   = if ($prizeM.Success) { (($prizeM.Groups[1].Value -replace '&nbsp;', ' ').Trim()) } else { '' }
+            draw    = if ($drawM.Success) { [int]$drawM.Groups[1].Value } else { 0 }
+            level   = $m.Groups[2].Value
+            current = ($m.Groups[1].Value -match 'actual')
+            winner  = $winner
+        })
+    }
+    return @{ ok = $true; circuit = $Circuit; tournaments = $out }
+}
+
+function Get-MatchH2H([string]$matchId) {
+    if ($matchId -notmatch '^\d+$') { return @{ ok = $false; error = 'matchId invalido'; matchId = $matchId } }
+    $html = Get-WebFile "https://www.tennisexplorer.com/match-detail/?id=$matchId"
+    if (-not $html) { return @{ ok = $false; error = 'match-detail no disponible'; matchId = $matchId } }
+    $h2hM = [regex]::Match($html, 'Head-to-head:\s*(\d+)\s*-\s*(\d+)')
+    $p1 = ''
+    $p2 = ''
+    $titleM = [regex]::Match($html, '<h1[^>]*>\s*(.*?)\s*</h1>', 'Singleline')
+    if ($titleM.Success) {
+        $t = ($titleM.Groups[1].Value -replace '<[^>]+>', ' ' -replace '&nbsp;', ' ')
+        $t = ($t -replace '\s+', ' ').Trim()
+        $parts = $t -split '\s+-\s+', 2
+        if ($parts.Count -gt 1) { $p1 = $parts[0]; $p2 = $parts[1] }
+    }
+    $meetings = New-Object System.Collections.ArrayList
+    $blockM = [regex]::Match($html, 'Head-to-head:[\s\S]*?<tbody>([\s\S]*?)</tbody>')
+    if ($blockM.Success) {
+        $pairs = [regex]::Matches($blockM.Groups[1].Value, '<tr class="[^"]+">(.*?)</tr>\s*<tr class="[^"]+">(.*?)</tr>', 'Singleline')
+        foreach ($pr in $pairs) {
+            $r1 = $pr.Groups[1].Value
+            $r2 = $pr.Groups[2].Value
+            $yearM = [regex]::Match($r1, 'class="first annual[^"]*"[^>]*>([^<]+)')
+            $tourM = [regex]::Match($r1, 'class="tl[^"]*"[^>]*>(.*?)</td>', 'Singleline')
+            $winM = [regex]::Match($r1, 'class="t-name">([^<]+)')
+            $loseM = [regex]::Match($r2, 'class="t-name">([^<]+)')
+            $winSetsM = [regex]::Match($r1, 'class="result">([^<]+)')
+            $loseSetsM = [regex]::Match($r2, 'class="result">([^<]+)')
+            $surfM = [regex]::Match($r1, 'class="sColorLong[^"]*"[^>]*>\s*<span title="([^"]+)"', 'Singleline')
+            $roundM = [regex]::Match($r1, 'class="round[^"]*"[^>]*>([^<]+)')
+            $set1 = @([regex]::Matches($r1, 'class="score">([^<]*)<') | ForEach-Object { $_.Groups[1].Value.Trim() } | Where-Object { $_ -match '^\d+$' })
+            $set2 = @([regex]::Matches($r2, 'class="score">([^<]*)<') | ForEach-Object { $_.Groups[1].Value.Trim() } | Where-Object { $_ -match '^\d+$' })
+            [void]$meetings.Add([pscustomobject]@{
+                year = if ($yearM.Success) { $yearM.Groups[1].Value.Trim() } else { '' }
+                tournament = if ($tourM.Success) { (($tourM.Groups[1].Value -replace '<[^>]+>', ' ') -replace '\s+', ' ').Trim() } else { '' }
+                winner = if ($winM.Success) { ($winM.Groups[1].Value -replace '&nbsp;', ' ').Trim() } else { '' }
+                loser = if ($loseM.Success) { ($loseM.Groups[1].Value -replace '&nbsp;', ' ').Trim() } else { '' }
+                winSets = if ($winSetsM.Success) { $winSetsM.Groups[1].Value.Trim() } else { '' }
+                loseSets = if ($loseSetsM.Success) { $loseSetsM.Groups[1].Value.Trim() } else { '' }
+                surface = if ($surfM.Success) { $surfM.Groups[1].Value } else { '' }
+                round = if ($roundM.Success) { ($roundM.Groups[1].Value -replace '\s+', ' ').Trim() } else { '' }
+                sets1 = $set1
+                sets2 = $set2
+            })
+        }
+    }
+    return @{
+        ok = $true
+        matchId = $matchId
+        p1 = $p1
+        p2 = $p2
+        h1 = if ($h2hM.Success) { [int]$h2hM.Groups[1].Value } else { 0 }
+        h2 = if ($h2hM.Success) { [int]$h2hM.Groups[2].Value } else { 0 }
+        h2h = if ($h2hM.Success) { $h2hM.Groups[1].Value + '-' + $h2hM.Groups[2].Value } else { '0-0' }
+        meetings = $meetings
+    }
+}
+
+function Normalize-Name([string]$n) {
+    ($n -replace '[^a-zA-Z\u00C0-\u024F\s]', '' -replace '\s+', ' ').Trim().ToLower()
+}
+
+function Search-TePlayer([string]$name) {
+    $q = [uri]::EscapeDataString($name)
+    $json = Get-WebFile "https://www.tennisexplorer.com/res/ajax/search.php?s=$q&t=p"
+    if (-not $json) { return $null }
+    try {
+        $obj = $json | ConvertFrom-Json
+        if ($obj.links -and $obj.links.Count -gt 0) {
+            $first = $obj.links | Where-Object { $_.type -eq 'p' } | Select-Object -First 1
+            return $first
+        }
+    } catch {}
+    return $null
+}
+
+function Find-TeIdByName([string]$p1, [string]$p2) {
+    $html = Get-WebFile "https://www.tennisexplorer.com/matches/?type=all"
+    if (-not $html) { return $null }
+    $np1 = Normalize-Name $p1
+    $np2 = Normalize-Name $p2
+    $rows = [regex]::Matches($html, '<tr[^>]*>(.*?)</tr>\s*<tr[^>]*>(.*?)</tr>', 'Singleline')
+    foreach ($pr in $rows) {
+        $r1 = $pr.Groups[1].Value
+        $r2 = $pr.Groups[2].Value
+        $name1M = [regex]::Match($r1, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
+        $name2M = [regex]::Match($r2, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
+        $idM = [regex]::Match($r1, 'href="/match-detail/\?id=(\d+)"')
+        if (-not $name1M.Success -or -not $name2M.Success -or -not $idM.Success) { continue }
+        $tn1 = Normalize-Name $name1M.Groups[1].Value
+        $tn2 = Normalize-Name $name2M.Groups[1].Value
+        if (($tn1 -like "*$np1*" -and $tn2 -like "*$np2*") -or ($tn1 -like "*$np2*" -and $tn2 -like "*$np1*")) {
+            return $idM.Groups[1].Value
+        }
+    }
+    return $null
+}
+
+function Get-H2HByName([string]$p1, [string]$p2) {
+    $s1 = Search-TePlayer $p1
+    $s2 = Search-TePlayer $p2
+    if (-not $s1 -or -not $s2) {
+        return @{ ok = $false; error = 'Jugador no encontrado en TennisExplorer'; p1 = $p1; p2 = $p2 }
+    }
+    $url1 = $s1.url; $url2 = $s2.url
+    $html = Get-WebFile "https://www.tennisexplorer.com/mutual/$url1/$url2/"
+    if (-not $html) { return @{ ok = $false; error = 'No se pudo obtener H2H'; p1 = $p1; p2 = $p2 } }
+    $name1 = ($s1.name -replace '\s*\([A-Z]+\)\s*$', '').Trim()
+    $name2 = ($s2.name -replace '\s*\([A-Z]+\)\s*$', '').Trim()
+    $scoreM = [regex]::Match($html, 'class="gScore"[^>]*>\s*(\d+)\s*-\s*(\d+)\s*</td>')
+    $score = if ($scoreM.Success) { $scoreM.Groups[1].Value + '-' + $scoreM.Groups[2].Value } else { '0-0' }
+    $meetings = @()
+    $tables = [regex]::Matches($html, '<table[^>]*class="result"[^>]*>([\s\S]*?)</table>')
+    $tableContent = ''
+    foreach ($t in $tables) {
+        if ($t.Groups[1].Value -match '<th[^>]*>Year</th>') { $tableContent = $t.Groups[1].Value; break }
+    }
+    if ($tableContent) {
+        $tbodyM = [regex]::Match($tableContent, '<tbody>([\s\S]*?)</tbody>')
+        if ($tbodyM.Success) {
+            $allTrs = [regex]::Matches($tbodyM.Groups[1].Value, '<tr[^>]*>([\s\S]*?)</tr>')
+            $i = 0
+            while ($i -lt $allTrs.Count) {
+                $tr1 = $allTrs[$i].Groups[1].Value
+                $i++
+                if ($i -ge $allTrs.Count) { break }
+                $tr2 = $allTrs[$i].Groups[1].Value
+                $i++
+                $n1M = [regex]::Match($tr1, 'class="t-name"[^>]*>.*?<strong>([^<]+)</strong>', 'Singleline')
+                $n2M = [regex]::Match($tr2, 'class="t-name"[^>]*>([^<]+)</td>')
+                $winner = if ($n1M.Success) { $n1M.Groups[1].Value.Trim() } else { '' }
+                $loser = if ($n2M.Success) { $n2M.Groups[1].Value.Trim() } else { '' }
+                $tournM = [regex]::Match($tr1, 'class="t-name"[^>]*>.*?<a[^>]*>([^<]+)</a>', 'Singleline')
+                if (-not $tournM.Success) {
+                    $tournM = [regex]::Match($tr1, '<a[^>]*href="/[^"]*">([^<]+)</a>')
+                }
+                $surfM = [regex]::Match($tr1, 'class="sColorLong"[^>]*>.*?title="([^"]*)"', 'Singleline')
+                if (-not $surfM.Success) { $surfM = [regex]::Match($tr1, 'class="s-color"[^>]*>.*?title="([^"]*)"', 'Singleline') }
+                $sets1 = @(); $sets2 = @()
+                $s1All = [regex]::Matches($tr1, 'class="score"[^>]*>([\s\S]*?)</td>')
+                $s2All = [regex]::Matches($tr2, 'class="score"[^>]*>([\s\S]*?)</td>')
+                foreach ($sm in $s1All) { $v = ($sm.Groups[1].Value -replace '<[^>]+>', '').Trim(); if ($v -and $v -ne '&nbsp;') { $sets1 += $v } }
+                foreach ($sm in $s2All) { $v = ($sm.Groups[1].Value -replace '<[^>]+>', '').Trim(); if ($v -and $v -ne '&nbsp;') { $sets2 += $v } }
+                $roundM = [regex]::Match($tr1, 'class="round"[^>]*>([\s\S]*?)</td>')
+                $yearM = [regex]::Match($tr1, 'class="first"[^>]*>\s*(\d{4})\s*</td>')
+                $tourn = if ($tournM.Success) { ($tournM.Groups[1].Value -replace '<[^>]+>', '').Trim() } else { '' }
+                $surface = if ($surfM.Success) { $surfM.Groups[1].Value } else { '' }
+                $round = if ($roundM.Success) { ($roundM.Groups[1].Value -replace '<[^>]+>', '').Trim() } else { '' }
+                $year = if ($yearM.Success) { $yearM.Groups[1].Value } else { '' }
+                if ($winner -or $loser) {
+                    $meetings += @{
+                        year = $year; tournament = $tourn; surface = $surface; round = $round
+                        winner = $winner; loser = $loser; sets1 = $sets1; sets2 = $sets2
+                    }
+                }
+            }
+        }
+    }
+    return @{ ok = $true; p1 = $name1; p2 = $name2; h2h = $score; meetings = $meetings }
+}
+
+function Get-YoutubeVideos {
+    $channels = @(
+        @{ name = 'Tennis TV'; id = 'UCbcxFkd6B9xUU54InHv4Tig' },
+        @{ name = 'ATP Tour'; id = 'UCY_5h5zaSwN7Or4kIJDYNXA' },
+        @{ name = 'WTA'; id = 'UCaBIVVpHjq6j3tSyxwTE-8Q' }
+    )
+    $videos = [System.Collections.Generic.List[object]]::new()
+    foreach ($ch in $channels) {
+        $xml = Get-WebFile ("https://www.youtube.com/feeds/videos.xml?channel_id=" + $ch.id)
+        if (-not $xml) { continue }
+        $entries = [regex]::Matches($xml, '<entry>([\s\S]*?)</entry>')
+        foreach ($e in $entries) {
+            $b = $e.Groups[1].Value
+            $idM = [regex]::Match($b, '<yt:videoId>([\w-]+)</yt:videoId>')
+            if (-not $idM.Success) { continue }
+            $titleM = [regex]::Match($b, '<title>(.*?)</title>')
+            $pubM = [regex]::Match($b, '<published>(.*?)</published>')
+            $thumbM = [regex]::Match($b, '<media:thumbnail url="([^"]+)"')
+            $title = [System.Net.WebUtility]::HtmlDecode((($titleM.Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim())
+            if (-not $title) { continue }
+            [void]$videos.Add([pscustomobject]@{
+                id = $idM.Groups[1].Value
+                channel = $ch.name
+                channelId = $ch.id
+                title = $title
+                published = if ($pubM.Success) { $pubM.Groups[1].Value } else { '' }
+                url = 'https://www.youtube.com/watch?v=' + $idM.Groups[1].Value
+                thumb = if ($thumbM.Success) { $thumbM.Groups[1].Value } else { '' }
+            })
+        }
+    }
+    $sorted = @($videos | Sort-Object published -Descending)
+    return @{ ok = $true; updated = (Get-Date).ToString('s'); channels = @($channels | ForEach-Object { $_.name }); videos = $sorted }
+}
+
+function Get-TennisExplorerResults {
+    $html = Get-WebFile 'https://www.tennisexplorer.com/matches/?type=all'
+    if (-not $html) { return @{ ok = $false; error = 'tennisexplorer no disponible' } }
+    $finished = [System.Collections.Generic.List[object]]::new()
+
+    $allRows = [regex]::Matches($html, '<tr\b([^>]*)>(.*?)</tr>', 'Singleline')
+    $currentTournament = ''
+    $currentTour = 'atp'
+    $prevRow = $null
+    $prevRowAttrs = $null
+
+    foreach ($m in $allRows) {
+        $rowAttrs = $m.Groups[1].Value
+        $rowHtml = $m.Groups[2].Value
+        if ($rowAttrs -match 'class="head\s+flags"') {
+            $tnameM = [regex]::Match($rowHtml, '<a[^>]*href="/[^"]*">([^<]*(?:<[^>]*>[^<]*)*)</a>', 'Singleline')
+            if ($tnameM.Success) {
+                $raw = ($tnameM.Groups[1].Value -replace '<[^>]*>', '') -replace '&nbsp;', ''
+                $raw = [System.Net.WebUtility]::HtmlDecode($raw).Trim()
+                $currentTournament = $raw -replace '\s+', ' '
+            }
+            $hrefM = [regex]::Match($rowHtml, 'href="(/[^"]*?/(atp-men|wta-women)/[^"]*)"')
+            if ($hrefM.Success) {
+                $currentTour = if ($hrefM.Groups[2].Value -eq 'atp-men') { 'atp' } else { 'wta' }
+            }
+            $prevRow = $null
+            $prevRowAttrs = $null
+            continue
+        }
+        if ($null -ne $prevRow -and ($rowAttrs -match 'class="(one|two)')) {
+            $r1 = $prevRow
+            $r2 = $rowHtml
+            $idM = [regex]::Match($r1, 'href="/match-detail/\?id=(\d+)"')
+            if (-not $idM.Success) { $prevRow = $null; continue }
+            $name1M = [regex]::Match($r1, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
+            $name2M = [regex]::Match($r2, 'class="t-name"[^>]*><a[^>]*>([^<]+)</a>')
+            if (-not $name1M.Success -or -not $name2M.Success) { $prevRow = $null; continue }
+            $p1 = (($name1M.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+            $p2 = (($name2M.Groups[1].Value -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+            $res1M = [regex]::Match($r1, 'class="result">([^<]+)<')
+            $res2M = [regex]::Match($r2, 'class="result">([^<]+)<')
+            if (-not $res1M.Success -or -not $res2M.Success) { $prevRow = $null; continue }
+            $res1 = $res1M.Groups[1].Value.Trim(); $res2 = $res2M.Groups[1].Value.Trim()
+            if ($res1 -eq '' -or $res2 -eq '' -or $res1 -eq '&nbsp;' -or $res2 -eq '&nbsp;') { $prevRow = $null; continue }
+            if ($res1 -notmatch '\d' -or $res2 -notmatch '\d') { $prevRow = $null; continue }
+            $s1 = @(); foreach ($sm in [regex]::Matches($r1, 'class="score">([^<]*)<')) { $v = $sm.Groups[1].Value -replace '&nbsp;', ''; if ($v -ne '') { $s1 += $v } }
+            $s2 = @(); foreach ($sm in [regex]::Matches($r2, 'class="score">([^<]*)<')) { $v = $sm.Groups[1].Value -replace '&nbsp;', ''; if ($v -ne '') { $s2 += $v } }
+            $roundM = [regex]::Match($r1, 'class="round"[^>]*>([^<]+)<')
+            $surfM = [regex]::Match($r1, 'class="s-color"[^>]*>\s*<span[^>]*>([^<]+)</span>')
+            $r1Num = 0; $r2Num = 0; [void][int]::TryParse(($res1 -replace '[^0-9]', ''), [ref]$r1Num); [void][int]::TryParse(($res2 -replace '[^0-9]', ''), [ref]$r2Num)
+            $w1 = $r1Num -gt $r2Num
+            $ls1 = @(); foreach ($v in $s1) { $val = 0; $ok = [int]::TryParse($v, [ref]$val); $ls1 += @{ value = if ($ok) { $val } else { $null }; tiebreak = $null; winner = $false } }
+            $ls2 = @(); foreach ($v in $s2) { $val = 0; $ok = [int]::TryParse($v, [ref]$val); $ls2 += @{ value = if ($ok) { $val } else { $null }; tiebreak = $null; winner = $false } }
+            for ($i = 0; $i -lt [Math]::Max($ls1.Count, $ls2.Count); $i++) {
+                $v1 = if ($i -lt $ls1.Count) { $ls1[$i].value } else { $null }
+                $v2 = if ($i -lt $ls2.Count) { $ls2[$i].value } else { $null }
+                if ($null -ne $v1 -and $null -ne $v2) { if ($v1 -gt $v2) { $ls1[$i].winner = $true } else { $ls2[$i].winner = $true } }
+            }
+            $isDoubles = $currentTournament -match 'doubles' -or $p1 -match ' / '
+            $type = if ($currentTour -eq 'atp') {
+                if ($isDoubles) { "Men's Doubles" } else { "Men's Singles" }
+            } else {
+                if ($isDoubles) { "Women's Doubles" } else { "Women's Singles" }
+            }
+            $finished.Add([pscustomobject]@{
+                id = 'te-' + $idM.Groups[1].Value; state = 'post'
+                tour = $currentTour
+                type = $type
+                round = if ($roundM.Success) { $roundM.Groups[1].Value.Trim() } else { '' }
+                tournamentId = 'te-' + $idM.Groups[1].Value
+                tournamentName = $currentTournament
+                surface = if ($surfM.Success) { $surfM.Groups[1].Value.Trim() } else { '' }
+                competitors = @(
+                    @{ name = $p1; winner = $w1; homeAway = 'home'; flag = ''; flagAlt = ''; linescores = @($ls1) }
+                    @{ name = $p2; winner = (-not $w1); homeAway = 'away'; flag = ''; flagAlt = ''; linescores = @($ls2) }
+                )
+            })
+            $prevRow = $null
+            $prevRowAttrs = $null
+        } else {
+            $prevRow = $rowHtml
+            $prevRowAttrs = $rowAttrs
+        }
+    }
+    return @{ ok = $true; updated = (Get-Date).ToString('s'); count = $finished.Count; matches = @($finished) }
+}
+
+function Get-TournamentSeedsFromPage([string]$url) {
+    try {
+        $html = Get-WebFile $url
+        if (-not $html) { return @{} }
+        $seedM = [regex]::Matches($html, '<a href="/(?:player|doubles-team)/[^"]*">([^<]+)</a>\s*\[(\d+)\]')
+        $result = @{}
+        foreach ($m in $seedM) {
+            $name = $m.Groups[1].Value.Trim()
+            $seed = [int]$m.Groups[2].Value
+            if ($name -and -not $result.ContainsKey($name)) { $result[$name] = $seed }
+        }
+        return $result
+    } catch {
+        return @{}
+    }
+}
+
+function Get-WeeklySeeds {
+    try {
+        $html = Get-WebFile "https://www.tennisexplorer.com/"
+        if (-not $html) { return @{ ok = $false; error = "No se pudo cargar TennisExplorer" } }
+
+        $linkM = [regex]::Matches($html, 'href="(/[^/]+/\d{4}/(atp-men|wta-women)/[^"]*)"')
+        $seen = @{}
+        foreach ($m in $linkM) {
+            $url = $m.Groups[1].Value -replace '\?.*$', ''
+            $circuit = $m.Groups[2].Value
+            $key = "${url}"
+            if (-not $seen.ContainsKey($key)) { $seen[$key] = $circuit }
+        }
+
+        $tournaments = [System.Collections.Generic.List[object]]::new()
+        foreach ($entry in $seen.GetEnumerator()) {
+            $baseUrl = $entry.Key
+            $circuit = $entry.Value
+            $rawName = ($baseUrl -replace '/\d{4}/.*$', '' -replace '^/' -replace '/',' ' -replace '-',' ')
+            $name = (Get-Culture).TextInfo.ToTitleCase($rawName)
+
+            $singles = Get-TournamentSeedsFromPage ("https://www.tennisexplorer.com" + $baseUrl)
+            $doubles = Get-TournamentSeedsFromPage ("https://www.tennisexplorer.com" + $baseUrl + "?type=double")
+
+            [void]$tournaments.Add([pscustomobject]@{
+                name = $name
+                url = $baseUrl
+                circuit = if ($circuit -eq 'atp-men') { 'ATP' } else { 'WTA' }
+                singles = $singles
+                doubles = $doubles
+            })
+        }
+
+        $allSingles = @{}
+        $allDoubles = @{}
+        foreach ($t in $tournaments) {
+            $prefix = if ($t.circuit -eq 'ATP') { 'ATP' } else { 'WTA' }
+            foreach ($kv in $t.singles.GetEnumerator()) {
+                $pk = "${prefix}::$($kv.Key)"
+                $allSingles[$pk] = $kv.Value
+            }
+            foreach ($kv in $t.doubles.GetEnumerator()) {
+                $pk = "${prefix}::$($kv.Key)"
+                $allDoubles[$pk] = $kv.Value
+            }
+        }
+
+        return @{
+            ok = $true
+            updated = (Get-Date).ToString('s')
+            tournaments = @($tournaments)
+            singles = $allSingles
+            doubles = $allDoubles
+        }
+    } catch {
+        return @{ ok = $false; error = $_.Exception.Message }
+    }
+}
+
+function Get-TennisAbstractElo([string]$gender) {
+    $url = if ($gender -eq 'atp') {
+        'https://www.tennisabstract.com/reports/atp_elo_ratings.html'
+    } else {
+        'https://www.tennisabstract.com/reports/wta_elo_ratings.html'
+    }
+    try {
+        $html = Get-WebFile $url
+        if (-not $html) { return @{ ok = $false; error = "No se pudo cargar $url" } }
+        $tableM = [regex]::Match($html, '<table[^>]*id="reportable"[^>]*>([\s\S]*?)</table>')
+        if (-not $tableM.Success) { return @{ ok = $false; error = 'Tabla Elo no encontrada' } }
+        $tableHtml = $tableM.Groups[1].Value
+        $rows = [regex]::Matches($tableHtml, '<tr>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>.*?</td>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*</tr>')
+        $result = [System.Collections.Generic.List[object]]::new()
+        foreach ($r in $rows) {
+            $cells = @($r.Groups[1..16] | ForEach-Object { ($_ -replace '<[^>]+>', '' -replace '&nbsp;', ' ' -replace '&#\d+;', '').Trim() })
+            $name = ($cells[1] -replace '\s+', ' ').Trim()
+            if (-not $name) { continue }
+            [void]$result.Add([pscustomobject]@{
+                rank = $cells[0]
+                player = $name
+                age = $cells[2]
+                elo = $cells[3]
+                hElo = $cells[5]
+                cElo = $cells[7]
+                gElo = $cells[9]
+                peakElo = $cells[12]
+                peakMonth = $cells[13]
+                officialRank = $cells[15]
+            })
+        }
+        return @{ ok = $true; updated = (Get-Date).ToString('s'); players = @($result) }
+    } catch {
+        return @{ ok = $false; error = $_.Exception.Message }
+    }
+}
+
+function Search-TAPlayer([string]$name) {
+    $slug = $name -replace '\s+', '' -replace '[^a-zA-Z0-9]', ''
+    $url = "https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=$slug"
+    try {
+        $html = Get-WebFile $url
+        if (-not $html) { return $null }
+        if ($html -match 'var matchmx = \[') { return @{ html = $html; slug = $slug } }
+        return $null
+    } catch { return $null }
+}
+
+function Get-MatchStats([string]$p1Name, [string]$p2Name) {
+    $p1 = Search-TAPlayer $p1Name
+    if (-not $p1) { return @{ ok = $false; error = "Jugador no encontrado en TennisAbstract: $p1Name" } }
+    $html = $p1.html
+    $idx = $html.IndexOf('var matchmx = ')
+    if ($idx -lt 0) { return @{ ok = $false; error = 'Datos de partidos no encontrados' } }
+    $start = $idx + 'var matchmx = '.Length
+    $depth = 0; $end = $start
+    for ($i = $start; $i -lt $html.Length; $i++) {
+        $c = $html[$i]
+        if ($c -eq '[') { $depth++ }
+        elseif ($c -eq ']') { $depth--; if ($depth -eq 0) { $end = $i + 1; break } }
+    }
+    $json = $html.Substring($start, $end - $start)
+    $matchmx = $json | ConvertFrom-Json
+    $p2Lower = $p2Name.ToLower()
+    $found = $null
+    for ($i = 0; $i -lt $matchmx.Count; $i++) {
+        $m = $matchmx[$i]
+        $opp = [string]$m[11]
+        if ($opp.ToLower().Contains($p2Lower) -or $p2Lower.Contains($opp.ToLower())) {
+            $found = $m
+            break
+        }
+    }
+    if (-not $found) {
+        $recent = @()
+        $n = [Math]::Min(5, $matchmx.Count)
+        for ($i = 0; $i -lt $n; $i++) { $recent += [string]$matchmx[$i][11] }
+        return @{ ok = $false; error = "No se encontro partido contra $p2Name. Recientes: $($recent -join ', ')" }
+    }
+    $m = $found
+    $stats = @{
+        date = [string]$m[0]
+        tournament = [string]$m[1]
+        surface = [string]$m[2]
+        round = [string]$m[8]
+        score = [string]$m[9]
+        result = [string]$m[4]
+        opponent = [string]$m[11]
+        ranking = [string]$m[5]
+        oppRanking = [string]$m[12]
+        seed = [string]$m[6]
+        oppSeed = [string]$m[13]
+        aces = [string]$m[21]
+        dfs = [string]$m[22]
+        pts = [string]$m[23]
+        firsts = [string]$m[24]
+        fwon = [string]$m[25]
+        swon = [string]$m[26]
+        games = [string]$m[27]
+        saved = [string]$m[28]
+        chances = [string]$m[29]
+        oaces = [string]$m[30]
+        odfs = [string]$m[31]
+        opts = [string]$m[32]
+        ofirsts = [string]$m[33]
+        ofwon = [string]$m[34]
+        oswon = [string]$m[35]
+        ogames = [string]$m[36]
+        osaved = [string]$m[37]
+        ochances = [string]$m[38]
+    }
+    return @{ ok = $true; player = $p1Name; stats = $stats }
+}
+
+function Get-TennisAbstractCurrentTour {
+    try {
+        $html = Get-WebFile 'https://www.tennisabstract.com/'
+        if (-not $html) { return @{ ok = $false; error = 'No se pudo cargar TennisAbstract' } }
+        $html = $html -replace '<!--[\s\S]*?-->', ''
+        $m = [regex]::Match($html, '<table[^>]*id="current-events"[^>]*>[\s\S]*?<tbody>([\s\S]*?)</tbody>')
+        if (-not $m.Success) { return @{ ok = $false; error = 'Seccion current-events no encontrada' } }
+        $body = $m.Groups[1].Value
+        $cells = [regex]::Matches($body, '<td[^>]*>([\s\S]*?)</td>')
+        if ($cells.Count -lt 3) { return @{ ok = $false; error = 'Se esperaban 3 columnas' } }
+        $categories = @('women', 'men', 'challenger')
+        $tour = @{}
+        for ($i = 0; $i -lt 3; $i++) {
+            $cellHtml = $cells[$i].Groups[1].Value
+            $tournaments = [System.Collections.Generic.List[object]]::new()
+            $blocks = [regex]::Matches($cellHtml, '<b>(.*?)</b>[\s\S]*?<a href="([^"]*)"[^>]*>Results and Forecasts</a>[\s\S]*?Favorite: <a[^>]*>(.*?)</a>,\s*([\d.]+)%')
+            foreach ($b in $blocks) {
+                $name = ($b.Groups[1].Value -replace '<[^>]+>', '').Trim()
+                $href = $b.Groups[2].Value.Trim()
+                $fav = ($b.Groups[3].Value -replace '<[^>]+>', '').Trim()
+                $favPct = $b.Groups[4].Value.Trim()
+                $detailUrl = if ($href -match '^https?://') { $href } else { "https://www.tennisabstract.com$href" }
+                $detail = $null
+                try {
+                    $dhtml = Get-WebFile $detailUrl
+                    if ($dhtml) {
+                        $upcoming = ''
+                        $completed = ''
+                        $forecast = ''
+                        try {
+                            $um = [regex]::Match($dhtml, "var\s+upcomingSingles\s*=\s*'([\s\S]*?)'")
+                            if ($um.Success) { $upcoming = $um.Groups[1].Value }
+                            $cm = [regex]::Match($dhtml, "var\s+completedSingles\s*=\s*'([\s\S]*?)'")
+                            if ($cm.Success) { $completed = $cm.Groups[1].Value }
+                            $fm = [regex]::Match($dhtml, "var\s+projCurrent\s*=\s*'([\s\S]*?)'")
+                            if ($fm.Success) { $forecast = $fm.Groups[1].Value }
+                        } catch {}
+                        $detail = @{ upcoming = $upcoming; completed = $completed; forecast = $forecast }
+                    }
+                } catch { }
+                [void]$tournaments.Add([pscustomobject]@{
+                    name = $name
+                    url = $detailUrl
+                    favorite = $fav
+                    favoritePct = $favPct
+                    detail = $detail
+                })
+            }
+            $tour[$categories[$i]] = @($tournaments)
+        }
+        return @{ ok = $true; updated = (Get-Date).ToString('s'); tour = $tour }
+    } catch {
+        return @{ ok = $false; error = $_.Exception.Message }
+    }
+}
+
+function Handle-Request([System.Net.HttpListenerContext]$ctx) {
+    $req = $ctx.Request
+    $resp = $ctx.Response
+    try {
+        $path = $req.Url.AbsolutePath
+        $q = Get-UriQuery $req.Url
+
+        if ($path -eq '/api/rankings/atp') {
+            $type = if ($q['type'] -eq 'doubles') { 'doubles' } else { 'singles' }
+            $data = Get-Cached "atp_$type" { Get-AtpRankings $type } 600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/rankings/wta') {
+            $type = if ($q['type'] -eq 'doubles') { 'doubles' } else { 'singles' }
+            $data = Get-Cached "wta_$type" { Get-WtaRankings $type } 600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/live/atp') {
+            $level = if ($q['level'] -eq 'challenger') { 'challenger' } else { 'tour' }
+            $data = Get-Cached "atp_live_$level" { Get-AtpLive $level } 15
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/live/chall') {
+            $data = Get-Cached 'chall_live' { Get-ChallengerLive } 15
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/serving') {
+            $data = Get-Cached 'tenniscom_serving' { Get-TennisComServing } 30
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/itf/live') {
+            $data = Get-Cached 'itf_live' { Get-ItfLive } 60
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/calendar/atp') {
+            $data = Get-Cached 'calendar_atp' { Get-TournamentCalendar 'atp' } 21600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/calendar/wta') {
+            $data = Get-Cached 'calendar_wta' { Get-TournamentCalendar 'wta' } 21600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/news') {
+            $data = Get-Cached 'news' { Get-TennisNews } 600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/videos') {
+            $data = Get-Cached 'youtube_videos' { Get-YoutubeVideos } 300
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/h2h') {
+            if (-not $q['matchId'] -or $q['matchId'] -notmatch '^\d+$') {
+                Send-Error $resp 400 'matchId invalido'
+                return
+            }
+            $data = Get-Cached ("h2h_" + $q['matchId']) { Get-MatchH2H $q['matchId'] } 21600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/h2h/byname') {
+            $n1 = if ($q['p1']) { $q['p1'].Trim() } else { '' }
+            $n2 = if ($q['p2']) { $q['p2'].Trim() } else { '' }
+            if (-not $n1 -or -not $n2) {
+                Send-Error $resp 400 'Faltan parametros p1 y p2'
+                return
+            }
+            $key = ("h2h_name_{0}_vs_{1}" -f ($n1 -replace '\s+','_'), ($n2 -replace '\s+','_')).ToLower()
+            $data = Get-Cached $key { Get-H2HByName $n1 $n2 } 3600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/seeds') {
+            $data = Get-Cached 'weekly_seeds' { Get-WeeklySeeds } 21600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/elo') {
+            $atp = Get-Cached 'elo_atp' { Get-TennisAbstractElo 'atp' } 21600
+            $wta = Get-Cached 'elo_wta' { Get-TennisAbstractElo 'wta' } 21600
+            Send-Json $resp @{ ok = $true; atp = $atp.players; wta = $wta.players; updated = (Get-Date).ToString('s') }
+            return
+        }
+        if ($path -eq '/api/stats') {
+            $n1 = if ($q['p1']) { $q['p1'].Trim() } else { '' }
+            $n2 = if ($q['p2']) { $q['p2'].Trim() } else { '' }
+            if (-not $n1 -or -not $n2) {
+                Send-Error $resp 400 'Faltan parametros p1 y p2'
+                return
+            }
+            $key = ("stats_{0}_vs_{1}" -f ($n1 -replace '\s+','_'), ($n2 -replace '\s+','_')).ToLower()
+            $data = Get-Cached $key { Get-MatchStats $n1 $n2 } 3600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/birthdays') {
+            $data = Get-Cached 'todays_birthdays' { Get-TodaysBirthdays } 3600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/results') {
+            $data = Get-Cached 'te_results' { Get-TennisExplorerResults } 300
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/current-tour') {
+            $data = Get-Cached 'current_tour' { Get-TennisAbstractCurrentTour } 300
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/wheelchair') {
+            $wcFile = Join-Path $root 'wheelchair.json'
+            if (Test-Path -LiteralPath $wcFile -PathType Leaf) {
+                $raw = [System.IO.File]::ReadAllText($wcFile, [System.Text.Encoding]::UTF8)
+                $resp.ContentType = 'application/json; charset=utf-8'
+                $buf = [System.Text.Encoding]::UTF8.GetBytes($raw)
+                $resp.ContentLength64 = $buf.Length
+                $resp.OutputStream.Write($buf, 0, $buf.Length)
+            } else {
+                Send-Json $resp @{ ok = $false; error = 'wheelchair.json not found' }
+            }
+            return
+        }
+        if ($path -eq '/api/health') {
+            Send-Json $resp @{ ok = $true; time = (Get-Date).ToString('s') }
+            return
+        }
+
+        if ($path -eq '/' -or $path -eq '/index.html') {
+            Send-File $resp (Join-Path $root 'index.html')
+            return
+        }
+
+        $safe = [System.IO.Path]::GetFileName($path.TrimStart('/'))
+        if ($safe) {
+            $file = Join-Path $root $safe
+            if (Test-Path -LiteralPath $file -PathType Leaf) {
+                Send-File $resp $file
+                return
+            }
+        }
+        Send-Error $resp 404 'Not found'
+    } catch {
+        try { Send-Error $resp 500 $_.Exception.Message } catch {}
+    } finally {
+        try { $resp.Close() } catch {}
+    }
+}
+
+function Test-Admin {
+    ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent())
+        .IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+$listener = New-Object System.Net.HttpListener
+$bindAll = $false
+try {
+    $listener.Prefixes.Add("http://+:$Port/")
+    $listener.Start()
+    $bindAll = $true
+} catch {
+    try {
+        & netsh http add urlacl "url=http://+:$Port/" "user=Users" 2>$null | Out-Null
+        $listener = New-Object System.Net.HttpListener
+        $listener.Prefixes.Add("http://+:$Port/")
+        $listener.Start()
+        $bindAll = $true
+    } catch {
+        $listener = New-Object System.Net.HttpListener
+        $listener.Prefixes.Add("http://localhost:$Port/")
+        $listener.Start()
+    }
+}
+
+if ($bindAll) {
+    try {
+        if (Test-Admin) {
+            New-NetFirewallRule -DisplayName "TENIS LIVE MHC (TCP $Port)" -Direction Inbound -Protocol TCP -LocalPort $Port -Action Allow -ErrorAction SilentlyContinue | Out-Null
+        }
+    } catch {}
+}
+
+$lanIps = @()
+try {
+    $lanIps = @(Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+        Where-Object { $_.IPAddress -notmatch '^(127\.|169\.254\.)' } |
+        Select-Object -ExpandProperty IPAddress)
+} catch {}
+
+Write-Host ""
+Write-Host "  TENIS LIVE MHC"
+Write-Host "  ============================================="
+Write-Host "  Servidor iniciado en: http://localhost:$Port"
+foreach ($ip in $lanIps) { Write-Host "  Desde el celular (mismo WiFi): http://$ip`:$Port" }
+if (-not $bindAll) {
+    Write-Host "  ATENCION: solo visible en este PC."
+    Write-Host "  Para abrirlo desde el celular, ejecuta como Administrador:"
+    Write-Host "    netsh http add urlacl url=http://+:$Port/ user=Users"
+    Write-Host "    netsh advfirewall firewall add rule name=\"TENIS LIVE MHC\" dir=in action=allow protocol=TCP localport=$Port"
+    Write-Host "  y reinicia el servidor."
+}
+Write-Host "  Presiona Ctrl+C para detenerlo."
+Write-Host ""
+
+if (-not $NoBrowser) {
+    Start-Process "http://localhost:$Port" -ErrorAction SilentlyContinue
+}
+
+while ($listener.IsListening) {
+    $ctx = $listener.GetContext()
+    Handle-Request $ctx
+}
