@@ -32,6 +32,7 @@
     birthdays: { data: null, loaded: false },
     bdTab: 'all',
     currentTour: { data: null, loaded: false, tab: 'women' },
+    wheelchair: { data: null, loaded: false, tab: 'menSingles' },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -1425,6 +1426,16 @@
     if (state.tab === 'currenttour') render();
   }
 
+  async function refreshWheelchair() {
+    try {
+      const url = useLocalBackend() ? 'api/wheelchair' : 'wheelchair.json';
+      const j = await fetchJson(url).catch(() => null);
+      if (j && j.ok) { state.wheelchair = { ...state.wheelchair, data: j, loaded: true }; }
+      else { state.wheelchair = { ...state.wheelchair, loaded: true }; }
+    } catch (_) { state.wheelchair = { ...state.wheelchair, loaded: true }; }
+    if (state.tab === 'wheelchair') render();
+  }
+
   function renderCurrentTour() {
     const el = $('ctContent');
     const meta = $('ctMeta');
@@ -1462,6 +1473,84 @@
       html += '</div>';
     });
     el.innerHTML = html;
+  }
+
+  function renderWheelchair() {
+    const el = $('wcContent');
+    const meta = $('wcMeta');
+    const wc = state.wheelchair;
+    if (!wc.loaded || !wc.data) { el.innerHTML = '<div class="loading">Cargando datos wheelchair...</div>'; return; }
+    const d = wc.data;
+    const tab = wc.tab;
+    const flagEmoji = c => { const m = { JPN: '\u{1F1EF}\u{1F1F5}', GBR: '\u{1F1EC}\u{1F1E7}', ESP: '\u{1F1EA}\u{1F1F8}', ARG: '\u{1F1E6}\u{1F1F7}', FRA: '\u{1F1EB}\u{1F1F7}', NED: '\u{1F1F3}\u{1F1F1}', USA: '\u{1F1FA}\u{1F1F8}', BRA: '\u{1F1E7}\u{1F1F7}', CHN: '\u{1F1E8}\u{1F1F3}', RSA: '\u{1F1FF}\u{1F1E6}', ISR: '\u{1F1EE}\u{1F1F1}', COL: '\u{1F1E8}\u{1F1F4}', GER: '\u{1F1E9}\u{1F1EA}', TUR: '\u{1F1F9}\u{1F1F7}', CHI: '\u{1F1E8}\u{1F1F8}', AUS: '\u{1F1E6}\u{1F1FA}', MAS: '\u{1F1F2}\u{1F1FE}' }; return m[c] || ''; };
+
+    if (tab === 'calendar') {
+      if (!d.calendar || !d.calendar.length) { el.innerHTML = '<div class="error-box">No hay datos de calendario.</div>'; return; }
+      const rows = d.calendar.map(t => {
+        const statusCls = t.status === 'Live' ? 'wc-live' : '';
+        return '<tr class="' + statusCls + '">' +
+          '<td>' + esc(t.date) + '</td>' +
+          '<td><b>' + esc(t.name) + '</b></td>' +
+          '<td>' + esc(t.location) + '</td>' +
+          '<td><span class="wc-cat">' + esc(t.category) + '</span></td>' +
+          '<td>' + esc(t.surface) + '</td>' +
+          '<td>' + (t.status ? '<span class="wc-status-live">' + esc(t.status) + '</span>' : '') + '</td>' +
+          '</tr>';
+      }).join('');
+      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
+        '<thead><tr><th>Fecha</th><th>Torneo</th><th>Ubicación</th><th>Categoría</th><th>Superficie</th><th></th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table></div>';
+      if (meta) meta.textContent = 'Calendario UNIQLO Wheelchair Tennis Tour 2026';
+      return;
+    }
+
+    if (tab === 'results') {
+      if (!d.recentResults || !d.recentResults.length) { el.innerHTML = '<div class="error-box">No hay resultados recientes.</div>'; return; }
+      const rows = d.recentResults.map(r => {
+        return '<tr>' +
+          '<td>' + esc(r.date) + '</td>' +
+          '<td><b>' + esc(r.tournament) + '</b></td>' +
+          '<td>' + esc(r.menSingles || '—') + '</td>' +
+          '<td>' + esc(r.womenSingles || '—') + '</td>' +
+          '<td>' + esc(r.menDoubles || '—') + '</td>' +
+          '<td>' + esc(r.womenDoubles || '—') + '</td>' +
+          '</tr>';
+      }).join('');
+      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
+        '<thead><tr><th>Fecha</th><th>Torneo</th><th>Singles M</th><th>Singles W</th><th>Dobles M</th><th>Dobles W</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table></div>';
+      if (meta) meta.textContent = 'Resultados recientes de Grand Slams y torneos principales';
+      return;
+    }
+
+    const rankData = d.rankings && d.rankings[tab];
+    const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles' };
+    if (!rankData || !rankData.length) { el.innerHTML = '<div class="error-box">No hay ranking disponible para esta categoría.</div>'; return; }
+    const hasPoints = rankData[0] && rankData[0].points != null;
+    const hasRecord = rankData[0] && rankData[0].record2026;
+    const hasTitles = rankData[0] && rankData[0].titles2026 != null;
+    const thPoints = hasPoints ? '<th style="text-align:right">Puntos</th>' : '';
+    const thRecord = hasRecord ? '<th>W-L 2026</th>' : '';
+    const thTitles = hasTitles ? '<th>Títulos</th>' : '';
+    const rows = rankData.map(r => {
+      const pts = r.points != null ? r.points.toLocaleString('es') : '—';
+      const rankCls = r.rank === 1 ? 'r-rank top1' : 'r-rank';
+      return '<tr>' +
+        '<td class="' + rankCls + '">' + esc(r.rank) + '</td>' +
+        '<td class="r-name">' + flagEmoji(r.country) + ' ' + esc(r.name) + ' <span class="wc-country">(' + esc(r.country) + ')</span></td>' +
+        (hasTitles ? '<td class="r-r">' + esc(r.titles2026 != null ? r.titles2026 : '—') + '</td>' : '') +
+        (hasRecord ? '<td>' + esc(r.record2026 || '—') + '</td>' : '') +
+        (hasPoints ? '<td class="r-pts">' + pts + '<span> pts</span></td>' : '') +
+        '</tr>';
+    }).join('');
+    el.innerHTML = '<div class="rank-section-title">' + (labels[tab] || tab) + ' Rankings</div>' +
+      '<div class="rank-table-wrap"><table class="rank-table">' +
+      '<thead><tr><th>#</th><th>Jugador' + (hasTitles ? '</th><th>Títulos</th>' : '') +
+      (hasRecord ? '<th>W-L 2026</th>' : '') +
+      (hasPoints ? '<th style="text-align:right">Puntos</th>' : '<th></th>') +
+      '</tr></thead>' +
+      '<tbody>' + rows + '</tbody></table></div>';
+    if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--');
   }
 
   function renderPlayers() {
@@ -1524,6 +1613,7 @@
     else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'currenttour') renderCurrentTour();
+    else if (state.tab === 'wheelchair') renderWheelchair();
   }
 
   function setTab(tab) {
@@ -1532,6 +1622,7 @@
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
     document.body.classList.toggle('tab-elo', tab === 'elo');
+    document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
@@ -1561,6 +1652,11 @@
     if (tab === 'currenttour' && !state.currentTour.loaded) {
       render();
       refreshCurrentTour();
+      return;
+    }
+    if (tab === 'wheelchair' && !state.wheelchair.loaded) {
+      render();
+      refreshWheelchair();
       return;
     }
     render();
@@ -1866,6 +1962,16 @@
         state.currentTour.tab = b.dataset.ct;
         document.querySelectorAll('#segCT .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderCurrentTour();
+      });
+    }
+    const segWC = document.getElementById('segWC');
+    if (segWC) {
+      segWC.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        state.wheelchair.tab = b.dataset.wc;
+        document.querySelectorAll('#segWC .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        renderWheelchair();
       });
     }
     const playerSearch = $('playerSearch');
