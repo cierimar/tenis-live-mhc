@@ -1,6 +1,4 @@
 {
-  "time": "2026-08-20T21:57:26Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -3190,16 +3188,7 @@
           "teId": "3300413",
           "p1": "Candiotto",
           "p2": "Barrera Aguirre",
-          "time": "17:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3300369",
-          "p1": "Laron",
-          "p2": "Barros",
-          "time": "18:00",
+          "time": "17:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3214,12 +3203,21 @@
           "finished": false
         },
         {
+          "teId": "3300369",
+          "p1": "Laron",
+          "p2": "Barros",
+          "time": "19:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3299979",
           "p1": "Barrera Aguirre",
           "p2": "Schincariol Barbosa",
           "round": "round of 16",
           "date": "20.08.",
-          "time": "18:45",
+          "time": "19:00",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -3457,7 +3455,7 @@
           "p2": "Gomes Ferreira",
           "round": "1. round",
           "date": "19.08.",
-          "time": "17:40",
+          "time": "17:00",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -3904,27 +3902,6 @@
           "finished": true
         },
         {
-          "teId": "3299133",
-          "p1": "Vargas",
-          "p2": "Oprescu",
-          "round": "1. round",
-          "date": "19.08.",
-          "time": "15:10",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "3",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "0",
-            "3"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3299131",
           "p1": "Ishii",
           "p2": "Font",
@@ -3942,6 +3919,27 @@
             "7",
             "5",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3299133",
+          "p1": "Vargas",
+          "p2": "Oprescu",
+          "round": "1. round",
+          "date": "19.08.",
+          "time": "14:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "0",
+            "3"
           ],
           "finished": true
         },
@@ -4846,25 +4844,6 @@
           "finished": true
         },
         {
-          "teId": "3299807",
-          "p1": "Ait El Bachir",
-          "p2": "Ferro",
-          "round": "round of 16",
-          "date": "20.08.",
-          "time": "11:02",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "3",
-            "6"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3299465",
           "p1": "Longueville",
           "p2": "Reguer",
@@ -4901,6 +4880,25 @@
           "sets2": [
             "2",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3299807",
+          "p1": "Ait El Bachir",
+          "p2": "Ferro",
+          "round": "round of 16",
+          "date": "20.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
           ],
           "finished": true
         },
@@ -5023,25 +5021,6 @@
           "finished": true
         },
         {
-          "teId": "3299081",
-          "p1": "Ait El Bachir",
-          "p2": "Silva",
-          "round": "1. round",
-          "date": "19.08.",
-          "time": "12:04",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "1",
-            "6"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3299077",
           "p1": "Burchak",
           "p2": "Wirges",
@@ -5080,6 +5059,25 @@
             "6",
             "6",
             "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3299081",
+          "p1": "Ait El Bachir",
+          "p2": "Silva",
+          "round": "1. round",
+          "date": "19.08.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "1",
+            "6"
           ],
           "finished": true
         },
@@ -5222,5 +5220,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-20T23:55:59Z",
+  "ok": true
 }
