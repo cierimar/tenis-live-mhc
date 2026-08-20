@@ -1566,9 +1566,9 @@
       }
       let html = '<div class="wc-videos-grid">';
       wcVideos.items.forEach(v => {
-        const thumb = 'https://img.youtube.com/vi/' + esc(v.youtubeId) + '/hqdefault.jpg';
-        html += '<a href="https://www.youtube.com/watch?v=' + esc(v.youtubeId) + '" target="_blank" rel="noopener" class="wc-video-card">';
-        html += '<div class="wc-video-thumb" style="background-image:url(\'' + thumb + '\')"><div class="wc-video-play">&#9654;</div></div>';
+        const thumb = 'https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg';
+        html += '<a href="https://www.youtube.com/watch?v=' + v.youtubeId + '" target="_blank" rel="noopener" class="wc-video-card">';
+        html += '<div class="wc-video-thumb"><img src="' + thumb + '" alt="' + esc(v.title) + '" loading="lazy"><div class="wc-video-play">&#9654;</div></div>';
         html += '<div class="wc-video-info">';
         html += '<div class="wc-video-title">' + esc(v.title) + '</div>';
         html += '<div class="wc-video-event">' + esc(v.event) + '</div>';
