@@ -1074,7 +1074,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .stats-table .stats-val { text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
 .stats-table .stats-sep td { font-weight: 800; color: var(--accent); font-size: 11px; text-transform: uppercase; letter-spacing: .5px; padding: 10px 8px 4px; border-bottom: none; }
 
-body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segTour, body.tab-argentina #segMode, body.tab-elo #segTour, body.tab-elo #segMode { display: none; }
+body.tab-calendar #segTour, body.tab-calendar #segMode, body.tab-argentina #segTour, body.tab-argentina #segMode, body.tab-elo #segTour, body.tab-elo #segMode, body.tab-wheelchair #segTour, body.tab-wheelchair #segMode { display: none; }
 
 /* ---------- calendario ---------- */
 .cal-month { margin-bottom: 18px; }
@@ -1313,3 +1313,9 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
 .ct-forecast td { color: rgba(255,255,255,.85); }
 .ct-forecast th { color: rgba(255,255,255,.5); font-weight: 600; text-align: right; }
 .ct-forecast a { color: var(--accent); text-decoration: none; }
+
+/* Wheelchair Tennis */
+.wc-country { font-size: 11px; color: rgba(255,255,255,.5); }
+.wc-cat { background: var(--accent); color: var(--on-accent); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.wc-live { background: rgba(255,50,50,.08); }
+.wc-status-live { color: #ff4444; font-weight: 700; font-size: 11px; text-transform: uppercase; }
