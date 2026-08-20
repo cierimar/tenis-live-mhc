@@ -614,10 +614,10 @@ body[data-theme="multicolor"] .elo-table .elo-main { background: linear-gradient
 
 
 body[data-theme="violetaelectrico"] {
-  --bg: #0a0018; --bg2: #10002a; --card: #16003a; --card2: #1e004a; --line: #5500aa;
-  --text: #e8d0ff; --muted: #a870e0; --accent: #aa44ff; --accent2: #8822dd; --on-accent: #0a0018;
+  --bg: #0a0018; --bg2: #10002a; --card: #16003a; --card2: #1e004a; --line: #4400cc;
+  --text: #e8d0ff; --muted: #a870e0; --accent: #6F00FF; --accent2: #5500dd; --on-accent: #0a0018;
   --live: #ff4757; --win: #cc99ff; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #2a0060;
-  --topbar-bg: #6622cc; --net-line: rgba(170,68,255,.15); --net-band: rgba(170,68,255,.35);
+  --topbar-bg: #5500cc; --net-line: rgba(111,0,255,.15); --net-band: rgba(111,0,255,.35);
   --tabs-bg: linear-gradient(180deg, rgba(10,0,24,.97), rgba(10,0,24,.92));
 }
 body[data-theme="verdeacido"] {
@@ -740,6 +740,48 @@ body[data-theme="fucsiatornasolado"] {
   --live: #ff4757; --win: #ff99dd; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #400028;
   --topbar-bg: #cc1070; --net-line: rgba(255,20,147,.15); --net-band: rgba(255,20,147,.35);
   --tabs-bg: linear-gradient(180deg, rgba(20,0,10,.97), rgba(20,0,10,.92));
+}
+body[data-theme="naranjavolcanico"] {
+  --bg: #1a0800; --bg2: #241000; --card: #2e1800; --card2: #382000; --line: #884400;
+  --text: #ffe8d0; --muted: #ccaa70; --accent: #ff6600; --accent2: #e65500; --on-accent: #1a0800;
+  --live: #ff4757; --win: #ffaa66; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #3a1a00;
+  --topbar-bg: #cc5500; --net-line: rgba(255,102,0,.15); --net-band: rgba(255,102,0,.35);
+  --tabs-bg: linear-gradient(180deg, rgba(26,8,0,.97), rgba(26,8,0,.92));
+}
+body[data-theme="amarilloradioactivo"] {
+  --bg: #100e00; --bg2: #1a1800; --card: #242200; --card2: #2e2c00; --line: #777700;
+  --text: #ffffd0; --muted: #cccc66; --accent: #ccff00; --accent2: #aadd00; --on-accent: #100e00;
+  --live: #ff4757; --win: #eeff66; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #302a00;
+  --topbar-bg: #99aa00; --net-line: rgba(204,255,0,.15); --net-band: rgba(204,255,0,.35);
+  --tabs-bg: linear-gradient(180deg, rgba(16,14,0,.97), rgba(16,14,0,.92));
+}
+body[data-theme="rojolaser"] {
+  --bg: #140000; --bg2: #200000; --card: #2c0000; --card2: #380000; --line: #990022;
+  --text: #ffd0d0; --muted: #dd6666; --accent: #ff0033; --accent2: #dd0022; --on-accent: #140000;
+  --live: #ff4757; --win: #ff6666; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #400008;
+  --topbar-bg: #cc0022; --net-line: rgba(255,0,51,.15); --net-band: rgba(255,0,51,.35);
+  --tabs-bg: linear-gradient(180deg, rgba(20,0,0,.97), rgba(20,0,0,.92));
+}
+body[data-theme="cianextraterrestre"] {
+  --bg: #001014; --bg2: #001c22; --card: #00282e; --card2: #00343c; --line: #00889a;
+  --text: #d0ffff; --muted: #66dddd; --accent: #00ffcc; --accent2: #00ddaa; --on-accent: #001014;
+  --live: #ff4757; --win: #66ffee; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #003a44;
+  --topbar-bg: #00aacc; --net-line: rgba(0,255,204,.15); --net-band: rgba(0,255,204,.35);
+  --tabs-bg: linear-gradient(180deg, rgba(0,16,20,.97), rgba(0,16,20,.92));
+}
+body[data-theme="marrongalactico"] {
+  --bg: #0e0600; --bg2: #1a0e00; --card: #261600; --card2: #321e00; --line: #6a4420;
+  --text: #f5e8d0; --muted: #ccaa80; --accent: #b87333; --accent2: #a06028; --on-accent: #0e0600;
+  --live: #ff4757; --win: #eebb88; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #3a1a00;
+  --topbar-bg: #886630; --net-line: rgba(184,115,51,.15); --net-band: rgba(184,115,51,.35);
+  --tabs-bg: linear-gradient(180deg, rgba(14,6,0,.97), rgba(14,6,0,.92));
+}
+body[data-theme="turquesafantasma"] {
+  --bg: #021012; --bg2: #041c1e; --card: #06282a; --card2: #083436; --line: #1a8890;
+  --text: #d0f8f8; --muted: #70cccc; --accent: #40e8d0; --accent2: #30c8b0; --on-accent: #021012;
+  --live: #ff4757; --win: #80f0e8; --up: #3ddc84; --down: #ff5d5d; --bg-glow: #003a40;
+  --topbar-bg: #18aa99; --net-line: rgba(64,232,208,.15); --net-band: rgba(64,232,208,.35);
+  --tabs-bg: linear-gradient(180deg, rgba(2,16,18,.97), rgba(2,16,18,.92));
 }
 /* ---------- fuentes ---------- */
 body[data-font="arial"] { --font: 'Arial', 'Helvetica Neue', 'Segoe UI', sans-serif; }
