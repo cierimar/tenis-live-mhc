@@ -1319,3 +1319,22 @@ footer { border-top: 1px solid var(--line); padding: 16px 22px; text-align: cent
 .wc-cat { background: var(--accent); color: var(--on-accent); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
 .wc-live { background: rgba(255,50,50,.08); }
 .wc-status-live { color: #ff4444; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+
+/* Wheelchair Live */
+.wc-live-badge { background: #ff4444; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; animation: wc-pulse 1.5s ease-in-out infinite; }
+.wc-finished-badge { background: rgba(255,255,255,.15); color: rgba(255,255,255,.6); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.wc-score { font-weight: 700; font-size: 14px; }
+.wc-row-live { background: rgba(255,50,50,.06) !important; }
+@keyframes wc-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
+
+/* Wheelchair Videos */
+.wc-videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-top: 12px; }
+.wc-video-card { display: block; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: border-color .2s, transform .15s; }
+.wc-video-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.wc-video-thumb { position: relative; width: 100%; padding-top: 56.25%; background-size: cover; background-position: center; }
+.wc-video-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 48px; height: 48px; background: rgba(0,0,0,.65); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #fff; border: 2px solid rgba(255,255,255,.3); transition: background .2s; }
+.wc-video-card:hover .wc-video-play { background: var(--accent); border-color: var(--accent); }
+.wc-video-info { padding: 12px 14px; }
+.wc-video-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.wc-video-event { font-size: 12px; color: var(--accent); margin-bottom: 4px; }
+.wc-video-desc { font-size: 12px; color: rgba(255,255,255,.5); line-height: 1.4; }
