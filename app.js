@@ -33,6 +33,8 @@
     bdTab: 'all',
     currentTour: { data: null, loaded: false, tab: 'women' },
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
+    wcLive: { events: [], loaded: false, error: '' },
+    wcVideos: { items: [], loaded: false },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -746,7 +748,8 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
+      if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
       stampFinished();
@@ -1433,7 +1436,46 @@
       if (j && j.ok) { state.wheelchair = { ...state.wheelchair, data: j, loaded: true }; }
       else { state.wheelchair = { ...state.wheelchair, loaded: true }; }
     } catch (_) { state.wheelchair = { ...state.wheelchair, loaded: true }; }
-    if (state.tab === 'wheelchair') render();
+    if (state.tab === 'wheelchair') {
+      if (state.wheelchair.tab === 'live' && !state.wcLive.loaded) refreshWcLive();
+      else if (state.wheelchair.tab === 'videos' && !state.wcVideos.loaded) refreshWcVideos();
+      render();
+    }
+  }
+
+  async function refreshWcLive() {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const url = 'https://api.sofascore.com/api/v1/sport/tennis/wheelchairs/scheduled-events/' + today;
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(resp.status);
+      const j = await resp.json();
+      const events = (j.events || []).map(ev => ({
+        id: ev.id,
+        tournament: (ev.tournament || {}).name || '',
+        category: (ev.tournament || {}).category || '',
+        home: (ev.homeTeam || {}).name || '',
+        away: (ev.awayTeam || {}).name || '',
+        status: ev.status ? ev.status.type : '',
+        statusDesc: ev.status ? ev.status.description : '',
+        homeScore: ev.homeScore ? ev.homeScore.current : '',
+        awayScore: ev.awayScore ? ev.awayScore.current : '',
+        startTimestamp: ev.startTimestamp || 0
+      }));
+      state.wcLive = { events: events, loaded: true, error: '' };
+    } catch (e) {
+      state.wcLive = { events: [], loaded: true, error: e.message || 'Error loading live scores' };
+    }
+    if (state.tab === 'wheelchair' && state.wheelchair.tab === 'live') renderWheelchair();
+  }
+
+  async function refreshWcVideos() {
+    try {
+      const j = await fetchJson('wheelchair-videos.json').catch(() => null);
+      if (j && j.ok) { state.wcVideos = { items: j.videos || [], loaded: true }; }
+      else { state.wcVideos = { items: [], loaded: true }; }
+    } catch (_) { state.wcVideos = { items: [], loaded: true }; }
+    if (state.tab === 'wheelchair' && state.wheelchair.tab === 'videos') renderWheelchair();
   }
 
   function renderCurrentTour() {
@@ -1479,9 +1521,69 @@
     const el = $('wcContent');
     const meta = $('wcMeta');
     const wc = state.wheelchair;
+    const tab = wc.tab;
+
+    if (tab === 'live') {
+      const wcLive = state.wcLive;
+      if (!wcLive.loaded) { el.innerHTML = '<div class="loading">Cargando partidos en vivo...</div>'; return; }
+      if (wcLive.error) {
+        el.innerHTML = '<div class="error-box">No se pudieron cargar los partidos en vivo de Sofascore.<br><small>' + esc(wcLive.error) + '</small></div>' +
+          '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver en Sofascore &rarr;</a></div>';
+        return;
+      }
+      if (!wcLive.events.length) {
+        el.innerHTML = '<div class="loading">No hay partidos de wheelchair tennis en vivo ahora.</div>' +
+          '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver calendario completo en Sofascore &rarr;</a></div>';
+        return;
+      }
+      const liveRows = wcLive.events.map(ev => {
+        const isLive = ev.status === 1;
+        const isFinished = ev.status === 100;
+        const statusBadge = isLive ? '<span class="wc-live-badge">LIVE</span>' : (isFinished ? '<span class="wc-finished-badge">FT</span>' : '');
+        const scoreHtml = ev.homeScore ? '<span class="wc-score">' + esc(ev.homeScore) + ' - ' + esc(ev.awayScore) + '</span>' : '';
+        return '<tr class="' + (isLive ? 'wc-row-live' : '') + '">' +
+          '<td>' + esc(ev.tournament) + '</td>' +
+          '<td>' + esc(ev.home) + '</td>' +
+          '<td>' + esc(ev.away) + '</td>' +
+          '<td>' + scoreHtml + '</td>' +
+          '<td>' + statusBadge + (ev.statusDesc && !isLive ? ' ' + esc(ev.statusDesc) : '') + '</td>' +
+          '</tr>';
+      }).join('');
+      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
+        '<thead><tr><th>Torneo</th><th>Jugador 1</th><th>Jugador 2</th><th>Marcador</th><th>Estado</th></tr></thead>' +
+        '<tbody>' + liveRows + '</tbody></table></div>' +
+        '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver todos los partidos en Sofascore &rarr;</a></div>';
+      if (meta) meta.textContent = 'Partidos en vivo de wheelchair tennis (Sofascore)';
+      return;
+    }
+
+    if (tab === 'videos') {
+      const wcVideos = state.wcVideos;
+      if (!wcVideos.loaded) { el.innerHTML = '<div class="loading">Cargando videos...</div>'; return; }
+      if (!wcVideos.items.length) {
+        el.innerHTML = '<div class="loading">No hay videos disponibles.</div>';
+        return;
+      }
+      let html = '<div class="wc-videos-grid">';
+      wcVideos.items.forEach(v => {
+        const thumb = 'https://img.youtube.com/vi/' + esc(v.youtubeId) + '/hqdefault.jpg';
+        html += '<a href="https://www.youtube.com/watch?v=' + esc(v.youtubeId) + '" target="_blank" rel="noopener" class="wc-video-card">';
+        html += '<div class="wc-video-thumb" style="background-image:url(\'' + thumb + '\')"><div class="wc-video-play">&#9654;</div></div>';
+        html += '<div class="wc-video-info">';
+        html += '<div class="wc-video-title">' + esc(v.title) + '</div>';
+        html += '<div class="wc-video-event">' + esc(v.event) + '</div>';
+        html += '<div class="wc-video-desc">' + esc(v.description) + '</div>';
+        html += '</div></a>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:16px"><a href="https://www.youtube.com/results?search_query=wheelchair+tennis+2026+highlights" target="_blank" class="ta-link">Ver más highlights en YouTube &rarr;</a></div>';
+      el.innerHTML = html;
+      if (meta) meta.textContent = 'Videos de wheelchair tennis · Highlights y Torneos';
+      return;
+    }
+
     if (!wc.loaded || !wc.data) { el.innerHTML = '<div class="loading">Cargando datos wheelchair...</div>'; return; }
     const d = wc.data;
-    const tab = wc.tab;
     const flagEmoji = c => { const m = { JPN: '\u{1F1EF}\u{1F1F5}', GBR: '\u{1F1EC}\u{1F1E7}', ESP: '\u{1F1EA}\u{1F1F8}', ARG: '\u{1F1E6}\u{1F1F7}', FRA: '\u{1F1EB}\u{1F1F7}', NED: '\u{1F1F3}\u{1F1F1}', USA: '\u{1F1FA}\u{1F1F8}', BRA: '\u{1F1E7}\u{1F1F7}', CHN: '\u{1F1E8}\u{1F1F3}', RSA: '\u{1F1FF}\u{1F1E6}', ISR: '\u{1F1EE}\u{1F1F1}', COL: '\u{1F1E8}\u{1F1F4}', GER: '\u{1F1E9}\u{1F1EA}', TUR: '\u{1F1F9}\u{1F1F7}', CHI: '\u{1F1E8}\u{1F1F8}', AUS: '\u{1F1E6}\u{1F1FA}', MAS: '\u{1F1F2}\u{1F1FE}' }; return m[c] || ''; };
 
     if (tab === 'calendar') {
@@ -1971,6 +2073,8 @@
         if (!b) return;
         state.wheelchair.tab = b.dataset.wc;
         document.querySelectorAll('#segWC .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        if (b.dataset.wc === 'live') { refreshWcLive(); return; }
+        if (b.dataset.wc === 'videos') { refreshWcVideos(); return; }
         renderWheelchair();
       });
     }
