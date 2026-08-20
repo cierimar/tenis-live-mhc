@@ -48,6 +48,7 @@
   <button class="tab" data-tab="birthdays">CUMPLEAÑOS</button>
   <button class="tab" data-tab="calendar">CALENDARIO</button>
   <button class="tab" data-tab="currenttour">CURRENT TOUR</button>
+  <button class="tab" data-tab="wheelchair">WHEELCHAIR</button>
 </nav>
 
 <div class="controls">
@@ -239,10 +240,23 @@
     </div>
     <div id="ctContent" class="content"><div class="loading">Cargando torneos actuales...</div></div>
   </div>
+  <div id="view-wheelchair" class="view">
+    <div class="section-head"><h2>UNIQLO Wheelchair Tennis Tour</h2><span class="section-meta" id="wcMeta"></span></div>
+    <div class="seg" id="segWC">
+      <button class="seg-btn active" data-wc="menSingles">Singles Men</button>
+      <button class="seg-btn" data-wc="womenSingles">Singles Women</button>
+      <button class="seg-btn" data-wc="menDoubles">Doubles Men</button>
+      <button class="seg-btn" data-wc="womenDoubles">Doubles Women</button>
+      <button class="seg-btn" data-wc="quad">Quad</button>
+      <button class="seg-btn" data-wc="calendar">Calendario</button>
+      <button class="seg-btn" data-wc="results">Resultados</button>
+    </div>
+    <div id="wcContent" class="content"><div class="loading">Cargando datos wheelchair...</div></div>
+  </div>
 </main>
 
 <footer>
-  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking oficial) &middot; TennisAbstract (Elo ratings)</p>
+  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking oficial) &middot; TennisAbstract (Elo ratings) &middot; ITF (Wheelchair Tennis Tour)</p>
 </footer>
 
 <div id="h2hOverlay" class="h2h-overlay hidden">
