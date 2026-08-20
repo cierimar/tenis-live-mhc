@@ -1247,6 +1247,19 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
             Send-Json $resp $data
             return
         }
+        if ($path -eq '/api/wheelchair') {
+            $wcFile = Join-Path $root 'wheelchair.json'
+            if (Test-Path -LiteralPath $wcFile -PathType Leaf) {
+                $raw = [System.IO.File]::ReadAllText($wcFile, [System.Text.Encoding]::UTF8)
+                $resp.ContentType = 'application/json; charset=utf-8'
+                $buf = [System.Text.Encoding]::UTF8.GetBytes($raw)
+                $resp.ContentLength64 = $buf.Length
+                $resp.OutputStream.Write($buf, 0, $buf.Length)
+            } else {
+                Send-Json $resp @{ ok = $false; error = 'wheelchair.json not found' }
+            }
+            return
+        }
         if ($path -eq '/api/health') {
             Send-Json $resp @{ ok = $true; time = (Get-Date).ToString('s') }
             return
