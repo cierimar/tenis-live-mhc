@@ -2018,6 +2018,45 @@
 
   /* ---------------- H2H SEARCH (TennisAbstract) ---------------- */
 
+  function parseMatchmxClient(html, p1, q2norm) {
+    const marker = 'var matchmx = ';
+    const idx = html.indexOf(marker);
+    if (idx < 0) return null;
+    let depth = 0, end = -1;
+    for (let i = idx + marker.length; i < html.length && i < idx + marker.length + 2000000; i++) {
+      const c = html[i];
+      if (c === '[') depth++;
+      else if (c === ']') { depth--; if (depth === 0) { end = i + 1; break; } }
+    }
+    if (end < 0) return null;
+    let arr;
+    try { arr = JSON.parse(html.slice(idx + marker.length, end)); } catch (_) { return null; }
+    const norm = s => s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
+    const fnM = html.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
+    const realName = fnM ? fnM[1].trim() : p1;
+    const sur1 = norm(realName || p1).split(' ').pop();
+    const nq1 = norm(p1);
+    const meetings = [];
+    for (const m of arr) {
+      const opp = String(m[11] || '');
+      const no = norm(opp);
+      if (!no || !(no.indexOf(q2norm) > -1 || q2norm.indexOf(no) > -1)) continue;
+      const isWin = String(m[4]) === 'W';
+      const nw = norm(isWin ? (realName || p1) : opp);
+      const iAmWinner = nw === sur1 || nw === nq1;
+      meetings.push({
+        date: String(m[0]),
+        tournament: String(m[1]),
+        surface: String(m[2]),
+        round: String(m[8]),
+        score: String(m[9]),
+        winner: iAmWinner ? (realName || p1) : opp,
+        loser: iAmWinner ? opp : (realName || p1)
+      });
+    }
+    return { realName: realName || p1, meetings: meetings };
+  }
+
   function taSlug(name) {
     return name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
   }
@@ -2058,18 +2097,41 @@
         const rp2 = resolveNameClient(p2);
         if (!rp1) throw new Error('no-encontrado:' + p1);
         if (!rp2) throw new Error('no-encontrado:' + p2);
+        const q2norm = rp2.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
         const slug = taSlug(rp1);
-        let text = null;
+        let result = null;
         try {
-          const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsfrags/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
-          if (r1.ok) text = await r1.text();
-        } catch (e1) { text = null; }
-        if (!text || text.indexOf('<tr') < 0) {
+          const rFull = await fetch('https://r.jina.ai/https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug, { headers: { 'X-Return-Format': 'html' } });
+          if (rFull.ok) {
+            const fullHtml = await rFull.text();
+            const fnCheck = fullHtml.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
+            if (fullHtml.indexOf('var matchmx') > -1 && fnCheck && fnCheck[1].trim().toLowerCase() === rp1.toLowerCase()) {
+              result = parseMatchmxClient(fullHtml, rp1, q2norm);
+              if (result && !result.meetings.length) result = null;
+            }
+          }
+        } catch (e0) { result = null; }
+        if (!result) {
+          let text = null;
           try {
-            const r2 = await fetch('https://www.tennisabstract.com/jsfrags/' + slug + '.js', { mode: 'cors' });
-            if (r2.ok) text = await r2.text();
-          } catch (e2) { text = null; }
+            const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsfrags/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
+            if (r1.ok) text = await r1.text();
+          } catch (e1) { text = null; }
+          if (!text || text.indexOf('<tr') < 0) {
+            try {
+              const r2 = await fetch('https://www.tennisabstract.com/jsfrags/' + slug + '.js', { mode: 'cors' });
+              if (r2.ok) text = await r2.text();
+            } catch (e2) { text = null; }
+          }
+          if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
+          result = parseTaFragClient(text, rp1, rp2);
         }
+        if (!result.meetings || !result.meetings.length) return { ok: false, error: 'No se encontraron partidos entre ellos.' };
+        let wins = 0;
+        const nSelf = rp1.toLowerCase();
+        for (const mt of result.meetings) if ((mt.winner || '').toLowerCase().indexOf(nSelf.split(' ').pop()) > -1) wins++;
+        return { ok: true, p1: result.realName || rp1, p2: rp2, h2h: wins + '-' + (result.meetings.length - wins), source: 'tennisabstract', meetings: result.meetings };
+      }
         if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
         j = parseTaFragClient(text, rp1, rp2);
       }
