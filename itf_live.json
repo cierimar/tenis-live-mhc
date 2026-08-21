@@ -1,5 +1,4 @@
 {
-  "time": "2026-08-21T07:55:02Z",
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -7,10 +6,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300179",
-          "p1": "Astakhova",
-          "p2": "Zolotareva",
-          "time": "10:00",
+          "teId": "3300255",
+          "p1": "Pedone",
+          "p2": "Zaar",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -19,16 +18,7 @@
           "teId": "3300283",
           "p1": "Vujovic",
           "p2": "De Stefano",
-          "time": "11:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3300255",
-          "p1": "Pedone",
-          "p2": "Zaar",
-          "time": "11:30",
+          "time": "11:55",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -41,6 +31,25 @@
           "round": "QF",
           "h2h": "1-3",
           "finished": false
+        },
+        {
+          "teId": "3300179",
+          "p1": "Zolotareva",
+          "p2": "Astakhova",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "10:05",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "3"
+          ],
+          "sets2": [
+            "5",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3299527",
@@ -1086,7 +1095,7 @@
           "teId": "3300211",
           "p1": "Popa",
           "p2": "Nagy",
-          "time": "10:00",
+          "time": "10:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1095,7 +1104,7 @@
           "teId": "3300209",
           "p1": "Pieri",
           "p2": "Mettraux",
-          "time": "10:00",
+          "time": "10:10",
           "round": "QF",
           "h2h": "1-0",
           "finished": false
@@ -1113,7 +1122,7 @@
           "teId": "3300189",
           "p1": "Zanolini",
           "p2": "Ewald",
-          "time": "11:00",
+          "time": "11:55",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -2693,7 +2702,7 @@
           "teId": "3300177",
           "p1": "Sziedat",
           "p2": "Lim",
-          "time": "15:30",
+          "time": "15:00",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -2702,7 +2711,7 @@
           "teId": "3300175",
           "p1": "Grubor",
           "p2": "Bonelli",
-          "time": "15:30",
+          "time": "15:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4204,7 +4213,7 @@
           "teId": "3300571",
           "p1": "Plipuech",
           "p2": "Matsuda",
-          "time": "",
+          "time": "05:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4213,10 +4222,31 @@
           "teId": "3300527",
           "p1": "Jeong",
           "p2": "Chen",
-          "time": "",
+          "time": "05:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300149",
+          "p1": "Matsuda",
+          "p2": "Yang",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "04:05",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "7",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3300139",
@@ -4255,27 +4285,6 @@
           "sets2": [
             "4",
             "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3300149",
-          "p1": "Matsuda",
-          "p2": "Yang",
-          "round": "quarterfinal",
-          "date": "21.08.",
-          "time": "04:00",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "7",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "7",
-            "4"
           ],
           "finished": true
         },
@@ -5286,5 +5295,6 @@
       ]
     }
   ],
-  "ok": true
+  "ok": true,
+  "time": "2026-08-21T09:55:26Z"
 }
