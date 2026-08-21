@@ -50,6 +50,8 @@
   <button class="tab" data-tab="elo">RANKING ANUAL</button>
   <button class="tab" data-tab="argentina">ARG</button>
   <button class="tab" data-tab="players">PLAYERS</button>
+
+  <button class="tab" data-tab="h2hsearch">H2H SEARCH</button>
   <button class="tab" data-tab="birthdays">CUMPLEAÑOS</button>
   <button class="tab" data-tab="calendar">CALENDARIO</button>
   <button class="tab" data-tab="currenttour">CURRENT TOUR</button>
@@ -221,6 +223,17 @@
       <button id="playerSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
     </div>
     <div id="playersContent" class="content"><div class="loading">Cargando jugadores...</div></div>
+  </div>
+
+  <div id="view-h2hsearch" class="view">
+    <div class="section-head"><h2>Head-to-head search</h2><span class="section-meta" id="h2hSearchMeta"></span></div>
+    <div class="h2h-search-bar">
+      <input type="text" id="h2hP1" class="rank-search h2h-input" placeholder="Jugador 1 (ej. Djokovic)" autocomplete="off" />
+      <span class="h2h-vs-label">VS</span>
+      <input type="text" id="h2hP2" class="rank-search h2h-input" placeholder="Jugador 2 (ej. Alcaraz)" autocomplete="off" />
+      <button id="h2hSearchBtn" class="h2h-go">BUSCAR</button>
+    </div>
+    <div id="h2hSearchContent" class="content"><div class="loading">Escrib&iacute; dos jugadores y presion&aacute; BUSCAR.</div></div>
   </div>
 
   <div id="view-birthdays" class="view">
