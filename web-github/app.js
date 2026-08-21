@@ -1667,7 +1667,7 @@
         jobs.push(
           (useLocalBackend()
             ? fetchJson('/api/rankings/live?tour=' + tour + '&race=' + race)
-            : fetch('https://r.jina.ai/https://live-tennis.eu/en/' + tour + (race ? '-race' : '-live-ranking'), { headers: { 'X-Return-Format': 'text' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
+            : fetch('https://r.jina.ai/https://live-tennis.eu/en/' + tour + (race ? '-race' : '-live-ranking'), { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
           ).then(j => { state.rankLive[tour + (race ? 'Race' : '')] = (j && j.rows) || j || []; }).catch(() => {})
         );
       }
