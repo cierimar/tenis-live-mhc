@@ -6,19 +6,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300255",
-          "p1": "Pedone",
-          "p2": "Zaar",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300283",
           "p1": "Vujovic",
           "p2": "De Stefano",
-          "time": "11:55",
+          "time": "12:05",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -27,10 +18,38 @@
           "teId": "3300253",
           "p1": "Encheva",
           "p2": "Bertea",
-          "time": "12:30",
+          "time": "12:25",
           "round": "QF",
           "h2h": "1-3",
           "finished": false
+        },
+        {
+          "teId": "3300605",
+          "p1": "Zolotareva",
+          "p2": "Zaar",
+          "time": "09:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3300255",
+          "p1": "Zaar",
+          "p2": "Pedone",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3300179",
@@ -527,22 +546,34 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300213",
-          "p1": "Kovackova",
-          "p2": "Kovackova",
-          "time": "11:00",
+          "teId": "3300193",
+          "p1": "Gao",
+          "p2": "Kotliar",
+          "time": "13:50",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300193",
-          "p1": "Gao",
-          "p2": "Kotliar",
-          "time": "12:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3300213",
+          "p1": "Kovackova",
+          "p2": "Kovackova",
+          "round": "semifinal",
+          "date": "21.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "2",
+            "7"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3299521",
@@ -1092,24 +1123,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300211",
-          "p1": "Popa",
-          "p2": "Nagy",
-          "time": "10:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3300209",
-          "p1": "Pieri",
-          "p2": "Mettraux",
-          "time": "10:10",
-          "round": "QF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3300273",
           "p1": "Simionescu",
           "p2": "Miron",
@@ -1122,10 +1135,61 @@
           "teId": "3300189",
           "p1": "Zanolini",
           "p2": "Ewald",
-          "time": "11:55",
+          "time": "12:55",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300613",
+          "p1": "Pieri",
+          "p2": "Nagy",
+          "time": "09:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3300209",
+          "p1": "Pieri",
+          "p2": "Mettraux",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3300211",
+          "p1": "Nagy",
+          "p2": "Popa",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "0",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3299791",
@@ -1608,25 +1672,16 @@
           "teId": "3300365",
           "p1": "Kokkinis",
           "p2": "Daems",
-          "time": "12:00",
+          "time": "12:10",
           "round": "QF",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3300173",
-          "p1": "Park",
-          "p2": "Giza",
-          "time": "12:00",
-          "round": "QF",
-          "h2h": "1-0",
           "finished": false
         },
         {
           "teId": "3300295",
           "p1": "Steiner",
           "p2": "Yamalapalli",
-          "time": "14:00",
+          "time": "14:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1639,6 +1694,25 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3300173",
+          "p1": "Giza",
+          "p2": "Park",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "12:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3299151",
@@ -2120,21 +2194,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300275",
-          "p1": "Zelnickova",
-          "p2": "Geerlings",
-          "time": "12:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300191",
           "p1": "Pawlikowska",
           "p2": "Jakupovic",
-          "time": "12:30",
+          "time": "13:35",
           "round": "SF",
           "h2h": "0-2",
+          "finished": false
+        },
+        {
+          "teId": "3300275",
+          "p1": "Zelnickova",
+          "p2": "Geerlings",
+          "time": "14:15",
+          "round": "SF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2693,7 +2767,7 @@
           "teId": "3300155",
           "p1": "Okutoyi",
           "p2": "Grammatikopoulou",
-          "time": "14:00",
+          "time": "15:45",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -2702,7 +2776,7 @@
           "teId": "3300177",
           "p1": "Sziedat",
           "p2": "Lim",
-          "time": "15:00",
+          "time": "17:00",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -2711,7 +2785,7 @@
           "teId": "3300175",
           "p1": "Grubor",
           "p2": "Bonelli",
-          "time": "15:00",
+          "time": "17:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3701,24 +3775,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300299",
-          "p1": "Cembranos",
-          "p2": "Defalco",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3300277",
-          "p1": "Giaccio",
-          "p2": "Ishii",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300329",
           "p1": "Pascual Montalvo",
           "p2": "Kardava",
@@ -3735,6 +3791,44 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300277",
+          "p1": "Giaccio",
+          "p2": "Ishii",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3300299",
+          "p1": "Cembranos",
+          "p2": "Defalco",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3299137",
@@ -4213,7 +4307,7 @@
           "teId": "3300571",
           "p1": "Plipuech",
           "p2": "Matsuda",
-          "time": "05:00",
+          "time": "04:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4222,31 +4316,10 @@
           "teId": "3300527",
           "p1": "Jeong",
           "p2": "Chen",
-          "time": "05:00",
+          "time": "04:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
-        },
-        {
-          "teId": "3300149",
-          "p1": "Matsuda",
-          "p2": "Yang",
-          "round": "quarterfinal",
-          "date": "21.08.",
-          "time": "04:05",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "7",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "7",
-            "4"
-          ],
-          "finished": true
         },
         {
           "teId": "3300139",
@@ -4285,6 +4358,27 @@
           "sets2": [
             "4",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3300149",
+          "p1": "Matsuda",
+          "p2": "Yang",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "04:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "7",
+            "4"
           ],
           "finished": true
         },
@@ -4804,7 +4898,7 @@
           "teId": "3300331",
           "p1": "Ait El Bachir",
           "p2": "Claeys",
-          "time": "12:00",
+          "time": "13:26",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5295,6 +5389,6 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-08-21T09:55:26Z"
+  "time": "2026-08-21T12:01:27Z",
+  "ok": true
 }
