@@ -1821,6 +1821,11 @@
       if (!state.seeds.loaded) refreshSeeds();
       return;
     }
+    if (tab === 'h2hsearch' && !state.elo.loaded) {
+      render();
+      refreshElo();
+      return;
+    }
     if (tab === 'birthdays' && !state.birthdays.loaded) {
       render();
       refreshBirthdays();
@@ -2017,6 +2022,22 @@
     return name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
   }
 
+  function resolveNameClient(name) {
+    const t = (name || '').trim();
+    if (!t || t.split(/\s+/).length >= 2) return t;
+    const nq = t.toLowerCase();
+    const pools = [];
+    if (state.elo && state.elo.atp) pools.push(state.elo.atp);
+    if (state.elo && state.elo.wta) pools.push(state.elo.wta);
+    for (const pool of pools) {
+      for (const p of pool) {
+        const pn = (p.player || '').toLowerCase();
+        if (pn === nq || pn.endsWith(' ' + nq)) return p.player;
+      }
+    }
+    return null;
+  }
+
   async function runH2HSearch() {
     const p1 = ($('h2hP1') && $('h2hP1').value || '').trim();
     const p2 = ($('h2hP2') && $('h2hP2').value || '').trim();
@@ -2033,7 +2054,11 @@
       if (useLocalBackend()) {
         j = await fetchJson('api/h2h/ta?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
       } else {
-        const slug = taSlug(p1);
+        const rp1 = resolveNameClient(p1);
+        const rp2 = resolveNameClient(p2);
+        if (!rp1) throw new Error('no-encontrado:' + p1);
+        if (!rp2) throw new Error('no-encontrado:' + p2);
+        const slug = taSlug(rp1);
         let text = null;
         try {
           const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsfrags/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
@@ -2046,14 +2071,21 @@
           } catch (e2) { text = null; }
         }
         if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
-        j = parseTaFragClient(text, p1, p2);
+        j = parseTaFragClient(text, rp1, rp2);
       }
       state.h2hSearch.data = j;
       state.h2hSearch.error = j.ok ? null : (j.error || 'Sin resultados');
     } catch (err) {
-      state.h2hSearch.error = useLocalBackend()
-        ? ('No se pudo consultar TennisAbstract: ' + err.message)
-        : 'No se pudieron obtener datos de TennisAbstract para ese jugador. Verific&aacute; el nombre (ej. Rafael Nadal) e intenta de nuevo.';
+      const msg = (err && err.message) || '';
+      if (msg.indexOf('no-encontrado:') === 0) {
+        state.h2hSearch.error = 'Jugador no encontrado: <b>' + esc(msg.split(':')[1]) + '</b>. Escrib&iacute; el nombre completo o verific&aacute; que est&eacute; en la solapa PLAYERS.';
+      } else if (msg === 'sin-datos') {
+        state.h2hSearch.error = 'No se pudieron obtener datos de TennisAbstract (puede haber l&iacute;mite de consultas). Espera un momento e intenta de nuevo.';
+      } else {
+        state.h2hSearch.error = useLocalBackend()
+          ? ('No se pudo consultar TennisAbstract: ' + err.message)
+          : 'Error inesperado. Intenta de nuevo.';
+      }
     }
     state.h2hSearch.loading = false;
     renderH2HSearch();
