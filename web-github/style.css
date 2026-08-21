@@ -1145,7 +1145,13 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 .badge {
   font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 3px; letter-spacing: .8px;
 }
-.badge.live { background: #ef4444; color: #fff; animation: glow 1.5s ease-in-out infinite; }
+.badge.live {
+  background: #ef4444; color: #fff;
+  border: 1px solid rgba(255,255,255,.9); border-radius: 4px;
+  text-shadow: 0 0 6px rgba(255,255,255,.65);
+  box-shadow: 0 0 8px rgba(255,255,255,.40), 0 0 20px rgba(255,255,255,.18), inset 0 0 6px rgba(255,255,255,.15);
+  animation: glow 1.5s ease-in-out infinite;
+}
 .badge.susp { background: var(--warn); color: #1a1a1a; animation: none; }
 .susp-note { color: var(--warn); font-style: italic; }
 .badge.final { background: rgba(255,255,255,.08); color: #6b7280; }
