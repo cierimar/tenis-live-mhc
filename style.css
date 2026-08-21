@@ -999,19 +999,18 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 @keyframes servePulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: .7; } }
 .clock {
   font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums;
-  color: var(--accent); font-family: 'Courier New', monospace; letter-spacing: 1px;
+  color: #ffffff; font-family: 'Courier New', monospace; letter-spacing: 1px;
   background: var(--card);
-  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  border: 1px solid rgba(255,255,255,.65);
   border-radius: 8px;
   padding: 5px 10px;
-  text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 55%, transparent);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 28%, transparent),
-    inset 0 0 8px color-mix(in srgb, var(--accent) 12%, transparent);
+  text-shadow: 0 0 8px rgba(255,255,255,.6);
+  box-shadow: 0 0 10px rgba(255,255,255,.28), inset 0 0 8px rgba(255,255,255,.1);
   animation: clockGlow 2.4s ease-in-out infinite alternate;
 }
 @keyframes clockGlow {
-  from { box-shadow: 0 0 6px color-mix(in srgb, var(--accent) 18%, transparent), inset 0 0 5px color-mix(in srgb, var(--accent) 8%, transparent); text-shadow: 0 0 5px color-mix(in srgb, var(--accent) 40%, transparent); }
-  to   { box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 38%, transparent), inset 0 0 10px color-mix(in srgb, var(--accent) 16%, transparent); text-shadow: 0 0 11px color-mix(in srgb, var(--accent) 70%, transparent); }
+  from { box-shadow: 0 0 6px rgba(255,255,255,.18), inset 0 0 5px rgba(255,255,255,.07); text-shadow: 0 0 5px rgba(255,255,255,.45); }
+  to   { box-shadow: 0 0 14px rgba(255,255,255,.38), inset 0 0 10px rgba(255,255,255,.14); text-shadow: 0 0 11px rgba(255,255,255,.75); }
 }
 .updated { font-size: 12px; color: var(--muted); }
 .countdown { font-size: 12px; color: var(--muted); background: var(--card); border: 1px solid var(--line); padding: 4px 10px; border-radius: 14px; }
