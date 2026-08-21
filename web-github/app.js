@@ -1,4 +1,4 @@
-﻿/* TENIS LIVE MHC — app.js */
+/* TENIS LIVE MHC — app.js */
 (function () {
   'use strict';
 
@@ -33,6 +33,8 @@
     bdTab: 'all',
     currentTour: { data: null, loaded: false, tab: 'women' },
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
+    wcLive: { events: [], loaded: false, error: '' },
+    wcVideos: { items: [], loaded: false },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -69,10 +71,71 @@
   const $ = id => document.getElementById(id);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  function generateFavicon(color) {
+    var c = document.createElement('canvas');
+    c.width = 128; c.height = 128;
+    var x = c.getContext('2d');
+    var cx = 64, cy = 64, r = 52;
+    x.clearRect(0, 0, 128, 128);
+    x.save();
+    x.shadowColor = 'rgba(0,0,0,0.35)';
+    x.shadowBlur = 10;
+    x.shadowOffsetX = 3;
+    x.shadowOffsetY = 4;
+    x.beginPath();
+    x.arc(cx, cy, r, 0, Math.PI * 2);
+    x.fillStyle = color;
+    x.fill();
+    x.restore();
+    var hl = x.createRadialGradient(cx - 14, cy - 16, 4, cx, cy, r);
+    hl.addColorStop(0, 'rgba(255,255,255,0.45)');
+    hl.addColorStop(0.5, 'rgba(255,255,255,0.10)');
+    hl.addColorStop(1, 'rgba(0,0,0,0.12)');
+    x.beginPath();
+    x.arc(cx, cy, r, 0, Math.PI * 2);
+    x.fillStyle = hl;
+    x.fill();
+    x.strokeStyle = 'rgba(255,255,255,0.8)';
+    x.lineWidth = 3.5;
+    x.lineCap = 'round';
+    x.beginPath();
+    x.arc(cx + 8, cy, r * 0.75, -2.1, -0.6);
+    x.stroke();
+    x.beginPath();
+    x.arc(cx - 8, cy, r * 0.75, Math.PI + 0.6, Math.PI + 2.1);
+    x.stroke();
+    x.beginPath();
+    x.arc(cx, cy + 6, r * 0.65, 0.7, Math.PI - 0.7);
+    x.stroke();
+    x.beginPath();
+    x.arc(cx, cy + 6, r * 0.65, Math.PI + 0.7, Math.PI * 2 - 0.7);
+    x.stroke();
+    x.strokeStyle = 'rgba(0,0,0,0.08)';
+    x.lineWidth = 2;
+    x.beginPath();
+    x.arc(cx, cy, r, 0, Math.PI * 2);
+    x.stroke();
+    x.font = 'bold 36px Arial Black, Arial, sans-serif';
+    x.textAlign = 'center';
+    x.textBaseline = 'middle';
+    x.fillStyle = 'rgba(0,0,0,0.25)';
+    x.fillText('MHC', cx + 1, cy + 3);
+    x.fillStyle = '#ffffff';
+    x.fillText('MHC', cx, cy + 2);
+    var link = document.querySelector("link[rel*='icon']");
+    if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
+    link.type = 'image/png';
+    link.href = c.toDataURL('image/png');
+  }
+
   function applyTheme(t) {
     state.theme = t || 'oscuro';
     document.body.setAttribute('data-theme', state.theme);
     try { localStorage.setItem('mhc-theme', state.theme); } catch (e) {}
+    requestAnimationFrame(function() {
+      var a = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      if (a) generateFavicon(a);
+    });
   }
 
   function applyFont(f) {
@@ -586,8 +649,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -746,7 +809,8 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
+      if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
       stampFinished();
@@ -1433,7 +1497,58 @@
       if (j && j.ok) { state.wheelchair = { ...state.wheelchair, data: j, loaded: true }; }
       else { state.wheelchair = { ...state.wheelchair, loaded: true }; }
     } catch (_) { state.wheelchair = { ...state.wheelchair, loaded: true }; }
-    if (state.tab === 'wheelchair') render();
+    if (state.tab === 'wheelchair') {
+      if (state.wheelchair.tab === 'live' && !state.wcLive.loaded) refreshWcLive();
+      else if (state.wheelchair.tab === 'videos' && !state.wcVideos.loaded) refreshWcVideos();
+      render();
+    }
+  }
+
+  async function refreshWcLive() {
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const url = 'https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1';
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(resp.status);
+      const j = await resp.json();
+      const events = [];
+      const tours = j.tournaments || [];
+      tours.forEach(t => {
+        const tName = ((t.tournament || {}).name || '').toLowerCase();
+        const catName = ((t.tournament || {}).category || {}).name || '';
+        const isWC = tName.indexOf('wheelchair') > -1 || catName.toLowerCase().indexOf('wheelchair') > -1 || tName.indexOf('uniqlo wheel') > -1;
+        if (!isWC) return;
+        const matches = t.events || [];
+        matches.forEach(ev => {
+          events.push({
+            id: ev.id,
+            tournament: (t.tournament || {}).name || '',
+            category: catName,
+            home: (ev.homeTeam || {}).name || '',
+            away: (ev.awayTeam || {}).name || '',
+            status: ev.status ? ev.status.type : '',
+            statusDesc: ev.status ? ev.status.description : '',
+            homeScore: ev.homeScore ? ev.homeScore.current : '',
+            awayScore: ev.awayScore ? ev.awayScore.current : '',
+            startTimestamp: ev.startTimestamp || 0
+          });
+        });
+      });
+      events.sort((a, b) => b.startTimestamp - a.startTimestamp);
+      state.wcLive = { events: events, loaded: true, error: '' };
+    } catch (e) {
+      state.wcLive = { events: [], loaded: true, error: e.message || 'Error loading live scores' };
+    }
+    if (state.tab === 'wheelchair' && state.wheelchair.tab === 'live') renderWheelchair();
+  }
+
+  async function refreshWcVideos() {
+    try {
+      const j = await fetchJson('wheelchair-videos.json').catch(() => null);
+      if (j && j.ok) { state.wcVideos = { items: j.videos || [], loaded: true }; }
+      else { state.wcVideos = { items: [], loaded: true }; }
+    } catch (_) { state.wcVideos = { items: [], loaded: true }; }
+    if (state.tab === 'wheelchair' && state.wheelchair.tab === 'videos') renderWheelchair();
   }
 
   function renderCurrentTour() {
@@ -1479,9 +1594,69 @@
     const el = $('wcContent');
     const meta = $('wcMeta');
     const wc = state.wheelchair;
+    const tab = wc.tab;
+
+    if (tab === 'live') {
+      const wcLive = state.wcLive;
+      if (!wcLive.loaded) { el.innerHTML = '<div class="loading">Cargando partidos en vivo...</div>'; return; }
+      if (wcLive.error) {
+        el.innerHTML = '<div class="error-box">No se pudieron cargar los partidos en vivo de Sofascore.<br><small>' + esc(wcLive.error) + '</small></div>' +
+          '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver en Sofascore &rarr;</a></div>';
+        return;
+      }
+      if (!wcLive.events.length) {
+        el.innerHTML = '<div class="loading">No hay partidos de wheelchair tennis en vivo ahora.</div>' +
+          '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver calendario completo en Sofascore &rarr;</a></div>';
+        return;
+      }
+      const liveRows = wcLive.events.map(ev => {
+        const isLive = ev.status === 1;
+        const isFinished = ev.status === 2;
+        const statusBadge = isLive ? '<span class="wc-live-badge">LIVE</span>' : (isFinished ? '<span class="wc-finished-badge">FT</span>' : '');
+        const scoreHtml = ev.homeScore ? '<span class="wc-score">' + esc(ev.homeScore) + ' - ' + esc(ev.awayScore) + '</span>' : '';
+        return '<tr class="' + (isLive ? 'wc-row-live' : '') + '">' +
+          '<td>' + esc(ev.tournament) + '</td>' +
+          '<td>' + esc(ev.home) + '</td>' +
+          '<td>' + esc(ev.away) + '</td>' +
+          '<td>' + scoreHtml + '</td>' +
+          '<td>' + statusBadge + (ev.statusDesc && !isLive ? ' ' + esc(ev.statusDesc) : '') + '</td>' +
+          '</tr>';
+      }).join('');
+      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
+        '<thead><tr><th>Torneo</th><th>Jugador 1</th><th>Jugador 2</th><th>Marcador</th><th>Estado</th></tr></thead>' +
+        '<tbody>' + liveRows + '</tbody></table></div>' +
+        '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver todos los partidos en Sofascore &rarr;</a></div>';
+      if (meta) meta.textContent = 'Partidos en vivo de wheelchair tennis (Sofascore)';
+      return;
+    }
+
+    if (tab === 'videos') {
+      const wcVideos = state.wcVideos;
+      if (!wcVideos.loaded) { el.innerHTML = '<div class="loading">Cargando videos...</div>'; return; }
+      if (!wcVideos.items.length) {
+        el.innerHTML = '<div class="loading">No hay videos disponibles.</div>';
+        return;
+      }
+      let html = '<div class="wc-videos-grid">';
+      wcVideos.items.forEach(v => {
+        const thumb = 'https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg';
+        html += '<a href="https://www.youtube.com/watch?v=' + v.youtubeId + '" target="_blank" rel="noopener" class="wc-video-card">';
+        html += '<div class="wc-video-thumb"><img src="' + thumb + '" alt="' + esc(v.title) + '" loading="lazy"><div class="wc-video-play">&#9654;</div></div>';
+        html += '<div class="wc-video-info">';
+        html += '<div class="wc-video-title">' + esc(v.title) + '</div>';
+        html += '<div class="wc-video-event">' + esc(v.event) + '</div>';
+        html += '<div class="wc-video-desc">' + esc(v.description) + '</div>';
+        html += '</div></a>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:16px"><a href="https://www.youtube.com/results?search_query=wheelchair+tennis+2026+highlights" target="_blank" class="ta-link">Ver más highlights en YouTube &rarr;</a></div>';
+      el.innerHTML = html;
+      if (meta) meta.textContent = 'Videos de wheelchair tennis · Highlights y Torneos';
+      return;
+    }
+
     if (!wc.loaded || !wc.data) { el.innerHTML = '<div class="loading">Cargando datos wheelchair...</div>'; return; }
     const d = wc.data;
-    const tab = wc.tab;
     const flagEmoji = c => { const m = { JPN: '\u{1F1EF}\u{1F1F5}', GBR: '\u{1F1EC}\u{1F1E7}', ESP: '\u{1F1EA}\u{1F1F8}', ARG: '\u{1F1E6}\u{1F1F7}', FRA: '\u{1F1EB}\u{1F1F7}', NED: '\u{1F1F3}\u{1F1F1}', USA: '\u{1F1FA}\u{1F1F8}', BRA: '\u{1F1E7}\u{1F1F7}', CHN: '\u{1F1E8}\u{1F1F3}', RSA: '\u{1F1FF}\u{1F1E6}', ISR: '\u{1F1EE}\u{1F1F1}', COL: '\u{1F1E8}\u{1F1F4}', GER: '\u{1F1E9}\u{1F1EA}', TUR: '\u{1F1F9}\u{1F1F7}', CHI: '\u{1F1E8}\u{1F1F8}', AUS: '\u{1F1E6}\u{1F1FA}', MAS: '\u{1F1F2}\u{1F1FE}' }; return m[c] || ''; };
 
     if (tab === 'calendar') {
@@ -1971,6 +2146,8 @@
         if (!b) return;
         state.wheelchair.tab = b.dataset.wc;
         document.querySelectorAll('#segWC .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        if (b.dataset.wc === 'live') { refreshWcLive(); return; }
+        if (b.dataset.wc === 'videos') { refreshWcVideos(); return; }
         renderWheelchair();
       });
     }
