@@ -1261,7 +1261,13 @@
       liveCount += ms.filter(m => m.state === 'in').length;
     }
     el.innerHTML = html;
-    $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total';
+    const srcLabel = (function () {
+      if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
+      const sm = state.sofaMeta;
+      if (!sm || !sm.ts) return '';
+      return Object.keys(sm.bySurname || {}).length ? '' : '(Sofascore sin datos)';
+    })();
+    $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total' + (srcLabel ? ' · ' + srcLabel : '');
   }
 
   function rankMatch(m) {
