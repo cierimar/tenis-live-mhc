@@ -1103,63 +1103,138 @@ function Resolve-TAName([string]$name) {
     return $null
 }
 
+function Convert-FragDate([string]$d) {
+    $map = @{ Jan = '01'; Feb = '02'; Mar = '03'; Apr = '04'; May = '05'; Jun = '06'; Jul = '07'; Aug = '08'; Sep = '09'; Oct = '10'; Nov = '11'; Dec = '12' }
+    if ($d -match '^(\d{1,2})-([A-Za-z]{3})-(\d{4})$') {
+        $mm = $map[$Matches[2]]
+        if ($mm) { return $Matches[3] + $mm + $Matches[1].PadLeft(2, '0') }
+    }
+    return $d
+}
+
+function Parse-TAFrag([string]$text) {
+    $rows = [regex]::Matches($text, '<tr><td[^>]*>\d{1,2}-[A-Za-z]{3}-\d{4}</td>[\s\S]*?</tr>')
+    $out = @()
+    foreach ($r in $rows) {
+        $rowHtml = $r.Value
+        $tds = @()
+        foreach ($tm in [regex]::Matches($rowHtml, '<td[^>]*>([\s\S]*?)</td>')) { $tds += $tm.Groups[1].Value }
+        if ($tds.Count -lt 6) { continue }
+        $dateRaw = ($tds[0] -replace '<[^>]+>', '').Trim()
+        $tourn = ($tds[1] -replace '<[^>]+>', '').Trim()
+        $surf = ($tds[2] -replace '<[^>]+>', '').Trim()
+        $round = ($tds[3] -replace '<[^>]+>', '').Trim()
+        $mi = -1
+        for ($i = 4; $i -lt $tds.Count; $i++) {
+            if ($tds[$i] -match '<b>' -or $tds[$i] -match '<a\s') { $mi = $i; break }
+        }
+        if ($mi -lt 0 -or ($mi + 1) -ge $tds.Count) { continue }
+        $matchCell = $tds[$mi]
+        $score = (($tds[$mi + 1]) -replace '<[^>]+>', '' -replace '&nbsp;', ' ').Trim()
+        if (-not $score -or $matchCell -match '>\s*vs\s*<') { continue }
+        $boldM = [regex]::Match($matchCell, '<b>([^<]+)</b>')
+        $linkM = [regex]::Match($matchCell, '<a[^>]*>([^<]+)</a>')
+        if (-not $boldM.Success -or -not $linkM.Success) { continue }
+        $out += @{
+            date = Convert-FragDate $dateRaw
+            tournament = $tourn
+            surface = $surf
+            round = $round
+            score = $score
+            winner = $boldM.Groups[1].Value.Trim()
+            loser = $linkM.Groups[1].Value.Trim()
+            selfLink = ([regex]::Match($matchCell, 'href="[^"]*p=([A-Za-z0-9]+)"')).Groups[1].Value
+        }
+    }
+    return $out
+}
+
 function Get-TAH2H([string]$p1Name, [string]$p2Name) {
     $rp1 = Resolve-TAName $p1Name
     $rp2 = Resolve-TAName $p2Name
     if (-not $rp1) { return @{ ok = $false; error = "Jugador no encontrado: $p1Name. Proba con el nombre completo (ej. Rafael Nadal)." } }
     if (-not $rp2) { return @{ ok = $false; error = "Jugador no encontrado: $p2Name. Proba con el nombre completo (ej. Rafael Nadal)." } }
     $slug = ($rp1 -replace '\s+', '' -replace '[^a-zA-Z0-9]', '')
+    if (-not $slug) { return @{ ok = $false; error = 'Falta el nombre del jugador' } }
+    $q1 = Normalize-Name $rp2
+    $nr1 = Normalize-Name $rp1
+    $sur1 = ($nr1 -split '\s+')[-1]
     $realName = ''
-    $matchmx = $null
+    $meetings = @()
+
     $html = Get-WebFile "https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=$slug"
     if ($html -and $html -match 'var matchmx = \[') {
         $fnM = [regex]::Match($html, 'Tennis Abstract:\s*(.+?)\s+Match Results')
         if ($fnM.Success) { $realName = $fnM.Groups[1].Value.Trim() }
-        $matchmx = Extract-TAMatchmx $html 'var matchmx = '
+        $arr = Extract-TAMatchmx $html 'var matchmx = '
+        if ($arr) {
+            foreach ($m in $arr) {
+                $opp = [string]$m[11]
+                $no = Normalize-Name $opp
+                if (-not $no -or -not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
+                $isWin = ([string]$m[4]) -eq 'W'
+                $meetings += @{
+                    date = [string]$m[0]; tournament = [string]$m[1]; surface = [string]$m[2]
+                    round = [string]$m[8]; score = [string]$m[9]
+                    winner = if ($isWin) { $realName } else { $opp }
+                    loser = if ($isWin) { $opp } else { $realName }
+                }
+            }
+        }
     }
-    if (-not $matchmx) {
+
+    if (-not $meetings -or $meetings.Count -eq 0) {
+        $frag = Get-WebFile "https://www.tennisabstract.com/jsfrags/$slug.js"
+        if ($frag) {
+            $fMeetings = Parse-TAFrag $frag
+            foreach ($fm in $fMeetings) {
+                $nw = Normalize-Name $fm.winner
+                $nl = Normalize-Name $fm.loser
+                if (-not (($nw -eq $nr1 -or $nw -eq $sur1) -or ($nl -eq $nr1))) { continue }
+                if (-not (($nw.Contains($q1) -or $q1.Contains($nw)) -or ($nl.Contains($q1) -or $q1.Contains($nl)))) { continue }
+                $winFull = if ($nw -eq $sur1 -or $nw -eq $nr1) { $rp1 } else { $fm.winner }
+                $loseFull = if ($nl -eq $nr1) { $rp1 } else { $fm.loser }
+                $meetings += @{
+                    date = $fm.date; tournament = $fm.tournament; surface = $fm.surface
+                    round = $fm.round; score = $fm.score; winner = $winFull; loser = $loseFull
+                }
+            }
+            if ($meetings.Count -gt 0 -and -not $realName) { $realName = $rp1 }
+        }
+    }
+
+    if (-not $meetings -or $meetings.Count -eq 0) {
         $js = Get-WebFile "https://www.tennisabstract.com/jsmatches/$slug.js"
         if ($js) {
             $fnM2 = [regex]::Match($js, "var\s+fullname\s*=\s*'([^']+)'")
             if ($fnM2.Success) { $realName = $fnM2.Groups[1].Value.Trim() }
-            $matchmx = Extract-TAMatchmx $js 'matchmx = '
+            $arr2 = Extract-TAMatchmx $js 'matchmx = '
+            if ($arr2) {
+                foreach ($m in $arr2) {
+                    $opp = [string]$m[11]
+                    $no = Normalize-Name $opp
+                    if (-not $no -or -not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
+                    $isWin = ([string]$m[4]) -eq 'W'
+                    $meetings += @{
+                        date = [string]$m[0]; tournament = [string]$m[1]; surface = [string]$m[2]
+                        round = [string]$m[8]; score = [string]$m[9]
+                        winner = if ($isWin) { $realName } else { $opp }
+                        loser = if ($isWin) { $opp } else { $realName }
+                    }
+                }
+            }
         }
     }
-    if (-not $matchmx) { return @{ ok = $false; error = "Jugador no encontrado en TennisAbstract: $rp1" } }
-    $nq = Normalize-Name $rp1
-    $nr = Normalize-Name $realName
-    if ($nq -and $nr -and -not ($nr.Contains($nq) -or $nq.Contains($nr))) {
-        return @{ ok = $false; error = "Jugador no encontrado en TennisAbstract: $rp1" }
+
+    if (-not $meetings -or $meetings.Count -eq 0) {
+        return @{ ok = $false; error = "No se encontraron partidos entre $rp1 y $rp2." }
     }
-    $q1 = Normalize-Name $rp2
-    if (-not $q1) { return @{ ok = $false; error = 'Falta el nombre del rival' } }
-    $meetings = @()
     $wins = 0; $losses = 0
-    foreach ($m in $matchmx) {
-        $opp = [string]$m[11]
-        $no = Normalize-Name $opp
-        if (-not $no) { continue }
-        if (-not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
-        $result = [string]$m[4]
-        $isWin = $result -eq 'W'
-        if ($isWin) { $wins++ } else { $losses++ }
-        $meetings += @{
-            date = [string]$m[0]
-            tournament = [string]$m[1]
-            surface = [string]$m[2]
-            round = [string]$m[8]
-            score = [string]$m[9]
-            winner = if ($isWin) { $realName } else { $opp }
-            loser = if ($isWin) { $opp } else { $realName }
-        }
+    foreach ($mt in $meetings) {
+        $nw = Normalize-Name $mt.winner
+        if ($nw -eq $nr1 -or $nw -eq $sur1) { $wins++ } else { $losses++ }
     }
-    if ($meetings.Count -eq 0) {
-        $recent = @()
-        $n = [Math]::Min(8, $matchmx.Count)
-        for ($i = 0; $i -lt $n; $i++) { $recent += [string]$matchmx[$i][11] }
-        return @{ ok = $false; error = "No se encontraron partidos entre ellos. Rivales recientes de $($realName): $($recent -join ', ')" }
-    }
-    return @{ ok = $true; p1 = $realName; p2 = $rp2; h2h = "$wins-$losses"; source = 'tennisabstract'; meetings = $meetings }
+    return @{ ok = $true; p1 = $(if ($realName) { $realName } else { $rp1 }); p2 = $rp2; h2h = "$wins-$losses"; source = 'tennisabstract'; meetings = $meetings }
 }
 
 function Get-TennisAbstractCurrentTour {
@@ -1448,6 +1523,22 @@ if (-not $NoBrowser) {
 }
 
 while ($listener.IsListening) {
-    $ctx = $listener.GetContext()
-    Handle-Request $ctx
+    $ctx = $null
+    try {
+        $ctx = $listener.GetContext()
+        Handle-Request $ctx
+    } catch {
+        Write-Host "Error atendiendo request: $($_.Exception.Message)" -ForegroundColor Red
+        if ($ctx -and $ctx.Response) {
+            try {
+                $ctx.Response.StatusCode = 500
+                $body = [Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
+                $ctx.Response.ContentType = 'application/json'
+                $ctx.Response.ContentLength64 = $body.Length
+                $ctx.Response.OutputStream.Write($body, 0, $body.Length)
+                $ctx.Response.Close()
+            } catch {}
+        }
+        Start-Sleep -Milliseconds 200
+    }
 }
