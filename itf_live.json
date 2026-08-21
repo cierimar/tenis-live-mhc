@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -4639,6 +4638,27 @@
           "finished": false
         },
         {
+          "teId": "3300149",
+          "p1": "Matsuda",
+          "p2": "Yang",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "04:05",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "7",
+            "4"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3300139",
           "p1": "Jeong",
           "p2": "Desvignes",
@@ -4675,27 +4695,6 @@
           "sets2": [
             "4",
             "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3300149",
-          "p1": "Matsuda",
-          "p2": "Yang",
-          "round": "quarterfinal",
-          "date": "21.08.",
-          "time": "04:00",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "7",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "7",
-            "4"
           ],
           "finished": true
         },
@@ -5236,7 +5235,7 @@
           "p2": "Ait El Bachir",
           "round": "quarterfinal",
           "date": "21.08.",
-          "time": "12:00",
+          "time": "13:26",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -5768,5 +5767,6 @@
       ]
     }
   ],
-  "time": "2026-08-21T22:55:16Z"
+  "ok": true,
+  "time": "2026-08-21T23:52:35Z"
 }
