@@ -352,6 +352,61 @@
     return res;
   }
 
+  function taNorm(s) {
+    return s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
+  }
+
+  async function fetchTAH2HWeb(nameA, nameB) {
+    const rp1 = resolveNameClient(nameA);
+    const rp2 = resolveNameClient(nameB);
+    if (!rp1) throw new Error('no-encontrado:' + nameA);
+    if (!rp2) throw new Error('no-encontrado:' + nameB);
+    const q2norm = taNorm(rp2);
+    const slug = taSlug(rp1);
+    let result = null;
+    try {
+      const rFull = await fetch('https://r.jina.ai/https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug, { headers: { 'X-Return-Format': 'html' } });
+      if (rFull.ok) {
+        const fullHtml = await rFull.text();
+        const fnCheck = fullHtml.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
+        if (fullHtml.indexOf('var matchmx') > -1 && fnCheck && fnCheck[1].trim().toLowerCase() === rp1.toLowerCase()) {
+          result = parseMatchmxClient(fullHtml, rp1, q2norm);
+          if (result && !result.meetings.length) result = null;
+        }
+      }
+    } catch (e0) { result = null; }
+    if (!result) {
+      let text = null;
+      try {
+        const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsfrags/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
+        if (r1.ok) text = await r1.text();
+      } catch (e1) { text = null; }
+      if (!text || text.indexOf('<tr') < 0) {
+        try {
+          const r2 = await fetch('https://www.tennisabstract.com/jsfrags/' + slug + '.js', { mode: 'cors' });
+          if (r2.ok) text = await r2.text();
+        } catch (e2) { text = null; }
+      }
+      if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
+      result = parseTaFragClient(text, rp1, rp2);
+    }
+    return {
+      p1: (result.realName || rp1),
+      p2: rp2,
+      meetings: result.meetings || []
+    };
+  }
+
+  function taCountWins(meetings, selfName) {
+    const sur = taNorm(selfName).split(' ').pop();
+    let w = 0;
+    for (const mt of meetings) {
+      const nw = taNorm(mt.winner || '');
+      if (nw === sur || nw.endsWith(' ' + sur)) w++;
+    }
+    return w;
+  }
+
   async function refreshScoreboards() {
     const [atp, wta] = await Promise.all([
       fetchJson(ESPN + '/atp/scoreboard').catch(() => null),
@@ -1965,17 +2020,30 @@
       if (useLocalBackend()) {
         j = await fetchJson('api/h2h/byname?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
       } else {
-        if (!state.h2hCache) {
-          state.h2hCache = await fetchJson('h2h_cache.json').catch(() => ({ pairs: {} }));
-        }
-        const key1 = p1.toLowerCase().replace(/ /g, '') + '::' + p2.toLowerCase().replace(/ /g, '');
-        const key2 = p2.toLowerCase().replace(/ /g, '') + '::' + p1.toLowerCase().replace(/ /g, '');
-        const cached = (state.h2hCache.pairs || {})[key1] || (state.h2hCache.pairs || {})[key2];
-        if (cached) { j = cached; }
-        else {
-          body.innerHTML = '<div class="error-box">H2H no disponible para este partido en la version web. Intenta con la version local.</div>';
+        const res = await fetchTAH2HWeb(p1, p2);
+        const rows = (res.meetings || []).map(mt => {
+          const s1 = [], s2 = [];
+          String(mt.score || '').split(/\s+/).forEach(tok => {
+            const m = tok.match(/^(\d+)-(\d+)/);
+            if (m) { s1.push(m[1]); s2.push(m[2]); }
+          });
+          return {
+            year: String(mt.date || '').slice(0, 4),
+            tournament: mt.tournament,
+            round: mt.round,
+            surface: mt.surface,
+            winner: mt.winner,
+            loser: mt.loser,
+            sets1: s1,
+            sets2: s2
+          };
+        });
+        if (!rows.length) {
+          body.innerHTML = '<div class="error-box">Sin enfrentamientos previos entre estos jugadores.</div>';
           return;
         }
+        const wins = taCountWins(res.meetings, res.p1);
+        j = { ok: true, p1: res.p1, p2: res.p2, h2h: wins + '-' + (res.meetings.length - wins), meetings: rows };
       }
       renderH2H(body, j);
     } catch (err) {
@@ -2160,50 +2228,13 @@
       if (useLocalBackend()) {
         j = await fetchJson('api/h2h/ta?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
       } else {
-        const rp1 = resolveNameClient(p1);
-        const rp2 = resolveNameClient(p2);
-        if (!rp1) throw new Error('no-encontrado:' + p1);
-        if (!rp2) throw new Error('no-encontrado:' + p2);
-        const q2norm = rp2.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
-        const slug = taSlug(rp1);
-        let result = null;
-        try {
-          const rFull = await fetch('https://r.jina.ai/https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug, { headers: { 'X-Return-Format': 'html' } });
-          if (rFull.ok) {
-            const fullHtml = await rFull.text();
-            const fnCheck = fullHtml.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
-            if (fullHtml.indexOf('var matchmx') > -1 && fnCheck && fnCheck[1].trim().toLowerCase() === rp1.toLowerCase()) {
-              result = parseMatchmxClient(fullHtml, rp1, q2norm);
-              if (result && !result.meetings.length) result = null;
-            }
-          }
-        } catch (e0) { result = null; }
-        if (!result) {
-          let text = null;
-          try {
-            const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsfrags/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
-            if (r1.ok) text = await r1.text();
-          } catch (e1) { text = null; }
-          if (!text || text.indexOf('<tr') < 0) {
-            try {
-              const r2 = await fetch('https://www.tennisabstract.com/jsfrags/' + slug + '.js', { mode: 'cors' });
-              if (r2.ok) text = await r2.text();
-            } catch (e2) { text = null; }
-          }
-          if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
-          result = parseTaFragClient(text, rp1, rp2);
-        }
-        const mtAll = (result && result.meetings) || [];
+        const res = await fetchTAH2HWeb(p1, p2);
+        const mtAll = res.meetings;
         if (!mtAll.length) {
           j = { ok: false, error: 'No se encontraron partidos entre ellos.' };
         } else {
-          const nSelfS = rp1.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim().split(' ').pop();
-          let wins = 0;
-          for (const mt of mtAll) {
-            const nw = (mt.winner || '').toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
-            if (nw === nSelfS || nw.endsWith(' ' + nSelfS)) wins++;
-          }
-          j = { ok: true, p1: result.realName || rp1, p2: rp2, h2h: wins + '-' + (mtAll.length - wins), source: 'tennisabstract', meetings: mtAll };
+          const wins = taCountWins(mtAll, res.p1);
+          j = { ok: true, p1: res.p1, p2: res.p2, h2h: wins + '-' + (mtAll.length - wins), source: 'tennisabstract', meetings: mtAll };
         }
       }
       state.h2hSearch.data = j;
