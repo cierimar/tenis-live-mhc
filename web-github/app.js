@@ -670,13 +670,40 @@
     }));
   }
 
-  async function refreshRankingsSingles() {
-    const [atp, wta] = await Promise.all([
-      fetchJson(ESPN + '/atp/rankings'),
-      fetchJson(ESPN + '/wta/rankings')
-    ]);
-    state.rankSingles.atp = normalizeEspnRank(atp);
-    state.rankSingles.wta = normalizeEspnRank(wta);
+  async function refreshRankingsSingles(force) {
+    if (!force && state.rankSinglesAt && Date.now() - state.rankSinglesAt < 600000 &&
+        state.rankSingles.atp && state.rankSingles.wta) return;
+    state.rankSinglesAt = Date.now();
+    const ltRow = r => ({
+      rank: r.rank,
+      points: parseInt(String(r.points || '').replace(/[^\d]/g, ''), 10) || 0,
+      trend: r.move || 0,
+      name: r.name,
+      flag: flagUrl((r.country || '').toLowerCase()),
+      flagAlt: r.country || ''
+    });
+    const jobs = ['atp', 'wta'].map(tour => {
+      const p = useLocalBackend()
+        ? fetchJson('/api/rankings/live?tour=' + tour + '&race=0&official=1')
+        : fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t));
+      return p.then(j => {
+        const rows = (j && j.rows) || j;
+        if (!Array.isArray(rows) || !rows.length) throw new Error('sin datos');
+        state.rankSingles[tour] = rows.map(ltRow);
+        state.rankSinglesSource = 'live-tennis.eu (ranking oficial completo)';
+      }).catch(() => {});
+    });
+    await Promise.allSettled(jobs);
+    const needAtp = !state.rankSingles.atp || !state.rankSingles.atp.length;
+    const needWta = !state.rankSingles.wta || !state.rankSingles.wta.length;
+    if (needAtp || needWta) {
+      try {
+        const [a, w] = await Promise.all([fetchJson(ESPN + '/atp/rankings'), fetchJson(ESPN + '/wta/rankings')]);
+        if (needAtp) state.rankSingles.atp = normalizeEspnRank(a);
+        if (needWta) state.rankSingles.wta = normalizeEspnRank(w);
+        state.rankSinglesSource = 'ESPN';
+      } catch (_) {}
+    }
   }
 
   /* ---------- ATP live (conteo de puntos 15/30/40) ---------- */
@@ -1155,7 +1182,7 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
       if (state.rankView !== 'oficial') refreshRankingsLive();
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
@@ -1615,7 +1642,7 @@
     let data, sourceNote;
     if (mode === 'singles') {
       data = state.rankSingles[tour];
-      sourceNote = 'Fuente: ESPN';
+      sourceNote = 'Fuente: ' + (state.rankSinglesSource || 'ESPN');
     } else {
       const d = state.rankDoubles[tour];
       if (!d) return header + '<div class="loading">Cargando ranking de dobles...</div>';
