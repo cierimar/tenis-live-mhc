@@ -236,7 +236,8 @@
               name: ev.name || '',
               date: ev.date,
               status: ev.status ? ev.status.type : null,
-              previousWinners: ev.previousWinners || []
+              previousWinners: ev.previousWinners || [],
+              logo: (ev.logos && ev.logos[0] && (ev.logos[0].href || ev.logos[0].url)) || ''
             });
           }
           matches.push({
@@ -342,6 +343,17 @@
     return 'DURA';
   }
 
+  function guessSurface(name, dateStr) {
+    const n = (name || '').toLowerCase();
+    if (/monte.?carlo|roland garros|french open|internazionali|\brome\b|\broma\b|hamburg|estoril|munich|barcelona|rio de janeiro|umag|kitzbuhel|gstaad|bastad|cordoba|santiago|buenos aires|mar del plata|concepcion|munich|madrid open|italian open/.test(n)) return 'Red clay';
+    if (/wimbledon|eastbourne|halle|mallorca|newport|s-hertogenbosch|libema|queen.?s|stuttgart.*grass|maharashtra|newport beach/.test(n)) return 'Grass';
+    let m = new Date().getMonth();
+    if (dateStr) { const d = new Date(dateStr); if (!isNaN(d)) m = d.getMonth(); }
+    if (m === 3 || m === 4) return 'Red clay';
+    if (m === 5) return 'Grass';
+    return 'Hardcourt outdoor';
+  }
+
   function sofaMetaFromEvent(ev) {
     const ut = ev.uniqueTournament || {};
     const tName = ut.name || (ev.tournament || {}).name || '';
@@ -370,9 +382,12 @@
       const j = await resp.json();
       const bySurname = new Map();
       const byName = new Map();
+      let nEvents = 0, nKept = 0;
       for (const ev of (j.events || [])) {
+        nEvents++;
         const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
-        if (cat !== 'atp' && cat !== 'wta' && cat.indexOf('chall') < 0 && cat.indexOf('itf') < 0) continue;
+        if (!/atp|wta|chall|itf/.test(cat)) continue;
+        nKept++;
         const meta = sofaMetaFromEvent(ev);
         const nk = taNorm(meta.name);
         if (nk && !byName.has(nk)) byName.set(nk, meta);
@@ -386,11 +401,11 @@
           });
         });
       }
-      state.sofaMeta = { bySurname: bySurname, byName: byName, ts: now };
+      state.sofaMeta = { bySurname: bySurname, byName: byName, ts: now, err: '', nEvents: nEvents, nKept: nKept };
       applySofaMeta(bySurname, byName);
       if (state.tab === 'live') renderLive();
-    } catch (_) {
-      state.sofaMeta = { bySurname: new Map(), byName: new Map(), ts: now };
+    } catch (eSofa) {
+      state.sofaMeta = { bySurname: new Map(), byName: new Map(), ts: now, err: (eSofa && eSofa.message) || 'error' };
     }
   }
 
@@ -1255,7 +1270,8 @@
         : '<span class="th-logo th-logo-txt">' + esc((name || '?').charAt(0).toUpperCase()) + '</span>';
       const tierTxt = (tour && tour.tier) || tierLabel(tour && tour.name ? tour.name : name, state.tour === 'wta' ? 'wta' : (state.tour === 'chall' ? 'chall' : 'atp'));
       const tier = tierTxt ? '<span class="th-tier">' + esc(tierTxt) + '</span>' : '';
-      const surf = tour && tour.surface ? '<span class="th-surf surf-' + surfClassOf(tour.surface) + '">' + esc(surfShortOf(tour.surface)) + '</span>' : '';
+      const surfTxt = (tour && tour.surface) || guessSurface(name, tour && tour.date);
+      const surf = surfTxt ? '<span class="th-surf surf-' + surfClassOf(surfTxt) + '">' + esc(surfShortOf(surfTxt)) + '</span>' : '';
       html += '<div class="tour-block"><div class="tour-head">' + logo + '<span class="t-name">' + esc(name) +
         '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
@@ -1265,7 +1281,9 @@
       if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
       const sm = state.sofaMeta;
       if (!sm || !sm.ts) return '';
-      return Object.keys(sm.bySurname || {}).length ? '' : '(Sofascore sin datos)';
+      if (sm.err) return '(Sofascore: ' + sm.err + ')';
+      if (!(sm.nKept)) return '(Sofascore: ' + sm.nEvents + ' eventos, ninguno de tenis profesional)';
+      return '';
     })();
     $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total' + (srcLabel ? ' · ' + srcLabel : '');
   }
