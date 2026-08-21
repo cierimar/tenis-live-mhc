@@ -292,13 +292,80 @@
     return { matches, tournaments: Array.from(tourMap.values()) };
   }
 
+  function sofaLines(sc) {
+    const out = [];
+    for (let i = 1; i <= 5; i++) {
+      const v = sc ? sc['period' + i] : null;
+      if (v === null || v === undefined) break;
+      out.push({ value: v, tiebreak: false, winner: false });
+    }
+    return out;
+  }
+
+  async function sofascoreFallback() {
+    const today = new Date().toISOString().slice(0, 10);
+    const resp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
+    if (!resp.ok) throw new Error('sofascore ' + resp.status);
+    const j = await resp.json();
+    const res = {
+      atp: { matches: [], tournaments: [] },
+      wta: { matches: [], tournaments: [] }
+    };
+    for (const ev of (j.events || [])) {
+      const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
+      let circuit = '';
+      if (cat === 'atp') circuit = 'atp';
+      else if (cat === 'wta') circuit = 'wta';
+      else continue;
+      const tName = (ev.uniqueTournament && ev.uniqueTournament.name) || (ev.tournament && ev.tournament.name) || '';
+      const tid = 'sf-' + (((ev.uniqueTournament || {}).id) || ((ev.tournament || {}).id) || tName);
+      if (!res[circuit].tournaments.some(t => t.id === tid)) {
+        res[circuit].tournaments.push({ id: tid, name: tName, date: '', status: null, previousWinners: [] });
+      }
+      const st = (ev.status || {}).type || '';
+      const desc = (ev.status || {}).description || '';
+      const hN = (ev.homeTeam || {}).name || 'TBD';
+      const aN = (ev.awayTeam || {}).name || 'TBD';
+      const isDbl = hN.indexOf('/') > -1 || aN.indexOf('/') > -1;
+      const hc = (ev.homeScore || {}).current || 0;
+      const ac = (ev.awayScore || {}).current || 0;
+      res[circuit].matches.push({
+        id: 'sf-' + ev.id,
+        date: ev.startTimestamp ? new Date(ev.startTimestamp * 1000).toISOString() : '',
+        state: st === 'inprogress' ? 'in' : (st === 'finished' ? 'post' : 'pre'),
+        period: 0,
+        suspended: /suspend|delay|rain/i.test(desc),
+        suspReason: /suspend|delay|rain/i.test(desc) ? desc : '',
+        type: circuit === 'wta' ? (isDbl ? "Women's Doubles" : "Women's Singles") : (isDbl ? "Men's Doubles" : "Men's Singles"),
+        round: (ev.roundInfo || {}).name || '',
+        tournamentId: tid,
+        tournamentName: tName,
+        tour: circuit,
+        venue: '',
+        notes: '',
+        competitors: [
+          { homeAway: 'home', winner: st === 'finished' && hc > ac, order: 1, name: hN, flag: '', flagAlt: (((ev.homeTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.homeScore) },
+          { homeAway: 'away', winner: st === 'finished' && ac > hc, order: 2, name: aN, flag: '', flagAlt: (((ev.awayTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.awayScore) }
+        ]
+      });
+    }
+    return res;
+  }
+
   async function refreshScoreboards() {
     const [atp, wta] = await Promise.all([
       fetchJson(ESPN + '/atp/scoreboard').catch(() => null),
       fetchJson(ESPN + '/wta/scoreboard').catch(() => null)
     ]);
-    const a = atp ? normalizeScoreboard(atp, 'atp') : { matches: [], tournaments: [] };
-    const w = wta ? normalizeScoreboard(wta, 'wta') : { matches: [], tournaments: [] };
+    let a = atp ? normalizeScoreboard(atp, 'atp') : { matches: [], tournaments: [] };
+    let w = wta ? normalizeScoreboard(wta, 'wta') : { matches: [], tournaments: [] };
+    if (!a.matches.length && !w.matches.length) {
+      try {
+        const sf = await sofascoreFallback();
+        if (sf.atp.matches.length) a = sf.atp;
+        if (sf.wta.matches.length) w = sf.wta;
+      } catch (_) {}
+    }
     const tmap = new Map();
     const mmap = new Map();
     for (const src of [a, w]) {
