@@ -1072,6 +1072,96 @@ function Get-MatchStats([string]$p1Name, [string]$p2Name) {
     return @{ ok = $true; player = $p1Name; stats = $stats }
 }
 
+function Extract-TAMatchmx([string]$text, [string]$marker) {
+    $idx = $text.IndexOf($marker)
+    if ($idx -lt 0) { return $null }
+    $start = $idx + $marker.Length
+    $depth = 0; $end = $start
+    for ($i = $start; $i -lt $text.Length; $i++) {
+        $c = $text[$i]
+        if ($c -eq '[') { $depth++ }
+        elseif ($c -eq ']') { $depth--; if ($depth -eq 0) { $end = $i + 1; break } }
+    }
+    if ($end -le $start) { return $null }
+    $json = $text.Substring($start, $end - $start)
+    try { $arr = $json | ConvertFrom-Json } catch { return $null }
+    if (-not $arr -or $arr.Count -eq 0) { return $null }
+    return $arr
+}
+
+function Resolve-TAName([string]$name) {
+    if (($name -split '\s+').Count -ge 2) { return $name }
+    $n = Normalize-Name $name
+    if (-not $n) { return $null }
+    foreach ($g in @('atp', 'wta')) {
+        $elo = Get-Cached "elo_$g" { Get-TennisAbstractElo $g } 21600
+        if ($elo -and $elo.ok -and $elo.players) {
+            $hits = @($elo.players | Where-Object { $pn = Normalize-Name $_.player; $pn -eq $n -or $pn.EndsWith(" $n") })
+            if ($hits.Count -ge 1) { return [string]$hits[0].player }
+        }
+    }
+    return $null
+}
+
+function Get-TAH2H([string]$p1Name, [string]$p2Name) {
+    $rp1 = Resolve-TAName $p1Name
+    $rp2 = Resolve-TAName $p2Name
+    if (-not $rp1) { return @{ ok = $false; error = "Jugador no encontrado: $p1Name. Proba con el nombre completo (ej. Rafael Nadal)." } }
+    if (-not $rp2) { return @{ ok = $false; error = "Jugador no encontrado: $p2Name. Proba con el nombre completo (ej. Rafael Nadal)." } }
+    $slug = ($rp1 -replace '\s+', '' -replace '[^a-zA-Z0-9]', '')
+    $realName = ''
+    $matchmx = $null
+    $html = Get-WebFile "https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=$slug"
+    if ($html -and $html -match 'var matchmx = \[') {
+        $fnM = [regex]::Match($html, 'Tennis Abstract:\s*(.+?)\s+Match Results')
+        if ($fnM.Success) { $realName = $fnM.Groups[1].Value.Trim() }
+        $matchmx = Extract-TAMatchmx $html 'var matchmx = '
+    }
+    if (-not $matchmx) {
+        $js = Get-WebFile "https://www.tennisabstract.com/jsmatches/$slug.js"
+        if ($js) {
+            $fnM2 = [regex]::Match($js, "var\s+fullname\s*=\s*'([^']+)'")
+            if ($fnM2.Success) { $realName = $fnM2.Groups[1].Value.Trim() }
+            $matchmx = Extract-TAMatchmx $js 'matchmx = '
+        }
+    }
+    if (-not $matchmx) { return @{ ok = $false; error = "Jugador no encontrado en TennisAbstract: $rp1" } }
+    $nq = Normalize-Name $rp1
+    $nr = Normalize-Name $realName
+    if ($nq -and $nr -and -not ($nr.Contains($nq) -or $nq.Contains($nr))) {
+        return @{ ok = $false; error = "Jugador no encontrado en TennisAbstract: $rp1" }
+    }
+    $q1 = Normalize-Name $rp2
+    if (-not $q1) { return @{ ok = $false; error = 'Falta el nombre del rival' } }
+    $meetings = @()
+    $wins = 0; $losses = 0
+    foreach ($m in $matchmx) {
+        $opp = [string]$m[11]
+        $no = Normalize-Name $opp
+        if (-not $no) { continue }
+        if (-not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
+        $result = [string]$m[4]
+        $isWin = $result -eq 'W'
+        if ($isWin) { $wins++ } else { $losses++ }
+        $meetings += @{
+            date = [string]$m[0]
+            tournament = [string]$m[1]
+            surface = [string]$m[2]
+            round = [string]$m[8]
+            score = [string]$m[9]
+            winner = if ($isWin) { $realName } else { $opp }
+            loser = if ($isWin) { $opp } else { $realName }
+        }
+    }
+    if ($meetings.Count -eq 0) {
+        $recent = @()
+        $n = [Math]::Min(8, $matchmx.Count)
+        for ($i = 0; $i -lt $n; $i++) { $recent += [string]$matchmx[$i][11] }
+        return @{ ok = $false; error = "No se encontraron partidos entre ellos. Rivales recientes de $($realName): $($recent -join ', ')" }
+    }
+    return @{ ok = $true; p1 = $realName; p2 = $rp2; h2h = "$wins-$losses"; source = 'tennisabstract'; meetings = $meetings }
+}
+
 function Get-TennisAbstractCurrentTour {
     try {
         $html = Get-WebFile 'https://www.tennisabstract.com/'
@@ -1206,6 +1296,18 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
             }
             $key = ("h2h_name_{0}_vs_{1}" -f ($n1 -replace '\s+','_'), ($n2 -replace '\s+','_')).ToLower()
             $data = Get-Cached $key { Get-H2HByName $n1 $n2 } 3600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/h2h/ta') {
+            $n1 = if ($q['p1']) { $q['p1'].Trim() } else { '' }
+            $n2 = if ($q['p2']) { $q['p2'].Trim() } else { '' }
+            if (-not $n1 -or -not $n2) {
+                Send-Error $resp 400 'Faltan parametros p1 y p2'
+                return
+            }
+            $key = ("ta_h2h_{0}_vs_{1}" -f ($n1 -replace '\s+','_'), ($n2 -replace '\s+','_')).ToLower()
+            $data = Get-Cached $key { Get-TAH2H $n1 $n2 } 3600
             Send-Json $resp $data
             return
         }
