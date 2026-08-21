@@ -122,20 +122,20 @@
     x.fillText('MHC', cx + 1, cy + 3);
     x.fillStyle = '#ffffff';
     x.fillText('MHC', cx, cy + 2);
-    var link = document.querySelector("link[rel*='icon']");
-    if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
+    var link = document.getElementById('faviconLink');
+    if (!link) { link = document.createElement('link'); link.rel = 'icon'; link.id = 'faviconLink'; document.head.appendChild(link); }
     link.type = 'image/png';
-    link.href = c.toDataURL('image/png');
+    link.href = c.toDataURL('image/png') + '?t=' + Date.now();
   }
 
   function applyTheme(t) {
     state.theme = t || 'oscuro';
     document.body.setAttribute('data-theme', state.theme);
     try { localStorage.setItem('mhc-theme', state.theme); } catch (e) {}
-    requestAnimationFrame(function() {
+    setTimeout(function() {
       var a = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
       if (a) generateFavicon(a);
-    });
+    }, 50);
   }
 
   function applyFont(f) {
