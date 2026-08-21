@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -3577,7 +3578,7 @@
           "p2": "Schincariol Barbosa",
           "round": "round of 16",
           "date": "20.08.",
-          "time": "18:45",
+          "time": "19:00",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -5235,7 +5236,7 @@
           "p2": "Ait El Bachir",
           "round": "quarterfinal",
           "date": "21.08.",
-          "time": "13:26",
+          "time": "12:00",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -5390,25 +5391,6 @@
           "finished": true
         },
         {
-          "teId": "3299807",
-          "p1": "Ait El Bachir",
-          "p2": "Ferro",
-          "round": "round of 16",
-          "date": "20.08.",
-          "time": "11:02",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "3",
-            "6"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3299465",
           "p1": "Longueville",
           "p2": "Reguer",
@@ -5445,6 +5427,25 @@
           "sets2": [
             "2",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3299807",
+          "p1": "Ait El Bachir",
+          "p2": "Ferro",
+          "round": "round of 16",
+          "date": "20.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
           ],
           "finished": true
         },
@@ -5767,6 +5768,5 @@
       ]
     }
   ],
-  "time": "2026-08-21T21:54:41Z",
-  "ok": true
+  "time": "2026-08-21T22:55:16Z"
 }
