@@ -1,5 +1,5 @@
 {
-  "time": "2026-08-21T19:08:22Z",
+  "time": "2026-08-21T20:54:25Z",
   "ok": true,
   "tournaments": [
     {
@@ -2915,10 +2915,19 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3300733",
+          "p1": "Grubor",
+          "p2": "Lim",
+          "time": "14:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3300699",
           "p1": "Cvetkovic",
           "p2": "Grammatikopoulou",
-          "time": "10:00",
+          "time": "14:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -3471,15 +3480,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300369",
-          "p1": "Laron",
-          "p2": "Barros",
-          "time": "19:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300705",
           "p1": "Candiotto",
           "p2": "Fullana",
@@ -3487,6 +3487,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300369",
+          "p1": "Barros",
+          "p2": "Laron",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "19:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3300363",
