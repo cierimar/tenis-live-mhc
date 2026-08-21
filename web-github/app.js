@@ -25,9 +25,6 @@
     news: { items: [], loaded: false, error: '' },
     videos: { items: [], loaded: false, error: '' },
     elo: { atp: null, wta: null, loaded: false },
-    eloTab: 'todos',
-    eloSearch: '',
-    eloTop: 0,
     playerTab: 'todos',
     playerSearch: '',
     playerCountry: '',
@@ -959,7 +956,7 @@
     } catch (_) {
       state.elo = { atp: null, wta: null, loaded: true };
     }
-    if (state.tab === 'elo' || state.tab === 'players') render();
+    if (state.tab === 'players') render();
   }
 
   function matchLiveName(espnName, liveName) {
@@ -1825,52 +1822,6 @@
     $('argMeta').textContent = count + ' jugador(es) de Argentina';
   }
 
-  /* ---------------- render: ranking anual (elo) ---------------- */
-
-  function renderElo() {
-    const el = $('eloContent');
-    if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando ranking Elo...</div>'; return; }
-    const q = state.eloSearch;
-    const topN = state.eloTop;
-    const filterData = (data) => {
-      if (!data || !data.length) return [];
-      let d = data;
-      if (topN > 0) d = d.slice(0, topN);
-      if (q) d = d.filter(r => (r.player || '').toLowerCase().indexOf(q) > -1);
-      return d;
-    };
-    const sec = (title, data) => {
-      const header = '<div class="rank-section-title">' + title + '</div>';
-      const filtered = filterData(data);
-      if (!data || !data.length) return header + '<div class="error-box">No hay datos Elo disponibles.</div>';
-      if (q && !filtered.length) return header + '<div class="error-box">No se encontraron jugadores que coincidan con "' + esc(q) + '" en ' + title + '.</div>';
-      const rows = filtered.map(r => {
-        return '<tr>' +
-          '<td class="r-r">' + esc(r.rank) + '</td>' +
-          '<td class="r-name">' + esc(r.player) + '</td>' +
-          '<td class="r-r">' + esc(r.age) + '</td>' +
-          '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
-          '</tr>';
-      }).join('');
-      return header +
-        '<div class="rank-table-wrap"><table class="rank-table elo-table">' +
-        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Puntos</th></tr></thead>' +
-        '<tbody>' + rows + '</tbody></table></div>';
-    };
-    const showAtp = state.eloTab === 'todos' || state.eloTab === 'atp';
-    const showWta = state.eloTab === 'todos' || state.eloTab === 'wta';
-    let html = '';
-    if (showAtp) html += sec('ATP Singles', state.elo.atp);
-    if (showWta) html += sec('WTA Singles', state.elo.wta);
-    el.innerHTML = html || '<div class="error-box">Sin datos.</div>';
-    const atpCount = showAtp && state.elo.atp ? filterData(state.elo.atp).length : 0;
-    const wtaCount = showWta && state.elo.wta ? filterData(state.elo.wta).length : 0;
-    const parts = [];
-    if (showAtp) parts.push(atpCount + ' jugadores ATP');
-    if (showWta) parts.push(wtaCount + ' jugadores WTA');
-    $('eloMeta').textContent = parts.join(' · ') + (q ? ' · buscando "' + q + '"' : '');
-  }
-
   /* ---------------- render: players ---------------- */
 
   function taSlug(name) {
@@ -2232,7 +2183,6 @@
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
     else if (state.tab === 'argentina') renderArgentina();
-    else if (state.tab === 'elo') renderElo();
     else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'birthdays') renderBirthdays();
@@ -2246,7 +2196,6 @@
     document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
-    document.body.classList.toggle('tab-elo', tab === 'elo');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
@@ -2256,11 +2205,6 @@
     if (tab === 'videos' && !state.videos.loaded) {
       render();
       refreshVideos();
-      return;
-    }
-    if (tab === 'elo' && !state.elo.loaded) {
-      render();
-      refreshElo();
       return;
     }
     if (tab === 'players' && !state.elo.loaded) {
@@ -2290,7 +2234,7 @@
       return;
     }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'news' || tab === 'videos' || tab === 'elo') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'news' || tab === 'videos') && !state.matches.length) {
       refreshAll();
     }
   }
@@ -2733,41 +2677,6 @@
         state.rankSearch = '';
         renderRankings();
         rankSearch.focus();
-      });
-    }
-
-    const segElo = document.getElementById('segElo');
-    if (segElo) {
-      segElo.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.eloTab = b.dataset.elotab;
-        document.querySelectorAll('#segElo .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        render();
-      });
-    }
-    const segEloTop = document.getElementById('segEloTop');
-    if (segEloTop) {
-      segEloTop.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.eloTop = parseInt(b.dataset.elotop, 10) || 0;
-        document.querySelectorAll('#segEloTop .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        render();
-      });
-    }
-    const eloSearch = $('eloSearch');
-    if (eloSearch) {
-      eloSearch.addEventListener('input', () => {
-        state.eloSearch = eloSearch.value.toLowerCase().trim();
-        render();
-      });
-      const eloClear = $('eloSearchClear');
-      if (eloClear) eloClear.addEventListener('click', () => {
-        eloSearch.value = '';
-        state.eloSearch = '';
-        render();
-        eloSearch.focus();
       });
     }
 
