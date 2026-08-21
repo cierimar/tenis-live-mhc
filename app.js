@@ -44,6 +44,7 @@
     liveSnapshot: {},
     h2hCache: null,
     statsCache: null,
+    h2hSearch: { loading: false, data: null, error: null, searched: false },
     lastUpdate: null,
     refreshing: false,
     countdown: REFRESH_SEC,
@@ -1785,6 +1786,7 @@
     else if (state.tab === 'argentina') renderArgentina();
     else if (state.tab === 'elo') renderElo();
     else if (state.tab === 'players') renderPlayers();
+    else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'currenttour') renderCurrentTour();
@@ -2009,6 +2011,136 @@
     if (overlay) overlay.classList.add('hidden');
   }
 
+  /* ---------------- H2H SEARCH (TennisAbstract) ---------------- */
+
+  function taSlug(name) {
+    return name.replace(/\s+/g, '').replace(/[^a-zA-Z0-9]/g, '');
+  }
+
+  async function runH2HSearch() {
+    const p1 = ($('h2hP1') && $('h2hP1').value || '').trim();
+    const p2 = ($('h2hP2') && $('h2hP2').value || '').trim();
+    const content = $('h2hSearchContent');
+    if (!content) return;
+    if (!p1 || !p2) {
+      content.innerHTML = '<div class="error-box">Escrib&iacute; los dos jugadores.</div>';
+      return;
+    }
+    state.h2hSearch = { loading: true, data: null, error: null, searched: true };
+    renderH2HSearch();
+    try {
+      let j;
+      if (useLocalBackend()) {
+        j = await fetchJson('api/h2h/ta?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+      } else {
+        const slug = taSlug(p1);
+        let text = null;
+        try {
+          const r1 = await fetch('https://www.tennisabstract.com/jsmatches/' + slug + '.js', { mode: 'cors' });
+          text = await r1.text();
+        } catch (e1) { text = null; }
+        if (!text || text.indexOf('matchmx') < 0) {
+          const r2 = await fetch('https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug, { mode: 'cors' });
+          text = await r2.text();
+        }
+        j = parseTaH2HClient(text, p1, p2);
+      }
+      state.h2hSearch.data = j;
+      state.h2hSearch.error = j.ok ? null : (j.error || 'Sin resultados');
+    } catch (err) {
+      state.h2hSearch.error = useLocalBackend()
+        ? ('No se pudo consultar TennisAbstract: ' + err.message)
+        : 'El buscador H2H completo requiere la versi&oacute;n local (TennisAbstract no permite consultas desde el navegador). En la web pod&eacute;s ver el H2H de los partidos de hoy desde las tarjetas.';
+    }
+    state.h2hSearch.loading = false;
+    renderH2HSearch();
+  }
+
+  function parseTaH2HClient(text, p1, p2) {
+    const marker = text.indexOf('var matchmx = ') >= 0 ? 'var matchmx = ' : 'matchmx = ';
+    const idx = text.indexOf(marker);
+    if (idx < 0) return { ok: false, error: 'Datos no encontrados en TennisAbstract' };
+    const start = idx + marker.length;
+    let depth = 0, end = start;
+    for (let i = start; i < text.length; i++) {
+      const c = text[i];
+      if (c === '[') depth++;
+      else if (c === ']') { depth--; if (depth === 0) { end = i + 1; break; } }
+    }
+    let matchmx;
+    try { matchmx = JSON.parse(text.slice(start, end)); } catch (e) { return { ok: false, error: 'Error parseando datos' }; }
+    if (!matchmx || !matchmx.length) return { ok: false, error: 'Sin datos de partidos' };
+    let realName = '';
+    const fnM = text.match(/var\s+fullname\s*=\s*'([^']+)'/);
+    if (fnM) realName = fnM[1].trim();
+    if (!realName) {
+      const tM = text.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
+      if (tM) realName = tM[1].trim();
+    }
+    if (!realName) realName = p1;
+    const norm = s => s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
+    const nq1 = norm(p1);
+    const nrn = norm(realName);
+    if (nq1 && nrn && !(nrn.includes(nq1) || nq1.includes(nrn))) return { ok: false, error: 'Jugador no encontrado en TennisAbstract: ' + p1 };
+    const q1 = norm(p2);
+    const meetings = [];
+    let wins = 0, losses = 0;
+    for (const m of matchmx) {
+      const opp = String(m[11]);
+      const no = norm(opp);
+      if (!no || !(no.includes(q1) || q1.includes(no))) continue;
+      const isWin = String(m[4]) === 'W';
+      if (isWin) wins++; else losses++;
+      meetings.push({
+        date: String(m[0]), tournament: String(m[1]), surface: String(m[2]),
+        round: String(m[8]), score: String(m[9]),
+        winner: isWin ? realName : opp, loser: isWin ? opp : realName
+      });
+    }
+    if (!meetings.length) return { ok: false, error: 'No se encontraron partidos entre ellos.' };
+    return { ok: true, p1: realName, p2: p2, h2h: wins + '-' + losses, source: 'tennisabstract', meetings: meetings };
+  }
+
+  function renderH2HSearch() {
+    const content = $('h2hSearchContent');
+    const meta = $('h2hSearchMeta');
+    if (!content) return;
+    const hs = state.h2hSearch;
+    if (meta) meta.textContent = hs.searched && hs.data && hs.data.ok ? (hs.data.p1 + ' vs ' + hs.data.p2) : '';
+    if (hs.loading) {
+      content.innerHTML = '<div class="loading">Buscando H2H en TennisAbstract...</div>';
+      return;
+    }
+    if (hs.error) {
+      content.innerHTML = '<div class="error-box">' + esc(hs.error).replace(/&lt;br&gt;/g, '<br>') + '</div>';
+      return;
+    }
+    if (!hs.searched) {
+      content.innerHTML = '<div class="loading">Escrib&iacute; dos jugadores y presion&aacute; BUSCAR.</div>';
+      return;
+    }
+    const j = hs.data;
+    if (!j || !j.ok) {
+      content.innerHTML = '<div class="error-box">' + esc((j && j.error) || 'Sin resultados') + '</div>';
+      return;
+    }
+    const rows = j.meetings.map(mc =>
+      '<tr><td>' + esc(mc.date) + '</td><td>' + esc(mc.tournament) + '</td>' +
+      '<td>' + esc(mc.round) + '</td><td>' + esc(mc.surface) + '</td>' +
+      '<td><span class="h2h-win">' + esc(mc.winner) + '</span> ' + esc(mc.loser) + '</td>' +
+      '<td class="h2h-set">' + esc(mc.score) + '</td></tr>'
+    ).join('');
+    content.innerHTML =
+      '<div class="h2h-search-result">' +
+        '<div class="h2h-title">' + esc(j.p1) + ' <span class="h2h-vs">vs</span> ' + esc(j.p2) +
+        ' <span class="h2h-count">' + esc(j.h2h) + '</span></div>' +
+        '<div class="h2h-source">Fuente: TennisAbstract &middot; ' + j.meetings.length + ' partidos</div>' +
+        '<div class="h2h-table-wrap"><table class="h2h-table"><thead><tr>' +
+        '<th>Fecha</th><th>Torneo</th><th>Ronda</th><th>Superficie</th><th>Ganador</th><th>Marcador</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '</div>';
+  }
+
   /* ---------------- wiring ---------------- */
 
   function init() {
@@ -2151,6 +2283,12 @@
         renderWheelchair();
       });
     }
+    const h2hGo = $('h2hSearchBtn');
+    if (h2hGo) h2hGo.addEventListener('click', runH2HSearch);
+    ['h2hP1', 'h2hP2'].forEach(id => {
+      const el = $(id);
+      if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') runH2HSearch(); });
+    });
     const playerSearch = $('playerSearch');
     if (playerSearch) {
       playerSearch.addEventListener('input', () => {
