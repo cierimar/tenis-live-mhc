@@ -1293,6 +1293,45 @@ function Get-TennisAbstractCurrentTour {
     }
 }
 
+function Get-LiveRanking([string]$tour, [bool]$isRace) {
+    $slug = if ($isRace) { "$tour-race" } else { "$tour-live-ranking" }
+    $url = "https://live-tennis.eu/en/$slug"
+    try {
+        $tmp = [System.IO.Path]::GetTempFileName()
+        $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
+        $code = & curl.exe -s -o $tmp -w '%{http_code}' -A $ua --max-time 30 --compressed $url
+        if ($code -ne '200') { Remove-Item $tmp -Force -ErrorAction SilentlyContinue; return @{ ok = $false; error = "http $code"; rows = @() } }
+        $html = [System.IO.File]::ReadAllText($tmp)
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+    } catch {
+        return @{ ok = $false; error = $_.Exception.Message; rows = @() }
+    }
+    $rows = @()
+    $trMatches = [regex]::Matches($html, '<tr[^>]*>.*?</tr>', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+    foreach ($tr in $trMatches) {
+        $t = $tr.Value
+        if ($t -notmatch 'class="?pn"?') { continue }
+        $rankM = [regex]::Match($t, 'class="?rk"?>\s*(\d+)')
+        if (-not $rankM.Success) { continue }
+        $nameM = [regex]::Match($t, 'class="?pn"?>\s*(.*?)</td>', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+        $name = $nameM.Groups[1].Value -replace '<[^>]+>', ''
+        $name = [System.Net.WebUtility]::HtmlDecode($name)
+        $name = (($name -replace '\s+', ' ').Trim()) -replace '^[^\w]+', ''
+        $country = ''
+        $cM = [regex]::Match($t, 'class="?sm"?\s+p="?[\d.]+"?>\s*([A-Z]{3})\s*<')
+        if ($cM.Success) { $country = $cM.Groups[1].Value }
+        $afterIdx = if ($cM.Success) { $cM.Index + $cM.Length } else { $nameM.Index + $nameM.Length }
+        $pts = ''
+        $pM = [regex]::Match($t.Substring($afterIdx), '<td>\s*(\d[\d.]*)\s*</td>')
+        if ($pM.Success) { $pts = $pM.Groups[1].Value }
+        $move = 0
+        $mM = [regex]::Match($t, 'class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*<')
+        if ($mM.Success) { $move = [int]$mM.Groups[1].Value }
+        $rows += @{ rank = [int]$rankM.Groups[1].Value; name = $name; country = $country; points = $pts; move = $move }
+    }
+    return @{ ok = ($rows.Count -gt 0); source = 'live-tennis.eu'; updated = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'); race = $isRace; tour = $tour; rows = $rows }
+}
+
 function Handle-Request([System.Net.HttpListenerContext]$ctx) {
     $req = $ctx.Request
     $resp = $ctx.Response
@@ -1309,6 +1348,13 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
         if ($path -eq '/api/rankings/wta') {
             $type = if ($q['type'] -eq 'doubles') { 'doubles' } else { 'singles' }
             $data = Get-Cached "wta_$type" { Get-WtaRankings $type } 600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/rankings/live') {
+            $tour = if ($q['tour'] -eq 'wta') { 'wta' } else { 'atp' }
+            $isRace = ($q['race'] -eq '1')
+            $data = Get-Cached "lt_${tour}_$isRace" { Get-LiveRanking $tour $isRace } 300
             Send-Json $resp $data
             return
         }
