@@ -2098,29 +2098,41 @@
     const q2 = norm(p2);
     const slug = taSlug(p1);
     const months = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
-    const rowRe = /<tr><td[^>]*>(\d{1,2})-([A-Za-z]{3})-(\d{4})<\/td><td>([^<]*)<\/td><td>([^<]*)<\/td><td>([^<]*)<\/td>([\s\S]*?)<\/tr>/g;
+    const rowRe = /<tr><td[^>]*>\d{1,2}-[A-Za-z]{3}-\d{4}<\/td>[\s\S]*?<\/tr>/g;
     let realName = '';
     const meetings = [];
     let m;
     while ((m = rowRe.exec(text)) !== null) {
-      const rest = m[7];
-      const cellM = rest.match(/<td[^>]*>([\s\S]*?)<\/td>\s*<td[^>]*>([\s\S]*?)<\/td>/);
-      if (!cellM) continue;
-      const matchCell = cellM[1];
-      const score = cellM[2].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+      const tds = [];
+      const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/g;
+      let tm;
+      while ((tm = tdRe.exec(m[0])) !== null) tds.push(tm[1]);
+      if (tds.length < 6) continue;
+      const strip = s => s.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+      const dateRaw = strip(tds[0]);
+      const dm = dateRaw.match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/);
+      if (!dm) continue;
+      const mm = months[dm[2]];
+      if (!mm) continue;
+      const date = dm[3] + mm + dm[1].padStart(2, '0');
+      let mi = -1;
+      for (let i = 4; i < tds.length; i++) {
+        if (tds[i].indexOf('<b>') > -1 || tds[i].indexOf('<a ') > -1) { mi = i; break; }
+      }
+      if (mi < 0 || mi + 1 >= tds.length) continue;
+      const matchCell = tds[mi];
+      const score = strip(tds[mi + 1]);
       if (!score || />\s*vs\s*</.test(matchCell)) continue;
       const boldM = matchCell.match(/<b>([^<]+)<\/b>/);
       const linkM = matchCell.match(/<a[^>]*>([^<]+)<\/a>/);
       if (!boldM || !linkM) continue;
       const selfHref = matchCell.match(/href="[^"]*p=([A-Za-z0-9]+)"/);
       if (selfHref && selfHref[1] === slug && !realName) realName = linkM[1].trim();
-      const mm = months[m[2]];
-      const date = mm ? (m[3] + mm + m[1].padStart(2, '0')) : (m[1] + '-' + m[2] + '-' + m[3]);
       meetings.push({
         date: date,
-        tournament: m[4].trim(),
-        surface: m[5].trim(),
-        round: m[6].trim(),
+        tournament: strip(tds[1]),
+        surface: strip(tds[2]),
+        round: strip(tds[3]),
         score: score,
         winner: boldM[1].trim(),
         loser: linkM[1].trim()
