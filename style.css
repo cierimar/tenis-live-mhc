@@ -944,6 +944,20 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   color: #ffffff; white-space: nowrap; padding: 0 6px;
   text-shadow: 0 0 8px rgba(255,255,255,.75), 0 0 24px rgba(255,255,255,.45), 0 0 52px rgba(255,255,255,.25);
 }
+.shine-text {
+  display: inline-block;
+  background: linear-gradient(110deg, #ffffff 0%, #ffffff 38%, var(--accent) 50%, #ffffff 62%, #ffffff 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 7px rgba(255,255,255,.55)) drop-shadow(0 0 20px rgba(255,255,255,.28));
+  animation: shineSweep 3.2s linear infinite;
+}
+@keyframes shineSweep {
+  from { background-position: 130% 0; }
+  to   { background-position: -130% 0; }
+}
 .drip-text {
   position: relative; display: inline-block;
   text-shadow: 0 0 8px currentColor;
@@ -985,6 +999,13 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   display: flex; align-items: center; gap: 7px;
   color: #fff; background: var(--live); padding: 5px 12px; border-radius: 20px;
   border: none; font-size: 10px; font-weight: 700;
+  text-shadow: 0 0 6px rgba(255,255,255,.7);
+  box-shadow: 0 0 10px rgba(255,255,255,.35), 0 0 22px rgba(255,255,255,.18);
+  animation: pillGlow 2.2s ease-in-out infinite alternate;
+}
+@keyframes pillGlow {
+  from { box-shadow: 0 0 6px rgba(255,255,255,.22), 0 0 14px rgba(255,255,255,.12); }
+  to   { box-shadow: 0 0 14px rgba(255,255,255,.45), 0 0 30px rgba(255,255,255,.22); }
 }
 .live-pill .dot { width: 8px; height: 8px; background: #fff; border-radius: 50%; animation: pulse 1.2s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .35; transform: scale(.7);} }
