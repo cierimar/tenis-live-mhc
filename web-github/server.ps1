@@ -1293,8 +1293,8 @@ function Get-TennisAbstractCurrentTour {
     }
 }
 
-function Get-LiveRanking([string]$tour, [bool]$isRace) {
-    $slug = if ($isRace) { "$tour-race" } else { "$tour-live-ranking" }
+function Get-LiveRanking([string]$tour, [bool]$isRace, [bool]$isOfficial) {
+    $slug = if ($isOfficial) { "official-$tour-ranking" } elseif ($isRace) { "$tour-race" } else { "$tour-live-ranking" }
     $url = "https://live-tennis.eu/en/$slug"
     try {
         $tmp = [System.IO.Path]::GetTempFileName()
@@ -1329,7 +1329,7 @@ function Get-LiveRanking([string]$tour, [bool]$isRace) {
         if ($mM.Success) { $move = [int]$mM.Groups[1].Value }
         $rows += @{ rank = [int]$rankM.Groups[1].Value; name = $name; country = $country; points = $pts; move = $move }
     }
-    return @{ ok = ($rows.Count -gt 0); source = 'live-tennis.eu'; updated = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'); race = $isRace; tour = $tour; rows = $rows }
+    return @{ ok = ($rows.Count -gt 0); source = 'live-tennis.eu'; updated = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ'); race = $isRace; official = $isOfficial; tour = $tour; rows = $rows }
 }
 
 function Handle-Request([System.Net.HttpListenerContext]$ctx) {
@@ -1354,7 +1354,8 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
         if ($path -eq '/api/rankings/live') {
             $tour = if ($q['tour'] -eq 'wta') { 'wta' } else { 'atp' }
             $isRace = ($q['race'] -eq '1')
-            $data = Get-Cached "lt_${tour}_$isRace" { Get-LiveRanking $tour $isRace } 300
+            $isOfficial = ($q['official'] -eq '1')
+            $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isRace $isOfficial } 300
             Send-Json $resp $data
             return
         }
