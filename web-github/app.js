@@ -2036,12 +2036,17 @@
         const slug = taSlug(p1);
         let text = null;
         try {
-          const r1 = await fetch('https://www.tennisabstract.com/jsmatches/' + slug + '.js', { mode: 'cors' });
-          text = await r1.text();
+          const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsmatches/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
+          if (r1.ok) text = await r1.text();
         } catch (e1) { text = null; }
         if (!text || text.indexOf('matchmx') < 0) {
-          const r2 = await fetch('https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug, { mode: 'cors' });
-          text = await r2.text();
+          try {
+            const r2 = await fetch('https://www.tennisabstract.com/jsmatches/' + slug + '.js', { mode: 'cors' });
+            if (r2.ok) text = await r2.text();
+          } catch (e2) { text = null; }
+        }
+        if (!text || text.indexOf('matchmx') < 0) {
+          throw new Error('sin-datos');
         }
         j = parseTaH2HClient(text, p1, p2);
       }
@@ -2050,7 +2055,7 @@
     } catch (err) {
       state.h2hSearch.error = useLocalBackend()
         ? ('No se pudo consultar TennisAbstract: ' + err.message)
-        : 'El buscador H2H completo requiere la versi&oacute;n local (TennisAbstract no permite consultas desde el navegador). En la web pod&eacute;s ver el H2H de los partidos de hoy desde las tarjetas.';
+        : 'No se pudieron obtener datos de TennisAbstract para ese jugador. Verific&aacute; el nombre (ej. Rafael Nadal) e intenta de nuevo.';
     }
     state.h2hSearch.loading = false;
     renderH2HSearch();
