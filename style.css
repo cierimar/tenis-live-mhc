@@ -990,6 +990,33 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   box-shadow: 0 0 8px var(--accent), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent);
 }
 .tour-head .t-name { font-weight: 700; font-size: 15px; }
+.th-logo {
+  width: 28px; height: 28px; border-radius: 50%; object-fit: contain;
+  background: #fff; padding: 2px; flex: none;
+  border: 1px solid rgba(255,255,255,.15);
+}
+.th-tier {
+  font-size: 9px; font-weight: 800; letter-spacing: .8px;
+  color: var(--accent); border: 1px solid var(--accent); border-radius: 3px;
+  padding: 2px 6px; text-transform: uppercase; white-space: nowrap;
+}
+.th-surf {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 9px; font-weight: 700; letter-spacing: .5px;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 3px;
+  padding: 2px 7px; text-transform: uppercase; white-space: nowrap;
+}
+.th-surf::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #60a5fa; }
+.th-surf.surf-clay::before { background: #e2725b; }
+.th-surf.surf-grass::before { background: #4ade80; }
+.th-surf.surf-hard::before { background: #60a5fa; }
+.th-surf.surf-indoor::before { background: #a78bfa; }
+.th-surf.surf-carpet::before { background: #94a3b8; }
+.type-chip {
+  font-size: 9px; font-weight: 700; letter-spacing: .6px;
+  color: var(--muted); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 3px; padding: 1px 6px; white-space: nowrap;
+}
 .tour-chip {
   font-size: 11px; font-weight: 700; letter-spacing: .5px;
   color: var(--text); background: var(--bg2);
@@ -1036,14 +1063,18 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   border: 1px solid rgba(255,213,45,.3); border-radius: 3px;
   vertical-align: middle;
 }
-.player-row .sets { display: flex; gap: 3px; }
+.player-row .sets { display: flex; }
 .player-row .sets .set {
-  min-width: 24px; text-align: center; font-size: 12px; font-weight: 800;
-  padding: 2px 4px; background: rgba(255,255,255,.06); border-radius: 3px;
-  font-variant-numeric: tabular-nums; color: rgba(255,255,255,.5);
+  min-width: 26px; text-align: center; font-size: 13px; font-weight: 800;
+  padding: 2px 2px; border-left: 1px solid rgba(255,255,255,.07);
+  font-variant-numeric: tabular-nums; color: rgba(255,255,255,.55);
 }
-.player-row .sets .set.win { color: #4ade80; background: rgba(74,222,128,.12); }
-.player-row .sets .set.live-set { color: #f97316; background: rgba(249,115,22,.15); animation: pulse 1.4s infinite; }
+.player-row .sets .set:last-child { border-right: none; }
+.player-row .sets .set.win { color: var(--accent); background: transparent; }
+.player-row .sets .set.live-set {
+  color: #fff; background: color-mix(in srgb, var(--accent) 22%, transparent);
+  font-size: 15px; animation: pulse 1.4s infinite; border-radius: 0;
+}
 .scores { display: flex; justify-content: space-between; gap: 8px; padding: 3px 10px 4px; font-size: 11px; }
 .scores .note { color: var(--muted); font-style: italic; }
 .scores .time { color: var(--muted); white-space: nowrap; }
