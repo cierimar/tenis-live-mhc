@@ -403,6 +403,34 @@
     };
   }
 
+  async function refreshSofaMetaStatic() {
+    try {
+      const j = await fetchJson('sofa-meta.json?t=' + Date.now()).catch(() => null);
+      if (j && j.ok && j.meta) state.sofaMetaStatic = j.meta;
+    } catch (_) { state.sofaMetaStatic = null; }
+  }
+
+  function applySofaMetaStatic() {
+    const m = state.sofaMetaStatic;
+    if (!m) return;
+    for (const t of state.tournaments) {
+      if (t.logo && t.surface) continue;
+      const nk = taNorm(t.name || '');
+      if (!nk) continue;
+      let hit = m[nk] || null;
+      if (!hit) {
+        for (const k in m) {
+          if (k.indexOf(nk) > -1 || nk.indexOf(k) > -1) { hit = m[k]; break; }
+        }
+      }
+      if (hit) {
+        t.logo = t.logo || hit.logo || '';
+        t.surface = t.surface || hit.surface || '';
+        t.tier = t.tier || hit.tier || '';
+      }
+    }
+  }
+
   async function sofaMetaEnrich() {
     const now = Date.now();
     if (state.sofaMeta && state.sofaMeta.ts && now - state.sofaMeta.ts < 600000) {
@@ -617,6 +645,14 @@
     }
     state.tournaments = Array.from(tmap.values());
     state.matches = Array.from(mmap.values());
+    applySofaMetaStatic();
+    if (!state.sofaMetaStatic && !state.sofaMetaLoading) {
+      state.sofaMetaLoading = true;
+      refreshSofaMetaStatic().then(() => {
+        state.sofaMetaLoading = false;
+        if (state.sofaMetaStatic) { applySofaMetaStatic(); if (state.tab === 'live') renderLive(); }
+      });
+    }
     if (state.drawTournamentId && !state.tournaments.some(t => t.id === state.drawTournamentId)) {
       state.drawTournamentId = null;
     }
