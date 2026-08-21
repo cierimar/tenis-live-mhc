@@ -2036,19 +2036,17 @@
         const slug = taSlug(p1);
         let text = null;
         try {
-          const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsmatches/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
+          const r1 = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsfrags/' + slug + '.js', { headers: { 'X-Return-Format': 'text' } });
           if (r1.ok) text = await r1.text();
         } catch (e1) { text = null; }
-        if (!text || text.indexOf('matchmx') < 0) {
+        if (!text || text.indexOf('<tr') < 0) {
           try {
-            const r2 = await fetch('https://www.tennisabstract.com/jsmatches/' + slug + '.js', { mode: 'cors' });
+            const r2 = await fetch('https://www.tennisabstract.com/jsfrags/' + slug + '.js', { mode: 'cors' });
             if (r2.ok) text = await r2.text();
           } catch (e2) { text = null; }
         }
-        if (!text || text.indexOf('matchmx') < 0) {
-          throw new Error('sin-datos');
-        }
-        j = parseTaH2HClient(text, p1, p2);
+        if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
+        j = parseTaFragClient(text, p1, p2);
       }
       state.h2hSearch.data = j;
       state.h2hSearch.error = j.ok ? null : (j.error || 'Sin resultados');
@@ -2061,49 +2059,58 @@
     renderH2HSearch();
   }
 
-  function parseTaH2HClient(text, p1, p2) {
-    const marker = text.indexOf('var matchmx = ') >= 0 ? 'var matchmx = ' : 'matchmx = ';
-    const idx = text.indexOf(marker);
-    if (idx < 0) return { ok: false, error: 'Datos no encontrados en TennisAbstract' };
-    const start = idx + marker.length;
-    let depth = 0, end = start;
-    for (let i = start; i < text.length; i++) {
-      const c = text[i];
-      if (c === '[') depth++;
-      else if (c === ']') { depth--; if (depth === 0) { end = i + 1; break; } }
-    }
-    let matchmx;
-    try { matchmx = JSON.parse(text.slice(start, end)); } catch (e) { return { ok: false, error: 'Error parseando datos' }; }
-    if (!matchmx || !matchmx.length) return { ok: false, error: 'Sin datos de partidos' };
-    let realName = '';
-    const fnM = text.match(/var\s+fullname\s*=\s*'([^']+)'/);
-    if (fnM) realName = fnM[1].trim();
-    if (!realName) {
-      const tM = text.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
-      if (tM) realName = tM[1].trim();
-    }
-    if (!realName) realName = p1;
+  function parseTaFragClient(text, p1, p2) {
     const norm = s => s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
     const nq1 = norm(p1);
-    const nrn = norm(realName);
-    if (nq1 && nrn && !(nrn.includes(nq1) || nq1.includes(nrn))) return { ok: false, error: 'Jugador no encontrado en TennisAbstract: ' + p1 };
-    const q1 = norm(p2);
+    const sur1 = nq1.split(' ').pop();
+    const q2 = norm(p2);
+    const slug = taSlug(p1);
+    const months = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+    const rowRe = /<tr><td[^>]*>(\d{1,2})-([A-Za-z]{3})-(\d{4})<\/td><td>([^<]*)<\/td><td>([^<]*)<\/td><td>([^<]*)<\/td>([\s\S]*?)<\/tr>/g;
+    let realName = '';
     const meetings = [];
-    let wins = 0, losses = 0;
-    for (const m of matchmx) {
-      const opp = String(m[11]);
-      const no = norm(opp);
-      if (!no || !(no.includes(q1) || q1.includes(no))) continue;
-      const isWin = String(m[4]) === 'W';
-      if (isWin) wins++; else losses++;
+    let m;
+    while ((m = rowRe.exec(text)) !== null) {
+      const rest = m[7];
+      const cellM = rest.match(/<td[^>]*>([\s\S]*?)<\/td>\s*<td[^>]*>([\s\S]*?)<\/td>/);
+      if (!cellM) continue;
+      const matchCell = cellM[1];
+      const score = cellM[2].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
+      if (!score || />\s*vs\s*</.test(matchCell)) continue;
+      const boldM = matchCell.match(/<b>([^<]+)<\/b>/);
+      const linkM = matchCell.match(/<a[^>]*>([^<]+)<\/a>/);
+      if (!boldM || !linkM) continue;
+      const selfHref = matchCell.match(/href="[^"]*p=([A-Za-z0-9]+)"/);
+      if (selfHref && selfHref[1] === slug && !realName) realName = linkM[1].trim();
+      const mm = months[m[2]];
+      const date = mm ? (m[3] + mm + m[1].padStart(2, '0')) : (m[1] + '-' + m[2] + '-' + m[3]);
       meetings.push({
-        date: String(m[0]), tournament: String(m[1]), surface: String(m[2]),
-        round: String(m[8]), score: String(m[9]),
-        winner: isWin ? realName : opp, loser: isWin ? opp : realName
+        date: date,
+        tournament: m[4].trim(),
+        surface: m[5].trim(),
+        round: m[6].trim(),
+        score: score,
+        winner: boldM[1].trim(),
+        loser: linkM[1].trim()
       });
     }
-    if (!meetings.length) return { ok: false, error: 'No se encontraron partidos entre ellos.' };
-    return { ok: true, p1: realName, p2: p2, h2h: wins + '-' + losses, source: 'tennisabstract', meetings: meetings };
+    const filtered = [];
+    let wins = 0, losses = 0;
+    for (const mt of meetings) {
+      const nw = norm(mt.winner), nl = norm(mt.loser);
+      const iAmWinner = nw === sur1 || nw === nq1;
+      const iAmLoser = nl === nq1 || nl === sur1;
+      if (!iAmWinner && !iAmLoser) continue;
+      const oppName = iAmWinner ? mt.loser : mt.winner;
+      const no = norm(oppName);
+      if (!(no.includes(q2) || q2.includes(no))) continue;
+      const winFull = iAmWinner ? (realName || p1) : mt.winner;
+      const loseFull = iAmLoser ? (realName || p1) : mt.loser;
+      if (iAmWinner) wins++; else losses++;
+      filtered.push({ date: mt.date, tournament: mt.tournament, surface: mt.surface, round: mt.round, score: mt.score, winner: winFull, loser: loseFull });
+    }
+    if (!filtered.length) return { ok: false, error: 'No se encontraron partidos entre ellos.' };
+    return { ok: true, p1: realName || p1, p2: p2, h2h: wins + '-' + losses, source: 'tennisabstract', meetings: filtered };
   }
 
   function renderH2HSearch() {
