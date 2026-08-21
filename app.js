@@ -385,6 +385,7 @@
       }
       state.sofaMeta = { bySurname: bySurname, ts: now };
       applySofaMeta(bySurname);
+      if (state.tab === 'live') renderLive();
     } catch (_) {
       state.sofaMeta = { bySurname: new Map(), ts: now };
     }
@@ -1235,8 +1236,11 @@
       ms.sort((a, b) => rankMatch(a) - rankMatch(b));
       const cards = ms.map(m => matchCard(m)).join('');
       const chip = state.tour === 'todos' ? '<span class="tour-chip">' + tourLabel(ms[0]) + '</span>' : '';
-      const logo = tour && tour.logo ? '<img class="th-logo" src="' + esc(tour.logo) + '" alt="" onerror="this.style.display=\'none\'">' : '';
-      const tier = tour && tour.tier ? '<span class="th-tier">' + esc(tour.tier) + '</span>' : '';
+      const logo = tour && tour.logo
+        ? '<img class="th-logo" src="' + esc(tour.logo) + '" alt="" onerror="this.outerHTML=\'<span class=&quot;th-logo th-logo-txt&quot;>' + esc((name || '?').charAt(0).toUpperCase()) + '</span>\'">'
+        : '<span class="th-logo th-logo-txt">' + esc((name || '?').charAt(0).toUpperCase()) + '</span>';
+      const tierTxt = (tour && tour.tier) || tierLabel(tour && tour.name ? tour.name : name, state.tour === 'wta' ? 'wta' : (state.tour === 'chall' ? 'chall' : 'atp'));
+      const tier = tierTxt ? '<span class="th-tier">' + esc(tierTxt) + '</span>' : '';
       const surf = tour && tour.surface ? '<span class="th-surf surf-' + surfClassOf(tour.surface) + '">' + esc(surfShortOf(tour.surface)) + '</span>' : '';
       html += '<div class="tour-block"><div class="tour-head">' + logo + '<span class="t-name">' + esc(name) +
         '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
