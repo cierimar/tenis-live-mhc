@@ -1,4 +1,4 @@
-﻿/* TENIS LIVE MHC — app.js */
+/* TENIS LIVE MHC — app.js */
 (function () {
   'use strict';
 
@@ -71,10 +71,71 @@
   const $ = id => document.getElementById(id);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  function generateFavicon(color) {
+    var c = document.createElement('canvas');
+    c.width = 128; c.height = 128;
+    var x = c.getContext('2d');
+    var cx = 64, cy = 64, r = 52;
+    x.clearRect(0, 0, 128, 128);
+    x.save();
+    x.shadowColor = 'rgba(0,0,0,0.35)';
+    x.shadowBlur = 10;
+    x.shadowOffsetX = 3;
+    x.shadowOffsetY = 4;
+    x.beginPath();
+    x.arc(cx, cy, r, 0, Math.PI * 2);
+    x.fillStyle = color;
+    x.fill();
+    x.restore();
+    var hl = x.createRadialGradient(cx - 14, cy - 16, 4, cx, cy, r);
+    hl.addColorStop(0, 'rgba(255,255,255,0.45)');
+    hl.addColorStop(0.5, 'rgba(255,255,255,0.10)');
+    hl.addColorStop(1, 'rgba(0,0,0,0.12)');
+    x.beginPath();
+    x.arc(cx, cy, r, 0, Math.PI * 2);
+    x.fillStyle = hl;
+    x.fill();
+    x.strokeStyle = 'rgba(255,255,255,0.8)';
+    x.lineWidth = 3.5;
+    x.lineCap = 'round';
+    x.beginPath();
+    x.arc(cx + 8, cy, r * 0.75, -2.1, -0.6);
+    x.stroke();
+    x.beginPath();
+    x.arc(cx - 8, cy, r * 0.75, Math.PI + 0.6, Math.PI + 2.1);
+    x.stroke();
+    x.beginPath();
+    x.arc(cx, cy + 6, r * 0.65, 0.7, Math.PI - 0.7);
+    x.stroke();
+    x.beginPath();
+    x.arc(cx, cy + 6, r * 0.65, Math.PI + 0.7, Math.PI * 2 - 0.7);
+    x.stroke();
+    x.strokeStyle = 'rgba(0,0,0,0.08)';
+    x.lineWidth = 2;
+    x.beginPath();
+    x.arc(cx, cy, r, 0, Math.PI * 2);
+    x.stroke();
+    x.font = 'bold 36px Arial Black, Arial, sans-serif';
+    x.textAlign = 'center';
+    x.textBaseline = 'middle';
+    x.fillStyle = 'rgba(0,0,0,0.25)';
+    x.fillText('MHC', cx + 1, cy + 3);
+    x.fillStyle = '#ffffff';
+    x.fillText('MHC', cx, cy + 2);
+    var link = document.querySelector("link[rel*='icon']");
+    if (!link) { link = document.createElement('link'); link.rel = 'icon'; document.head.appendChild(link); }
+    link.type = 'image/png';
+    link.href = c.toDataURL('image/png');
+  }
+
   function applyTheme(t) {
     state.theme = t || 'oscuro';
     document.body.setAttribute('data-theme', state.theme);
     try { localStorage.setItem('mhc-theme', state.theme); } catch (e) {}
+    requestAnimationFrame(function() {
+      var a = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      if (a) generateFavicon(a);
+    });
   }
 
   function applyFont(f) {
@@ -588,8 +649,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
