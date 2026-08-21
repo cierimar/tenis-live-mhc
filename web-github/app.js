@@ -17,6 +17,8 @@
     itfLive: { tournaments: [], matches: [] },
     cal: { atp: [], wta: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
+    rankView: 'oficial',
+    rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
     rankSearch: '',
@@ -1157,6 +1159,7 @@
     try {
       snapshotLiveMatches();
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
+      if (state.rankView !== 'oficial') refreshRankingsLive();
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
@@ -1655,11 +1658,93 @@
       '<div class="rank-note">' + esc(sourceNote) + ' &middot; Los rankings de dobles se actualizan cada pocos minutos.</div>';
   }
 
+  async function refreshRankingsLive() {
+    if (state.rankLiveLoading) return;
+    state.rankLiveLoading = true;
+    try {
+      const jobs = [];
+      for (const tour of ['atp', 'wta']) for (const race of [0, 1]) {
+        jobs.push(
+          (useLocalBackend()
+            ? fetchJson('/api/rankings/live?tour=' + tour + '&race=' + race)
+            : fetch('https://r.jina.ai/https://live-tennis.eu/en/' + tour + (race ? '-race' : '-live-ranking'), { headers: { 'X-Return-Format': 'text' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
+          ).then(j => { state.rankLive[tour + (race ? 'Race' : '')] = (j && j.rows) || j || []; }).catch(() => {})
+        );
+      }
+      await Promise.allSettled(jobs);
+      state.rankLive.loaded = true;
+    } finally { state.rankLiveLoading = false; }
+  }
+
+  function parseLtRows(text) {
+    const rows = [];
+    if (!text) return rows;
+    const trRe = /<tr[^>]*>[\s\S]*?<\/tr>/g;
+    let m;
+    while ((m = trRe.exec(text))) {
+      const t = m[0];
+      if (!/class="?pn"?/.test(t)) continue;
+      const rk = t.match(/class="?rk"?>\s*(\d+)/);
+      if (!rk) continue;
+      const nm = t.match(/class="?pn"?>\s*([\s\S]*?)<\/td>/);
+      let name = nm ? nm[1].replace(/<[^>]+>/g, '') : '';
+      name = name.replace(/&nbsp;|&#x2713;|&#10003;/g, ' ').replace(/\s+/g, ' ').trim().replace(/^[^A-Za-zÀ-ÿÑñ]+/, '');
+      const co = t.match(/class="?sm"?\s+p="?[\d.]+"?>\s*([A-Z]{3})\s*</);
+      const after = co ? co.index + co[0].length : (nm ? nm.index + nm[0].length : 0);
+      const pt = t.slice(after).match(/<td>\s*(\d[\d.]*)\s*<\/td>/);
+      const mv = t.match(/class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*</);
+      rows.push({ rank: parseInt(rk[1], 10), name: name, country: co ? co[1] : '', points: pt ? pt[1] : '', move: mv ? parseInt(mv[1], 10) : 0 });
+    }
+    return rows;
+  }
+
+  function renderLiveRankSection(title, rows, emptyMsg) {
+    const header = '<div class="rank-section-title">' + title + '</div>';
+    if (!rows) return header + '<div class="loading">Cargando ranking en vivo...</div>';
+    if (!rows.length) return header + '<div class="error-box">' + (emptyMsg || 'No hay datos disponibles.') + '</div>';
+    const q = state.rankSearch;
+    const list = q ? rows.filter(r => (r.name || '').toLowerCase().indexOf(q) > -1) : rows;
+    const body = list.length ? list.map(r =>
+      '<tr>' +
+      '<td class="r-rank">' + r.rank + '</td>' +
+      '<td class="r-name">' + esc(r.name) + '</td>' +
+      '<td>' + esc(r.country || '') + '</td>' +
+      '<td>' + (r.move > 0 ? '<span class="r-move up">&#9650;' + r.move + '</span>' : r.move < 0 ? '<span class="r-move down">&#9660;' + Math.abs(r.move) + '</span>' : '<span class="r-move flat">=</span>') + '</td>' +
+      '<td class="r-pts">' + (r.points ? Number(String(r.points).replace(/\./g, '')).toLocaleString('es') : '—') + '<span> pts</span></td>' +
+      '</tr>'
+    ).join('') : '<tr><td colspan="5" style="padding:10px">No se encontraron jugadores que coincidan con "' + esc(q) + '".</td></tr>';
+    return header +
+      '<div class="rank-table-wrap"><table class="rank-table">' +
+      '<thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Mov.</th><th style="text-align:right">Puntos</th></tr></thead>' +
+      '<tbody>' + body + '</tbody></table></div>';
+  }
+
   function renderRankings() {
     const el = $('rankContent');
     if (state.tour === 'chall' || state.tour === 'itf') {
       el.innerHTML = '<div class="error-box">No hay rankings disponibles para ' + state.tour.toUpperCase() + '.</div>';
       $('rankMeta').textContent = '';
+      return;
+    }
+    if ((state.rankView === 'vivo' || state.rankView === 'race') && selectedModes().length === 1 && selectedModes()[0] === 'doubles') {
+      el.innerHTML = '<div class="error-box">No existe ranking EN VIVO de dobles en fuentes públicas. Usá OFICIAL para dobles.</div>';
+      $('rankMeta').textContent = 'Ranking ' + state.rankView.toUpperCase() + ' · dobles no disponible';
+      return;
+    }
+    if (state.rankView !== 'oficial') {
+      const wantAtp = state.tour === 'todos' || state.tour === 'atp';
+      const wantWta = state.tour === 'todos' || state.tour === 'wta';
+      if (!state.rankLive.loaded && !state.rankLiveLoading) refreshRankingsLive();
+      const suffix = state.rankView === 'vivo' ? '' : 'Race';
+      const label = state.rankView === 'vivo' ? 'EN VIVO' : 'RACE';
+      const html = [];
+      if (wantAtp) html.push(renderLiveRankSection('ATP Singles · ' + label, state.rankLive['atp' + suffix]));
+      if (wantWta) html.push(renderLiveRankSection('WTA Singles · ' + label, state.rankLive['wta' + suffix]));
+      if (selectedModes().includes('doubles')) html.push('<div class="rank-note">El ranking EN VIVO/RACE de dobles no está disponible en fuentes públicas.</div>');
+      el.innerHTML = html.join('');
+      const n = (state.rankLive.atp.length || 0) + (state.rankLive.wta.length || 0);
+      $('rankMeta').textContent = 'Ranking ' + label + ' (live-tennis.eu) · se actualiza automáticamente' +
+        (n ? ' · ' + n + ' jugadores' : '') + (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
       return;
     }
     const needsDoubles = selectedModes().includes('doubles') && selectedTours().some(t => !state.rankDoubles[t]);
@@ -2785,6 +2870,17 @@
       const statsBtn = e.target.closest('.m-stats');
       if (statsBtn) { openStats(statsBtn.getAttribute('data-p1'), statsBtn.getAttribute('data-p2')); }
     });
+
+    const segRankView = document.getElementById('segRankView');
+    if (segRankView) {
+      segRankView.addEventListener('click', e => {
+        const b = e.target.closest('.seg-btn');
+        if (!b) return;
+        segRankView.querySelectorAll('.seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        state.rankView = b.dataset.rv;
+        renderRankings();
+      });
+    }
 
     let savedTheme = 'oscuro';
     try { savedTheme = localStorage.getItem('mhc-theme') || 'oscuro'; } catch (e) {}
