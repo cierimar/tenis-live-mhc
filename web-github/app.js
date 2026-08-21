@@ -292,14 +292,121 @@
     return { matches, tournaments: Array.from(tourMap.values()) };
   }
 
-  function sofaLines(sc) {
+  function sofaLines(sc, includeCurrent) {
     const out = [];
+    let sawAny = false;
     for (let i = 1; i <= 5; i++) {
       const v = sc ? sc['period' + i] : null;
       if (v === null || v === undefined) break;
       out.push({ value: v, tiebreak: false, winner: false });
+      sawAny = true;
     }
+    const cur = sc ? sc.current : null;
+    if (includeCurrent && cur !== null && cur !== undefined) out.push({ value: cur, tiebreak: false, winner: false, live: true });
+    else if (!sawAny && includeCurrent && cur !== null && cur !== undefined) out.push({ value: cur, tiebreak: false, winner: false, live: true });
     return out;
+  }
+
+  function tierLabel(name, circuit) {
+    const n = (name || '').toLowerCase();
+    const isW = circuit === 'wta';
+    if (/australian open|roland garros|french open|wimbledon|us open/.test(n)) return 'GRAND SLAM';
+    if (/atp finals|nitto/.test(n) && !isW) return 'ATP FINALS';
+    if (/wta finals/.test(n)) return 'WTA FINALS';
+    if (/united cup|billie jean king|davis cup/.test(n)) return 'EQUIPOS';
+    const m1000 = /indian wells|miami|monte.?carlo|madrid|\brome\b|\broma\b|canada|canadian|national bank|cincinnati|shanghai|paris|doha|dubai|beijing|wuhan|guadalajara|toronto|montreal|western.*southern/;
+    if (m1000.test(n)) return isW ? 'WTA 1000' : 'MASTERS 1000';
+    const m500 = /rotterdam|acapulco|rio de janeiro|barcelona|halle|queen.?s|washington|tokyo|vienna|basel|hamburg|estoril|munich|lyon|geneva|doha|dubai|eastbourne|s.hertogenbosch|stuttgart|beijing|chengdu|zhuhai|antwerp|metz|moselle|korea|seoul|japan open|china open/;
+    if (m500.test(n)) return isW ? 'WTA 500' : 'ATP 500';
+    if (/challeng/.test(n) || circuit === 'chall') return 'CHALLENGER';
+    if (/itf/.test(n) || circuit === 'itf') return 'ITF';
+    if (/\b250\b|open/.test(n)) return isW ? 'WTA 250' : 'ATP 250';
+    return isW ? 'WTA' : 'ATP';
+  }
+
+  function surfClassOf(txt) {
+    const t = (txt || '').toLowerCase();
+    if (t.indexOf('clay') > -1 || t.indexOf('arcilla') > -1) return 'clay';
+    if (t.indexOf('grass') > -1 || t.indexOf('pasto') > -1 || t.indexOf('césped') > -1 || t.indexOf('cesped') > -1) return 'grass';
+    if (t.indexOf('indoor') > -1) return 'indoor';
+    if (t.indexOf('carpet') > -1 || t.indexOf('alfombra') > -1) return 'carpet';
+    return 'hard';
+  }
+
+  function surfShortOf(txt) {
+    const c = surfClassOf(txt);
+    if (c === 'clay') return 'ARCILLA';
+    if (c === 'grass') return 'PASTO';
+    if (c === 'indoor') return 'INDOOR';
+    if (c === 'carpet') return 'CARPET';
+    return 'DURA';
+  }
+
+  function sofaMetaFromEvent(ev) {
+    const ut = ev.uniqueTournament || {};
+    const tName = ut.name || (ev.tournament || {}).name || '';
+    const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
+    let circuit = cat === 'wta' ? 'wta' : (cat.indexOf('chall') > -1 ? 'chall' : 'atp');
+    return {
+      id: 'sf-' + (ut.id || (ev.tournament || {}).id || tName),
+      name: tName,
+      logo: ut.id ? ('https://api.sofascore.com/api/v1/unique-tournament/' + ut.id + '/image') : '',
+      surface: ev.groundType || '',
+      tier: tierLabel(tName, circuit),
+      circuit: circuit
+    };
+  }
+
+  async function sofaMetaEnrich() {
+    const now = Date.now();
+    if (state.sofaMeta && state.sofaMeta.ts && now - state.sofaMeta.ts < 600000) {
+      applySofaMeta(state.sofaMeta.bySurname);
+      return;
+    }
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const resp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
+      if (!resp.ok) throw new Error(resp.status);
+      const j = await resp.json();
+      const bySurname = new Map();
+      for (const ev of (j.events || [])) {
+        const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
+        if (cat !== 'atp' && cat !== 'wta') continue;
+        const meta = sofaMetaFromEvent(ev);
+        [ev.homeTeam, ev.awayTeam].forEach(team => {
+          const nm = (team || {}).name || '';
+          nm.split('/').forEach(part => {
+            const words = part.trim().split(/\s+/);
+            if (!words.length) return;
+            const sur = words[words.length - 1].toLowerCase().replace(/[^a-z\u00C0-\u024F]/g, '');
+            if (sur.length > 2 && !bySurname.has(sur)) bySurname.set(sur, meta);
+          });
+        });
+      }
+      state.sofaMeta = { bySurname: bySurname, ts: now };
+      applySofaMeta(bySurname);
+    } catch (_) {
+      state.sofaMeta = { bySurname: new Map(), ts: now };
+    }
+  }
+
+  function applySofaMeta(bySurname) {
+    for (const t of state.tournaments) {
+      if (t.logo) continue;
+      for (const m of state.matches.filter(x => x.tournamentId === t.id)) {
+        for (const comp of m.competitors) {
+          const words = (comp.name || '').trim().split(/\s+/);
+          const sur = words[words.length - 1].toLowerCase().replace(/[^a-z\u00C0-\u024F]/g, '');
+          const meta = bySurname.get(sur);
+          if (meta) {
+            t.logo = meta.logo;
+            t.surface = meta.surface;
+            t.tier = meta.tier;
+            return;
+          }
+        }
+      }
+    }
   }
 
   async function sofascoreFallback() {
@@ -309,13 +416,19 @@
     const j = await resp.json();
     const res = {
       atp: { matches: [], tournaments: [] },
-      wta: { matches: [], tournaments: [] }
+      wta: { matches: [], tournaments: [] },
+      chall: { matches: [], tournaments: [] },
+      itf: { matches: [], tournaments: [] },
+      wc: { matches: [], tournaments: [] }
     };
     for (const ev of (j.events || [])) {
       const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
       let circuit = '';
       if (cat === 'atp') circuit = 'atp';
       else if (cat === 'wta') circuit = 'wta';
+      else if (cat.indexOf('chall') > -1) circuit = 'chall';
+      else if (cat.indexOf('itf') > -1) circuit = 'itf';
+      else if (/wheelchair|silla/.test(cat)) circuit = 'wc';
       else continue;
       const tName = (ev.uniqueTournament && ev.uniqueTournament.name) || (ev.tournament && ev.tournament.name) || '';
       const tid = 'sf-' + (((ev.uniqueTournament || {}).id) || ((ev.tournament || {}).id) || tName);
@@ -327,6 +440,12 @@
       const hN = (ev.homeTeam || {}).name || 'TBD';
       const aN = (ev.awayTeam || {}).name || 'TBD';
       const isDbl = hN.indexOf('/') > -1 || aN.indexOf('/') > -1;
+      const fem = /wta|women|femen/.test(cat) || (/itf/.test(cat) && /women|femen/.test(cat));
+      let typeTxt;
+      if (circuit === 'wc') typeTxt = isDbl ? "Wheelchair Doubles" : "Wheelchair Singles";
+      else if (circuit === 'chall') typeTxt = (isDbl ? "Men's Doubles" : "Men's Singles");
+      else if (circuit === 'itf') typeTxt = (isDbl ? (fem ? "Women's Doubles" : "Men's Doubles") : (fem ? "Women's Singles" : "Men's Singles"));
+      else typeTxt = circuit === 'wta' ? (isDbl ? "Women's Doubles" : "Women's Singles") : (isDbl ? "Men's Doubles" : "Men's Singles");
       const hc = (ev.homeScore || {}).current || 0;
       const ac = (ev.awayScore || {}).current || 0;
       res[circuit].matches.push({
@@ -336,7 +455,7 @@
         period: 0,
         suspended: /suspend|delay|rain/i.test(desc),
         suspReason: /suspend|delay|rain/i.test(desc) ? desc : '',
-        type: circuit === 'wta' ? (isDbl ? "Women's Doubles" : "Women's Singles") : (isDbl ? "Men's Doubles" : "Men's Singles"),
+        type: typeTxt,
         round: (ev.roundInfo || {}).name || '',
         tournamentId: tid,
         tournamentName: tName,
@@ -344,8 +463,8 @@
         venue: '',
         notes: '',
         competitors: [
-          { homeAway: 'home', winner: st === 'finished' && hc > ac, order: 1, name: hN, flag: '', flagAlt: (((ev.homeTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.homeScore) },
-          { homeAway: 'away', winner: st === 'finished' && ac > hc, order: 2, name: aN, flag: '', flagAlt: (((ev.awayTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.awayScore) }
+          { homeAway: 'home', winner: st === 'finished' && hc > ac, order: 1, name: hN, flag: '', flagAlt: (((ev.homeTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.homeScore, st === 'inprogress') },
+          { homeAway: 'away', winner: st === 'finished' && ac > hc, order: 2, name: aN, flag: '', flagAlt: (((ev.awayTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.awayScore, st === 'inprogress') }
         ]
       });
     }
@@ -414,16 +533,24 @@
     ]);
     let a = atp ? normalizeScoreboard(atp, 'atp') : { matches: [], tournaments: [] };
     let w = wta ? normalizeScoreboard(wta, 'wta') : { matches: [], tournaments: [] };
+    let extraSrcs = [];
     if (!a.matches.length && !w.matches.length) {
       try {
         const sf = await sofascoreFallback();
         if (sf.atp.matches.length) a = sf.atp;
         if (sf.wta.matches.length) w = sf.wta;
+        if (sf.chall.matches.length && !(state.challLive && state.challLive.ok && (state.challLive.matches || []).length)) {
+          state.challLive = { ok: true, time: '', tournaments: sf.chall.tournaments, matches: sf.chall.matches };
+        }
+        if (!useLocalBackend() && sf.itf.matches.length) extraSrcs.push(sf.itf);
       } catch (_) {}
+    } else {
+      sofaMetaEnrich();
     }
+    const srcs = [a, w].concat(extraSrcs);
     const tmap = new Map();
     const mmap = new Map();
-    for (const src of [a, w]) {
+    for (const src of srcs) {
       for (const t of src.tournaments) tmap.set(t.id, t);
       for (const m of src.matches) if (!mmap.has(m.id)) mmap.set(m.id, m);
     }
@@ -1080,11 +1207,12 @@
     const el = $('liveContent');
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
-      if (!useLocalBackend()) {
-        el.innerHTML = '<div class="error-box">ITF en vivo solo está disponible en la versión local (PC con el servidor).</div>';
+      if (!state.itfLive.matches.length && !state.matches.some(x => x.tour === 'itf')) {
+        el.innerHTML = useLocalBackend()
+          ? '<div class="loading">Cargando partidos ITF...</div>'
+          : '<div class="error-box">No hay partidos ITF en este momento.</div>';
         return;
       }
-      if (!state.itfLive.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos ITF...</div>'; return; }
     }
     if (!list.length) {
       const label = state.tour === 'todos' ? 'en este momento' : 'de ' + state.tour.toUpperCase() + ' ' + (state.mode === 'singles' ? 'singles' : state.mode === 'doubles' ? 'dobles' : 'en este momento');
@@ -1107,8 +1235,11 @@
       ms.sort((a, b) => rankMatch(a) - rankMatch(b));
       const cards = ms.map(m => matchCard(m)).join('');
       const chip = state.tour === 'todos' ? '<span class="tour-chip">' + tourLabel(ms[0]) + '</span>' : '';
-      html += '<div class="tour-block"><div class="tour-head"><span class="t-name">' + esc(name) +
-        '</span>' + chip + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
+      const logo = tour && tour.logo ? '<img class="th-logo" src="' + esc(tour.logo) + '" alt="" onerror="this.style.display=\'none\'">' : '';
+      const tier = tour && tour.tier ? '<span class="th-tier">' + esc(tour.tier) + '</span>' : '';
+      const surf = tour && tour.surface ? '<span class="th-surf surf-' + surfClassOf(tour.surface) + '">' + esc(surfShortOf(tour.surface)) + '</span>' : '';
+      html += '<div class="tour-block"><div class="tour-head">' + logo + '<span class="t-name">' + esc(name) +
+        '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
     }
     el.innerHTML = html;
@@ -1219,8 +1350,9 @@
       '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
       (pts.serverName ? '<span class="lp-srv">&middot; Saca ' + esc(pts.serverName.split(' ')[0]) + '</span>' : '') +
       '</div>' : '';
+    const typeChip = m.type ? '<span class="type-chip">' + (/doubles/i.test(m.type) ? 'DOBLES' : 'SINGLES') + '</span>' : '';
     return '<div class="' + cls + '">' +
-      '<div class="m-top"><span class="round">' + esc(ROUND_LABEL[m.round] || m.round) + '</span>' + statusBadge(m) + period + '</div>' +
+      '<div class="m-top"><span class="round">' + esc(ROUND_LABEL[m.round] || m.round) + '</span>' + typeChip + statusBadge(m) + period + '</div>' +
       rows +
       '<div class="scores">' + note + suspNote + time + '</div>' + itfInfo + points + '</div>';
   }
