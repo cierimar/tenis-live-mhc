@@ -2126,14 +2126,18 @@
           if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
           result = parseTaFragClient(text, rp1, rp2);
         }
-        if (!result.meetings || !result.meetings.length) return { ok: false, error: 'No se encontraron partidos entre ellos.' };
-        let wins = 0;
-        const nSelf = rp1.toLowerCase();
-        for (const mt of result.meetings) if ((mt.winner || '').toLowerCase().indexOf(nSelf.split(' ').pop()) > -1) wins++;
-        return { ok: true, p1: result.realName || rp1, p2: rp2, h2h: wins + '-' + (result.meetings.length - wins), source: 'tennisabstract', meetings: result.meetings };
-      }
-        if (!text || text.indexOf('<tr') < 0) throw new Error('sin-datos');
-        j = parseTaFragClient(text, rp1, rp2);
+        const mtAll = (result && result.meetings) || [];
+        if (!mtAll.length) {
+          j = { ok: false, error: 'No se encontraron partidos entre ellos.' };
+        } else {
+          const nSelfS = rp1.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim().split(' ').pop();
+          let wins = 0;
+          for (const mt of mtAll) {
+            const nw = (mt.winner || '').toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
+            if (nw === nSelfS || nw.endsWith(' ' + nSelfS)) wins++;
+          }
+          j = { ok: true, p1: result.realName || rp1, p2: rp2, h2h: wins + '-' + (mtAll.length - wins), source: 'tennisabstract', meetings: mtAll };
+        }
       }
       state.h2hSearch.data = j;
       state.h2hSearch.error = j.ok ? null : (j.error || 'Sin resultados');
