@@ -685,7 +685,12 @@
     const jobs = ['atp', 'wta'].map(tour => {
       const p = useLocalBackend()
         ? fetchJson('/api/rankings/live?tour=' + tour + '&race=0&official=1')
-        : fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t));
+        : fetchJson('rankings/' + tour + '_singles.json').then(j => {
+            if (!j || !j.players || !j.players.length) throw new Error('json vacio');
+            return j.players;
+          }).catch(() =>
+            fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
+          );
       return p.then(j => {
         const rows = (j && j.rows) || j;
         if (!Array.isArray(rows) || !rows.length) throw new Error('sin datos');
