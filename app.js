@@ -343,6 +343,40 @@
     return 'DURA';
   }
 
+  async function fetchSofaRaw() {
+    const today = new Date().toISOString().slice(0, 10);
+    let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1');
+    if (r.ok) {
+      const j = await r.json();
+      if (j && j.tournaments) return { shape: 'tours', j: j };
+    }
+    r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
+    if (r.ok) {
+      const j = await r.json();
+      if (j && j.events) return { shape: 'events', j: j };
+    }
+    throw new Error('sofascore ' + r.status);
+  }
+
+  function sofaEventsOf(raw) {
+    const out = [];
+    if (raw.shape === 'tours') {
+      for (const t of (raw.j.tournaments || [])) {
+        const tinfo = t.tournament || {};
+        for (const ev of (t.events || [])) {
+          try { ev.__catName = ((tinfo.category || {}).name) || ''; } catch (_) {}
+          if (!ev.uniqueTournament && tinfo.uniqueTournament) ev.uniqueTournament = tinfo.uniqueTournament;
+          if (!ev.tournament) ev.tournament = tinfo;
+          out.push(ev);
+        }
+      }
+    } else {
+      const arr = raw.j.events || [];
+      for (const ev of arr) out.push(ev);
+    }
+    return out;
+  }
+
   function guessSurface(name, dateStr) {
     const n = (name || '').toLowerCase();
     if (/monte.?carlo|roland garros|french open|internazionali|\brome\b|\broma\b|hamburg|estoril|munich|barcelona|rio de janeiro|umag|kitzbuhel|gstaad|bastad|cordoba|santiago|buenos aires|mar del plata|concepcion|munich|madrid open|italian open/.test(n)) return 'Red clay';
@@ -376,16 +410,14 @@
       return;
     }
     try {
-      const today = new Date().toISOString().slice(0, 10);
-      const resp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
-      if (!resp.ok) throw new Error(resp.status);
-      const j = await resp.json();
+      const raw = await fetchSofaRaw();
+      const allEvents = sofaEventsOf(raw);
       const bySurname = new Map();
       const byName = new Map();
       let nEvents = 0, nKept = 0;
-      for (const ev of (j.events || [])) {
+      for (const ev of allEvents) {
         nEvents++;
-        const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
+        const cat = ((((ev.tournament || {}).category || {}).name) || ev.__catName || '').toLowerCase();
         if (!/atp|wta|chall|itf/.test(cat)) continue;
         nKept++;
         const meta = sofaMetaFromEvent(ev);
@@ -439,10 +471,8 @@
   }
 
   async function sofascoreFallback() {
-    const today = new Date().toISOString().slice(0, 10);
-    const resp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
-    if (!resp.ok) throw new Error('sofascore ' + resp.status);
-    const j = await resp.json();
+    const raw = await fetchSofaRaw();
+    const allEvents = sofaEventsOf(raw);
     const res = {
       atp: { matches: [], tournaments: [] },
       wta: { matches: [], tournaments: [] },
@@ -450,10 +480,11 @@
       itf: { matches: [], tournaments: [] },
       wc: { matches: [], tournaments: [] }
     };
-    for (const ev of (j.events || [])) {
-      const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
+    for (const ev of allEvents) {
+      const cat = ((((ev.tournament || {}).category || {}).name) || ev.__catName || '').toLowerCase();
       let circuit = '';
-      if (cat === 'atp') circuit = 'atp';
+      if (/atp/.test(cat) && /chall/.test(cat)) circuit = 'chall';
+      else if (cat === 'atp') circuit = 'atp';
       else if (cat === 'wta') circuit = 'wta';
       else if (cat.indexOf('chall') > -1) circuit = 'chall';
       else if (cat.indexOf('itf') > -1) circuit = 'itf';
