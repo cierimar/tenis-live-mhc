@@ -360,7 +360,7 @@
   async function sofaMetaEnrich() {
     const now = Date.now();
     if (state.sofaMeta && state.sofaMeta.ts && now - state.sofaMeta.ts < 600000) {
-      applySofaMeta(state.sofaMeta.bySurname);
+      applySofaMeta(state.sofaMeta.bySurname, state.sofaMeta.byName);
       return;
     }
     try {
@@ -369,10 +369,13 @@
       if (!resp.ok) throw new Error(resp.status);
       const j = await resp.json();
       const bySurname = new Map();
+      const byName = new Map();
       for (const ev of (j.events || [])) {
         const cat = (((ev.tournament || {}).category || {}).name || '').toLowerCase();
-        if (cat !== 'atp' && cat !== 'wta') continue;
+        if (cat !== 'atp' && cat !== 'wta' && cat.indexOf('chall') < 0 && cat.indexOf('itf') < 0) continue;
         const meta = sofaMetaFromEvent(ev);
+        const nk = taNorm(meta.name);
+        if (nk && !byName.has(nk)) byName.set(nk, meta);
         [ev.homeTeam, ev.awayTeam].forEach(team => {
           const nm = (team || {}).name || '';
           nm.split('/').forEach(part => {
@@ -383,29 +386,39 @@
           });
         });
       }
-      state.sofaMeta = { bySurname: bySurname, ts: now };
-      applySofaMeta(bySurname);
+      state.sofaMeta = { bySurname: bySurname, byName: byName, ts: now };
+      applySofaMeta(bySurname, byName);
       if (state.tab === 'live') renderLive();
     } catch (_) {
-      state.sofaMeta = { bySurname: new Map(), ts: now };
+      state.sofaMeta = { bySurname: new Map(), byName: new Map(), ts: now };
     }
   }
 
-  function applySofaMeta(bySurname) {
+  function applySofaMeta(bySurname, byName) {
     for (const t of state.tournaments) {
-      if (t.logo) continue;
-      for (const m of state.matches.filter(x => x.tournamentId === t.id)) {
-        for (const comp of m.competitors) {
-          const words = (comp.name || '').trim().split(/\s+/);
-          const sur = words[words.length - 1].toLowerCase().replace(/[^a-z\u00C0-\u024F]/g, '');
-          const meta = bySurname.get(sur);
-          if (meta) {
-            t.logo = meta.logo;
-            t.surface = meta.surface;
-            t.tier = meta.tier;
-            return;
-          }
+      if (t.logo && t.surface) continue;
+      const nk = taNorm(t.name || '');
+      let meta = byName ? (byName.get(nk) || null) : null;
+      if (!meta && byName) {
+        for (const [key, val] of byName) {
+          if (key.indexOf(nk) > -1 || nk.indexOf(key) > -1) { meta = val; break; }
         }
+      }
+      if (!meta) {
+        for (const m of state.matches.filter(x => x.tournamentId === t.id)) {
+          for (const comp of m.competitors) {
+            const words = (comp.name || '').trim().split(/\s+/);
+            const sur = words[words.length - 1].toLowerCase().replace(/[^a-z\u00C0-\u024F]/g, '');
+            const hit = bySurname.get(sur);
+            if (hit) { meta = hit; break; }
+          }
+          if (meta) break;
+        }
+      }
+      if (meta) {
+        t.logo = t.logo || meta.logo;
+        t.surface = t.surface || meta.surface;
+        t.tier = t.tier || meta.tier;
       }
     }
   }
@@ -432,9 +445,10 @@
       else if (/wheelchair|silla/.test(cat)) circuit = 'wc';
       else continue;
       const tName = (ev.uniqueTournament && ev.uniqueTournament.name) || (ev.tournament && ev.tournament.name) || '';
-      const tid = 'sf-' + (((ev.uniqueTournament || {}).id) || ((ev.tournament || {}).id) || tName);
+      const meta = sofaMetaFromEvent(ev);
+      const tid = meta.id;
       if (!res[circuit].tournaments.some(t => t.id === tid)) {
-        res[circuit].tournaments.push({ id: tid, name: tName, date: '', status: null, previousWinners: [] });
+        res[circuit].tournaments.push({ id: tid, name: tName, date: '', status: null, previousWinners: [], logo: meta.logo, surface: meta.surface, tier: meta.tier });
       }
       const st = (ev.status || {}).type || '';
       const desc = (ev.status || {}).description || '';
