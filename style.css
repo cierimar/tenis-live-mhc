@@ -874,7 +874,7 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
   font-family: 'Bebas Neue', sans-serif; font-size: clamp(22px, 3vw, 34px); font-weight: 400; letter-spacing: 3px;
   -webkit-text-stroke: 1px var(--accent); opacity: 1;
   filter: url(#worn);
-  color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 6px;
+  color: var(--accent); white-space: nowrap; padding: 0 6px;
 }
 .drip-text {
   position: relative; display: inline-block;
@@ -882,21 +882,22 @@ body[data-fsize="muygrande"] { zoom: 1.35; }
 }
 .drip-text::after {
   content: '';
-  position: absolute; left: 0; right: 0; top: 70%; height: 0;
+  position: absolute; left: 0; right: 0; top: 85%; height: 50px;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse 4px 0 at 12% 0, var(--accent) 50%, transparent 50%),
-    radial-gradient(ellipse 3px 0 at 32% 0, var(--accent) 50%, transparent 50%),
-    radial-gradient(ellipse 5px 0 at 55% 0, var(--accent) 50%, transparent 50%),
-    radial-gradient(ellipse 3px 0 at 73% 0, var(--accent) 50%, transparent 50%),
-    radial-gradient(ellipse 4px 0 at 90% 0, var(--accent) 50%, transparent 50%);
+    radial-gradient(ellipse 4px 18px at 12% 0, var(--accent) 60%, transparent 60%),
+    radial-gradient(ellipse 3px 14px at 32% 0, var(--accent) 60%, transparent 60%),
+    radial-gradient(ellipse 5px 22px at 55% 0, var(--accent) 60%, transparent 60%),
+    radial-gradient(ellipse 3px 12px at 73% 0, var(--accent) 60%, transparent 60%),
+    radial-gradient(ellipse 4px 16px at 90% 0, var(--accent) 60%, transparent 60%);
+  opacity: 0;
   animation: dripInk 2.8s ease-in infinite;
 }
 @keyframes dripInk {
-  0% { height: 0; opacity: 1; }
-  15% { height: 18px; opacity: 1; }
-  40% { height: 30px; opacity: .7; }
-  70% { height: 40px; opacity: .35; }
-  100% { height: 50px; opacity: 0; }
+  0% { opacity: 1; transform: translateY(-6px) scaleY(.3); }
+  20% { opacity: 1; transform: translateY(0) scaleY(1); }
+  55% { opacity: .6; transform: translateY(10px) scaleY(1.15); }
+  100% { opacity: 0; transform: translateY(26px) scaleY(1.3); }
 }
 
 .status-area { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
