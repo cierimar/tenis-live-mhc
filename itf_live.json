@@ -1185,7 +1185,7 @@
           "teId": "3300639",
           "p1": "Ewald",
           "p2": "Miron",
-          "time": "11:30",
+          "time": "11:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4621,12 +4621,24 @@
       "matches": [
         {
           "teId": "3300527",
-          "p1": "Jeong",
-          "p2": "Chen",
+          "p1": "Chen",
+          "p2": "Jeong",
+          "round": "semifinal",
+          "date": "22.08.",
           "time": "04:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "3",
+            "7"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3300571",
@@ -4643,27 +4655,6 @@
           ],
           "sets2": [
             "2",
-            "4"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3300149",
-          "p1": "Matsuda",
-          "p2": "Yang",
-          "round": "quarterfinal",
-          "date": "21.08.",
-          "time": "04:05",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "7",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "7",
             "4"
           ],
           "finished": true
@@ -4705,6 +4696,27 @@
           "sets2": [
             "4",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3300149",
+          "p1": "Matsuda",
+          "p2": "Yang",
+          "round": "quarterfinal",
+          "date": "21.08.",
+          "time": "04:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "7",
+            "4"
           ],
           "finished": true
         },
@@ -5245,7 +5257,7 @@
           "p2": "Ait El Bachir",
           "round": "quarterfinal",
           "date": "21.08.",
-          "time": "13:26",
+          "time": "13:27",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -5778,5 +5790,5 @@
     }
   ],
   "ok": true,
-  "time": "2026-08-22T04:57:27Z"
+  "time": "2026-08-22T07:47:14Z"
 }
