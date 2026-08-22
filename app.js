@@ -128,28 +128,6 @@
     link.href = c.toDataURL('image/png') + '?t=' + Date.now();
   }
 
-  function applyTheme(t) {
-    state.theme = t || 'oscuro';
-    document.body.setAttribute('data-theme', state.theme);
-    try { localStorage.setItem('mhc-theme', state.theme); } catch (e) {}
-    setTimeout(function() {
-      var a = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-      if (a) generateFavicon(a);
-    }, 50);
-  }
-
-  function applyFont(f) {
-    state.font = f || 'defecto';
-    document.body.setAttribute('data-font', state.font);
-    try { localStorage.setItem('mhc-font', state.font); } catch (e) {}
-  }
-
-  function applyFsize(f) {
-    state.fsize = f || 'normal';
-    document.body.setAttribute('data-fsize', state.fsize);
-    try { localStorage.setItem('mhc-fsize', state.fsize); } catch (e) {}
-  }
-
   function fmtTime(iso) {
     if (!iso) return '';
     const d = new Date(iso);
@@ -2226,6 +2204,7 @@
   function setTab(tab) {
     state.tab = tab;
     document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.body.classList.remove('nav-open');
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
@@ -2275,6 +2254,11 @@
 
   function tickClock() {
     $('clock').textContent = new Date().toLocaleTimeString('es');
+    const dl = $('datelineTxt');
+    if (dl) {
+      const d = new Date();
+      dl.textContent = d.toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
     const t = todayStr();
     const els = document.querySelectorAll('.tour-head .t-date');
     for (let i = 0; i < els.length; i++) els[i].textContent = t;
@@ -2823,23 +2807,10 @@
       });
     }
 
-    let savedTheme = 'oscuro';
-    try { savedTheme = localStorage.getItem('mhc-theme') || 'oscuro'; } catch (e) {}
-    applyTheme(savedTheme);
-    $('themeSelect').value = state.theme;
-    $('themeSelect').addEventListener('change', e => applyTheme(e.target.value));
+    generateFavicon('#c8102e');
 
-    let savedFont = 'defecto';
-    try { savedFont = localStorage.getItem('mhc-font') || 'defecto'; } catch (e) {}
-    applyFont(savedFont);
-    $('fontSelect').value = state.font;
-    $('fontSelect').addEventListener('change', e => applyFont(e.target.value));
-
-    let savedFsize = 'normal';
-    try { savedFsize = localStorage.getItem('mhc-fsize') || 'normal'; } catch (e) {}
-    applyFsize(savedFsize);
-    $('fsizeSelect').value = state.fsize;
-    $('fsizeSelect').addEventListener('change', e => applyFsize(e.target.value));
+    const navToggle = $('navToggle');
+    if (navToggle) navToggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
 
     refreshAll(true);
   }
