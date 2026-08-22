@@ -3,58 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
+<meta name="theme-color" content="#faf7f2">
 <title>TENIS LIVE MHC</title>
 <link rel="icon" id="faviconLink" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='35%25' cy='28%25' r='85%25'><stop offset='0%25' stop-color='%23f7ff72'/><stop offset='45%25' stop-color='%23d8f63c'/><stop offset='100%25' stop-color='%239dbd20'/></radialGradient></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><path d='M50 4 C 76 34, 76 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><path d='M50 4 C 24 34, 24 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='50' r='46' fill='none' stroke='rgba(0,0,0,0.25)' stroke-width='1.5'/></svg>">
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Tennis Live">
   <link rel="apple-touch-icon" href="icon-192.png">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Teko:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
-  <svg style="position:absolute;width:0;height:0">
-    <filter id="worn">
-      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="brand-text">
-      <h1>TENIS <span class="live-text">LIVE</span> <span class="mhc-logo"><span class="mhc-text">MHC</span></span></h1>
-      <p>Resultados en tiempo real &middot; ATP &amp; WTA</p>
-    </div>
+<header class="masthead">
+  <div class="dateline">
+    <span class="dl-left" id="datelineTxt">&nbsp;</span>
+    <span class="dl-right">
+      <span id="livePill" class="live-pill"><span class="dot"></span> EN VIVO</span>
+      <span class="clock"><span id="clock">--:--:--</span></span>
+    </span>
   </div>
-  <div class="topbar-phrase">EL TENIS NO SE JUEGA. <span class="shine-text">SE SIENTE</span></div>
-  <div class="status-area">
-    <div id="livePill" class="live-pill"><span class="dot"></span> EN VIVO</div>
-    <div class="clock"><span id="clock">--:--:--</span></div>
-    <div class="updated">Actualizado: <span id="lastUpdate">--</span></div>
-    <div class="countdown">Auto-refresh <span id="countdown">30</span>s</div>
+  <div class="nameplate">
+    <h1>TENIS&nbsp;LIVE&nbsp;<span class="np-red">MHC</span></h1>
+    <p class="tagline">&ldquo;El tenis no se juega. Se siente.&rdquo;</p>
+  </div>
+  <div class="subline">
+    <span>Resultados en tiempo real &middot; ATP &amp; WTA &middot; Challenger &amp; ITF</span>
+    <span class="sl-right">Actualizado <span id="lastUpdate">--</span> &middot; Auto-refresco <span id="countdown">30</span>s</span>
   </div>
 </header>
-<div class="motto"></div>
 
-<nav class="tabs" id="tabs">
-  <button class="tab active" data-tab="live">EN VIVO</button>
-
-  <button class="tab" data-tab="news">NOTICIAS</button>
-  <button class="tab" data-tab="videos">VIDEOS</button>
-  <button class="tab" data-tab="tournaments">TORNEOS</button>
-  <button class="tab" data-tab="draws">CUADROS/RESULTADOS</button>
-<button class="tab" data-tab="rankings">RANKINGS</button>
-<button class="tab" data-tab="argentina">ARG</button>
-  <button class="tab" data-tab="players">PLAYERS</button>
-
-  <button class="tab" data-tab="h2hsearch">H2H SEARCH</button>
-  <button class="tab" data-tab="birthdays">CUMPLEAÑOS</button>
-  <button class="tab" data-tab="calendar">CALENDARIO</button>
-  <button class="tab" data-tab="currenttour">CURRENT TOUR</button>
-  <button class="tab" data-tab="wheelchair">WHEELCHAIR</button>
+<nav class="mainnav" id="tabs">
+  <button class="nav-toggle" id="navToggle" aria-label="Men&uacute;">&#9776;</button>
+  <ul class="nav-list">
+    <li><button class="tab nav-direct active" data-tab="live">EN VIVO</button></li>
+    <li class="has-sub">
+      <span class="group-label">Juego</span>
+      <div class="dropdown">
+        <button class="tab" data-tab="draws">CUADROS / RESULTADOS</button>
+        <button class="tab" data-tab="tournaments">TORNEOS</button>
+        <button class="tab" data-tab="calendar">CALENDARIO</button>
+      </div>
+    </li>
+    <li class="has-sub">
+      <span class="group-label">Rankings</span>
+      <div class="dropdown">
+        <button class="tab" data-tab="rankings">RANKINGS</button>
+        <button class="tab" data-tab="argentina">ARGENTINA</button>
+        <button class="tab" data-tab="players">PLAYERS</button>
+      </div>
+    </li>
+    <li class="has-sub">
+      <span class="group-label">An&aacute;lisis</span>
+      <div class="dropdown">
+        <button class="tab" data-tab="h2hsearch">H2H SEARCH</button>
+        <button class="tab" data-tab="currenttour">CURRENT TOUR</button>
+      </div>
+    </li>
+    <li class="has-sub">
+      <span class="group-label">M&aacute;s</span>
+      <div class="dropdown">
+        <button class="tab" data-tab="news">NOTICIAS</button>
+        <button class="tab" data-tab="videos">VIDEOS</button>
+        <button class="tab" data-tab="birthdays">CUMPLEA&Ntilde;OS</button>
+        <button class="tab" data-tab="wheelchair">WHEELCHAIR</button>
+      </div>
+    </li>
+  </ul>
 </nav>
 
 <div class="controls">
@@ -71,115 +89,6 @@
     <button class="seg-btn" data-mode="doubles">DOBLES</button>
   </div>
   <div class="controls-spacer"></div>
-  <select id="themeSelect" class="select-theme" title="Tema de color">
-    <option value="oscuro">Tema: Oscuro</option>
-    <option value="claro">Tema: Claro</option>
-    <option value="azul">Tema: Azul</option>
-    <option value="rosa">Tema: Rosa</option>
-    <option value="ambar">Tema: Ámbar</option>
-    <option value="naranja">Tema: Naranja</option>
-    <option value="verde">Tema: Verde</option>
-    <option value="celeste">Tema: Celeste</option>
-    <option value="violeta">Tema: Violeta</option>
-    <option value="dorado">Tema: Dorado</option>
-    <option value="negro">Tema: Negro</option>
-    <option value="purpura">Tema: Púrpura</option>
-    <option value="amarillo">Tema: Amarillo</option>
-    <option value="verdefluo">Tema: Verde fluorescente</option>
-    <option value="rojo">Tema: Rojo</option>
-    <option value="amarilloneon">Tema: Amarillo neon</option>
-    <option value="verdeneon">Tema: Verde neon</option>
-    <option value="rosaneon">Tema: Rosa neon</option>
-    <option value="fucsianeon">Tema: Fucsia neon</option>
-    <option value="naranjaneon">Tema: Naranja neon</option>
-    <option value="azulelectrico">Tema: Azul eléctrico</option>
-    <option value="rojoneon">Tema: Rojo neon</option>
-    <option value="violetaneon">Tema: Violeta neon</option>
-    <option value="morado">Tema: Morado</option>
-    <option value="amarillofluo">Tema: Amarillo fluorescente</option>
-    <option value="naranjafluo">Tema: Naranja fluorescente</option>
-    <option value="multicolor">Tema: Multicolor</option>
-    <option value="plateado">Tema: Plateado</option>
-    <option value="marron">Tema: Marrón oscuro y ocre</option>
-    <option value="violetaelectrico">Tema: Ultravioleta eléctrico</option>
-    <option value="verdeacido">Tema: Verde ácido neón</option>
-    <option value="azulpetroleo">Tema: Azul petróleo iridiscente</option>
-    <option value="rosholografico">Tema: Rosa holográfico</option>
-    <option value="rojocarmesi">Tema: Rojo carmesí metálico</option>
-    <option value="cianelectrico">Tema: Cian eléctrico</option>
-    <option value="marroncobrizo">Tema: Marrón cobrizo iridiscente</option>
-    <option value="negrocromado">Tema: Negro cromado</option>
-    <option value="blancoperlado">Tema: Blanco perlado holográfico</option>
-    <option value="azulultramar">Tema: Azul ultramar violeta</option>
-    <option value="verdeenmeralda">Tema: Verde esmeralda fosforescente</option>
-    <option value="magentauv">Tema: Magenta UV</option>
-    <option value="naranjacobre">Tema: Naranja cobre líquido</option>
-    <option value="arcoirismetalico">Tema: Arcoíris metálico</option>
-    <option value="purpuragalactico">Tema: Púrpura galáctico</option>
-    <option value="turquesacromado">Tema: Turquesa cromado</option>
-    <option value="doradoliquido">Tema: Dorado líquido</option>
-    <option value="fucsiatornasolado">Tema: Fucsia tornasolado</option>
-    <option value="naranjavolcanico">Tema: Naranja volcánico</option>
-    <option value="amarilloradioactivo">Tema: Amarillo radioactivo</option>
-    <option value="rojolaser">Tema: Rojo láser</option>
-    <option value="cianextraterrestre">Tema: Cian extraterrestre</option>
-    <option value="marrongalactico">Tema: Marrón galáctico</option>
-    <option value="turquesafantasma">Tema: Turquesa fantasma</option>
-    <option value="blanco">Tema: Blanco</option>
-    <option value="beige">Tema: Beige</option>
-    <option value="multicolorfluor">Tema: Multicolor fluorescente</option>
-    <option value="azulprusia">Tema: Azul de Prusia</option>
-    <option value="payne">Tema: Gris de Payne</option>
-    <option value="azulftalo">Tema: Azul ftalo</option>
-    <option value="ultramar">Tema: Azul ultramar clásico</option>
-    <option value="carmin">Tema: Carmín</option>
-    <option value="sienatostada">Tema: Tierra de siena tostada</option>
-          <option value="marronmomia">Tema: Marrón momia</option>
-          <option value="verdevejiga">Tema: Verde vejiga</option>
-          <option value="azulglasto">Tema: Azul glasto</option>
-          <option value="caputmortuum">Tema: Caput mortuum</option>
-          <option value="gamboge">Tema: Gamboge</option>
-          <option value="tierraumbra">Tema: Tierra umbra</option>
-          <option value="rojopompeya">Tema: Rojo Pompeya</option>
-          <option value="azulmaya">Tema: Azul maya</option>
-          <option value="orpimente">Tema: Orpimente</option>
-          <option value="malva">Tema: Malva</option>
-          <option value="blancofantasma">Tema: Blanco fantasma</option>
-          <option value="grisfantasma">Tema: Gris fantasma</option>
-          <option value="verdafantasma">Tema: Verde fantasma</option>
-          <option value="rosaantiguo">Tema: Rosa antiguo</option>
-          <option value="lavandafantasma">Tema: Lavanda fantasma</option>
-          <option value="azulfantasma">Tema: Azul fantasma</option>
-          <option value="mentafantasma">Tema: Menta fantasma</option>
-          <option value="duraznofantasma">Tema: Durazno fantasma</option>
-          <option value="amarillofantasma">Tema: Amarillo fantasma</option>
-          <option value="cielofantasma">Tema: Cielo fantasma</option>
-          <option value="violetafantasma">Tema: Violeta fantasma</option>
-          <option value="coralfantasma">Tema: Coral fantasma</option>
-          <option value="salviafantasma">Tema: Salvia fantasma</option>
-          <option value="perla">Tema: Perla</option>
-          <option value="nebulosa">Tema: Nebulosa</option>
-          <option value="supernova">Tema: Supernova</option>
-          <option value="agujeronegro">Tema: Agujero negro</option>
-          <option value="vialactea">Tema: Vía Láctea</option>
-          <option value="cometa">Tema: Cometa</option>
-  </select>
-  <select id="fontSelect" class="select-font" title="Fuente del texto">
-    <option value="defecto">Fuente: Segoe UI</option>
-    <option value="arial">Fuente: Arial</option>
-    <option value="verdana">Fuente: Verdana</option>
-    <option value="trebuchet">Fuente: Trebuchet MS</option>
-    <option value="georgia">Fuente: Georgia</option>
-    <option value="times">Fuente: Times New Roman</option>
-    <option value="courier">Fuente: Courier New</option>
-    <option value="comic">Fuente: Comic Sans</option>
-  </select>
-  <select id="fsizeSelect" class="select-font" title="Tamaño del texto">
-    <option value="pequena">Texto: Pequeño</option>
-    <option value="normal" selected>Texto: Normal</option>
-    <option value="grande">Texto: Grande</option>
-    <option value="muygrande">Texto: Muy grande</option>
-  </select>
   <button id="btnRefresh" class="btn-refresh">&#x21bb; Actualizar</button>
 </div>
 
