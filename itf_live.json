@@ -1,4 +1,6 @@
 {
+  "time": "2026-08-22T16:52:13Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -9,7 +11,7 @@
           "teId": "3300989",
           "p1": "Zolotareva",
           "p2": "Encheva",
-          "time": "09:00",
+          "time": "10:00",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -2393,15 +2395,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300705",
-          "p1": "Candiotto",
-          "p2": "Fullana",
-          "time": "16:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300735",
           "p1": "Bohrer Martins",
           "p2": "Barros",
@@ -2409,6 +2402,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300705",
+          "p1": "Fullana",
+          "p2": "Candiotto",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3300369",
@@ -2969,7 +2981,7 @@
           "teId": "3301097",
           "p1": "Giaccio",
           "p2": "Kardava",
-          "time": "",
+          "time": "13:00",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -4757,7 +4769,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-08-22T15:45:34Z",
-  "ok": true
+  ]
 }
