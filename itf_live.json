@@ -3481,7 +3481,7 @@
           "teId": "3300735",
           "p1": "Bohrer Martins",
           "p2": "Barros",
-          "time": "",
+          "time": "15:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -3490,7 +3490,7 @@
           "teId": "3300705",
           "p1": "Candiotto",
           "p2": "Fullana",
-          "time": "",
+          "time": "15:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4620,15 +4620,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300571",
-          "p1": "Plipuech",
-          "p2": "Matsuda",
-          "time": "04:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300527",
           "p1": "Jeong",
           "p2": "Chen",
@@ -4636,6 +4627,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300571",
+          "p1": "Matsuda",
+          "p2": "Plipuech",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "04:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3300149",
@@ -5768,5 +5778,5 @@
     }
   ],
   "ok": true,
-  "time": "2026-08-22T03:08:26Z"
+  "time": "2026-08-22T04:57:27Z"
 }
