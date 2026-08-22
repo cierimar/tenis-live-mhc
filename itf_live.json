@@ -1,5 +1,5 @@
 {
-  "time": "2026-08-22T11:43:00Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -10,10 +10,20 @@
           "teId": "3300621",
           "p1": "Encheva",
           "p2": "Vujovic",
+          "round": "semifinal",
+          "date": "22.08.",
           "time": "13:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3300605",
@@ -1196,6 +1206,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3300985",
+          "p1": "Nagy",
+          "p2": "Miron",
+          "time": "09:00",
+          "round": "F",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3300639",
           "p1": "Miron",
           "p2": "Ewald",
@@ -1794,7 +1813,7 @@
           "teId": "3300697",
           "p1": "Steiner",
           "p2": "Steur",
-          "time": "13:50",
+          "time": "14:25",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1803,7 +1822,7 @@
           "teId": "3300641",
           "p1": "Daems",
           "p2": "Giza",
-          "time": "15:00",
+          "time": "15:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2361,627 +2380,37 @@
       ]
     },
     {
-      "id": "itf-krakow2026wta-women",
-      "name": "Kraków ITF",
-      "cat": "w",
-      "matches": [
-        {
-          "teId": "3300643",
-          "p1": "Geerlings",
-          "p2": "Jakupovic",
-          "round": "final",
-          "date": "22.08.",
-          "time": "12:00",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "4",
-            "3"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3300275",
-          "p1": "Geerlings",
-          "p2": "Zelnickova",
-          "round": "semifinal",
-          "date": "21.08.",
-          "time": "14:15",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3300191",
-          "p1": "Jakupovic",
-          "p2": "Pawlikowska",
-          "round": "semifinal",
-          "date": "21.08.",
-          "time": "13:35",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3299645",
-          "p1": "Zelnickova",
-          "p2": "Leykina",
-          "round": "quarterfinal",
-          "date": "20.08.",
-          "time": "13:45",
-          "res1": 1,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "3"
-          ],
-          "sets2": [
-            "1",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3299681",
-          "p1": "Jakupovic",
-          "p2": "Kmiecik",
-          "round": "quarterfinal",
-          "date": "20.08.",
-          "time": "11:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "2"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3299583",
-          "p1": "Geerlings",
-          "p2": "Maduzzi",
-          "round": "quarterfinal",
-          "date": "20.08.",
-          "time": "10:00",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "5",
-            "7",
-            "6"
-          ],
-          "sets2": [
-            "7",
-            "6",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3299585",
-          "p1": "Pawlikowska",
-          "p2": "Gniewkowska",
-          "round": "quarterfinal",
-          "date": "20.08.",
-          "time": "10:00",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298869",
-          "p1": "Jakupovic",
-          "p2": "Podlinska",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "15:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "3",
-            "6"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298871",
-          "p1": "Zelnickova",
-          "p2": "Paszun",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "14:30",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "4",
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "6",
-            "1",
-            "5"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298897",
-          "p1": "Geerlings",
-          "p2": "Petruzelova",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "14:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "7",
-            "6"
-          ],
-          "sets2": [
-            "5",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3299065",
-          "p1": "Gniewkowska",
-          "p2": "Garcia-Perez",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "14:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "4"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298937",
-          "p1": "Pawlikowska",
-          "p2": "Heuser",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "14:00",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298911",
-          "p1": "Leykina",
-          "p2": "Shapatava",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "12:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298215",
-          "p1": "Kmiecik",
-          "p2": "Turini",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "11:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "4"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298873",
-          "p1": "Maduzzi",
-          "p2": "Malygina",
-          "round": "round of 16",
-          "date": "19.08.",
-          "time": "11:00",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298201",
-          "p1": "Heuser",
-          "p2": "Kuczer",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "16:30",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "1",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "4",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298203",
-          "p1": "Pawlikowska",
-          "p2": "Velikova",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "16:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "4"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298211",
-          "p1": "Geerlings",
-          "p2": "Tona",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "16:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "4",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296819",
-          "p1": "Leykina",
-          "p2": "Samir",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "16:00",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "3"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298207",
-          "p1": "Shapatava",
-          "p2": "Mrazikova",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "16:00",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "3",
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "6",
-            "4",
-            "2"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298205",
-          "p1": "Jakupovic",
-          "p2": "Ozerova",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "15:00",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298209",
-          "p1": "Paszun",
-          "p2": "Husar",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "14:40",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296821",
-          "p1": "Zelnickova",
-          "p2": "Straszewska",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "14:25",
-          "res1": 2,
-          "res2": 1,
-          "sets1": [
-            "6",
-            "3",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "6",
-            "0"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298199",
-          "p1": "Garcia-Perez",
-          "p2": "Vojcinakova",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "14:10",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "4",
-            "5"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3298213",
-          "p1": "Petruzelova",
-          "p2": "Tiglea",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "14:10",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296811",
-          "p1": "Malygina",
-          "p2": "Kolonus",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "13:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "4",
-            "3"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296813",
-          "p1": "Gniewkowska",
-          "p2": "Feistel",
-          "round": "1. round",
-          "date": "18.08.",
-          "time": "13:00",
-          "res1": 1,
-          "res2": 0,
-          "sets1": [],
-          "sets2": [],
-          "finished": true
-        },
-        {
-          "teId": "3296815",
-          "p1": "Turini",
-          "p2": "Pace",
-          "round": "1. round",
-          "date": "17.08.",
-          "time": "17:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "1"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296817",
-          "p1": "Podlinska",
-          "p2": "Mansouri",
-          "round": "1. round",
-          "date": "17.08.",
-          "time": "17:10",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "4"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296823",
-          "p1": "Maduzzi",
-          "p2": "Sakellaridi",
-          "round": "1. round",
-          "date": "17.08.",
-          "time": "15:40",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "3",
-            "2"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3296809",
-          "p1": "Kmiecik",
-          "p2": "Dittmann",
-          "round": "1. round",
-          "date": "17.08.",
-          "time": "15:15",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "3",
-            "5"
-          ],
-          "finished": true
-        }
-      ]
-    },
-    {
       "id": "itf-verbier2026wta-women",
       "name": "Verbier ITF",
       "cat": "w",
       "matches": [
         {
-          "teId": "3300733",
-          "p1": "Grubor",
-          "p2": "Lim",
-          "time": "14:00",
+          "teId": "3300699",
+          "p1": "Cvetkovic",
+          "p2": "Grammatikopoulou",
+          "time": "14:10",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300699",
-          "p1": "Cvetkovic",
-          "p2": "Grammatikopoulou",
-          "time": "14:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3300733",
+          "p1": "Lim",
+          "p2": "Grubor",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "14:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3300177",
@@ -3531,19 +2960,19 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300735",
-          "p1": "Bohrer Martins",
-          "p2": "Barros",
-          "time": "15:00",
+          "teId": "3300705",
+          "p1": "Candiotto",
+          "p2": "Fullana",
+          "time": "16:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300705",
-          "p1": "Candiotto",
-          "p2": "Fullana",
-          "time": "15:00",
+          "teId": "3300735",
+          "p1": "Bohrer Martins",
+          "p2": "Barros",
+          "time": "17:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4104,15 +3533,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300645",
-          "p1": "Giaccio",
-          "p2": "Esquiva Banuls",
-          "time": "11:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3300663",
           "p1": "Cembranos",
           "p2": "Kardava",
@@ -4120,6 +3540,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300645",
+          "p1": "Giaccio",
+          "p2": "Esquiva Banuls",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "0",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3300297",
@@ -5851,5 +5292,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-08-22T13:21:36Z"
 }
