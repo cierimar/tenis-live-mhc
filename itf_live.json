@@ -1,5 +1,4 @@
 {
-  "time": "2026-08-22T13:59:54Z",
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -612,7 +611,7 @@
           "teId": "3300985",
           "p1": "Nagy",
           "p2": "Miron",
-          "time": "09:00",
+          "time": "10:00",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -1213,22 +1212,34 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300697",
-          "p1": "Steiner",
-          "p2": "Steur",
-          "time": "14:25",
+          "teId": "3300641",
+          "p1": "Daems",
+          "p2": "Giza",
+          "time": "16:55",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300641",
-          "p1": "Daems",
-          "p2": "Giza",
-          "time": "15:55",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3300697",
+          "p1": "Steiner",
+          "p2": "Steur",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "14:25",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "1",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3300359",
@@ -1788,13 +1799,32 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300699",
-          "p1": "Cvetkovic",
-          "p2": "Grammatikopoulou",
-          "time": "14:10",
-          "round": "SF",
+          "teId": "3301061",
+          "p1": "Grammatikopoulou",
+          "p2": "Lim",
+          "time": "11:00",
+          "round": "F",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300699",
+          "p1": "Grammatikopoulou",
+          "p2": "Cvetkovic",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "14:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3300733",
@@ -4695,5 +4725,6 @@
       ]
     }
   ],
+  "time": "2026-08-22T14:53:58Z",
   "ok": true
 }
