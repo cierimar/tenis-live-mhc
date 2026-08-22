@@ -2966,13 +2966,34 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300663",
-          "p1": "Cembranos",
+          "teId": "3301097",
+          "p1": "Giaccio",
           "p2": "Kardava",
-          "time": "12:30",
-          "round": "SF",
+          "time": "",
+          "round": "F",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3300663",
+          "p1": "Kardava",
+          "p2": "Cembranos",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "12:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "3",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "6",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3300645",
@@ -4151,22 +4172,34 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300667",
-          "p1": "De Koning",
-          "p2": "Claeys",
-          "time": "13:00",
+          "teId": "3300665",
+          "p1": "Longueville",
+          "p2": "Andrienko",
+          "time": "16:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300665",
-          "p1": "Longueville",
-          "p2": "Andrienko",
-          "time": "15:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3300667",
+          "p1": "Claeys",
+          "p2": "De Koning",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3300415",
@@ -4725,6 +4758,6 @@
       ]
     }
   ],
-  "time": "2026-08-22T14:53:58Z",
+  "time": "2026-08-22T15:45:34Z",
   "ok": true
 }
