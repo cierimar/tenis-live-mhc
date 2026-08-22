@@ -1,4 +1,5 @@
 {
+  "time": "2026-08-22T11:43:00Z",
   "tournaments": [
     {
       "id": "itf-kursumlijska-banja-152026wta-women",
@@ -6,22 +7,34 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3300605",
-          "p1": "Zolotareva",
-          "p2": "Zaar",
-          "time": "10:10",
+          "teId": "3300621",
+          "p1": "Encheva",
+          "p2": "Vujovic",
+          "time": "13:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3300621",
-          "p1": "Encheva",
-          "p2": "Vujovic",
-          "time": "13:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3300605",
+          "p1": "Zolotareva",
+          "p2": "Zaar",
+          "round": "semifinal",
+          "date": "22.08.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "7",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3300253",
@@ -578,12 +591,22 @@
       "matches": [
         {
           "teId": "3300647",
-          "p1": "Gao",
-          "p2": "Kovackova",
+          "p1": "Kovackova",
+          "p2": "Gao",
+          "round": "final",
+          "date": "22.08.",
           "time": "11:10",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3300193",
@@ -1174,12 +1197,22 @@
       "matches": [
         {
           "teId": "3300639",
-          "p1": "Ewald",
-          "p2": "Miron",
+          "p1": "Miron",
+          "p2": "Ewald",
+          "round": "semifinal",
+          "date": "22.08.",
           "time": "12:15",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3300613",
@@ -1761,7 +1794,7 @@
           "teId": "3300697",
           "p1": "Steiner",
           "p2": "Steur",
-          "time": "13:30",
+          "time": "13:50",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2334,12 +2367,22 @@
       "matches": [
         {
           "teId": "3300643",
-          "p1": "Jakupovic",
-          "p2": "Geerlings",
+          "p1": "Geerlings",
+          "p2": "Jakupovic",
+          "round": "final",
+          "date": "22.08.",
           "time": "12:00",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3300275",
@@ -5808,6 +5851,5 @@
       ]
     }
   ],
-  "time": "2026-08-22T10:53:17Z",
   "ok": true
 }
