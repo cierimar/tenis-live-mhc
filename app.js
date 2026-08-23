@@ -1566,9 +1566,8 @@
       roundMap.get(key).matches.push(m);
     }
     const keys = Array.from(roundMap.keys()).sort((a, b) => {
-      const ta = tourOf(ms[0]) === 'atp' ? 'a' : 'w';
-      const [r1] = a.split('|'), [r2] = b.split('|');
-      const ia = ROUND_ORDER.indexOf(r1), ib = ROUND_ORDER.indexOf(r2);
+      const ra = a.split('|').pop(), rb = b.split('|').pop();
+      const ia = ROUND_ORDER.indexOf(ra), ib = ROUND_ORDER.indexOf(rb);
       return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || (a < b ? -1 : 1);
     });
 
