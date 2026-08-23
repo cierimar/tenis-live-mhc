@@ -302,7 +302,11 @@ button { font-family: inherit; cursor: pointer; }
 body.tab-argentina #segTour,
 body.tab-argentina #segMode,
 body.tab-wheelchair #segTour,
-body.tab-wheelchair #segMode { display: none; }
+body.tab-wheelchair #segMode,
+body.tab-news #segTour,
+body.tab-news #segMode,
+body.tab-videos #segTour,
+body.tab-videos #segMode { display: none; }
 
 /* ---------------- layout general ---------------- */
 
