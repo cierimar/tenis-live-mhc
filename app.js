@@ -1754,7 +1754,8 @@
         (n ? ' · ' + n + ' jugadores' : '') + (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
       return;
     }
-    const needsDoubles = selectedModes().includes('doubles') && selectedTours().some(t => !state.rankDoubles[t]);
+    const rTours = selectedTours().filter(t => t === 'atp' || t === 'wta');
+    const needsDoubles = selectedModes().includes('doubles') && rTours.some(t => !state.rankDoubles[t]);
     if (needsDoubles && !state.rankDoublesLoading) {
       state.rankDoublesLoading = true;
       refreshRankingsDoubles().then(() => {
@@ -1766,9 +1767,9 @@
       });
     }
     const html = [];
-    for (const t of selectedTours()) for (const m of selectedModes()) html.push(renderRankSection(t, m));
+    for (const t of rTours) for (const m of selectedModes()) html.push(renderRankSection(t, m));
     el.innerHTML = html.join('');
-    const total = selectedTours().length * selectedModes().length;
+    const total = rTours.length * selectedModes().length;
     $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
       (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
   }
