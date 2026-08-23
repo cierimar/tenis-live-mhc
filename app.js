@@ -1438,9 +1438,13 @@
       const ago = timeAgo(it.published);
       const time = ago ? '<span class="news-time">' + esc(ago) + '</span>' : '';
       const desc = it.description ? '<div class="news-desc">' + esc(it.description) + '</div>' : '';
+      const thumb = it.image
+        ? '<img class="news-thumb" src="' + esc(it.image) + '" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;news-thumb-placeholder&quot;></div>\'">'
+        : '<div class="news-thumb-placeholder"></div>';
       return '<a class="news-card" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">' +
-        '<div class="news-head"><span class="news-source">' + esc(it.source) + '</span>' + time + '</div>' +
-        '<div class="news-title">' + esc(it.title) + '</div>' + desc + '</a>';
+        thumb +
+        '<div class="news-body"><div class="news-head"><span class="news-source">' + esc(it.source) + '</span>' + time + '</div>' +
+        '<div class="news-title">' + esc(it.title) + '</div>' + desc + '</div></a>';
     }).join('');
     el.innerHTML = html;
   }
