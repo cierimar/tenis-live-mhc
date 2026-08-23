@@ -48,6 +48,7 @@
     refreshing: false,
     countdown: REFRESH_SEC,
     drawTournamentId: null,
+    drawRound: 'todas',
     theme: 'oscuro',
     font: 'defecto',
     fsize: 'normal'
@@ -1575,7 +1576,23 @@
     const drawTypes = new Set(ms.map(m => m.type));
     $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + Array.from(drawTypes).join(' / ') + ' · ' + ms.length + ' partidos';
 
-    const cols = keys.map(key => {
+    const availRounds = [];
+    for (const k of keys) {
+      const r = k.split('|')[1] || k;
+      if (!availRounds.includes(r)) availRounds.push(r);
+    }
+    if (state.drawRound !== 'todas' && !availRounds.includes(state.drawRound)) state.drawRound = 'todas';
+    const chips = '<div class="round-filter">' +
+      '<span class="rf-label">RONDA:</span>' +
+      '<button class="round-chip' + (state.drawRound === 'todas' ? ' active' : '') + '" data-round="todas">TODAS</button>' +
+      availRounds.map(r => '<button class="round-chip' + (state.drawRound === r ? ' active' : '') + '" data-round="' + esc(r) + '">' + esc(ROUND_LABEL[r] || r) + '</button>').join('') +
+      '</div>';
+
+    const visKeys = state.drawRound === 'todas' ? keys : keys.filter(k => (k.split('|')[1] || k) === state.drawRound);
+    if (state.drawRound !== 'todas') {
+      $('drawMeta').textContent += ' · ronda: ' + (ROUND_LABEL[state.drawRound] || state.drawRound);
+    }
+    const cols = visKeys.map(key => {
       const grp = roundMap.get(key);
       const round = key.split('|')[1] || key;
       const matches = grp.matches.slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
@@ -1598,7 +1615,7 @@
       return '<div class="draw-col"><h4>' + esc(ROUND_LABEL[round] || round) + typeTag + '</h4>' + (cards || '<div class="draw-empty">-</div>') + '</div>';
     }).join('');
 
-    el.innerHTML = '<div class="draw-board"><div class="draw-cols">' + cols + '</div></div>';
+    el.innerHTML = chips + '<div class="draw-board"><div class="draw-cols">' + cols + '</div></div>';
   }
 
   /* ---------------- render: rankings ---------------- */
@@ -2679,8 +2696,19 @@
 
     $('drawSelect').addEventListener('change', e => {
       state.drawTournamentId = e.target.value;
+      state.drawRound = 'todas';
       renderDraws();
     });
+
+    const drawContent = $('drawContent');
+    if (drawContent) {
+      drawContent.addEventListener('click', e => {
+        const chip = e.target.closest('.round-chip');
+        if (!chip) return;
+        state.drawRound = chip.getAttribute('data-round') || 'todas';
+        renderDraws();
+      });
+    }
 
     const rankSearch = $('rankSearch');
     if (rankSearch) {
