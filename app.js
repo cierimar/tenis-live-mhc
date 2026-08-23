@@ -344,6 +344,20 @@
       allTours = allTours.concat(list);
       if (list.length < 20) break;
     }
+    try {
+      const re = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + t);
+      if (re.ok) {
+        const je = await re.json();
+        if (je && je.events) {
+          const seen = {};
+          for (const tt of allTours) {
+            for (const ev of (tt.events || [])) seen[ev.id] = true;
+          }
+          const extra = je.events.filter(ev => !seen[ev.id]);
+          if (extra.length) allTours = allTours.concat([{ tournament: {}, events: extra }]);
+        }
+      }
+    } catch (_) {}
     const j = { tournaments: allTours };
     return { shape: 'tours', j: j };
   }
@@ -520,12 +534,11 @@
     for (const ev of allEvents) {
       const cat = ((((ev.tournament || {}).category || {}).name) || ev.__catName || '').toLowerCase();
       let circuit = '';
-      if (/atp/.test(cat) && /chall/.test(cat)) circuit = 'chall';
-      else if (cat === 'atp') circuit = 'atp';
-      else if (cat === 'wta') circuit = 'wta';
-      else if (cat.indexOf('chall') > -1) circuit = 'chall';
-      else if (cat.indexOf('itf') > -1) circuit = 'itf';
-      else if (/wheelchair|silla/.test(cat)) circuit = 'wc';
+      if (/wheelchair|silla/.test(cat)) circuit = 'wc';
+      else if (/chall/.test(cat)) circuit = 'chall';
+      else if (/itf/.test(cat)) circuit = 'itf';
+      else if (/atp/.test(cat)) circuit = 'atp';
+      else if (/wta|women|femen/.test(cat)) circuit = 'wta';
       else continue;
       const tName = (ev.uniqueTournament && ev.uniqueTournament.name) || (ev.tournament && ev.tournament.name) || '';
       const meta = sofaMetaFromEvent(ev);
