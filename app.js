@@ -2286,6 +2286,8 @@
     document.body.classList.remove('nav-open');
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
+  document.body.classList.toggle('tab-news', tab === 'news');
+  document.body.classList.toggle('tab-videos', tab === 'videos');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
