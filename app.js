@@ -2812,6 +2812,24 @@
     const navToggle = $('navToggle');
     if (navToggle) navToggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
 
+    const themeToggle = $('themeToggle');
+    if (themeToggle) {
+      let mode = 'light';
+      try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
+      const applyMode = m => {
+        document.body.setAttribute('data-mode', m);
+        themeToggle.innerHTML = m === 'dark' ? '&#9788;' : '&#9790;';
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', m === 'dark' ? '#16130e' : '#faf7f2');
+      };
+      applyMode(mode);
+      themeToggle.addEventListener('click', () => {
+        const next = document.body.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+        applyMode(next);
+        try { localStorage.setItem('mhc-mode', next); } catch (e) {}
+      });
+    }
+
     refreshAll(true);
   }
 
