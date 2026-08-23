@@ -48,6 +48,66 @@ body[data-mode='dark'] .gender-badge.gender-m { border-color: #7da4ff; color: #7
 body[data-mode='dark'] .news-card img { filter: grayscale(15%) brightness(0.9); }
 body[data-mode='dark'] .video-play { background: rgba(0,0,0,0.35); }
 
+/* ---------------- modo fluor multicolor ---------------- */
+
+body[data-mode='fluo'] {
+  --paper: #0b0b14;
+  --paper-2: #131322;
+  --paper-3: #1b1b30;
+  --ink: #f4f4ff;
+  --ink-2: #c9c9e8;
+  --muted: #8f8fc0;
+  --hairline: rgba(255,255,255,0.16);
+  --hairline-dark: rgba(255,255,255,0.32);
+  --red: #ff10f0;
+  --red-dark: #ff5cf5;
+  --red-vivo: #39ff14;
+  --red-soft: rgba(57,255,20,0.10);
+  --green: #39ff14;
+  --amber: #ffe600;
+  --shadow: none;
+}
+body[data-mode='fluo'] ::selection { background: #ff10f0; color: #fff; }
+
+body[data-mode='fluo'] .nameplate h1 {
+  background: linear-gradient(90deg, #39ff14, #00e5ff, #ff10f0, #ffe600, #39ff14);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fluo-shift 6s linear infinite;
+}
+@keyframes fluo-shift { from { background-position: 0% 50%; } to { background-position: 300% 50%; } }
+body[data-mode='fluo'] .nameplate .np-red { color: inherit; }
+body[data-mode='fluo'] .tagline { color: #00e5ff; }
+
+body[data-mode='fluo'] .tab.active {
+  border-color: #00e5ff;
+  color: #39ff14;
+  box-shadow: 0 0 12px rgba(0,229,255,0.55), inset 0 0 10px rgba(57,255,20,0.15);
+}
+body[data-mode='fluo'] .tour-head { border-color: #ff10f0; box-shadow: 0 0 14px rgba(255,16,240,0.35); }
+body[data-mode='fluo'] .live-pill,
+body[data-mode='fluo'] .ball { border-color: #ffe600; }
+body[data-mode='fluo'] .clock {
+  color: #39ff14;
+  border-color: #39ff14;
+  text-shadow: 0 0 8px rgba(57,255,20,0.7);
+}
+
+body[data-mode='fluo'] .match:nth-of-type(3n+1) { border-color: #39ff14; }
+body[data-mode='fluo'] .match:nth-of-type(3n+2) { border-color: #00e5ff; }
+body[data-mode='fluo'] .match:nth-of-type(3n+3) { border-color: #ff10f0; }
+body[data-mode='fluo'] .match.live {
+  border-left-color: #ffe600;
+  background: linear-gradient(90deg, rgba(255,230,0,0.10), transparent 65%);
+}
+body[data-mode='fluo'] .set.win { color: #39ff14; font-weight: 800; }
+body[data-mode='fluo'] .set.live-set { background: #ffe600; color: #0b0b14; }
+
+body[data-mode='fluo'] .rank-section-title { color: #00e5ff; }
+body[data-mode='fluo'] .seed-badge { border-color: #ffe600; color: #ffe600; }
+
 html { scroll-behavior: smooth; }
 
 body {
