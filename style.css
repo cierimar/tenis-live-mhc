@@ -619,6 +619,26 @@ main { max-width: 1180px; margin: 0 auto; padding: 8px 22px 40px; }
 .draw-board { overflow-x: auto; padding: 6px 0 20px; }
 .draw-cols { display: flex; gap: 26px; min-width: max-content; }
 .draw-col { min-width: 250px; }
+
+/* filtro de ronda (cuadros/resultados) */
+.round-filter {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.rf-label { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: var(--muted); margin-right: 2px; }
+.round-chip {
+  font-family: var(--sans);
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border: 1.5px solid var(--hairline-dark);
+  background: transparent; color: var(--ink-2);
+  text-transform: uppercase;
+}
+.round-chip:hover { border-color: var(--ink); color: var(--ink); }
+.round-chip.active {
+  background: var(--ink); color: var(--paper);
+  border-color: var(--ink);
+}
 .draw-col > .rank-section-title { margin-top: 0; }
 .draw-match {
   border: 1px solid var(--hairline-dark);
