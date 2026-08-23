@@ -1310,7 +1310,7 @@
   }
 
   function renderLive() {
-    const list = filteredMatches();
+    const list = filteredMatches().filter(m => m.state !== 'post');
     const el = $('liveContent');
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
