@@ -1583,7 +1583,21 @@
     const sel = $('drawSelect');
     const tours = filteredTournaments();
     const prev = state.drawTournamentId;
-    sel.innerHTML = tours.map(t => '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>').join('');
+    const tourById = new Map();
+    for (const m of allMatches()) if (!tourById.has(m.tournamentId)) tourById.set(m.tournamentId, m.tour);
+    const groups = new Map();
+    for (const t of tours) {
+      const g = tourById.get(t.id) || 'atp';
+      if (!groups.has(g)) groups.set(g, []);
+      groups.get(g).push(t);
+    }
+    const order = ['atp', 'wta', 'chall', 'itf'];
+    const glabels = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF' };
+    sel.innerHTML = order.filter(g => groups.has(g)).map(g =>
+      '<optgroup label="' + glabels[g] + '">' +
+      groups.get(g).sort((a, b) => String(a.name).localeCompare(String(b.name))).map(t => '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>').join('') +
+      '</optgroup>'
+    ).join('');
     if (tours.some(t => t.id === prev)) { sel.value = prev; }
     else if (tours.length) { sel.value = tours[0].id; state.drawTournamentId = tours[0].id; }
     sel.disabled = !tours.length;
