@@ -2817,15 +2817,18 @@
     if (themeToggle) {
       let mode = 'light';
       try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
+      if (mode !== 'dark' && mode !== 'fluo') mode = 'light';
       const applyMode = m => {
         document.body.setAttribute('data-mode', m);
-        themeToggle.innerHTML = m === 'dark' ? '&#9788;' : '&#9790;';
+        themeToggle.innerHTML = m === 'dark' ? '&#9788;' : (m === 'fluo' ? '&#10038;' : '&#9790;');
+        themeToggle.title = m === 'dark' ? 'Modo claro' : (m === 'fluo' ? 'Modo flúor' : 'Modo oscuro');
         const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', m === 'dark' ? '#16130e' : '#faf7f2');
+        if (meta) meta.setAttribute('content', m === 'dark' ? '#16130e' : (m === 'fluo' ? '#0b0b12' : '#faf7f2'));
       };
       applyMode(mode);
       themeToggle.addEventListener('click', () => {
-        const next = document.body.getAttribute('data-mode') === 'dark' ? 'light' : 'dark';
+        const cur = document.body.getAttribute('data-mode');
+        const next = cur === 'light' ? 'dark' : (cur === 'dark' ? 'fluo' : 'light');
         applyMode(next);
         try { localStorage.setItem('mhc-mode', next); } catch (e) {}
       });
