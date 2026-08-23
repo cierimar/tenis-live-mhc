@@ -321,19 +321,49 @@
     return 'DURA';
   }
 
+  let sofaPastEvents = null;
   async function fetchSofaRaw() {
-    const today = new Date().toISOString().slice(0, 10);
-    let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1');
-    if (r.ok) {
-      const j = await r.json();
-      if (j && j.tournaments) return { shape: 'tours', j: j };
+    const today = new Date();
+    const iso = d => d.toISOString().slice(0, 10);
+    const t = iso(today);
+    let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + t + '/page/1');
+    if (!r.ok) {
+      r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + t);
+      if (!r.ok) throw new Error('sofascore ' + r.status);
+      const jj0 = await r.json();
+      if (!jj0 || !jj0.events) throw new Error('sofascore sin eventos');
+      return { shape: 'events', j: jj0 };
     }
-    r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
-    if (r.ok) {
-      const j = await r.json();
-      if (j && j.events) return { shape: 'events', j: j };
+    let allTours = [];
+    for (let pg = 1; pg <= 8; pg++) {
+      const rp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + t + '/page/' + pg);
+      if (!rp.ok) break;
+      const jp = await rp.json();
+      const list = (jp && jp.tournaments) || [];
+      if (!list.length) break;
+      allTours = allTours.concat(list);
+      if (list.length < 20) break;
     }
-    throw new Error('sofascore ' + r.status);
+    const j = { tournaments: allTours };
+    return { shape: 'tours', j: j };
+  }
+
+  async function sofaPastFinished() {
+    if (sofaPastEvents) return sofaPastEvents;
+    const today = new Date();
+    const iso = d => d.toISOString().slice(0, 10);
+    const out = [];
+    for (const d of [iso(new Date(today.getTime() - 86400000)), iso(new Date(today.getTime() - 172800000))]) {
+      try {
+        const rp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + d);
+        if (rp.ok) {
+          const jp = await rp.json();
+          if (jp && jp.events) out.push(...jp.events.filter(ev => ev.status && ev.status.type === 'Finished'));
+        }
+      } catch (_) {}
+    }
+    sofaPastEvents = out;
+    return out;
   }
 
   function sofaEventsOf(raw) {
@@ -478,7 +508,8 @@
 
   async function sofascoreFallback() {
     const raw = await fetchSofaRaw();
-    const allEvents = sofaEventsOf(raw);
+    const pastEv = await sofaPastFinished().catch(() => []);
+    const allEvents = sofaEventsOf(raw).concat(pastEv);
     const res = {
       atp: { matches: [], tournaments: [] },
       wta: { matches: [], tournaments: [] },
