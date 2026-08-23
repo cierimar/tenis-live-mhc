@@ -207,7 +207,7 @@
     for (const ev of (json.events || [])) {
       for (const g of (ev.groupings || [])) {
         for (const c of (g.competitions || [])) {
-          const tid = String(c.tournamentId || ev.id);
+          const tid = circuit + '-' + String(c.tournamentId || ev.id);
           if (!tourMap.has(tid)) {
             tourMap.set(tid, {
               id: tid,
