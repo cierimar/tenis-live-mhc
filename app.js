@@ -576,7 +576,9 @@
         competitors: [
           { homeAway: 'home', winner: st === 'finished' && hc > ac, order: 1, name: hN, flag: '', flagAlt: (((ev.homeTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.homeScore, st === 'inprogress') },
           { homeAway: 'away', winner: st === 'finished' && ac > hc, order: 2, name: aN, flag: '', flagAlt: (((ev.awayTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.awayScore, st === 'inprogress') }
-        ]
+        ],
+        pts0: st === 'inprogress' ? String((ev.homeScore || {}).displayScore || '') : '',
+        pts1: st === 'inprogress' ? String((ev.awayScore || {}).displayScore || '') : ''
       });
     }
     return res;
@@ -1493,7 +1495,8 @@
     const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
     const cls = m.state === 'in' ? 'match live' : m.state === 'post' ? 'match finished' : 'match upcoming';
     const period = m.state === 'in' && m.period ? '<span class="period">SET ' + m.period + '</span>' : '';
-    const pts = livePoints(m);
+    let pts = livePoints(m);
+    if (!pts && m.state === 'in' && (m.pts0 || m.pts1)) pts = { g0: m.pts0, g1: m.pts1, serverName: '' };
     const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const suspNote = m.suspended ? '<div class="note susp-note">' + esc(m.suspReason || 'Partido suspendido') + '</div>' : '';
