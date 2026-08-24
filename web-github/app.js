@@ -37,6 +37,8 @@
     seedMap: {},
     seedMapATP: {},
     seedMapWTA: {},
+    seedByTour: {},
+    seedSurnameTours: {},
     finishedAt: {},
     finishedMatches: {},
     liveSnapshot: {},
@@ -1175,38 +1177,69 @@
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
       fetchJson('rankings/atp_doubles.json'),
-      fetchJson('rankings/wta_doubles.json')
+      fetchJson('wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
   }
 
+  function normSeedKey(s) {
+    return String(s || '').toLowerCase().replace(/-/g, ' ').replace(/\./g, '').replace(/\s+/g, ' ').trim();
+  }
+  function normTourneyKey(s) {
+    return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function tourneyCore(s) {
+    const stop = { atp: 1, wta: 1, itf: 1, challenger: 1, chall: 1, open: 1, pro: 1, tennis: 1, series: 1, utr: 1, match: 1 };
+    return normTourneyKey(s).split(' ').filter(w => w && !stop[w]).join(' ');
+  }
+  function seedPairKey(s) {
+    const toks = String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(/[^a-z0-9]+/).filter(t => t.length > 1);
+    return toks.sort().join('|');
+  }
+
   function buildSeedMaps(seeds) {
-    const atp = {}, wta = {}, all = {};
-    if (!seeds || !seeds.singles) return { atp, wta, all };
-    for (const [key, seed] of Object.entries(seeds.singles)) {
-      const norm = key.replace(/^(ATP|WTA)::/, '').toLowerCase().replace(/-/g, ' ').replace(/\./g, '').trim();
-      const compact = norm.replace(/\s+/g, '');
-      const prefix = key.startsWith('ATP::') ? 'atp' : key.startsWith('WTA::') ? 'wta' : null;
-      if (prefix) {
-        prefix === 'atp' ? (atp[norm] = seed, atp[compact] = seed) : (wta[norm] = seed, wta[compact] = seed);
+    const atp = {}, wta = {}, all = {}, byTour = {}, surnameTours = {};
+    if (!seeds) return { atp, wta, all, byTour, surnameTours };
+    const tours = Array.isArray(seeds.tournaments) ? seeds.tournaments : [];
+
+    const noteForm = (tourKey, circuit, form, seed) => {
+      if (!form) return;
+      const ck = (circuit || '?') + '::' + form;
+      let e = surnameTours[ck];
+      if (!e) { e = surnameTours[ck] = { tours: {}, seed: seed }; }
+      e.tours[tourKey] = 1;
+      if (e.seed !== seed) e.seed = null;
+    };
+
+    for (const t of tours) {
+      const nk = normTourneyKey(t.name || '');
+      if (!nk) continue;
+      const circuit = String(t.circuit || '').toLowerCase();
+      const bucket = { circuit: circuit, seeds: {}, pairs: {} };
+      for (const [k, v] of Object.entries(t.singles || {})) {
+        const norm = normSeedKey(k);
+        if (!norm) continue;
+        bucket.seeds[norm] = v;
+        bucket.seeds[norm.replace(/\s+/g, '')] = v;
+        const ps = norm.split(' ');
+        noteForm(nk, circuit, norm, v);
+        if (ps.length >= 2) noteForm(nk, circuit, ps.slice(-2).join(' '), v);
+        noteForm(nk, circuit, ps[ps.length - 1], v);
       }
-      all[norm] = seed;
-      all[compact] = seed;
-    }
-    if (seeds.doubles) {
-      for (const [key, seed] of Object.entries(seeds.doubles)) {
-        const norm = key.replace(/^(ATP|WTA)::/, '').toLowerCase().replace(/-/g, ' ').replace(/\./g, '').trim();
-        const compact = norm.replace(/\s+/g, '');
-        const prefix = key.startsWith('ATP::') ? 'atp' : key.startsWith('WTA::') ? 'wta' : null;
-        if (prefix) {
-          prefix === 'atp' ? (atp[norm] = seed, atp[compact] = seed) : (wta[norm] = seed, wta[compact] = seed);
-        }
-        all[norm] = seed;
-        all[compact] = seed;
+      for (const [k, v] of Object.entries(t.doubles || {})) {
+        const pk = seedPairKey(k);
+        if (pk) bucket.pairs[pk] = v;
+        const norm = normSeedKey(k.replace(/\//g, ' '));
+        if (norm) { bucket.seeds[norm] = v; bucket.seeds[norm.replace(/\s+/g, '')] = v; }
       }
+      if (!byTour[nk]) byTour[nk] = [];
+      byTour[nk].push(bucket);
+
+      const target = circuit === 'wta' ? wta : circuit === 'atp' ? atp : all;
+      for (const [k, v] of Object.entries(bucket.seeds)) { target[k] = v; all[k] = v; }
     }
-    return { atp, wta, all };
+    return { atp, wta, all, byTour, surnameTours };
   }
 
   async function refreshSeeds() {
@@ -1219,6 +1252,8 @@
         state.seedMap = maps.all;
         state.seedMapATP = maps.atp;
         state.seedMapWTA = maps.wta;
+        state.seedByTour = maps.byTour;
+        state.seedSurnameTours = maps.surnameTours;
       }
     } catch (_) {}
   }
@@ -1228,22 +1263,73 @@
     return m.type.indexOf('Men') > -1 ? 'atp' : m.type.indexOf('Women') > -1 ? 'wta' : null;
   }
 
-  function findSeed(name, circuit) {
+  function findSeedBucket(tourName, circuit) {
+    const bt = state.seedByTour || {};
+    const keys = Object.keys(bt);
+    if (!tourName || !keys.length) return null;
+    const q = normTourneyKey(tourName);
+    if (!q) return null;
+    const flat = [];
+    for (const k of keys) for (const b of bt[k]) flat.push({ k: k, b: b });
+    let cands = flat.filter(x => x.k === q);
+    if (!cands.length) {
+      let pool = flat.filter(x => !circuit || !x.b.circuit || x.b.circuit === circuit);
+      if (!pool.length) pool = flat.slice();
+      const qc = tourneyCore(q);
+      cands = pool.filter(x => {
+        if (x.k.indexOf(q) > -1 || q.indexOf(x.k) > -1) return true;
+        const kc = tourneyCore(x.k);
+        return qc.length >= 4 && kc.length >= 3 && (x.k.indexOf(qc) > -1 || qc.indexOf(kc) > -1);
+      });
+    }
+    if (cands.length > 1 && circuit) {
+      const pref = cands.filter(x => x.b.circuit === circuit);
+      if (pref.length) cands = pref;
+    }
+    if (!cands.length) return null;
+    if (cands.length === 1) return cands[0].b;
+    const exact = cands.filter(x => tourneyCore(x.k) === tourneyCore(q));
+    return exact.length === 1 ? exact[0].b : null;
+  }
+
+  function lookupSeedIn(map, n, parts) {
+    if (!map) return null;
+    if (map[n] != null) return map[n];
+    if (parts.length >= 2) {
+      const two = parts.slice(-2).join(' ');
+      if (map[two] != null) return map[two];
+    }
+    const compact = n.replace(/\s+/g, '');
+    if (map[compact] != null) return map[compact];
+    const last = parts[parts.length - 1];
+    const hits = Object.keys(map).filter(k => k === last);
+    return hits.length === 1 ? map[last] : null;
+  }
+
+  function findSeed(name, circuit, tourName) {
     if (!name) return null;
-    const n = name.toLowerCase().replace(/-/g, ' ').replace(/\./g, '').replace(/\s+/g, ' ').trim();
+    const n = normSeedKey(name);
     const parts = n.split(' ').filter(Boolean);
-    const circuitMap = circuit === 'atp' ? state.seedMapATP : circuit === 'wta' ? state.seedMapWTA : null;
-    const maps = circuitMap ? [circuitMap, state.seedMap] : [state.seedMap];
-    for (const map of maps) {
-      if (!map || !Object.keys(map).length) continue;
-      if (map[n]) return map[n];
-      if (parts.length >= 2) {
-        const two = parts.slice(-2).join(' ');
-        if (map[two]) return map[two];
+    if (!parts.length) return null;
+    const bucket = findSeedBucket(tourName, circuit);
+    if (bucket) {
+      if (/\//.test(name)) {
+        const pk = seedPairKey(name);
+        return pk && bucket.pairs[pk] != null ? bucket.pairs[pk] : null;
       }
-      const last = parts[parts.length - 1];
-      const candidates = Object.entries(map).filter(([k]) => k === last);
-      if (candidates.length === 1) return candidates[0][1];
+      return lookupSeedIn(bucket.seeds, n, parts);
+    }
+    // hay nombre de torneo pero no se pudo asociar con certeza: SIN badge (nunca cruzar torneos)
+    if (tourName) return null;
+    // sin torneo conocido: solo si la forma es unica en todo el universo del circuito
+    const st = state.seedSurnameTours || {};
+    const forms = [n];
+    if (parts.length >= 2) forms.push(parts.slice(-2).join(' '));
+    forms.push(parts[parts.length - 1]);
+    for (const f of forms) {
+      const ea = st['atp::' + f], ew = st['wta::' + f];
+      const e = circuit === 'atp' ? ea : circuit === 'wta' ? ew : (ea && !ew ? ea : (!ea && ew ? ew : null));
+      if (e && e.seed != null && Object.keys(e.tours).length === 1) return e.seed;
     }
     return null;
   }
@@ -1660,7 +1746,7 @@
     const flag = flagImg(p.flag, p.flagAlt);
     const serving = (pts && pts.serverName && matchLiveName(norm(p.name), norm(pts.serverName))) || (pts && pts.serverIdx === (p.homeAway === 'home' ? 1 : 2));
     const ball = serving ? '<span class="serve-ball"></span>' : '';
-    const seed = findSeed(p.name, circuitOf(m));
+    const seed = findSeed(p.name, circuitOf(m), m.tournamentName);
     const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span>' : '';
     const sets = p.linescores.map((ls, i) => {
       const liveSet = m.state === 'in' && i === p.linescores.length - 1;
@@ -2950,6 +3036,8 @@
 
     refreshAll(true);
   }
+
+  window.__mhcSeeds = { findSeed: findSeed, tourneys: function () { return Object.keys(state.seedByTour || {}); } };
 
   document.addEventListener('DOMContentLoaded', init);
 })();
