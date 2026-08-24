@@ -782,6 +782,69 @@ body[data-mode='lectura'] {
 }
 body[data-mode='lectura'] ::selection { background: #b85c1e; color: #fff; }
 
+/* ---------------- modo VEAMNA (VERde AMarillo NARanja sobre negro) ---------------- */
+
+body[data-mode='veamna'] {
+  --paper: #000000;
+  --paper-2: #0a0a04;
+  --paper-3: #14140a;
+  --ink: #fffbe6;
+  --ink-2: #efe9c2;
+  --muted: #aaa26a;
+  --hairline: rgba(234, 255, 0, 0.18);
+  --hairline-dark: rgba(234, 255, 0, 0.38);
+  --red: #39ff14;
+  --red-dark: #aaff00;
+  --red-vivo: #ff9100;
+  --red-soft: rgba(57, 255, 20, 0.12);
+  --green: #39ff14;
+  --amber: #ffe600;
+  --shadow: none;
+}
+body[data-mode='veamna'] ::selection { background: #39ff14; color: #000000; }
+body[data-mode='veamna'] .gender-badge.gender-m { border-color: #ffb340; color: #ffb340; }
+body[data-mode='veamna'] .news-card img { filter: saturate(1.25) brightness(0.85); }
+body[data-mode='veamna'] .video-play { background: rgba(0, 0, 0, 0.35); }
+
+body[data-mode='veamna'] .nameplate h1 {
+  background: linear-gradient(90deg, #39ff14, #eaff00, #ff9100, #eaff00, #39ff14);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 6s linear infinite;
+}
+body[data-mode='veamna'] .nameplate .np-red { color: inherit; }
+body[data-mode='veamna'] .tagline { color: #39ff14; }
+
+body[data-mode='veamna'] .tab.active {
+  border-color: #39ff14;
+  color: #eaff00;
+  box-shadow: 0 0 12px rgba(57, 255, 20, 0.55), inset 0 0 10px rgba(255, 145, 0, 0.15);
+}
+body[data-mode='veamna'] .tour-head { border-color: #eaff00; box-shadow: 0 0 14px rgba(255, 230, 0, 0.30); }
+body[data-mode='veamna'] .live-pill,
+body[data-mode='veamna'] .ball { border-color: #eaff00; }
+body[data-mode='veamna'] .live-pill { color: #eaff00; }
+body[data-mode='veamna'] .clock {
+  color: #eaff00;
+  border-color: #ff9100;
+  text-shadow: 0 0 8px rgba(234, 255, 0, 0.70);
+}
+
+body[data-mode='veamna'] .match:nth-of-type(3n+1) { border-color: #39ff14; }
+body[data-mode='veamna'] .match:nth-of-type(3n+2) { border-color: #eaff00; }
+body[data-mode='veamna'] .match:nth-of-type(3n+3) { border-color: #ff9100; }
+body[data-mode='veamna'] .match.live {
+  border-left-color: #ff9100;
+  background: linear-gradient(90deg, rgba(57, 255, 20, 0.10), transparent 65%);
+}
+body[data-mode='veamna'] .set.win { color: #eaff00; font-weight: 800; }
+body[data-mode='veamna'] .set.live-set { background: #eaff00; color: #050500; }
+
+body[data-mode='veamna'] .rank-section-title { color: #ff9100; }
+body[data-mode='veamna'] .seed-badge { border-color: #ff9100; color: #ff9100; }
+
 
 html { scroll-behavior: smooth; }
 
@@ -879,6 +942,7 @@ body[data-mode='wimbledon'] .mode-label { color: #7ac74f; }
 body[data-mode='rolandgarros'] .mode-label { color: #ff9a3d; }
 body[data-mode='synthwave'] .mode-label { color: #ff2975; }
 body[data-mode='lectura'] .mode-label { color: #a0522d; }
+body[data-mode='veamna'] .mode-label { color: #ff9100; }
 
 .tagline {
   font-family: var(--serif); font-style: italic; font-weight: 600;
