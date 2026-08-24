@@ -325,41 +325,6 @@ function Get-TennisComServing {
     }
 }
 
-function Get-TodaysBirthdays {
-    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
-    $tmp = [System.IO.Path]::GetTempFileName()
-    try {
-        $args = @('-s', '--compressed', '--max-time', '20', '-L', '-A', $ua,
-            '-H', 'Accept: text/html,*/*',
-            '-o', $tmp, 'https://tennisabstract.com/reports/todays_birthdays.html')
-        & curl.exe @args | Out-Null
-        $html = [System.IO.File]::ReadAllText($tmp)
-        $players = [System.Collections.Generic.List[object]]::new()
-        $rowPattern = [regex]::Matches($html, '<tr><td[^>]*>(M|W)</td><td[^>]*><a[^>]*>([^<]+)</a></td><td[^>]*>([A-Z]{3})</td><td[^>]*>(\d*)</td><td[^>]*>(\d*|)</td><td[^>]*>(\d*|)</td></tr>')
-        foreach ($m in $rowPattern) {
-            $gender = $m.Groups[1].Value
-            $name = $m.Groups[2].Value.Trim()
-            $country = $m.Groups[3].Value
-            $age = if ($m.Groups[4].Value) { [int]$m.Groups[4].Value } else { 0 }
-            $currentRank = if ($m.Groups[5].Value) { [int]$m.Groups[5].Value } else { 0 }
-            $peakRank = if ($m.Groups[6].Value) { [int]$m.Groups[6].Value } else { 0 }
-            [void]$players.Add([pscustomobject]@{
-                gender = $gender
-                name = $name
-                country = $country
-                age = $age
-                currentRank = $currentRank
-                peakRank = $peakRank
-            })
-        }
-        return @{ ok = $true; date = (Get-Date).ToString('yyyy-MM-dd'); players = $players }
-    } catch {
-        return @{ ok = $false; error = $_.Exception.Message; players = @() }
-    } finally {
-        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
-    }
-}
-
 $ItfFetchSb = {
     param($slug)
     $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
@@ -1498,11 +1463,6 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
             }
             $key = ("stats_{0}_vs_{1}" -f ($n1 -replace '\s+','_'), ($n2 -replace '\s+','_')).ToLower()
             $data = Get-Cached $key { Get-MatchStats $n1 $n2 } 3600
-            Send-Json $resp $data
-            return
-        }
-        if ($path -eq '/api/birthdays') {
-            $data = Get-Cached 'todays_birthdays' { Get-TodaysBirthdays } 3600
             Send-Json $resp $data
             return
         }
