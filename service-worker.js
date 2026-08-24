@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'tenis-live-mhc-v26';
+const CACHE_NAME = 'tenis-live-mhc-v27';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
