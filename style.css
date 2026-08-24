@@ -772,6 +772,26 @@ main { max-width: 1180px; margin: 0 auto; padding: 8px 22px 40px; }
 
 /* ---------------- cumpleanos ---------------- */
 
+.bd-table { overflow-x: auto; }
+.elo-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--sans); font-size: 13px;
+}
+.elo-table th {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); text-align: left;
+  padding: 7px 10px; border-bottom: 2px solid var(--ink);
+}
+.elo-table td {
+  padding: 6px 10px; border-bottom: 1px solid var(--hairline);
+  color: var(--ink); vertical-align: middle;
+}
+.elo-table tbody tr:nth-child(even) { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.elo-table tbody tr:hover { background: var(--red-soft); }
+.elo-table th:not(:first-child), .elo-table td:not(:first-child) { text-align: left; }
+.elo-table td:first-child, .elo-table th:first-child { color: var(--muted); width: 34px; }
+.elo-table a.ta-link { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hairline-dark); }
+.elo-table a.ta-link:hover { color: var(--red); border-bottom-color: var(--red); }
 .bd-table .champs { color: var(--muted); font-size: 12px; }
 
 /* ---------------- current tour ---------------- */
