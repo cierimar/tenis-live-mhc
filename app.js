@@ -1173,9 +1173,10 @@
   }
 
   async function refreshRankingsDoubles() {
+    const local = useLocalBackend();
     const [atp, wta] = await Promise.all([
-      fetchJson('api/rankings/atp?type=doubles'),
-      fetchJson('api/rankings/wta?type=doubles')
+      local ? fetchJson('api/rankings/atp?type=doubles') : fetchJson('rankings/atp_doubles.json'),
+      local ? fetchJson('api/rankings/wta?type=doubles') : fetchJson('rankings/wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -1336,7 +1337,7 @@
       snapshotLiveMatches();
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
       await refreshSofaPoints();
-      if (state.rankView !== 'oficial') refreshRankingsLive();
+      if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
