@@ -2066,7 +2066,7 @@
     try {
       const url = useLocalBackend() ? 'api/wheelchair' : 'wheelchair.json';
       const j = await fetchJson(url).catch(() => null);
-      if (j && j.ok) { state.wheelchair = { ...state.wheelchair, data: j, loaded: true }; }
+      if (j && (j.ok || j.rankings)) { state.wheelchair = { ...state.wheelchair, data: j, loaded: true }; }
       else { state.wheelchair = { ...state.wheelchair, loaded: true }; }
     } catch (_) { state.wheelchair = { ...state.wheelchair, loaded: true }; }
     if (state.tab === 'wheelchair') {
