@@ -361,6 +361,91 @@ body[data-mode='verdefluor'] .set.live-set { background: #39ff14; color: #04120a
 body[data-mode='verdefluor'] .rank-section-title { color: #39ff14; }
 body[data-mode='verdefluor'] .seed-badge { border-color: #ccff00; color: #ccff00; }
 
+/* ---------------- modo ARCOIRIS (negro puro + texto multicolor) ---------------- */
+
+body[data-mode='arcoiris'] {
+  --paper: #000000;
+  --paper-2: #060606;
+  --paper-3: #0c0c0c;
+  --ink: #ffffff;
+  --ink-2: #e0e0e0;
+  --muted: #9a9a9a;
+  --hairline: rgba(255, 255, 255, 0.18);
+  --hairline-dark: rgba(255, 255, 255, 0.36);
+  --red: #ff3355;
+  --red-dark: #ff6688;
+  --red-vivo: #00e5ff;
+  --red-soft: rgba(255, 51, 85, 0.12);
+  --green: #39ff14;
+  --amber: #ffe600;
+  --shadow: none;
+}
+body[data-mode='arcoiris'] ::selection { background: #ff004c; color: #fff; }
+body[data-mode='arcoiris'] .gender-badge.gender-m { border-color: #7cc4ff; color: #7cc4ff; }
+body[data-mode='arcoiris'] .news-card img { filter: brightness(0.88); }
+body[data-mode='arcoiris'] .video-play { background: rgba(0, 0, 0, 0.35); }
+
+body[data-mode='arcoiris'] .nameplate h1 {
+  background: linear-gradient(90deg, #ff004c, #ff9500, #ffe600, #39ff14, #00b4ff, #b14cff, #ff004c);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 5s linear infinite;
+}
+body[data-mode='arcoiris'] .nameplate .np-red { color: inherit; }
+body[data-mode='arcoiris'] .tagline {
+  background: linear-gradient(90deg, #ff9500, #ffe600, #39ff14, #00b4ff);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 8s linear infinite;
+}
+
+body[data-mode='arcoiris'] .clock {
+  background: linear-gradient(90deg, #ff5fa8, #ffe600, #7dff6e, #7cc4ff, #ff5fa8);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  border-color: rgba(255, 255, 255, 0.30);
+  filter: drop-shadow(0 0 6px rgba(122, 196, 255, 0.45));
+}
+body[data-mode='arcoiris'] .tab.active {
+  border-color: #b14cff;
+  color: #7dff6e;
+  box-shadow: 0 0 12px rgba(177, 76, 255, 0.55), inset 0 0 10px rgba(255, 0, 76, 0.15);
+}
+body[data-mode='arcoiris'] .tour-head { border-color: #ff004c; box-shadow: 0 0 14px rgba(255, 0, 76, 0.40); }
+body[data-mode='arcoiris'] .live-pill,
+body[data-mode='arcoiris'] .ball { border-color: #ffe600; }
+body[data-mode='arcoiris'] .live-pill { color: #ffe600; }
+
+/* numeros de marcador: un color por set */
+body[data-mode='arcoiris'] .set:nth-of-type(3n+1) { color: #ff5fa8; }
+body[data-mode='arcoiris'] .set:nth-of-type(3n+2) { color: #7cc4ff; }
+body[data-mode='arcoiris'] .set:nth-of-type(3n+3) { color: #7dff6e; }
+body[data-mode='arcoiris'] .match:nth-of-type(3n+1) { border-color: #ff004c; }
+body[data-mode='arcoiris'] .match:nth-of-type(3n+2) { border-color: #00b4ff; }
+body[data-mode='arcoiris'] .match:nth-of-type(3n+3) { border-color: #b14cff; }
+body[data-mode='arcoiris'] .match.live {
+  border-left-color: #ffe600;
+  background: linear-gradient(90deg, rgba(255, 230, 0, 0.10), transparent 65%);
+}
+body[data-mode='arcoiris'] .set.win { color: #39ff14; font-weight: 800; }
+body[data-mode='arcoiris'] .set.live-set { background: #ffe600; color: #000000; }
+
+body[data-mode='arcoiris'] .rank-section-title {
+  background: linear-gradient(90deg, #ff004c, #ffe600, #00b4ff, #ff004c);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 7s linear infinite;
+}
+body[data-mode='arcoiris'] .seed-badge { border-color: #ffe600; color: #ffe600; }
+
 
 html { scroll-behavior: smooth; }
 
