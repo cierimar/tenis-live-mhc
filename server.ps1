@@ -5,7 +5,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
-$cache = @{}
+$cache = [System.Collections.Hashtable]::Synchronized(@{})
 
 function Get-Cached([string]$key, [scriptblock]$fn, [int]$ttlSeconds) {
     $now = Get-Date
@@ -106,7 +106,7 @@ function Get-WebFile([string]$url, [string]$UserAgent = 'Mozilla/5.0 (Windows NT
             }
             return $text
         } catch {
-            try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) URL=$url ERR=$($_.Exception.Message)" } catch {}
+            try { Add-Content -Path (Join-Path $root 'server_debug.log') -Value "$(Get-Date -Format s) URL=$url ERR=$($_.Exception.Message)" } catch {}
             Start-Sleep -Seconds 3
         } finally {
             Remove-Item $tmp -Force -ErrorAction SilentlyContinue
@@ -533,7 +533,7 @@ function Get-TennisNews {
                 })
             }
         } catch {
-            try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
+            try { Add-Content -Path (Join-Path $root 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
         }
     }
     try {
@@ -1645,6 +1645,8 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
     }
 }
 
+### === WORKER DISPATCHER (atencion multihilo - los workers ejecutan solo lo anterior a esta linea) ===
+
 function Test-Admin {
     ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent())
         .IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -1704,23 +1706,88 @@ if (-not $NoBrowser) {
     Start-Process "http://localhost:$Port" -ErrorAction SilentlyContinue
 }
 
-while ($listener.IsListening) {
-    $ctx = $null
+$preambleText = ''
+try { $preambleText = [System.IO.File]::ReadAllText($PSCommandPath, [System.Text.Encoding]::UTF8) } catch {}
+if (-not $preambleText) { try { $preambleText = [System.IO.File]::ReadAllText($PSCommandPath) } catch {} }
+$mIdx = $preambleText.IndexOf('### === WORKER DISPATCHER')
+if ($mIdx -gt 0) { $preambleText = $preambleText.Substring(0, $mIdx) }
+
+$workerCodeText = @'
+param($ctx, $pre, $rootAbs, $cache)
+try {
+    $ErrorActionPreference = 'Stop'
+    . ([scriptblock]::Create($pre))
+    $root = $rootAbs
+    Handle-Request $ctx
+} catch {
     try {
-        $ctx = $listener.GetContext()
-        Handle-Request $ctx
-    } catch {
-        Write-Host "Error atendiendo request: $($_.Exception.Message)" -ForegroundColor Red
-        if ($ctx -and $ctx.Response) {
-            try {
-                $ctx.Response.StatusCode = 500
-                $body = [Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
-                $ctx.Response.ContentType = 'application/json'
-                $ctx.Response.ContentLength64 = $body.Length
-                $ctx.Response.OutputStream.Write($body, 0, $body.Length)
-                $ctx.Response.Close()
-            } catch {}
+        $r2 = $ctx.Response
+        if ($r2) {
+            try { $r2.StatusCode = 500 } catch {}
+            $b2 = [System.Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
+            try { $r2.ContentType = 'application/json' } catch {}
+            try { $r2.ContentLength64 = $b2.Length } catch {}
+            try { $r2.OutputStream.Write($b2, 0, $b2.Length) } catch {}
+            $r2.Close()
         }
-        Start-Sleep -Milliseconds 200
+    } catch {}
+}
+'@
+$workerSb = [scriptblock]::Create($workerCodeText)
+
+$workerJobs = New-Object System.Collections.ArrayList
+$workerSem = New-Object System.Threading.Semaphore(8, 8)
+
+while ($listener.IsListening) {
+    for ($wi = $workerJobs.Count - 1; $wi -ge 0; $wi--) {
+        $wj = $workerJobs[$wi]
+        $st = $null
+        try { $st = $wj.ps.InvocationStateInfo.State } catch { $st = 'Failed' }
+        if ($st -eq 'Completed' -or $st -eq 'Failed' -or $st -eq 'Stopped') {
+            try { $wj.ps.Dispose() } catch {}
+            try { $wj.rs.Dispose() } catch {}
+            $workerJobs.RemoveAt($wi)
+            try { [void]$workerSem.Release() } catch {}
+        }
+    }
+
+    $ctx = $null
+    try { $ctx = $listener.GetContext() } catch { break }
+
+    $gotSlot = $false
+    try { $gotSlot = $workerSem.WaitOne(2500) } catch { $gotSlot = $true }
+    if (-not $gotSlot) {
+        try {
+            $r2 = $ctx.Response
+            $r2.StatusCode = 503
+            $b2 = [System.Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"server ocupado"}')
+            $r2.ContentType = 'application/json'
+            $r2.ContentLength64 = $b2.Length
+            $r2.OutputStream.Write($b2, 0, $b2.Length)
+            $r2.Close()
+        } catch {}
+        continue
+    }
+
+    try {
+        $rs = [runspacefactory]::CreateRunspace()
+        $rs.Open()
+        $ps = [powershell]::Create()
+        $ps.Runspace = $rs
+        [void]$ps.AddScript($workerSb).AddArgument($ctx).AddArgument($preambleText).AddArgument($root).AddArgument($cache)
+        [void]$ps.BeginInvoke()
+        [void]$workerJobs.Add(@{ ps = $ps; rs = $rs })
+    } catch {
+        try { [void]$workerSem.Release() } catch {}
+        Write-Host "Error lanzando worker: $($_.Exception.Message)" -ForegroundColor Red
+        try {
+            $r2 = $ctx.Response
+            $r2.StatusCode = 500
+            $b2 = [System.Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
+            $r2.ContentType = 'application/json'
+            $r2.ContentLength64 = $b2.Length
+            $r2.OutputStream.Write($b2, 0, $b2.Length)
+            $r2.Close()
+        } catch {}
     }
 }
