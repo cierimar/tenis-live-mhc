@@ -1369,7 +1369,7 @@ function Get-LiveRanking([string]$tour, [bool]$isRace, [bool]$isOfficial) {
         $pM = [regex]::Match($t.Substring($afterIdx), '<td>\s*(\d[\d.]*)\s*</td>')
         if ($pM.Success) { $pts = $pM.Groups[1].Value }
         $move = 0
-        $mM = [regex]::Match($t, 'class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*<')
+        $mM = [regex]::Match($t, 'class="?rdf"?>\s*([+-]?\d+)\s*<')
         if ($mM.Success) { $move = [int]$mM.Groups[1].Value }
         $rows += @{ rank = [int]$rankM.Groups[1].Value; name = $name; country = $country; points = $pts; move = $move }
     }
