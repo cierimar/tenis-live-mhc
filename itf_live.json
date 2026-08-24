@@ -1,5 +1,6 @@
 {
-  "time": "2026-08-24T21:00:22Z",
+  "ok": true,
+  "time": "2026-08-24T21:59:00Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -237,15 +238,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3304539",
-          "p1": "Van Den Broek",
-          "p2": "Ebeling Koning",
-          "time": "",
-          "round": "1R",
-          "h2h": "2-0",
-          "finished": false
-        },
-        {
           "teId": "3304533",
           "p1": "Kotliar",
           "p2": "Steur",
@@ -294,6 +286,15 @@
           "teId": "3304541",
           "p1": "Sieg",
           "p2": "Herrero Linana",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "2-0",
+          "finished": false
+        },
+        {
+          "teId": "3304539",
+          "p1": "Van Den Broek",
+          "p2": "Ebeling Koning",
           "time": "10:00",
           "round": "1R",
           "h2h": "2-0",
@@ -440,6 +441,15 @@
           "finished": false
         },
         {
+          "teId": "3302901",
+          "p1": "Dibenedetto",
+          "p2": "Andrienko",
+          "time": "11:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3304991",
           "p1": "Biolay",
           "p2": "Nagy",
@@ -452,15 +462,6 @@
           "teId": "3304985",
           "p1": "Paoletti",
           "p2": "Triquart",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3302901",
-          "p1": "Dibenedetto",
-          "p2": "Andrienko",
           "time": "11:30",
           "round": "1R",
           "h2h": "0-0",
@@ -934,15 +935,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3304511",
-          "p1": "Schruff",
-          "p2": "Ben Ezzedine",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3304507",
           "p1": "Blomqvist",
           "p2": "Caliman",
@@ -952,27 +944,9 @@
           "finished": false
         },
         {
-          "teId": "3304503",
-          "p1": "Feldmane",
-          "p2": "Kikawada",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3304499",
           "p1": "Gergec",
           "p2": "Rojas",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3304497",
-          "p1": "Garakani",
-          "p2": "Nosei",
           "time": "",
           "round": "1R",
           "h2h": "0-0",
@@ -1012,6 +986,33 @@
           "time": "11:00",
           "round": "1R",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3304511",
+          "p1": "Schruff",
+          "p2": "Ben Ezzedine",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3304503",
+          "p1": "Feldmane",
+          "p2": "Kikawada",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3304497",
+          "p1": "Garakani",
+          "p2": "Nosei",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
           "finished": false
         }
       ]
@@ -1183,6 +1184,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
