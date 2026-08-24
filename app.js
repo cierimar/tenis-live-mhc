@@ -584,6 +584,55 @@
     return res;
   }
 
+  function sofaPbpParse(j) {
+    let best = [];
+    const scan = (node) => {
+      if (!node) return;
+      if (Array.isArray(node)) {
+        const pts = node.filter(x => x && typeof x === 'object' && x.winnerCode != null);
+        if (pts.length > best.length) best = pts;
+        node.forEach(scan);
+        return;
+      }
+      if (typeof node === 'object') Object.keys(node).forEach(k => scan(node[k]));
+    };
+    try { scan(j); } catch (e) { return null; }
+    if (!best.length) return null;
+    const keyOf = p => [p.periodNumber != null ? p.periodNumber : (p.setNumber != null ? p.setNumber : ''), p.gameNumber != null ? p.gameNumber : ''].join('-');
+    const curKey = keyOf(best[best.length - 1]);
+    const inGame = best.filter(p => keyOf(p) === curKey);
+    let s1 = 0, s2 = 0;
+    for (const p of inGame) {
+      const w = String(p.winnerCode);
+      if (w === '1') s1++; else if (w === '2') s2++;
+    }
+    const srv = inGame.length ? inGame[inGame.length - 1].serverPlayer1 : null;
+    return { s1: s1, s2: s2, server1: srv === true ? 1 : srv === false ? 2 : 0 };
+  }
+
+  function gameScoreLabel(a, b) {
+    const L = ['0', '15', '30', '40'];
+    if (a >= 3 && b >= 3) {
+      if (a === b) return ['40', '40'];
+      return a > b ? ['AD', ''] : ['', 'AD'];
+    }
+    return [L[Math.min(a, 3)], L[Math.min(b, 3)]];
+  }
+
+  async function refreshSofaPoints() {
+    const live = allMatches().filter(m => m.state === 'in' && /^sf-\d+$/.test(String(m.id || '')));
+    if (!live.length) return;
+    await Promise.all(live.map(async m => {
+      try {
+        const id = String(m.id).slice(3);
+        const r = await fetch('https://api.sofascore.com/api/v1/event/' + id + '/point-by-point');
+        if (!r.ok) return;
+        m.sofaPts = sofaPbpParse(await r.json());
+        m.sofaPtsAt = Date.now();
+      } catch (e) { /* noop */ }
+    }));
+  }
+
   function taNorm(s) {
     return s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
   }
@@ -1213,6 +1262,7 @@
     try {
       snapshotLiveMatches();
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
+      await refreshSofaPoints();
       if (state.rankView !== 'oficial') refreshRankingsLive();
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
@@ -1496,6 +1546,10 @@
     const cls = m.state === 'in' ? 'match live' : m.state === 'post' ? 'match finished' : 'match upcoming';
     const period = m.state === 'in' && m.period ? '<span class="period">SET ' + m.period + '</span>' : '';
     let pts = livePoints(m);
+    if (!pts && m.state === 'in' && m.sofaPts && Date.now() - (m.sofaPtsAt || 0) < 90000) {
+      const lab = gameScoreLabel(m.sofaPts.s1, m.sofaPts.s2);
+      if (lab[0] || lab[1]) pts = { g0: lab[0], g1: lab[1], serverName: '', serverIdx: m.sofaPts.server1 };
+    }
     if (!pts && m.state === 'in' && (m.pts0 || m.pts1)) pts = { g0: m.pts0, g1: m.pts1, serverName: '' };
     const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
@@ -1530,7 +1584,7 @@
 
   function playerRow(p, m, pts) {
     const flag = flagImg(p.flag, p.flagAlt);
-    const serving = pts && pts.serverName && matchLiveName(norm(p.name), norm(pts.serverName));
+    const serving = (pts && pts.serverName && matchLiveName(norm(p.name), norm(pts.serverName))) || (pts && pts.serverIdx === (p.homeAway === 'home' ? 1 : 2));
     const ball = serving ? '<span class="serve-ball"></span>' : '';
     const seed = findSeed(p.name, circuitOf(m));
     const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span>' : '';
