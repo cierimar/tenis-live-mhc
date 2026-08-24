@@ -15,7 +15,7 @@
     challPoints: [],
     challLive: { tournaments: [], matches: [] },
     itfLive: { tournaments: [], matches: [] },
-    cal: { atp: [], wta: [], loaded: false, tab: 'todos' },
+    cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
@@ -1462,14 +1462,18 @@
   async function refreshCalendar() {
     try {
       const urls = useLocalBackend()
-        ? ['api/calendar/atp', 'api/calendar/wta']
-        : ['calendar_atp.json', 'calendar_wta.json'];
-      const [a, w] = await Promise.all([
+        ? ['api/calendar/atp', 'api/calendar/wta', 'api/calendar/chall', 'api/calendar/itf']
+        : ['calendar_atp.json', 'calendar_wta.json', 'calendar_chall.json', 'calendar_itf.json'];
+      const [a, w, c, i] = await Promise.all([
         fetchJson(urls[0]).catch(() => ({ tournaments: [] })),
-        fetchJson(urls[1]).catch(() => ({ tournaments: [] }))
+        fetchJson(urls[1]).catch(() => ({ tournaments: [] })),
+        fetchJson(urls[2]).catch(() => ({ tournaments: [] })),
+        fetchJson(urls[3]).catch(() => ({ tournaments: [] }))
       ]);
       state.cal.atp = a.tournaments || [];
       state.cal.wta = w.tournaments || [];
+      state.cal.chall = c.tournaments || [];
+      state.cal.itf = i.tournaments || [];
       state.cal.loaded = true;
       if (state.tab === 'calendar') render();
     } catch (err) {
@@ -1479,6 +1483,8 @@
   }
 
   function calLevelLabel(t) {
+    if (t.circuit === 'chall') return 'CHALL';
+    if (t.circuit === 'itf') return t.cat || 'ITF';
     if (t.circuit === 'atp') return t.level === 'main' ? 'ATP' : 'CHALL';
     return t.level === 'main' ? 'WTA' : 'WTA 125';
   }
@@ -1486,14 +1492,26 @@
   function renderCalendar() {
     const el = $('calContent');
     if (!state.cal.loaded) { el.innerHTML = '<div class="loading">Cargando calendario...</div>'; return; }
-    if (!state.cal.atp.length && !state.cal.wta.length) {
+    const allEmpty = !state.cal.atp.length && !state.cal.wta.length && !state.cal.chall.length && !state.cal.itf.length;
+    const emptyTab = state.cal.tab !== 'todos' && !state.cal[state.cal.tab].length;
+    if (allEmpty) {
       el.innerHTML = '<div class="error-box">No se pudo cargar el calendario.</div>';
       $('calMeta').textContent = '';
       return;
     }
-    const circuits = state.cal.tab === 'todos' ? ['atp', 'wta'] : [state.cal.tab];
+    if (emptyTab) {
+      el.innerHTML = '<div class="error-box">' + (state.cal.tab === 'itf' ? 'Calendario ITF no disponible. Correr scripts/update-calendars-chall-itf.ps1.' : 'Sin torneos para este circuito.') + '</div>';
+      $('calMeta').textContent = '';
+      return;
+    }
+    const circuits = state.cal.tab === 'todos' ? ['atp', 'wta', 'chall', 'itf'] : [state.cal.tab];
     const list = [];
-    for (const c of circuits) for (const t of state.cal[c]) list.push(t);
+    for (const c of circuits) {
+      for (const t of state.cal[c]) {
+        if (c === 'atp' && t.level !== 'main' && state.cal.chall.length) continue;
+        list.push(t);
+      }
+    }
     if (!list.length) { el.innerHTML = '<div class="error-box">Sin torneos para este circuito.</div>'; $('calMeta').textContent = ''; return; }
     list.sort((a, b) => a.date.localeCompare(b.date));
     const months = [];
@@ -1518,6 +1536,7 @@
             '<div class="cal-info">' +
               '<span class="cal-level">' + esc(calLevelLabel(t)) + '</span>' +
               '<span class="cal-surf">' + surfaceDot(t.surface) + '</span>' +
+              (t.location ? '<span class="cal-loc">' + esc(t.location) + '</span>' : '') +
               (t.prize ? '<span class="cal-prize">' + esc(t.prize) + '</span>' : '') +
               (t.draw ? '<span class="cal-draw">Cuadro ' + t.draw + '</span>' : '') +
             '</div>' +
