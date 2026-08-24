@@ -19,6 +19,8 @@
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
+    rankLiveUpdated: '',
+    rankSinglesUpdated: '',
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
     rankSearch: '',
@@ -28,8 +30,6 @@
     playerTab: 'todos',
     playerSearch: '',
     playerCountry: '',
-    birthdays: { data: null, loaded: false },
-    bdTab: 'all',
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
@@ -833,15 +833,16 @@
         ? fetchJson('/api/rankings/live?tour=' + tour + '&race=0&official=1')
         : fetchJson('rankings/' + tour + '_singles.json').then(j => {
             if (!j || !j.players || !j.players.length) throw new Error('json vacio');
-            return j.players;
+            return { rows: j.players, updated: j.updated || null };
           }).catch(() =>
-            fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
+            fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => ({ rows: parseLtRows(t), updated: new Date().toISOString() }))
           );
       return p.then(j => {
         const rows = (j && j.rows) || j;
         if (!Array.isArray(rows) || !rows.length) throw new Error('sin datos');
         state.rankSingles[tour] = rows.map(ltRow);
         state.rankSinglesSource = 'live-tennis.eu (ranking oficial completo)';
+        if (j && j.updated) state.rankSinglesUpdated = j.updated;
       }).catch(() => {});
     });
     await Promise.allSettled(jobs);
@@ -1172,10 +1173,9 @@
   }
 
   async function refreshRankingsDoubles() {
-    const local = useLocalBackend();
     const [atp, wta] = await Promise.all([
-      local ? fetchJson('api/rankings/atp?type=doubles') : fetchJson('rankings/atp_doubles.json'),
-      local ? fetchJson('api/rankings/wta?type=doubles') : fetchJson('rankings/wta_doubles.json')
+      fetchJson('api/rankings/atp?type=doubles'),
+      fetchJson('api/rankings/wta?type=doubles')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -1884,7 +1884,7 @@
           (useLocalBackend()
             ? fetchJson('/api/rankings/live?tour=' + tour + '&race=' + race)
             : fetch('https://r.jina.ai/https://live-tennis.eu/en/' + tour + (race ? '-race' : '-live-ranking'), { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
-          ).then(j => { state.rankLive[tour + (race ? 'Race' : '')] = (j && j.rows) || j || []; }).catch(() => {})
+          ).then(j => { state.rankLive[tour + (race ? 'Race' : '')] = (j && j.rows) || j || []; if (j && j.updated) state.rankLiveUpdated = j.updated; }).catch(() => {})
         );
       }
       await Promise.allSettled(jobs);
@@ -1935,6 +1935,14 @@
       '<tbody>' + body + '</tbody></table></div>';
   }
 
+  function fmtRankData(ts) {
+    if (!ts) return '';
+    const d = new Date(ts);
+    if (isNaN(d.getTime())) return '';
+    const p2 = n => String(n).padStart(2, '0');
+    return p2(d.getDate()) + '/' + p2(d.getMonth() + 1) + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+  }
+
   function renderRankings() {
     const el = $('rankContent');
     if (state.tour === 'chall' || state.tour === 'itf') {
@@ -1960,7 +1968,9 @@
       el.innerHTML = html.join('');
       const n = (state.rankLive.atp.length || 0) + (state.rankLive.wta.length || 0);
       $('rankMeta').textContent = 'Ranking ' + label + ' (live-tennis.eu) · se actualiza automáticamente' +
-        (n ? ' · ' + n + ' jugadores' : '') + (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
+        (n ? ' · ' + n + ' jugadores' : '') +
+        (state.rankLiveUpdated ? ' · datos: ' + fmtRankData(state.rankLiveUpdated) : '') +
+        (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
       return;
     }
     const rTours = selectedTours().filter(t => t === 'atp' || t === 'wta');
@@ -1980,6 +1990,7 @@
     el.innerHTML = html.join('');
     const total = rTours.length * selectedModes().length;
     $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
+      (state.rankSinglesUpdated ? ' · datos: ' + fmtRankData(state.rankSinglesUpdated) : '') +
       (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
   }
 
@@ -2049,55 +2060,6 @@
       if (i === 0 || name[i - 1] === ' ' || name[i - 1] === '-' || name[i - 1] === "'") return c.toUpperCase();
       return c.toLowerCase();
     }).join('');
-  }
-
-  async function refreshBirthdays() {
-    try {
-      const url = useLocalBackend() ? 'api/birthdays' : 'birthdays.json';
-      const j = await fetchJson(url).catch(() => null);
-      if (j && j.ok) { state.birthdays = { data: j, loaded: true }; } else { state.birthdays = { data: null, loaded: true }; }
-    } catch (_) { state.birthdays = { data: null, loaded: true }; }
-    if (state.tab === 'birthdays') renderBirthdays();
-  }
-
-  function renderBirthdays() {
-    const el = $('birthdaysContent');
-    const meta = $('birthdaysMeta');
-    const bd = state.birthdays;
-    if (!bd.loaded || !bd.data) { el.innerHTML = '<div class="loading">Cargando cumpleaños...</div>'; return; }
-    let players = bd.data.players || [];
-    if (state.bdTab === 'atp') players = players.filter(p => p.gender === 'M');
-    else if (state.bdTab === 'wta') players = players.filter(p => p.gender === 'W');
-    const active = players.filter(p => p.currentRank > 0);
-    const inactive = players.filter(p => !p.currentRank);
-    if (meta) meta.textContent = bd.data.date + ' · ' + players.length + ' cumpleañeros';
-    let html = '';
-    if (active.length) {
-      html += '<div class="tour-block"><div class="tour-head"><span class="tour-label">ACTIVOS</span></div>';
-      html += '<div class="bd-table"><table class="elo-table"><thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Edad</th><th>Ranking Actual</th><th>Mejor Ranking</th></tr></thead><tbody>';
-      active.forEach((p, i) => {
-        const slug = taSlug(p.name);
-        const isW = p.gender === 'W';
-        const url = isW ? 'https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + slug : 'https://www.tennisabstract.com/cgi-bin/player.cgi?p=' + slug;
-        const genderBadge = isW ? '<span class="gender-badge gender-w">W</span>' : '<span class="gender-badge gender-m">M</span>';
-        html += '<tr><td>' + (i + 1) + '</td><td>' + genderBadge + ' <a href="' + url + '" target="_blank" class="ta-link">' + esc(p.name) + '</a></td><td>' + esc(p.country) + '</td><td>' + p.age + '</td><td>' + (p.currentRank || '-') + '</td><td>' + (p.peakRank || '-') + '</td></tr>';
-      });
-      html += '</tbody></table></div></div>';
-    }
-    if (inactive.length) {
-      html += '<div class="tour-block"><div class="tour-head"><span class="tour-label">RETIRADOS / HISTÓRICOS</span></div>';
-      html += '<div class="bd-table"><table class="elo-table"><thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Edad</th><th>Mejor Ranking</th></tr></thead><tbody>';
-      inactive.forEach((p, i) => {
-        const slug = taSlug(p.name);
-        const isW = p.gender === 'W';
-        const url = isW ? 'https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + slug : 'https://www.tennisabstract.com/cgi-bin/player.cgi?p=' + slug;
-        const genderBadge = isW ? '<span class="gender-badge gender-w">W</span>' : '<span class="gender-badge gender-m">M</span>';
-        html += '<tr><td>' + (i + 1) + '</td><td>' + genderBadge + ' <a href="' + url + '" target="_blank" class="ta-link">' + esc(p.name) + '</a></td><td>' + esc(p.country) + '</td><td>' + p.age + '</td><td>' + (p.peakRank || '-') + '</td></tr>';
-      });
-      html += '</tbody></table></div></div>';
-    }
-    if (!html) html = '<div class="loading">No hay cumpleaños de hoy.</div>';
-    el.innerHTML = html;
   }
 
   async function refreshWheelchair() {
@@ -2270,20 +2232,29 @@
     }
 
     const rankData = d.rankings && d.rankings[tab];
-    const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles' };
+    const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles', quadDoubles: 'Quad Doubles' };
     if (!rankData || !rankData.length) { el.innerHTML = '<div class="error-box">No hay ranking disponible para esta categoría.</div>'; return; }
     const hasPoints = rankData[0] && rankData[0].points != null;
     const hasRecord = rankData[0] && rankData[0].record2026;
     const hasTitles = rankData[0] && rankData[0].titles2026 != null;
+    const hasMove = rankData[0] && rankData[0].movement != null;
     const thPoints = hasPoints ? '<th style="text-align:right">Puntos</th>' : '';
     const thRecord = hasRecord ? '<th>W-L 2026</th>' : '';
     const thTitles = hasTitles ? '<th>Títulos</th>' : '';
     const rows = rankData.map(r => {
       const pts = r.points != null ? r.points.toLocaleString('es') : '—';
       const rankCls = r.rank === 1 ? 'r-rank top1' : 'r-rank';
+      let mvCell = '';
+      if (hasMove) {
+        const mv = parseInt(r.movement, 10) || 0;
+        const mvCls = mv > 0 ? 'up' : (mv < 0 ? 'down' : 'flat');
+        const mvTxt = mv > 0 ? ('▲' + mv) : (mv < 0 ? ('▼' + Math.abs(mv)) : '·');
+        mvCell = '<td class="r-move ' + mvCls + '">' + mvTxt + '</td>';
+      }
       return '<tr>' +
         '<td class="' + rankCls + '">' + esc(r.rank) + '</td>' +
         '<td class="r-name">' + flagEmoji(r.country) + ' ' + esc(r.name) + ' <span class="wc-country">(' + esc(r.country) + ')</span></td>' +
+        mvCell +
         (hasTitles ? '<td class="r-r">' + esc(r.titles2026 != null ? r.titles2026 : '—') + '</td>' : '') +
         (hasRecord ? '<td>' + esc(r.record2026 || '—') + '</td>' : '') +
         (hasPoints ? '<td class="r-pts">' + pts + '<span> pts</span></td>' : '') +
@@ -2291,7 +2262,9 @@
     }).join('');
     el.innerHTML = '<div class="rank-section-title">' + (labels[tab] || tab) + ' Rankings</div>' +
       '<div class="rank-table-wrap"><table class="rank-table">' +
-      '<thead><tr><th>#</th><th>Jugador' + (hasTitles ? '</th><th>Títulos</th>' : '') +
+      '<thead><tr><th>#</th><th>Jugador</th>' +
+      (hasMove ? '<th>Mov.</th>' : '') +
+      (hasTitles ? '<th>Títulos</th>' : '') +
       (hasRecord ? '<th>W-L 2026</th>' : '') +
       (hasPoints ? '<th style="text-align:right">Puntos</th>' : '<th></th>') +
       '</tr></thead>' +
@@ -2356,7 +2329,6 @@
     else if (state.tab === 'argentina') renderArgentina();
     else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'h2hsearch') renderH2HSearch();
-    else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
   }
@@ -2389,11 +2361,6 @@
     if (tab === 'h2hsearch' && !state.elo.loaded) {
       render();
       refreshElo();
-      return;
-    }
-    if (tab === 'birthdays' && !state.birthdays.loaded) {
-      render();
-      refreshBirthdays();
       return;
     }
     if (tab === 'wheelchair' && !state.wheelchair.loaded) {
@@ -2888,16 +2855,6 @@
         state.playerTab = b.dataset.playertab;
         document.querySelectorAll('#segPlayerTab .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderPlayers();
-      });
-    }
-    const segBirthdays = document.getElementById('segBirthdays');
-    if (segBirthdays) {
-      segBirthdays.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.bdTab = b.dataset.bdtab;
-        document.querySelectorAll('#segBirthdays .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        renderBirthdays();
       });
     }
     const segWC = document.getElementById('segWC');
