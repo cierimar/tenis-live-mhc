@@ -30,7 +30,6 @@
     playerCountry: '',
     birthdays: { data: null, loaded: false },
     bdTab: 'all',
-    currentTour: { data: null, loaded: false, tab: 'women' },
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
@@ -1335,7 +1334,7 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair()]);
       await refreshSofaPoints();
       if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
@@ -1567,13 +1566,13 @@
       const desc = it.description ? '<div class="news-desc">' + esc(it.description) + '</div>' : '';
       const thumb = it.image
         ? '<img class="news-thumb" src="' + esc(it.image) + '" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;news-thumb-placeholder&quot;></div>\'">'
-        : '<div class="news-thumb-placeholder"></div>';
+        : '';
       return '<a class="news-card" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">' +
         thumb +
         '<div class="news-body"><div class="news-head"><span class="news-source">' + esc(it.source) + '</span>' + time + '</div>' +
         '<div class="news-title">' + esc(it.title) + '</div>' + desc + '</div></a>';
     }).join('');
-    el.innerHTML = html;
+    el.innerHTML = '<div class="news-grid">' + html + '</div>';
   }
 
   function renderVideos() {
@@ -2101,16 +2100,6 @@
     el.innerHTML = html;
   }
 
-  async function refreshCurrentTour() {
-    try {
-      const url = useLocalBackend() ? 'api/current-tour' : 'current-tour.json';
-      const j = await fetchJson(url).catch(() => null);
-      if (j && j.ok) { state.currentTour = { ...state.currentTour, data: j, loaded: true }; }
-      else { state.currentTour = { ...state.currentTour, loaded: true }; }
-    } catch (_) { state.currentTour = { ...state.currentTour, loaded: true }; }
-    if (state.tab === 'currenttour') render();
-  }
-
   async function refreshWheelchair() {
     try {
       const url = useLocalBackend() ? 'api/wheelchair' : 'wheelchair.json';
@@ -2170,45 +2159,6 @@
       else { state.wcVideos = { items: [], loaded: true }; }
     } catch (_) { state.wcVideos = { items: [], loaded: true }; }
     if (state.tab === 'wheelchair' && state.wheelchair.tab === 'videos') renderWheelchair();
-  }
-
-  function renderCurrentTour() {
-    const el = $('ctContent');
-    const meta = $('ctMeta');
-    const ct = state.currentTour;
-    if (!ct.loaded || !ct.data) { el.innerHTML = '<div class="loading">Cargando torneos actuales...</div>'; return; }
-    const t = ct.data.tour || {};
-    const list = t[ct.tab] || [];
-    if (meta) meta.textContent = 'Actualizado: ' + (ct.data.updated || '--');
-    if (!list.length) { el.innerHTML = '<div class="loading">No hay torneos activos en esta categoría.</div>'; return; }
-    let html = '';
-    list.forEach(tour => {
-      html += '<div class="ct-card">';
-      html += '<div class="ct-card-head"><a href="' + esc(tour.url) + '" target="_blank" class="ta-link">' + esc(tour.name) + '</a></div>';
-      html += '<div class="ct-card-fav">Favorito: <b>' + esc(tour.favorite) + '</b> (' + tour.favoritePct + '%)</div>';
-      if (tour.detail) {
-        if (tour.detail.completed) {
-          const cHtml = tour.detail.completed;
-          if (cHtml && cHtml.trim() && cHtml.trim() !== '&nbsp;') {
-            html += '<div class="ct-section"><div class="ct-section-title">Resultados</div>';
-            html += '<div class="ct-matches">' + cHtml + '</div></div>';
-          }
-        }
-        if (tour.detail.upcoming) {
-          const uHtml = tour.detail.upcoming;
-          if (uHtml && uHtml.trim() && uHtml.trim() !== '&nbsp;') {
-            html += '<div class="ct-section"><div class="ct-section-title">Próximos partidos</div>';
-            html += '<div class="ct-matches">' + uHtml + '</div></div>';
-          }
-        }
-        if (tour.detail.forecast) {
-          html += '<div class="ct-section"><div class="ct-section-title">Forecast</div>';
-          html += '<div class="ct-forecast">' + tour.detail.forecast + '</div></div>';
-        }
-      }
-      html += '</div>';
-    });
-    el.innerHTML = html;
   }
 
   function renderWheelchair() {
@@ -2408,7 +2358,6 @@
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
-    else if (state.tab === 'currenttour') renderCurrentTour();
     else if (state.tab === 'wheelchair') renderWheelchair();
   }
 
@@ -2445,11 +2394,6 @@
     if (tab === 'birthdays' && !state.birthdays.loaded) {
       render();
       refreshBirthdays();
-      return;
-    }
-    if (tab === 'currenttour' && !state.currentTour.loaded) {
-      render();
-      refreshCurrentTour();
       return;
     }
     if (tab === 'wheelchair' && !state.wheelchair.loaded) {
@@ -2954,16 +2898,6 @@
         state.bdTab = b.dataset.bdtab;
         document.querySelectorAll('#segBirthdays .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderBirthdays();
-      });
-    }
-    const segCT = document.getElementById('segCT');
-    if (segCT) {
-      segCT.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.currentTour.tab = b.dataset.ct;
-        document.querySelectorAll('#segCT .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        renderCurrentTour();
       });
     }
     const segWC = document.getElementById('segWC');
