@@ -609,6 +609,76 @@ function Get-TournamentCalendar {
     return @{ ok = $true; circuit = $Circuit; tournaments = $out }
 }
 
+function Get-ChallengerCalendar {
+    $url = 'https://www.atptour.com/en/-/tournaments/calendar/challenger'
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+        curl.exe -s -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36' -H 'Referer: https://www.atptour.com/en/atp-challenger-tour/calendar' -o $tmp --max-time 30 $url | Out-Null
+        $json = [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8)
+    } finally {
+        Remove-Item -LiteralPath $tmp -ErrorAction SilentlyContinue
+    }
+    if (-not $json -or $json.Length -lt 50) { return @{ ok = $false; circuit = 'chall'; tournaments = @() } }
+    $parsed = $null
+    try { $parsed = $json | ConvertFrom-Json } catch {}
+    if (-not $parsed -or -not $parsed.TournamentDates) { return @{ ok = $false; circuit = 'chall'; tournaments = @() } }
+    $inv = [Globalization.CultureInfo]::InvariantCulture
+    function Parse-ChallDate([string]$fd, [string]$fallbackMonth) {
+        if (-not $fd) { return '' }
+        $m = [regex]::Match($fd, '^(\d{1,2})\s*(?:([A-Za-z]+)\s*)?-\s*\d{1,2}\s+([A-Za-z]+),\s*(\d{4})$')
+        if (-not $m.Success) { return '' }
+        $day = $m.Groups[1].Value
+        $monName = if ($m.Groups[2].Value) { $m.Groups[2].Value } else { $m.Groups[3].Value }
+        $year = $m.Groups[4].Value
+        try {
+            $mon = [datetime]::ParseExact($monName, 'MMMM', $inv).Month.ToString('00')
+            return "$year-$mon-$($day.PadLeft(2, '0'))"
+        } catch {
+            try {
+                $mon = [datetime]::ParseExact($fallbackMonth, 'MMMM', $inv).Month.ToString('00')
+                return "$year-$mon-$($day.PadLeft(2, '0'))"
+            } catch { return '' }
+        }
+    }
+    function Parse-ChallEndDate([string]$fd) {
+        if (-not $fd) { return '' }
+        $m = [regex]::Match($fd, '^\d{1,2}(?:\s+[A-Za-z]+)?\s*-\s*(\d{1,2})\s+([A-Za-z]+),\s*(\d{4})$')
+        if (-not $m.Success) { return '' }
+        try {
+            $mon = [datetime]::ParseExact($m.Groups[2].Value, 'MMMM', $inv).Month.ToString('00')
+            return "$($m.Groups[3].Value)-$mon-$($m.Groups[1].Value.PadLeft(2, '0'))"
+        } catch { return '' }
+    }
+    $today = (Get-Date).ToString('yyyy-MM-dd')
+    $out = New-Object System.Collections.ArrayList
+    foreach ($month in $parsed.TournamentDates) {
+        $fbMon = ''
+        if ($month.DisplayDate -match '^([A-Za-z]+)') { $fbMon = $Matches[1] }
+        foreach ($t in $month.Tournaments) {
+            $start = Parse-ChallDate $t.FormattedDate $fbMon
+            $end = Parse-ChallEndDate $t.FormattedDate
+            $isNow = $false
+            if ($t.IsLive) { $isNow = $true }
+            elseif ($start -and $end -and $today -ge $start -and $today -le $end) { $isNow = $true }
+            elseif (-not $end -and $start -and $today.Substring(0,7) -eq $start.Substring(0,7)) { $isNow = $today -ne '' }
+            [void]$out.Add([pscustomobject]@{
+                date     = $start
+                endDate  = $end
+                name     = (($t.Name -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+                circuit  = 'chall'
+                surface  = $t.Surface
+                prize    = $t.TotalFinancialCommitment
+                draw     = if ($t.SglDrawSize) { [int]$t.SglDrawSize } else { 0 }
+                level    = 'chall'
+                current  = $isNow
+                winner   = ''
+                location = $t.Location
+            })
+        }
+    }
+    return @{ ok = ($out.Count -gt 0); circuit = 'chall'; source = 'atptour.com'; updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; tournaments = $out }
+}
+
 function Get-MatchH2H([string]$matchId) {
     if ($matchId -notmatch '^\d+$') { return @{ ok = $false; error = 'matchId invalido'; matchId = $matchId } }
     $html = Get-WebFile "https://www.tennisexplorer.com/match-detail/?id=$matchId"
@@ -895,12 +965,54 @@ function Get-TournamentSeedsFromPage([string]$url) {
     try {
         $html = Get-WebFile $url
         if (-not $html) { return @{} }
-        $seedM = [regex]::Matches($html, '<a href="/(?:player|doubles-team)/[^"]*">([^<]+)</a>\s*\[(\d+)\]')
-        $result = @{}
+        $seedM = [regex]::Matches($html, '<a href="/(player|doubles-team)/([^"]*)">([^<]+)</a>\s*\[(\d+)\]')
+        $entries = [System.Collections.Generic.List[object]]::new()
         foreach ($m in $seedM) {
-            $name = $m.Groups[1].Value.Trim()
-            $seed = [int]$m.Groups[2].Value
-            if ($name -and -not $result.ContainsKey($name)) { $result[$name] = $seed }
+            $kind = $m.Groups[1].Value
+            $slug = $m.Groups[2].Value.Trim()
+            $name = $m.Groups[3].Value.Trim()
+            $seed = [int]$m.Groups[4].Value
+            if ($name) { [void]$entries.Add([pscustomobject]@{ kind = $kind; slug = $slug; name = $name; seed = $seed }) }
+        }
+
+        $groups = @{}
+        foreach ($e in $entries) {
+            if (-not $groups.ContainsKey($e.name)) { $groups[$e.name] = [System.Collections.Generic.List[object]]::new() }
+            [void]$groups[$e.name].Add($e)
+        }
+
+        $result = @{}
+        foreach ($g in $groups.GetEnumerator()) {
+            $list = $g.Value
+            $distinctSeeds = @($list | ForEach-Object { $_.seed } | Sort-Object -Unique)
+            if ($distinctSeeds.Count -eq 1) {
+                $result[$g.Key] = $distinctSeeds[0]
+                continue
+            }
+            # Colision real: mismo apellido con sembrados distintos (ej. dos Jones).
+            # Resolver nombre completo desde la pagina del jugador; si falla, descartar el grupo entero.
+            if ($list.Count -gt 8) { continue }
+            $resolved = @{}
+            $okAll = $true
+            foreach ($e in $list) {
+                $full = $null
+                if ($e.kind -eq 'player' -and $e.slug) {
+                    try {
+                        $ph = Get-WebFile ("https://www.tennisexplorer.com/player/" + ($e.slug -replace '^player/', ''))
+                        if ($ph) {
+                            $tm = [regex]::Match($ph, '<title>\s*(.+?)\s+[-\u2013]\s+Tennis Explorer\s*</title>')
+                            if ($tm.Success) { $full = $tm.Groups[1].Value.Trim() }
+                        }
+                    } catch { $full = $null }
+                }
+                if (-not $full) { $okAll = $false; break }
+                if ($resolved.ContainsKey($full) -and $resolved[$full] -ne $e.seed) { $okAll = $false; break }
+                $resolved[$full] = $e.seed
+            }
+            if ($okAll) {
+                foreach ($kv in $resolved.GetEnumerator()) { $result[$kv.Key] = $kv.Value }
+            }
+            # si no se resolvio, el grupo se descarta: mejor sin badge que un sembrado falso
         }
         return $result
     } catch {
@@ -1400,6 +1512,24 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
             Send-Json $resp $data
             return
         }
+        if ($path -eq '/api/calendar/chall') {
+            $data = Get-Cached 'calendar_chall' { Get-ChallengerCalendar } 21600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/calendar/itf') {
+            $itfFile = Join-Path $root 'calendar_itf.json'
+            if (Test-Path -LiteralPath $itfFile -PathType Leaf) {
+                $raw = [System.IO.File]::ReadAllText($itfFile, [System.Text.Encoding]::UTF8)
+                $resp.ContentType = 'application/json; charset=utf-8'
+                $buf = [System.Text.Encoding]::UTF8.GetBytes($raw)
+                $resp.ContentLength64 = $buf.Length
+                $resp.OutputStream.Write($buf, 0, $buf.Length)
+            } else {
+                Send-Json $resp @{ ok = $false; error = 'calendar_itf.json not found (correr scripts/update-calendars-chall-itf.ps1)' }
+            }
+            return
+        }
         if ($path -eq '/api/news') {
             $data = Get-Cached 'news' { Get-TennisNews } 600
             Send-Json $resp $data
@@ -1444,7 +1574,7 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
             return
         }
         if ($path -eq '/api/seeds') {
-            $data = Get-Cached 'weekly_seeds' { Get-WeeklySeeds } 21600
+            $data = Get-Cached 'weekly_seeds' { Get-WeeklySeeds } 1800
             Send-Json $resp $data
             return
         }
