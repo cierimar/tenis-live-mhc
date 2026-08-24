@@ -509,6 +509,69 @@ body[data-mode='graffiti'] .set.live-set { background: #ff2fb3; color: #fff; }
 body[data-mode='graffiti'] .rank-section-title { color: #ff9100; }
 body[data-mode='graffiti'] .seed-badge { border-color: #ffe600; color: #ffe600; }
 
+/* ---------------- modo ARGENTINA (negro + celeste, blanco y sol) ---------------- */
+
+body[data-mode='argentina'] {
+  --paper: #070a10;
+  --paper-2: #0d1118;
+  --paper-3: #131926;
+  --ink: #ffffff;
+  --ink-2: #dbe7f5;
+  --muted: #8fa3bd;
+  --hairline: rgba(116, 172, 223, 0.20);
+  --hairline-dark: rgba(116, 172, 223, 0.38);
+  --red: #74acdf;
+  --red-dark: #9cc8f0;
+  --red-vivo: #f6b40e;
+  --red-soft: rgba(116, 172, 223, 0.14);
+  --green: #f6b40e;
+  --amber: #ffd23f;
+  --shadow: none;
+}
+body[data-mode='argentina'] ::selection { background: #74acdf; color: #06121f; }
+body[data-mode='argentina'] .gender-badge.gender-m { border-color: #74acdf; color: #74acdf; }
+body[data-mode='argentina'] .news-card img { filter: brightness(0.92); }
+body[data-mode='argentina'] .video-play { background: rgba(4, 8, 16, 0.35); }
+
+body[data-mode='argentina'] .nameplate h1 {
+  background: linear-gradient(90deg, #74acdf, #ffffff, #74acdf, #f6b40e, #74acdf);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 7s linear infinite;
+}
+body[data-mode='argentina'] .nameplate .np-red { color: inherit; }
+body[data-mode='argentina'] .tagline { color: #74acdf; }
+
+body[data-mode='argentina'] .tab.active {
+  border-color: #f6b40e;
+  color: #a8d4ff;
+  box-shadow: 0 0 12px rgba(246, 180, 14, 0.50), inset 0 0 10px rgba(116, 172, 223, 0.18);
+}
+body[data-mode='argentina'] .tour-head { border-color: #74acdf; box-shadow: 0 0 14px rgba(116, 172, 223, 0.35); }
+body[data-mode='argentina'] .live-pill,
+body[data-mode='argentina'] .ball { border-color: #f6b40e; }
+body[data-mode='argentina'] .live-pill { color: #f6b40e; }
+body[data-mode='argentina'] .clock {
+  color: #74acdf;
+  border-color: #74acdf;
+  text-shadow: 0 0 8px rgba(116, 172, 223, 0.65);
+}
+
+body[data-mode='argentina'] .match:nth-of-type(3n+1) { border-color: #74acdf; }
+body[data-mode='argentina'] .match:nth-of-type(3n+2) { border-color: #ffffff; }
+body[data-mode='argentina'] .match:nth-of-type(3n+3) { border-color: #f6b40e; }
+body[data-mode='argentina'] .match.live {
+  border-left-color: #f6b40e;
+  background: linear-gradient(90deg, rgba(116, 172, 223, 0.12), transparent 65%);
+}
+body[data-mode='argentina'] .set.win { color: #f6b40e; font-weight: 800; }
+body[data-mode='argentina'] .set.live-set { background: #f6b40e; color: #070a10; }
+
+body[data-mode='argentina'] .rank-section-title { color: #74acdf; }
+body[data-mode='argentina'] .seed-badge { border-color: #f6b40e; color: #f6b40e; }
+
 
 html { scroll-behavior: smooth; }
 
@@ -601,6 +664,7 @@ body[data-mode='rosaoscuro'] .mode-label { color: #ff6fbe; }
 body[data-mode='verdefluor'] .mode-label { color: #39ff14; }
 body[data-mode='arcoiris'] .mode-label { color: #ff9500; }
 body[data-mode='graffiti'] .mode-label { color: #ff9100; }
+body[data-mode='argentina'] .mode-label { color: #74acdf; }
 
 .tagline {
   font-family: var(--serif); font-style: italic; font-weight: 600;
