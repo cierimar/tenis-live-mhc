@@ -43,10 +43,24 @@ function ConvertFrom-AtpRanking([string]$html) {
         $pointsM = [regex]::Match($row, 'class="points[^"]*"[^>]*>.*?([\d,]+)\s*</a>', 'Singleline')
         $points = 0
         if ($pointsM.Success) { [void][int]::TryParse(($pointsM.Groups[1].Value -replace ',', ''), [ref]$points) }
-        $names = [regex]::Matches($row, 'class="lastName">([^<]+)<')
+        $slugs = [regex]::Matches($row, 'href="/en/players/([a-z0-9\-]+)/[a-z0-9]+/')
         $name = ''
-        if ($names.Count -gt 0) {
-            $name = (($names | ForEach-Object { $_.Groups[1].Value.Trim() }) -join ' / ').Trim()
+        if ($slugs.Count -gt 0) {
+            $fulls = @($slugs | ForEach-Object {
+                $slug = $_.Groups[1].Value
+                if ($slug) {
+                    (@($slug.Split('-') | Where-Object { $_ } | ForEach-Object {
+                        if ($_.Length -gt 1) { $_.Substring(0, 1).ToUpperInvariant() + $_.Substring(1) } else { $_.ToUpperInvariant() }
+                    }) -join ' ')
+                }
+            } | Where-Object { $_ } | Select-Object -Unique)
+            $name = ($fulls -join ' / ').Trim()
+        }
+        if (-not $name) {
+            $names = [regex]::Matches($row, 'class="lastName">([^<]+)<')
+            if ($names.Count -gt 0) {
+                $name = (($names | ForEach-Object { $_.Groups[1].Value.Trim() }) -join ' / ').Trim()
+            }
         }
         if (-not $name) { continue }
         $flags = [regex]::Matches($row, '#flag-([a-z0-9]+)')
