@@ -315,6 +315,14 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--ink); border-radius: 999px;
 }
 .theme-toggle:hover { border-color: var(--red-vivo); color: var(--red-vivo); }
+.mode-label {
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em;
+  color: var(--muted); white-space: nowrap;
+}
+body[data-mode='usopen'] .mode-label { color: #00b4e6; }
+body[data-mode='rosa'] .mode-label { color: #ff1493; }
+body[data-mode='fluo'] .mode-label { color: #00e5ff; }
 
 .tagline {
   font-family: var(--serif); font-style: italic; font-weight: 600;
