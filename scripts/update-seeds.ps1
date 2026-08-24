@@ -26,12 +26,54 @@ function Get-TournamentSeedsFromPage([string]$url) {
     try {
         $html = Get-WebFile $url
         if (-not $html) { return @{} }
-        $seedM = [regex]::Matches($html, '<a href="/(?:player|doubles-team)/[^"]*">([^<]+)</a>\s*\[(\d+)\]')
-        $result = @{}
+        $seedM = [regex]::Matches($html, '<a href="/(player|doubles-team)/([^"]*)">([^<]+)</a>\s*\[(\d+)\]')
+        $entries = [System.Collections.Generic.List[object]]::new()
         foreach ($m in $seedM) {
-            $name = $m.Groups[1].Value.Trim()
-            $seed = [int]$m.Groups[2].Value
-            if ($name -and -not $result.ContainsKey($name)) { $result[$name] = $seed }
+            $kind = $m.Groups[1].Value
+            $slug = $m.Groups[2].Value.Trim()
+            $name = $m.Groups[3].Value.Trim()
+            $seed = [int]$m.Groups[4].Value
+            if ($name) { [void]$entries.Add([pscustomobject]@{ kind = $kind; slug = $slug; name = $name; seed = $seed }) }
+        }
+
+        $groups = @{}
+        foreach ($e in $entries) {
+            if (-not $groups.ContainsKey($e.name)) { $groups[$e.name] = [System.Collections.Generic.List[object]]::new() }
+            [void]$groups[$e.name].Add($e)
+        }
+
+        $result = @{}
+        foreach ($g in $groups.GetEnumerator()) {
+            $list = $g.Value
+            $distinctSeeds = @($list | ForEach-Object { $_.seed } | Sort-Object -Unique)
+            if ($distinctSeeds.Count -eq 1) {
+                $result[$g.Key] = $distinctSeeds[0]
+                continue
+            }
+            # Colision real: mismo apellido con sembrados distintos (ej. dos Jones).
+            # Resolver nombre completo desde la pagina del jugador; si falla, descartar el grupo entero.
+            if ($list.Count -gt 8) { continue }
+            $resolved = @{}
+            $okAll = $true
+            foreach ($e in $list) {
+                $full = $null
+                if ($e.kind -eq 'player' -and $e.slug) {
+                    try {
+                        $ph = Get-WebFile ("https://www.tennisexplorer.com/player/" + ($e.slug -replace '^player/', ''))
+                        if ($ph) {
+                            $tm = [regex]::Match($ph, '<title>\s*(.+?)\s+[-\u2013]\s+Tennis Explorer\s*</title>')
+                            if ($tm.Success) { $full = $tm.Groups[1].Value.Trim() }
+                        }
+                    } catch { $full = $null }
+                }
+                if (-not $full) { $okAll = $false; break }
+                if ($resolved.ContainsKey($full) -and $resolved[$full] -ne $e.seed) { $okAll = $false; break }
+                $resolved[$full] = $e.seed
+            }
+            if ($okAll) {
+                foreach ($kv in $resolved.GetEnumerator()) { $result[$kv.Key] = $kv.Value }
+            }
+            # si no se resolvio, el grupo se descarta: mejor sin sembrado que un sembrado falso
         }
         return $result
     } catch { return @{} }
@@ -61,6 +103,8 @@ foreach ($entry in $seen.GetEnumerator()) {
         singles = $singles; doubles = $doubles
     })
 }
+
+if ($tournaments.Count -lt 5) { Write-Host "pocos torneos ($($tournaments.Count)), no sobreescribir"; exit 1 }
 
 $allSingles = @{}; $allDoubles = @{}
 foreach ($t in $tournaments) {
