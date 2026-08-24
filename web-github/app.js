@@ -19,6 +19,8 @@
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
+    rankLiveUpdated: '',
+    rankSinglesUpdated: '',
     rankDoubles: { atp: null, wta: null },
     rankDoublesLoading: false,
     rankSearch: '',
@@ -28,9 +30,6 @@
     playerTab: 'todos',
     playerSearch: '',
     playerCountry: '',
-    birthdays: { data: null, loaded: false },
-    bdTab: 'all',
-    currentTour: { data: null, loaded: false, tab: 'women' },
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
@@ -48,6 +47,7 @@
     refreshing: false,
     countdown: REFRESH_SEC,
     drawTournamentId: null,
+    drawRound: 'todas',
     theme: 'oscuro',
     font: 'defecto',
     fsize: 'normal'
@@ -128,28 +128,6 @@
     link.href = c.toDataURL('image/png') + '?t=' + Date.now();
   }
 
-  function applyTheme(t) {
-    state.theme = t || 'oscuro';
-    document.body.setAttribute('data-theme', state.theme);
-    try { localStorage.setItem('mhc-theme', state.theme); } catch (e) {}
-    setTimeout(function() {
-      var a = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
-      if (a) generateFavicon(a);
-    }, 50);
-  }
-
-  function applyFont(f) {
-    state.font = f || 'defecto';
-    document.body.setAttribute('data-font', state.font);
-    try { localStorage.setItem('mhc-font', state.font); } catch (e) {}
-  }
-
-  function applyFsize(f) {
-    state.fsize = f || 'normal';
-    document.body.setAttribute('data-fsize', state.fsize);
-    try { localStorage.setItem('mhc-fsize', state.fsize); } catch (e) {}
-  }
-
   function fmtTime(iso) {
     if (!iso) return '';
     const d = new Date(iso);
@@ -228,7 +206,7 @@
     for (const ev of (json.events || [])) {
       for (const g of (ev.groupings || [])) {
         for (const c of (g.competitions || [])) {
-          const tid = String(c.tournamentId || ev.id);
+          const tid = circuit + '-' + String(c.tournamentId || ev.id);
           if (!tourMap.has(tid)) {
             tourMap.set(tid, {
               id: tid,
@@ -342,19 +320,63 @@
     return 'DURA';
   }
 
+  let sofaPastEvents = null;
   async function fetchSofaRaw() {
-    const today = new Date().toISOString().slice(0, 10);
-    let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1');
-    if (r.ok) {
-      const j = await r.json();
-      if (j && j.tournaments) return { shape: 'tours', j: j };
+    const today = new Date();
+    const iso = d => d.toISOString().slice(0, 10);
+    const t = iso(today);
+    let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + t + '/page/1');
+    if (!r.ok) {
+      r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + t);
+      if (!r.ok) throw new Error('sofascore ' + r.status);
+      const jj0 = await r.json();
+      if (!jj0 || !jj0.events) throw new Error('sofascore sin eventos');
+      return { shape: 'events', j: jj0 };
     }
-    r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + today);
-    if (r.ok) {
-      const j = await r.json();
-      if (j && j.events) return { shape: 'events', j: j };
+    let allTours = [];
+    for (let pg = 1; pg <= 8; pg++) {
+      const rp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + t + '/page/' + pg);
+      if (!rp.ok) break;
+      const jp = await rp.json();
+      const list = (jp && jp.tournaments) || [];
+      if (!list.length) break;
+      allTours = allTours.concat(list);
+      if (list.length < 20) break;
     }
-    throw new Error('sofascore ' + r.status);
+    try {
+      const re = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + t);
+      if (re.ok) {
+        const je = await re.json();
+        if (je && je.events) {
+          const seen = {};
+          for (const tt of allTours) {
+            for (const ev of (tt.events || [])) seen[ev.id] = true;
+          }
+          const extra = je.events.filter(ev => !seen[ev.id]);
+          if (extra.length) allTours = allTours.concat([{ tournament: {}, events: extra }]);
+        }
+      }
+    } catch (_) {}
+    const j = { tournaments: allTours };
+    return { shape: 'tours', j: j };
+  }
+
+  async function sofaPastFinished() {
+    if (sofaPastEvents) return sofaPastEvents;
+    const today = new Date();
+    const iso = d => d.toISOString().slice(0, 10);
+    const out = [];
+    for (const d of [iso(new Date(today.getTime() - 86400000)), iso(new Date(today.getTime() - 172800000))]) {
+      try {
+        const rp = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + d);
+        if (rp.ok) {
+          const jp = await rp.json();
+          if (jp && jp.events) out.push(...jp.events.filter(ev => ev.status && ev.status.type === 'Finished'));
+        }
+      } catch (_) {}
+    }
+    sofaPastEvents = out;
+    return out;
   }
 
   function sofaEventsOf(raw) {
@@ -499,7 +521,8 @@
 
   async function sofascoreFallback() {
     const raw = await fetchSofaRaw();
-    const allEvents = sofaEventsOf(raw);
+    const pastEv = await sofaPastFinished().catch(() => []);
+    const allEvents = sofaEventsOf(raw).concat(pastEv);
     const res = {
       atp: { matches: [], tournaments: [] },
       wta: { matches: [], tournaments: [] },
@@ -510,12 +533,11 @@
     for (const ev of allEvents) {
       const cat = ((((ev.tournament || {}).category || {}).name) || ev.__catName || '').toLowerCase();
       let circuit = '';
-      if (/atp/.test(cat) && /chall/.test(cat)) circuit = 'chall';
-      else if (cat === 'atp') circuit = 'atp';
-      else if (cat === 'wta') circuit = 'wta';
-      else if (cat.indexOf('chall') > -1) circuit = 'chall';
-      else if (cat.indexOf('itf') > -1) circuit = 'itf';
-      else if (/wheelchair|silla/.test(cat)) circuit = 'wc';
+      if (/wheelchair|silla/.test(cat)) circuit = 'wc';
+      else if (/chall/.test(cat)) circuit = 'chall';
+      else if (/itf/.test(cat)) circuit = 'itf';
+      else if (/atp/.test(cat)) circuit = 'atp';
+      else if (/wta|women|femen/.test(cat)) circuit = 'wta';
       else continue;
       const tName = (ev.uniqueTournament && ev.uniqueTournament.name) || (ev.tournament && ev.tournament.name) || '';
       const meta = sofaMetaFromEvent(ev);
@@ -553,10 +575,134 @@
         competitors: [
           { homeAway: 'home', winner: st === 'finished' && hc > ac, order: 1, name: hN, flag: '', flagAlt: (((ev.homeTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.homeScore, st === 'inprogress') },
           { homeAway: 'away', winner: st === 'finished' && ac > hc, order: 2, name: aN, flag: '', flagAlt: (((ev.awayTeam || {}).country || {}).a2Code) || '', linescores: sofaLines(ev.awayScore, st === 'inprogress') }
-        ]
+        ],
+        pts0: st === 'inprogress' ? String((ev.homeScore || {}).displayScore || '') : '',
+        pts1: st === 'inprogress' ? String((ev.awayScore || {}).displayScore || '') : ''
       });
     }
     return res;
+  }
+
+  function sofaPbpParse(j) {
+    let best = [];
+    const scan = (node) => {
+      if (!node) return;
+      if (Array.isArray(node)) {
+        const pts = node.filter(x => x && typeof x === 'object' && x.winnerCode != null);
+        if (pts.length > best.length) best = pts;
+        node.forEach(scan);
+        return;
+      }
+      if (typeof node === 'object') Object.keys(node).forEach(k => scan(node[k]));
+    };
+    try { scan(j); } catch (e) { return null; }
+    if (!best.length) return null;
+    const keyOf = p => [p.periodNumber != null ? p.periodNumber : (p.setNumber != null ? p.setNumber : ''), p.gameNumber != null ? p.gameNumber : ''].join('-');
+    const curKey = keyOf(best[best.length - 1]);
+    const inGame = best.filter(p => keyOf(p) === curKey);
+    let s1 = 0, s2 = 0;
+    for (const p of inGame) {
+      const w = String(p.winnerCode);
+      if (w === '1') s1++; else if (w === '2') s2++;
+    }
+    const srv = inGame.length ? inGame[inGame.length - 1].serverPlayer1 : null;
+    return { s1: s1, s2: s2, server1: srv === true ? 1 : srv === false ? 2 : 0 };
+  }
+
+  function gameScoreLabel(a, b) {
+    const L = ['0', '15', '30', '40'];
+    if (a >= 3 && b >= 3) {
+      if (a === b) return ['40', '40'];
+      return a > b ? ['AD', ''] : ['', 'AD'];
+    }
+    return [L[Math.min(a, 3)], L[Math.min(b, 3)]];
+  }
+
+  async function refreshSofaPoints() {
+    const live = allMatches().filter(m => m.state === 'in');
+    if (!live.length) return;
+    const targets = [];
+    for (const m of live) {
+      if (/^sf-\d+$/.test(String(m.id || ''))) targets.push([m, String(m.id).slice(3)]);
+    }
+    if (!targets.length) {
+      const map = await sofaEventIdMap();
+      if (map) {
+        for (const m of live) {
+          if (Date.now() - (m.sfFailAt || 0) < 300000) continue;
+          const id = sofaFindId(m, map);
+          if (id) targets.push([m, id]);
+          else m.sfFailAt = Date.now();
+        }
+      }
+    }
+    if (!targets.length) return;
+    await Promise.all(targets.map(async pr => {
+      const m = pr[0];
+      try {
+        const r = await fetch('https://api.sofascore.com/api/v1/event/' + pr[1] + '/point-by-point');
+        if (!r.ok) { m.pbpDbg = pr[1] + ':HTTP' + r.status; return; }
+        const j = await r.json();
+        m.sofaPts = sofaPbpParse(j);
+        if (m.sofaPts) m.sofaPtsAt = Date.now();
+        m.pbpDbg = pr[1] + ':HTTP' + r.status + ':' + JSON.stringify(m.sofaPts);
+      } catch (e) { m.pbpDbg = pr[1] + ':ERR:' + e.message; }
+    }));
+  }
+
+  function sofaLocalDay(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  let sofaIdMap = null;
+  let sofaIdMapAt = 0;
+
+  async function sofaEventIdMap() {
+    if (sofaIdMap && Date.now() - sofaIdMapAt < 300000) return sofaIdMap;
+    const days = [-86400000, 0, 86400000].map(off => sofaLocalDay(new Date(Date.now() + off)));
+    const map = new Map();
+    await Promise.all(days.map(async d => {
+      try {
+        let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/1');
+        if (!r.ok) return;
+        const tours = [];
+        for (let pg = 1; pg <= 4; pg++) {
+          if (pg > 1) r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/' + pg);
+          if (!r.ok) break;
+          const jp = await r.json();
+          const list = (jp && jp.tournaments) || [];
+          if (!list.length) break;
+          tours.push(...list);
+          if (list.length < 20) break;
+        }
+        for (const tt of tours) {
+          for (const ev of ((tt && tt.events) || [])) {
+            const hN = taNorm((ev.homeTeam || {}).name || '');
+            const aN = taNorm((ev.awayTeam || {}).name || '');
+            if (!hN || !aN) continue;
+            map.set(hN + '|' + aN, String(ev.id));
+            map.set(aN + '|' + hN, String(ev.id));
+          }
+        }
+      } catch (e) { /* noop */ }
+    }));
+    if (map.size) { sofaIdMap = map; sofaIdMapAt = Date.now(); }
+    return sofaIdMap;
+  }
+
+  function sofaPairMatch(x, y) { return !!x && !!y && (x === y || x.indexOf(y) > -1 || y.indexOf(x) > -1); }
+
+  function sofaFindId(m, map) {
+    const cs = m.competitors || [];
+    const n0 = taNorm((cs[0] || {}).name || '');
+    const n1 = taNorm((cs[1] || {}).name || '');
+    if (!n0 || !n1) return null;
+    for (const kv of map) {
+      const parts = kv[0].split('|');
+      if ((sofaPairMatch(n0, parts[0]) && sofaPairMatch(n1, parts[1])) ||
+          (sofaPairMatch(n0, parts[1]) && sofaPairMatch(n1, parts[0]))) return kv[1];
+    }
+    return null;
   }
 
   function taNorm(s) {
@@ -687,15 +833,16 @@
         ? fetchJson('/api/rankings/live?tour=' + tour + '&race=0&official=1')
         : fetchJson('rankings/' + tour + '_singles.json').then(j => {
             if (!j || !j.players || !j.players.length) throw new Error('json vacio');
-            return j.players;
+            return { rows: j.players, updated: j.updated || null };
           }).catch(() =>
-            fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
+            fetch('https://r.jina.ai/https://live-tennis.eu/en/official-' + tour + '-ranking', { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => ({ rows: parseLtRows(t), updated: new Date().toISOString() }))
           );
       return p.then(j => {
         const rows = (j && j.rows) || j;
         if (!Array.isArray(rows) || !rows.length) throw new Error('sin datos');
         state.rankSingles[tour] = rows.map(ltRow);
         state.rankSinglesSource = 'live-tennis.eu (ranking oficial completo)';
+        if (j && j.updated) state.rankSinglesUpdated = j.updated;
       }).catch(() => {});
     });
     await Promise.allSettled(jobs);
@@ -1027,8 +1174,8 @@
 
   async function refreshRankingsDoubles() {
     const [atp, wta] = await Promise.all([
-      fetchJson('api/rankings/atp?type=doubles'),
-      fetchJson('api/rankings/wta?type=doubles')
+      fetchJson('rankings/atp_doubles.json'),
+      fetchJson('rankings/wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -1187,8 +1334,9 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshCurrentTour(), refreshWheelchair()]);
-      if (state.rankView !== 'oficial') refreshRankingsLive();
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair()]);
+      await refreshSofaPoints();
+      if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
@@ -1332,7 +1480,7 @@
   }
 
   function renderLive() {
-    const list = filteredMatches();
+    const list = filteredMatches().filter(m => m.state !== 'post');
     const el = $('liveContent');
     if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
@@ -1375,7 +1523,8 @@
         '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
     }
-    el.innerHTML = html;
+    const dbg = list.filter(m => m.state === 'in').map(m => (m.competitors[0] || {}).name + ' vs ' + (m.competitors[1] || {}).name + ' => ' + (m.pbpDbg || 'sin intento')).join('\n');
+    el.innerHTML = html + (dbg ? '<pre style="font:11px monospace;color:#c8102e;white-space:pre-wrap;margin-top:10px">DEBUG PBP:\n' + esc(dbg) + '</pre>' : '');
     const srcLabel = (function () {
       if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
       const sm = state.sofaMeta;
@@ -1415,11 +1564,15 @@
       const ago = timeAgo(it.published);
       const time = ago ? '<span class="news-time">' + esc(ago) + '</span>' : '';
       const desc = it.description ? '<div class="news-desc">' + esc(it.description) + '</div>' : '';
+      const thumb = it.image
+        ? '<img class="news-thumb" src="' + esc(it.image) + '" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;news-thumb-placeholder&quot;></div>\'">'
+        : '';
       return '<a class="news-card" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">' +
-        '<div class="news-head"><span class="news-source">' + esc(it.source) + '</span>' + time + '</div>' +
-        '<div class="news-title">' + esc(it.title) + '</div>' + desc + '</a>';
+        thumb +
+        '<div class="news-body"><div class="news-head"><span class="news-source">' + esc(it.source) + '</span>' + time + '</div>' +
+        '<div class="news-title">' + esc(it.title) + '</div>' + desc + '</div></a>';
     }).join('');
-    el.innerHTML = html;
+    el.innerHTML = '<div class="news-grid">' + html + '</div>';
   }
 
   function renderVideos() {
@@ -1466,7 +1619,12 @@
     const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
     const cls = m.state === 'in' ? 'match live' : m.state === 'post' ? 'match finished' : 'match upcoming';
     const period = m.state === 'in' && m.period ? '<span class="period">SET ' + m.period + '</span>' : '';
-    const pts = livePoints(m);
+    let pts = livePoints(m);
+    if (!pts && m.state === 'in' && m.sofaPts && Date.now() - (m.sofaPtsAt || 0) < 90000) {
+      const lab = gameScoreLabel(m.sofaPts.s1, m.sofaPts.s2);
+      if (lab[0] || lab[1]) pts = { g0: lab[0], g1: lab[1], serverName: '', serverIdx: m.sofaPts.server1 };
+    }
+    if (!pts && m.state === 'in' && (m.pts0 || m.pts1)) pts = { g0: m.pts0, g1: m.pts1, serverName: '' };
     const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const suspNote = m.suspended ? '<div class="note susp-note">' + esc(m.suspReason || 'Partido suspendido') + '</div>' : '';
@@ -1500,7 +1658,7 @@
 
   function playerRow(p, m, pts) {
     const flag = flagImg(p.flag, p.flagAlt);
-    const serving = pts && pts.serverName && matchLiveName(norm(p.name), norm(pts.serverName));
+    const serving = (pts && pts.serverName && matchLiveName(norm(p.name), norm(pts.serverName))) || (pts && pts.serverIdx === (p.homeAway === 'home' ? 1 : 2));
     const ball = serving ? '<span class="serve-ball"></span>' : '';
     const seed = findSeed(p.name, circuitOf(m));
     const seedHtml = seed ? '<span class="seed-badge">' + seed + '</span>' : '';
@@ -1560,7 +1718,21 @@
     const sel = $('drawSelect');
     const tours = filteredTournaments();
     const prev = state.drawTournamentId;
-    sel.innerHTML = tours.map(t => '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>').join('');
+    const tourById = new Map();
+    for (const m of allMatches()) if (!tourById.has(m.tournamentId)) tourById.set(m.tournamentId, m.tour);
+    const groups = new Map();
+    for (const t of tours) {
+      const g = tourById.get(t.id) || 'atp';
+      if (!groups.has(g)) groups.set(g, []);
+      groups.get(g).push(t);
+    }
+    const order = ['atp', 'wta', 'chall', 'itf'];
+    const glabels = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF' };
+    sel.innerHTML = order.filter(g => groups.has(g)).map(g =>
+      '<optgroup label="' + glabels[g] + '">' +
+      groups.get(g).sort((a, b) => String(a.name).localeCompare(String(b.name))).map(t => '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>').join('') +
+      '</optgroup>'
+    ).join('');
     if (tours.some(t => t.id === prev)) { sel.value = prev; }
     else if (tours.length) { sel.value = tours[0].id; state.drawTournamentId = tours[0].id; }
     sel.disabled = !tours.length;
@@ -1587,9 +1759,8 @@
       roundMap.get(key).matches.push(m);
     }
     const keys = Array.from(roundMap.keys()).sort((a, b) => {
-      const ta = tourOf(ms[0]) === 'atp' ? 'a' : 'w';
-      const [r1] = a.split('|'), [r2] = b.split('|');
-      const ia = ROUND_ORDER.indexOf(r1), ib = ROUND_ORDER.indexOf(r2);
+      const ra = a.split('|').pop(), rb = b.split('|').pop();
+      const ia = ROUND_ORDER.indexOf(ra), ib = ROUND_ORDER.indexOf(rb);
       return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || (a < b ? -1 : 1);
     });
 
@@ -1597,7 +1768,23 @@
     const drawTypes = new Set(ms.map(m => m.type));
     $('drawMeta').textContent = (tour ? tour.name + ' · ' : '') + Array.from(drawTypes).join(' / ') + ' · ' + ms.length + ' partidos';
 
-    const cols = keys.map(key => {
+    const availRounds = [];
+    for (const k of keys) {
+      const r = k.split('|')[1] || k;
+      if (!availRounds.includes(r)) availRounds.push(r);
+    }
+    if (state.drawRound !== 'todas' && !availRounds.includes(state.drawRound)) state.drawRound = 'todas';
+    const chips = '<div class="round-filter">' +
+      '<span class="rf-label">RONDA:</span>' +
+      '<button class="round-chip' + (state.drawRound === 'todas' ? ' active' : '') + '" data-round="todas">TODAS</button>' +
+      availRounds.map(r => '<button class="round-chip' + (state.drawRound === r ? ' active' : '') + '" data-round="' + esc(r) + '">' + esc(ROUND_LABEL[r] || r) + '</button>').join('') +
+      '</div>';
+
+    const visKeys = state.drawRound === 'todas' ? keys : keys.filter(k => (k.split('|')[1] || k) === state.drawRound);
+    if (state.drawRound !== 'todas') {
+      $('drawMeta').textContent += ' · ronda: ' + (ROUND_LABEL[state.drawRound] || state.drawRound);
+    }
+    const cols = visKeys.map(key => {
       const grp = roundMap.get(key);
       const round = key.split('|')[1] || key;
       const matches = grp.matches.slice().sort((a, b) => (a.date || '').localeCompare(b.date || ''));
@@ -1620,7 +1807,7 @@
       return '<div class="draw-col"><h4>' + esc(ROUND_LABEL[round] || round) + typeTag + '</h4>' + (cards || '<div class="draw-empty">-</div>') + '</div>';
     }).join('');
 
-    el.innerHTML = '<div class="draw-board"><div class="draw-cols">' + cols + '</div></div>';
+    el.innerHTML = chips + '<div class="draw-board"><div class="draw-cols">' + cols + '</div></div>';
   }
 
   /* ---------------- render: rankings ---------------- */
@@ -1697,7 +1884,7 @@
           (useLocalBackend()
             ? fetchJson('/api/rankings/live?tour=' + tour + '&race=' + race)
             : fetch('https://r.jina.ai/https://live-tennis.eu/en/' + tour + (race ? '-race' : '-live-ranking'), { headers: { 'X-Return-Format': 'html' } }).then(r => { if (!r.ok) throw new Error('jina ' + r.status); return r.text(); }).then(t => parseLtRows(t))
-          ).then(j => { state.rankLive[tour + (race ? 'Race' : '')] = (j && j.rows) || j || []; }).catch(() => {})
+          ).then(j => { state.rankLive[tour + (race ? 'Race' : '')] = (j && j.rows) || j || []; if (j && j.updated) state.rankLiveUpdated = j.updated; }).catch(() => {})
         );
       }
       await Promise.allSettled(jobs);
@@ -1721,7 +1908,7 @@
       const co = t.match(/class="?sm"?\s+p="?[\d.]+"?>\s*([A-Z]{3})\s*</);
       const after = co ? co.index + co[0].length : (nm ? nm.index + nm[0].length : 0);
       const pt = t.slice(after).match(/<td>\s*(\d[\d.]*)\s*<\/td>/);
-      const mv = t.match(/class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*</);
+      const mv = t.match(/class="?rdf"?>\s*([+-]?\d+)\s*</);
       rows.push({ rank: parseInt(rk[1], 10), name: name, country: co ? co[1] : '', points: pt ? pt[1] : '', move: mv ? parseInt(mv[1], 10) : 0 });
     }
     return rows;
@@ -1746,6 +1933,14 @@
       '<div class="rank-table-wrap"><table class="rank-table">' +
       '<thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Mov.</th><th style="text-align:right">Puntos</th></tr></thead>' +
       '<tbody>' + body + '</tbody></table></div>';
+  }
+
+  function fmtRankData(ts) {
+    if (!ts) return '';
+    const d = new Date(ts);
+    if (isNaN(d.getTime())) return '';
+    const p2 = n => String(n).padStart(2, '0');
+    return p2(d.getDate()) + '/' + p2(d.getMonth() + 1) + ' ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
   }
 
   function renderRankings() {
@@ -1773,10 +1968,13 @@
       el.innerHTML = html.join('');
       const n = (state.rankLive.atp.length || 0) + (state.rankLive.wta.length || 0);
       $('rankMeta').textContent = 'Ranking ' + label + ' (live-tennis.eu) · se actualiza automáticamente' +
-        (n ? ' · ' + n + ' jugadores' : '') + (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
+        (n ? ' · ' + n + ' jugadores' : '') +
+        (state.rankLiveUpdated ? ' · datos: ' + fmtRankData(state.rankLiveUpdated) : '') +
+        (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
       return;
     }
-    const needsDoubles = selectedModes().includes('doubles') && selectedTours().some(t => !state.rankDoubles[t]);
+    const rTours = selectedTours().filter(t => t === 'atp' || t === 'wta');
+    const needsDoubles = selectedModes().includes('doubles') && rTours.some(t => !state.rankDoubles[t]);
     if (needsDoubles && !state.rankDoublesLoading) {
       state.rankDoublesLoading = true;
       refreshRankingsDoubles().then(() => {
@@ -1788,10 +1986,11 @@
       });
     }
     const html = [];
-    for (const t of selectedTours()) for (const m of selectedModes()) html.push(renderRankSection(t, m));
+    for (const t of rTours) for (const m of selectedModes()) html.push(renderRankSection(t, m));
     el.innerHTML = html.join('');
-    const total = selectedTours().length * selectedModes().length;
+    const total = rTours.length * selectedModes().length;
     $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
+      (state.rankSinglesUpdated ? ' · datos: ' + fmtRankData(state.rankSinglesUpdated) : '') +
       (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
   }
 
@@ -1863,65 +2062,6 @@
     }).join('');
   }
 
-  async function refreshBirthdays() {
-    try {
-      const url = useLocalBackend() ? 'api/birthdays' : 'birthdays.json';
-      const j = await fetchJson(url).catch(() => null);
-      if (j && j.ok) { state.birthdays = { data: j, loaded: true }; } else { state.birthdays = { data: null, loaded: true }; }
-    } catch (_) { state.birthdays = { data: null, loaded: true }; }
-    if (state.tab === 'birthdays') renderBirthdays();
-  }
-
-  function renderBirthdays() {
-    const el = $('birthdaysContent');
-    const meta = $('birthdaysMeta');
-    const bd = state.birthdays;
-    if (!bd.loaded || !bd.data) { el.innerHTML = '<div class="loading">Cargando cumpleaños...</div>'; return; }
-    let players = bd.data.players || [];
-    if (state.bdTab === 'atp') players = players.filter(p => p.gender === 'M');
-    else if (state.bdTab === 'wta') players = players.filter(p => p.gender === 'W');
-    const active = players.filter(p => p.currentRank > 0);
-    const inactive = players.filter(p => !p.currentRank);
-    if (meta) meta.textContent = bd.data.date + ' · ' + players.length + ' cumpleañeros';
-    let html = '';
-    if (active.length) {
-      html += '<div class="tour-block"><div class="tour-head"><span class="tour-label">ACTIVOS</span></div>';
-      html += '<div class="bd-table"><table class="elo-table"><thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Edad</th><th>Ranking Actual</th><th>Mejor Ranking</th></tr></thead><tbody>';
-      active.forEach((p, i) => {
-        const slug = taSlug(p.name);
-        const isW = p.gender === 'W';
-        const url = isW ? 'https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + slug : 'https://www.tennisabstract.com/cgi-bin/player.cgi?p=' + slug;
-        const genderBadge = isW ? '<span class="gender-badge gender-w">W</span>' : '<span class="gender-badge gender-m">M</span>';
-        html += '<tr><td>' + (i + 1) + '</td><td>' + genderBadge + ' <a href="' + url + '" target="_blank" class="ta-link">' + esc(p.name) + '</a></td><td>' + esc(p.country) + '</td><td>' + p.age + '</td><td>' + (p.currentRank || '-') + '</td><td>' + (p.peakRank || '-') + '</td></tr>';
-      });
-      html += '</tbody></table></div></div>';
-    }
-    if (inactive.length) {
-      html += '<div class="tour-block"><div class="tour-head"><span class="tour-label">RETIRADOS / HISTÓRICOS</span></div>';
-      html += '<div class="bd-table"><table class="elo-table"><thead><tr><th>#</th><th>Jugador</th><th>País</th><th>Edad</th><th>Mejor Ranking</th></tr></thead><tbody>';
-      inactive.forEach((p, i) => {
-        const slug = taSlug(p.name);
-        const isW = p.gender === 'W';
-        const url = isW ? 'https://www.tennisabstract.com/cgi-bin/wplayer.cgi?p=' + slug : 'https://www.tennisabstract.com/cgi-bin/player.cgi?p=' + slug;
-        const genderBadge = isW ? '<span class="gender-badge gender-w">W</span>' : '<span class="gender-badge gender-m">M</span>';
-        html += '<tr><td>' + (i + 1) + '</td><td>' + genderBadge + ' <a href="' + url + '" target="_blank" class="ta-link">' + esc(p.name) + '</a></td><td>' + esc(p.country) + '</td><td>' + p.age + '</td><td>' + (p.peakRank || '-') + '</td></tr>';
-      });
-      html += '</tbody></table></div></div>';
-    }
-    if (!html) html = '<div class="loading">No hay cumpleaños de hoy.</div>';
-    el.innerHTML = html;
-  }
-
-  async function refreshCurrentTour() {
-    try {
-      const url = useLocalBackend() ? 'api/current-tour' : 'current-tour.json';
-      const j = await fetchJson(url).catch(() => null);
-      if (j && j.ok) { state.currentTour = { ...state.currentTour, data: j, loaded: true }; }
-      else { state.currentTour = { ...state.currentTour, loaded: true }; }
-    } catch (_) { state.currentTour = { ...state.currentTour, loaded: true }; }
-    if (state.tab === 'currenttour') render();
-  }
-
   async function refreshWheelchair() {
     try {
       const url = useLocalBackend() ? 'api/wheelchair' : 'wheelchair.json';
@@ -1981,45 +2121,6 @@
       else { state.wcVideos = { items: [], loaded: true }; }
     } catch (_) { state.wcVideos = { items: [], loaded: true }; }
     if (state.tab === 'wheelchair' && state.wheelchair.tab === 'videos') renderWheelchair();
-  }
-
-  function renderCurrentTour() {
-    const el = $('ctContent');
-    const meta = $('ctMeta');
-    const ct = state.currentTour;
-    if (!ct.loaded || !ct.data) { el.innerHTML = '<div class="loading">Cargando torneos actuales...</div>'; return; }
-    const t = ct.data.tour || {};
-    const list = t[ct.tab] || [];
-    if (meta) meta.textContent = 'Actualizado: ' + (ct.data.updated || '--');
-    if (!list.length) { el.innerHTML = '<div class="loading">No hay torneos activos en esta categoría.</div>'; return; }
-    let html = '';
-    list.forEach(tour => {
-      html += '<div class="ct-card">';
-      html += '<div class="ct-card-head"><a href="' + esc(tour.url) + '" target="_blank" class="ta-link">' + esc(tour.name) + '</a></div>';
-      html += '<div class="ct-card-fav">Favorito: <b>' + esc(tour.favorite) + '</b> (' + tour.favoritePct + '%)</div>';
-      if (tour.detail) {
-        if (tour.detail.completed) {
-          const cHtml = tour.detail.completed;
-          if (cHtml && cHtml.trim() && cHtml.trim() !== '&nbsp;') {
-            html += '<div class="ct-section"><div class="ct-section-title">Resultados</div>';
-            html += '<div class="ct-matches">' + cHtml + '</div></div>';
-          }
-        }
-        if (tour.detail.upcoming) {
-          const uHtml = tour.detail.upcoming;
-          if (uHtml && uHtml.trim() && uHtml.trim() !== '&nbsp;') {
-            html += '<div class="ct-section"><div class="ct-section-title">Próximos partidos</div>';
-            html += '<div class="ct-matches">' + uHtml + '</div></div>';
-          }
-        }
-        if (tour.detail.forecast) {
-          html += '<div class="ct-section"><div class="ct-section-title">Forecast</div>';
-          html += '<div class="ct-forecast">' + tour.detail.forecast + '</div></div>';
-        }
-      }
-      html += '</div>';
-    });
-    el.innerHTML = html;
   }
 
   function renderWheelchair() {
@@ -2131,20 +2232,29 @@
     }
 
     const rankData = d.rankings && d.rankings[tab];
-    const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles' };
+    const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles', quadDoubles: 'Quad Doubles' };
     if (!rankData || !rankData.length) { el.innerHTML = '<div class="error-box">No hay ranking disponible para esta categoría.</div>'; return; }
     const hasPoints = rankData[0] && rankData[0].points != null;
     const hasRecord = rankData[0] && rankData[0].record2026;
     const hasTitles = rankData[0] && rankData[0].titles2026 != null;
+    const hasMove = rankData[0] && rankData[0].movement != null;
     const thPoints = hasPoints ? '<th style="text-align:right">Puntos</th>' : '';
     const thRecord = hasRecord ? '<th>W-L 2026</th>' : '';
     const thTitles = hasTitles ? '<th>Títulos</th>' : '';
     const rows = rankData.map(r => {
       const pts = r.points != null ? r.points.toLocaleString('es') : '—';
       const rankCls = r.rank === 1 ? 'r-rank top1' : 'r-rank';
+      let mvCell = '';
+      if (hasMove) {
+        const mv = parseInt(r.movement, 10) || 0;
+        const mvCls = mv > 0 ? 'up' : (mv < 0 ? 'down' : 'flat');
+        const mvTxt = mv > 0 ? ('▲' + mv) : (mv < 0 ? ('▼' + Math.abs(mv)) : '·');
+        mvCell = '<td class="r-move ' + mvCls + '">' + mvTxt + '</td>';
+      }
       return '<tr>' +
         '<td class="' + rankCls + '">' + esc(r.rank) + '</td>' +
         '<td class="r-name">' + flagEmoji(r.country) + ' ' + esc(r.name) + ' <span class="wc-country">(' + esc(r.country) + ')</span></td>' +
+        mvCell +
         (hasTitles ? '<td class="r-r">' + esc(r.titles2026 != null ? r.titles2026 : '—') + '</td>' : '') +
         (hasRecord ? '<td>' + esc(r.record2026 || '—') + '</td>' : '') +
         (hasPoints ? '<td class="r-pts">' + pts + '<span> pts</span></td>' : '') +
@@ -2152,7 +2262,9 @@
     }).join('');
     el.innerHTML = '<div class="rank-section-title">' + (labels[tab] || tab) + ' Rankings</div>' +
       '<div class="rank-table-wrap"><table class="rank-table">' +
-      '<thead><tr><th>#</th><th>Jugador' + (hasTitles ? '</th><th>Títulos</th>' : '') +
+      '<thead><tr><th>#</th><th>Jugador</th>' +
+      (hasMove ? '<th>Mov.</th>' : '') +
+      (hasTitles ? '<th>Títulos</th>' : '') +
       (hasRecord ? '<th>W-L 2026</th>' : '') +
       (hasPoints ? '<th style="text-align:right">Puntos</th>' : '<th></th>') +
       '</tr></thead>' +
@@ -2217,17 +2329,18 @@
     else if (state.tab === 'argentina') renderArgentina();
     else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'h2hsearch') renderH2HSearch();
-    else if (state.tab === 'birthdays') renderBirthdays();
     else if (state.tab === 'calendar') renderCalendar();
-    else if (state.tab === 'currenttour') renderCurrentTour();
     else if (state.tab === 'wheelchair') renderWheelchair();
   }
 
   function setTab(tab) {
     state.tab = tab;
     document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.body.classList.remove('nav-open');
     document.body.classList.toggle('tab-calendar', tab === 'calendar');
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
+  document.body.classList.toggle('tab-news', tab === 'news');
+  document.body.classList.toggle('tab-videos', tab === 'videos');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
@@ -2250,16 +2363,6 @@
       refreshElo();
       return;
     }
-    if (tab === 'birthdays' && !state.birthdays.loaded) {
-      render();
-      refreshBirthdays();
-      return;
-    }
-    if (tab === 'currenttour' && !state.currentTour.loaded) {
-      render();
-      refreshCurrentTour();
-      return;
-    }
     if (tab === 'wheelchair' && !state.wheelchair.loaded) {
       render();
       refreshWheelchair();
@@ -2275,6 +2378,11 @@
 
   function tickClock() {
     $('clock').textContent = new Date().toLocaleTimeString('es');
+    const dl = $('datelineTxt');
+    if (dl) {
+      const d = new Date();
+      dl.textContent = d.toLocaleDateString('es', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
     const t = todayStr();
     const els = document.querySelectorAll('.tour-head .t-date');
     for (let i = 0; i < els.length; i++) els[i].textContent = t;
@@ -2694,8 +2802,19 @@
 
     $('drawSelect').addEventListener('change', e => {
       state.drawTournamentId = e.target.value;
+      state.drawRound = 'todas';
       renderDraws();
     });
+
+    const drawContent = $('drawContent');
+    if (drawContent) {
+      drawContent.addEventListener('click', e => {
+        const chip = e.target.closest('.round-chip');
+        if (!chip) return;
+        state.drawRound = chip.getAttribute('data-round') || 'todas';
+        renderDraws();
+      });
+    }
 
     const rankSearch = $('rankSearch');
     if (rankSearch) {
@@ -2736,26 +2855,6 @@
         state.playerTab = b.dataset.playertab;
         document.querySelectorAll('#segPlayerTab .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderPlayers();
-      });
-    }
-    const segBirthdays = document.getElementById('segBirthdays');
-    if (segBirthdays) {
-      segBirthdays.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.bdTab = b.dataset.bdtab;
-        document.querySelectorAll('#segBirthdays .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        renderBirthdays();
-      });
-    }
-    const segCT = document.getElementById('segCT');
-    if (segCT) {
-      segCT.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.currentTour.tab = b.dataset.ct;
-        document.querySelectorAll('#segCT .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        renderCurrentTour();
       });
     }
     const segWC = document.getElementById('segWC');
@@ -2823,23 +2922,31 @@
       });
     }
 
-    let savedTheme = 'oscuro';
-    try { savedTheme = localStorage.getItem('mhc-theme') || 'oscuro'; } catch (e) {}
-    applyTheme(savedTheme);
-    $('themeSelect').value = state.theme;
-    $('themeSelect').addEventListener('change', e => applyTheme(e.target.value));
+    generateFavicon('#c8102e');
 
-    let savedFont = 'defecto';
-    try { savedFont = localStorage.getItem('mhc-font') || 'defecto'; } catch (e) {}
-    applyFont(savedFont);
-    $('fontSelect').value = state.font;
-    $('fontSelect').addEventListener('change', e => applyFont(e.target.value));
+    const navToggle = $('navToggle');
+    if (navToggle) navToggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
 
-    let savedFsize = 'normal';
-    try { savedFsize = localStorage.getItem('mhc-fsize') || 'normal'; } catch (e) {}
-    applyFsize(savedFsize);
-    $('fsizeSelect').value = state.fsize;
-    $('fsizeSelect').addEventListener('change', e => applyFsize(e.target.value));
+    const themeToggle = $('themeToggle');
+    if (themeToggle) {
+      let mode = 'light';
+      try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
+      if (mode !== 'dark' && mode !== 'fluo') mode = 'light';
+      const applyMode = m => {
+        document.body.setAttribute('data-mode', m);
+        themeToggle.innerHTML = m === 'dark' ? '&#9788;' : (m === 'fluo' ? '&#10038;' : '&#9790;');
+        themeToggle.title = m === 'dark' ? 'Modo claro' : (m === 'fluo' ? 'Modo flúor' : 'Modo oscuro');
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', m === 'dark' ? '#16130e' : (m === 'fluo' ? '#0b0b12' : '#faf7f2'));
+      };
+      applyMode(mode);
+      themeToggle.addEventListener('click', () => {
+        const cur = document.body.getAttribute('data-mode');
+        const next = cur === 'light' ? 'dark' : (cur === 'dark' ? 'fluo' : 'light');
+        applyMode(next);
+        try { localStorage.setItem('mhc-mode', next); } catch (e) {}
+      });
+    }
 
     refreshAll(true);
   }
