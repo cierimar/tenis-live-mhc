@@ -110,6 +110,84 @@ function Save-Json([string]$path, $obj) {
 
 $updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'
 
+$uaLt = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
+
+function Parse-LtRows([string]$html) {
+    $list = [System.Collections.Generic.List[object]]::new()
+    $trMatches = [regex]::Matches($html, '<tr[^>]*>.*?</tr>', 'Singleline')
+    foreach ($tr in $trMatches) {
+        $t = $tr.Value
+        if ($t -notmatch 'class="?pn"?') { continue }
+        $rankM = [regex]::Match($t, 'class="?rk"?>\s*(\d+)')
+        if (-not $rankM.Success) { continue }
+        $nameM = [regex]::Match($t, 'class="?pn"?>\s*(.*?)</td>', 'Singleline')
+        $name = $nameM.Groups[1].Value -replace '<[^>]+>', ''
+        $name = [System.Net.WebUtility]::HtmlDecode($name)
+        $name = (($name -replace '\s+', ' ').Trim()) -replace '^[^\w]+', ''
+        if (-not $name) { continue }
+        $country = ''
+        $cM = [regex]::Match($t, 'class="?sm"?\s+p="?[\d.]+"?>\s*([A-Z]{3})\s*<')
+        if ($cM.Success) { $country = $cM.Groups[1].Value }
+        $afterIdx = if ($cM.Success) { $cM.Index + $cM.Length } else { $nameM.Index + $nameM.Length }
+        $pts = ''
+        $pM = [regex]::Match($t.Substring($afterIdx), '<td>\s*(\d[\d.]*)\s*</td>')
+        if ($pM.Success) { $pts = $pM.Groups[1].Value }
+        $move = 0
+        $mM = [regex]::Match($t, 'class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*<')
+        if ($mM.Success) { [void][int]::TryParse($mM.Groups[1].Value, [ref]$move) }
+        $list.Add([pscustomobject]@{
+            rank = [int]$rankM.Groups[1].Value
+            move = $move
+            name = $name
+            points = $pts
+            country = $country
+        })
+    }
+    return $list
+}
+
+function Get-LtOfficialRows([string]$tour) {
+    $slug = "official-$tour-ranking"
+    $targets = @(
+        @{ u = "https://live-tennis.eu/en/$slug"; j = $false },
+        @{ u = "https://r.jina.ai/https://live-tennis.eu/en/$slug"; j = $true }
+    )
+    foreach ($src in $targets) {
+        for ($try = 1; $try -le 2; $try++) {
+            $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid().ToString() + '.html')
+            $cargs = @('-s','-L','--compressed','--connect-timeout','20','--max-time','90','-A',$uaLt,'-o',$tmp,$src.u)
+            if ($src.j) { $cargs += @('-H','X-Return-Format: html') }
+            & $curl @cargs 2>$null
+            $ok = (Test-Path $tmp) -and ((Get-Item $tmp).Length -gt 20000)
+            if ($ok) {
+                $html = [System.IO.File]::ReadAllText($tmp)
+                Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+                $rows = Parse-LtRows $html
+                if ($rows.Count -ge 500) { return $rows }
+            } else {
+                Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+            }
+            Start-Sleep -Seconds 6
+        }
+    }
+    return $null
+}
+
+foreach ($tour in @('atp', 'wta')) {
+    try {
+        $outFile = Join-Path $outDir "${tour}_singles.json"
+        $rows = Get-LtOfficialRows $tour
+        if ($rows) {
+            Save-Json $outFile @{ ok = $true; updated = $updated; players = $rows }
+            Write-Host "$tour singles: $($rows.Count) filas (live-tennis.eu)"
+        } else {
+            Write-Host "$tour singles: sin datos nuevos; se conserva el archivo anterior si existe"
+        }
+    } catch {
+        Write-Host "$tour singles: error inesperado: $($_.Exception.Message)"
+    }
+}
+
 try {
     $atpHtml = Get-AtpPage 'https://www.atptour.com/en/rankings/doubles'
     if ($atpHtml -and $atpHtml -match 'rankings-breakdown') {
