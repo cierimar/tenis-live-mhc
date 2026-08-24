@@ -620,17 +620,77 @@
   }
 
   async function refreshSofaPoints() {
-    const live = allMatches().filter(m => m.state === 'in' && /^sf-\d+$/.test(String(m.id || '')));
+    const live = allMatches().filter(m => m.state === 'in');
     if (!live.length) return;
-    await Promise.all(live.map(async m => {
+    const targets = [];
+    for (const m of live) {
+      if (/^sf-\d+$/.test(String(m.id || ''))) targets.push([m, String(m.id).slice(3)]);
+    }
+    if (!targets.length) {
+      const map = await sofaEventIdMap();
+      if (map) {
+        for (const m of live) {
+          if (Date.now() - (m.sfFailAt || 0) < 300000) continue;
+          const id = sofaFindId(m, map);
+          if (id) targets.push([m, id]);
+          else m.sfFailAt = Date.now();
+        }
+      }
+    }
+    if (!targets.length) return;
+    await Promise.all(targets.map(async pr => {
+      const m = pr[0];
       try {
-        const id = String(m.id).slice(3);
-        const r = await fetch('https://api.sofascore.com/api/v1/event/' + id + '/point-by-point');
+        const r = await fetch('https://api.sofascore.com/api/v1/event/' + pr[1] + '/point-by-point');
         if (!r.ok) return;
         m.sofaPts = sofaPbpParse(await r.json());
         m.sofaPtsAt = Date.now();
       } catch (e) { /* noop */ }
     }));
+  }
+
+  function sofaLocalDay(d) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  let sofaIdMap = null;
+  let sofaIdMapAt = 0;
+
+  async function sofaEventIdMap() {
+    if (sofaIdMap && Date.now() - sofaIdMapAt < 300000) return sofaIdMap;
+    const days = [-86400000, 0, 86400000].map(off => sofaLocalDay(new Date(Date.now() + off)));
+    const map = new Map();
+    await Promise.all(days.map(async d => {
+      try {
+        const r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + d);
+        if (!r.ok) return;
+        const j = await r.json();
+        for (const ev of (j.events || [])) {
+          const hN = taNorm((ev.homeTeam || {}).name || '');
+          const aN = taNorm((ev.awayTeam || {}).name || '');
+          if (!hN || !aN) continue;
+          map.set(hN + '|' + aN, String(ev.id));
+          map.set(aN + '|' + hN, String(ev.id));
+        }
+      } catch (e) { /* noop */ }
+    }));
+    if (map.size) { sofaIdMap = map; sofaIdMapAt = Date.now(); }
+    return sofaIdMap;
+  }
+
+  function sofaPairMatch(x, y) { return !!x && !!y && (x === y || x.indexOf(y) > -1 || y.indexOf(x) > -1); }
+
+  function sofaFindId(m, map) {
+    const cs = m.competitors || [];
+    const n0 = taNorm((cs[0] || {}).name || '');
+    const n1 = taNorm((cs[1] || {}).name || '');
+    if (!n0 || !n1) return null;
+    for (const kv of map) {
+      const parts = kv[0].split('|');
+      if ((sofaPairMatch(n0, parts[0]) && sofaPairMatch(n1, parts[1])) ||
+          (sofaPairMatch(n0, parts[1]) && sofaPairMatch(n1, parts[0]))) return kv[1];
+    }
+    return null;
   }
 
   function taNorm(s) {
