@@ -572,6 +572,216 @@ body[data-mode='argentina'] .set.live-set { background: #f6b40e; color: #070a10;
 body[data-mode='argentina'] .rank-section-title { color: #74acdf; }
 body[data-mode='argentina'] .seed-badge { border-color: #f6b40e; color: #f6b40e; }
 
+/* ---------------- modo WIMBLEDON (pastel y violeta) ---------------- */
+
+body[data-mode='wimbledon'] {
+  --paper: #0e1f16;
+  --paper-2: #14291d;
+  --paper-3: #1b3526;
+  --ink: #f4f9f2;
+  --ink-2: #cfe0cd;
+  --muted: #93ab94;
+  --hairline: rgba(180, 255, 200, 0.18);
+  --hairline-dark: rgba(180, 255, 200, 0.36);
+  --red: #8a63d2;
+  --red-dark: #a98ae6;
+  --red-vivo: #7ac74f;
+  --red-soft: rgba(138, 99, 210, 0.14);
+  --green: #7ac74f;
+  --amber: #e8d48b;
+  --shadow: none;
+}
+body[data-mode='wimbledon'] ::selection { background: #8a63d2; color: #fff; }
+body[data-mode='wimbledon'] .gender-badge.gender-m { border-color: #9cc8f0; color: #9cc8f0; }
+body[data-mode='wimbledon'] .news-card img { filter: brightness(0.92); }
+body[data-mode='wimbledon'] .video-play { background: rgba(8, 18, 12, 0.35); }
+
+body[data-mode='wimbledon'] .nameplate h1 {
+  background: linear-gradient(90deg, #3f8f4f, #7ac74f, #8a63d2, #a98ae6, #3f8f4f);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 7s linear infinite;
+}
+body[data-mode='wimbledon'] .nameplate .np-red { color: inherit; }
+body[data-mode='wimbledon'] .tagline { color: #7ac74f; }
+
+body[data-mode='wimbledon'] .tab.active {
+  border-color: #8a63d2;
+  color: #7ac74f;
+  box-shadow: 0 0 12px rgba(138, 99, 210, 0.50), inset 0 0 10px rgba(122, 199, 79, 0.15);
+}
+body[data-mode='wimbledon'] .tour-head { border-color: #8a63d2; box-shadow: 0 0 14px rgba(138, 99, 210, 0.35); }
+body[data-mode='wimbledon'] .live-pill,
+body[data-mode='wimbledon'] .ball { border-color: #e8d48b; }
+body[data-mode='wimbledon'] .live-pill { color: #e8d48b; }
+body[data-mode='wimbledon'] .clock {
+  color: #7ac74f;
+  border-color: #7ac74f;
+  text-shadow: 0 0 8px rgba(122, 199, 79, 0.60);
+}
+
+body[data-mode='wimbledon'] .match:nth-of-type(3n+1) { border-color: #7ac74f; }
+body[data-mode='wimbledon'] .match:nth-of-type(3n+2) { border-color: #8a63d2; }
+body[data-mode='wimbledon'] .match:nth-of-type(3n+3) { border-color: #e8d48b; }
+body[data-mode='wimbledon'] .match.live {
+  border-left-color: #e8d48b;
+  background: linear-gradient(90deg, rgba(232, 212, 139, 0.10), transparent 65%);
+}
+body[data-mode='wimbledon'] .set.win { color: #7ac74f; font-weight: 800; }
+body[data-mode='wimbledon'] .set.live-set { background: #8a63d2; color: #fff; }
+
+body[data-mode='wimbledon'] .rank-section-title { color: #8a63d2; }
+body[data-mode='wimbledon'] .seed-badge { border-color: #e8d48b; color: #e8d48b; }
+
+/* ---------------- modo ROLAND GARROS (arcilla) ---------------- */
+
+body[data-mode='rolandgarros'] {
+  --paper: #201008;
+  --paper-2: #2a160c;
+  --paper-3: #361d10;
+  --ink: #fff3ea;
+  --ink-2: #ecd5c4;
+  --muted: #b39380;
+  --hairline: rgba(255, 150, 90, 0.20);
+  --hairline-dark: rgba(255, 150, 90, 0.38);
+  --red: #e8551f;
+  --red-dark: #ff7a42;
+  --red-vivo: #ffb03a;
+  --red-soft: rgba(232, 85, 31, 0.15);
+  --green: #ffcf5c;
+  --amber: #ff9a3d;
+  --shadow: none;
+}
+body[data-mode='rolandgarros'] ::selection { background: #e8551f; color: #fff; }
+body[data-mode='rolandgarros'] .gender-badge.gender-m { border-color: #ffb27d; color: #ffb27d; }
+body[data-mode='rolandgarros'] .news-card img { filter: saturate(1.1) brightness(0.92); }
+body[data-mode='rolandgarros'] .video-play { background: rgba(26, 10, 4, 0.35); }
+
+body[data-mode='rolandgarros'] .nameplate h1 {
+  background: linear-gradient(90deg, #b33a12, #e8551f, #ff9a3d, #ffcf5c, #b33a12);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 7s linear infinite;
+}
+body[data-mode='rolandgarros'] .nameplate .np-red { color: inherit; }
+body[data-mode='rolandgarros'] .tagline { color: #ff9a3d; }
+
+body[data-mode='rolandgarros'] .tab.active {
+  border-color: #ff9a3d;
+  color: #ffcf5c;
+  box-shadow: 0 0 12px rgba(255, 154, 61, 0.50), inset 0 0 10px rgba(232, 85, 31, 0.20);
+}
+body[data-mode='rolandgarros'] .tour-head { border-color: #e8551f; box-shadow: 0 0 14px rgba(232, 85, 31, 0.40); }
+body[data-mode='rolandgarros'] .live-pill,
+body[data-mode='rolandgarros'] .ball { border-color: #ffcf5c; }
+body[data-mode='rolandgarros'] .live-pill { color: #ffcf5c; }
+body[data-mode='rolandgarros'] .clock {
+  color: #ff9a3d;
+  border-color: #ff9a3d;
+  text-shadow: 0 0 8px rgba(255, 154, 61, 0.65);
+}
+
+body[data-mode='rolandgarros'] .match:nth-of-type(3n+1) { border-color: #e8551f; }
+body[data-mode='rolandgarros'] .match:nth-of-type(3n+2) { border-color: #ff9a3d; }
+body[data-mode='rolandgarros'] .match:nth-of-type(3n+3) { border-color: #ffcf5c; }
+body[data-mode='rolandgarros'] .match.live {
+  border-left-color: #ffcf5c;
+  background: linear-gradient(90deg, rgba(255, 207, 92, 0.11), transparent 65%);
+}
+body[data-mode='rolandgarros'] .set.win { color: #ffcf5c; font-weight: 800; }
+body[data-mode='rolandgarros'] .set.live-set { background: #e8551f; color: #fff; }
+
+body[data-mode='rolandgarros'] .rank-section-title { color: #ff9a3d; }
+body[data-mode='rolandgarros'] .seed-badge { border-color: #ffcf5c; color: #ffcf5c; }
+
+/* ---------------- modo SYNTHWAVE (atardecer retro) ---------------- */
+
+body[data-mode='synthwave'] {
+  --paper: #12081f;
+  --paper-2: #1a0d2e;
+  --paper-3: #241341;
+  --ink: #fdf3ff;
+  --ink-2: #e2c8f0;
+  --muted: #a68cc0;
+  --hairline: rgba(255, 100, 220, 0.18);
+  --hairline-dark: rgba(255, 100, 220, 0.36);
+  --red: #ff2975;
+  --red-dark: #ff6bb5;
+  --red-vivo: #ff9e4d;
+  --red-soft: rgba(255, 41, 117, 0.13);
+  --green: #00e5ff;
+  --amber: #ffe45c;
+  --shadow: none;
+}
+body[data-mode='synthwave'] ::selection { background: #ff2975; color: #fff; }
+body[data-mode='synthwave'] .gender-badge.gender-m { border-color: #7df3ff; color: #7df3ff; }
+body[data-mode='synthwave'] .news-card img { filter: saturate(1.15) brightness(0.92); }
+body[data-mode='synthwave'] .video-play { background: rgba(12, 4, 22, 0.35); }
+
+body[data-mode='synthwave'] .nameplate h1 {
+  background: linear-gradient(90deg, #ff2975, #ff9e4d, #ffe45c, #ff6bb5, #ff2975);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 5s linear infinite;
+}
+body[data-mode='synthwave'] .nameplate .np-red { color: inherit; }
+body[data-mode='synthwave'] .tagline { color: #ff9e4d; }
+
+body[data-mode='synthwave'] .tab.active {
+  border-color: #00e5ff;
+  color: #ff9e4d;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.50), inset 0 0 10px rgba(255, 41, 117, 0.20);
+}
+body[data-mode='synthwave'] .tour-head { border-color: #ff2975; box-shadow: 0 0 14px rgba(255, 41, 117, 0.45); }
+body[data-mode='synthwave'] .live-pill,
+body[data-mode='synthwave'] .ball { border-color: #00e5ff; }
+body[data-mode='synthwave'] .live-pill { color: #00e5ff; }
+body[data-mode='synthwave'] .clock {
+  color: #00e5ff;
+  border-color: #00e5ff;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.70);
+}
+
+body[data-mode='synthwave'] .match:nth-of-type(3n+1) { border-color: #ff2975; }
+body[data-mode='synthwave'] .match:nth-of-type(3n+2) { border-color: #00e5ff; }
+body[data-mode='synthwave'] .match:nth-of-type(3n+3) { border-color: #ff9e4d; }
+body[data-mode='synthwave'] .match.live {
+  border-left-color: #ffe45c;
+  background: linear-gradient(90deg, rgba(255, 228, 92, 0.10), transparent 65%);
+}
+body[data-mode='synthwave'] .set.win { color: #00e5ff; font-weight: 800; }
+body[data-mode='synthwave'] .set.live-set { background: #ff2975; color: #fff; }
+
+body[data-mode='synthwave'] .rank-section-title { color: #ff9e4d; }
+body[data-mode='synthwave'] .seed-badge { border-color: #ffe45c; color: #ffe45c; }
+
+/* ---------------- modo LECTURA (sepia calido) ---------------- */
+
+body[data-mode='lectura'] {
+  --paper: #f7eedd;
+  --paper-2: #f0e3ca;
+  --paper-3: #e6d5b4;
+  --ink: #3d2f1e;
+  --ink-2: #5f4c33;
+  --muted: #8a7454;
+  --hairline: #ddcba8;
+  --hairline-dark: #c4ac82;
+  --red: #a0522d;
+  --red-dark: #7d3f22;
+  --red-vivo: #b85c1e;
+  --red-soft: rgba(160, 82, 45, 0.09);
+  --green: #4e6e3d;
+  --amber: #9c6b1a;
+  --shadow: 0 1px 3px rgba(61, 47, 30, 0.08);
+}
+body[data-mode='lectura'] ::selection { background: #b85c1e; color: #fff; }
+
 
 html { scroll-behavior: smooth; }
 
@@ -665,6 +875,10 @@ body[data-mode='verdefluor'] .mode-label { color: #39ff14; }
 body[data-mode='arcoiris'] .mode-label { color: #ff9500; }
 body[data-mode='graffiti'] .mode-label { color: #ff9100; }
 body[data-mode='argentina'] .mode-label { color: #74acdf; }
+body[data-mode='wimbledon'] .mode-label { color: #7ac74f; }
+body[data-mode='rolandgarros'] .mode-label { color: #ff9a3d; }
+body[data-mode='synthwave'] .mode-label { color: #ff2975; }
+body[data-mode='lectura'] .mode-label { color: #a0522d; }
 
 .tagline {
   font-family: var(--serif); font-style: italic; font-weight: 600;
