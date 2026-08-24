@@ -3015,20 +3015,24 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
+      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa'];
+      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;' };
+      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa' };
+      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef' };
       let mode = 'light';
       try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
-      if (mode !== 'dark' && mode !== 'fluo') mode = 'light';
+      if (MODES.indexOf(mode) === -1) mode = 'light';
       const applyMode = m => {
         document.body.setAttribute('data-mode', m);
-        themeToggle.innerHTML = m === 'dark' ? '&#9788;' : (m === 'fluo' ? '&#10038;' : '&#9790;');
-        themeToggle.title = m === 'dark' ? 'Modo claro' : (m === 'fluo' ? 'Modo flúor' : 'Modo oscuro');
+        themeToggle.innerHTML = ICONS[m] || ICONS.light;
+        themeToggle.title = TITLES[m] || TITLES.light;
         const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', m === 'dark' ? '#16130e' : (m === 'fluo' ? '#0b0b12' : '#faf7f2'));
+        if (meta) meta.setAttribute('content', METACOLORS[m] || METACOLORS.light);
       };
       applyMode(mode);
       themeToggle.addEventListener('click', () => {
         const cur = document.body.getAttribute('data-mode');
-        const next = cur === 'light' ? 'dark' : (cur === 'dark' ? 'fluo' : 'light');
+        const next = MODES[(MODES.indexOf(cur) + 1) % MODES.length];
         applyMode(next);
         try { localStorage.setItem('mhc-mode', next); } catch (e) {}
       });
