@@ -3026,6 +3026,8 @@
         document.body.setAttribute('data-mode', m);
         themeToggle.innerHTML = ICONS[m] || ICONS.light;
         themeToggle.title = TITLES[m] || TITLES.light;
+        const lbl = document.getElementById('modeLabel');
+        if (lbl) lbl.textContent = TITLES[m] || TITLES.light;
         const meta = document.querySelector('meta[name="theme-color"]');
         if (meta) meta.setAttribute('content', METACOLORS[m] || METACOLORS.light);
       };
