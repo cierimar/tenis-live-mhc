@@ -642,10 +642,12 @@
       const m = pr[0];
       try {
         const r = await fetch('https://api.sofascore.com/api/v1/event/' + pr[1] + '/point-by-point');
-        if (!r.ok) return;
-        m.sofaPts = sofaPbpParse(await r.json());
-        m.sofaPtsAt = Date.now();
-      } catch (e) { /* noop */ }
+        if (!r.ok) { m.pbpDbg = pr[1] + ':HTTP' + r.status; return; }
+        const j = await r.json();
+        m.sofaPts = sofaPbpParse(j);
+        if (m.sofaPts) m.sofaPtsAt = Date.now();
+        m.pbpDbg = pr[1] + ':HTTP' + r.status + ':' + JSON.stringify(m.sofaPts);
+      } catch (e) { m.pbpDbg = pr[1] + ':ERR:' + e.message; }
     }));
   }
 
@@ -662,15 +664,26 @@
     const map = new Map();
     await Promise.all(days.map(async d => {
       try {
-        const r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + d);
+        let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/1');
         if (!r.ok) return;
-        const j = await r.json();
-        for (const ev of (j.events || [])) {
-          const hN = taNorm((ev.homeTeam || {}).name || '');
-          const aN = taNorm((ev.awayTeam || {}).name || '');
-          if (!hN || !aN) continue;
-          map.set(hN + '|' + aN, String(ev.id));
-          map.set(aN + '|' + hN, String(ev.id));
+        const tours = [];
+        for (let pg = 1; pg <= 4; pg++) {
+          if (pg > 1) r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/' + pg);
+          if (!r.ok) break;
+          const jp = await r.json();
+          const list = (jp && jp.tournaments) || [];
+          if (!list.length) break;
+          tours.push(...list);
+          if (list.length < 20) break;
+        }
+        for (const tt of tours) {
+          for (const ev of ((tt && tt.events) || [])) {
+            const hN = taNorm((ev.homeTeam || {}).name || '');
+            const aN = taNorm((ev.awayTeam || {}).name || '');
+            if (!hN || !aN) continue;
+            map.set(hN + '|' + aN, String(ev.id));
+            map.set(aN + '|' + hN, String(ev.id));
+          }
         }
       } catch (e) { /* noop */ }
     }));
@@ -1510,7 +1523,8 @@
         '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
     }
-    el.innerHTML = html;
+    const dbg = list.filter(m => m.state === 'in').map(m => (m.competitors[0] || {}).name + ' vs ' + (m.competitors[1] || {}).name + ' => ' + (m.pbpDbg || 'sin intento')).join('\n');
+    el.innerHTML = html + (dbg ? '<pre style="font:11px monospace;color:#c8102e;white-space:pre-wrap;margin-top:10px">DEBUG PBP:\n' + esc(dbg) + '</pre>' : '');
     const srcLabel = (function () {
       if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
       const sm = state.sofaMeta;
