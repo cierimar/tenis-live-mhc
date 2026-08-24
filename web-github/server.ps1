@@ -325,41 +325,6 @@ function Get-TennisComServing {
     }
 }
 
-function Get-TodaysBirthdays {
-    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
-    $tmp = [System.IO.Path]::GetTempFileName()
-    try {
-        $args = @('-s', '--compressed', '--max-time', '20', '-L', '-A', $ua,
-            '-H', 'Accept: text/html,*/*',
-            '-o', $tmp, 'https://tennisabstract.com/reports/todays_birthdays.html')
-        & curl.exe @args | Out-Null
-        $html = [System.IO.File]::ReadAllText($tmp)
-        $players = [System.Collections.Generic.List[object]]::new()
-        $rowPattern = [regex]::Matches($html, '<tr><td[^>]*>(M|W)</td><td[^>]*><a[^>]*>([^<]+)</a></td><td[^>]*>([A-Z]{3})</td><td[^>]*>(\d*)</td><td[^>]*>(\d*|)</td><td[^>]*>(\d*|)</td></tr>')
-        foreach ($m in $rowPattern) {
-            $gender = $m.Groups[1].Value
-            $name = $m.Groups[2].Value.Trim()
-            $country = $m.Groups[3].Value
-            $age = if ($m.Groups[4].Value) { [int]$m.Groups[4].Value } else { 0 }
-            $currentRank = if ($m.Groups[5].Value) { [int]$m.Groups[5].Value } else { 0 }
-            $peakRank = if ($m.Groups[6].Value) { [int]$m.Groups[6].Value } else { 0 }
-            [void]$players.Add([pscustomobject]@{
-                gender = $gender
-                name = $name
-                country = $country
-                age = $age
-                currentRank = $currentRank
-                peakRank = $peakRank
-            })
-        }
-        return @{ ok = $true; date = (Get-Date).ToString('yyyy-MM-dd'); players = $players }
-    } catch {
-        return @{ ok = $false; error = $_.Exception.Message; players = @() }
-    } finally {
-        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
-    }
-}
-
 $ItfFetchSb = {
     param($slug)
     $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
@@ -537,6 +502,26 @@ function Get-TennisNews {
                     $desc = ([Net.WebUtility]::HtmlDecode($descNode.InnerText) -replace '&nbsp;', ' ' -replace '\s+', ' ').Trim()
                     if ($desc.Length -gt 300) { $desc = $desc.Substring(0, 300) + '...' }
                 }
+                $img = ''
+                try {
+                    $encNode = $item.SelectSingleNode('enclosure')
+                    if ($encNode) {
+                        $et = [string]$encNode.GetAttribute('type')
+                        if ($et -like 'image*') { $img = [string]$encNode.GetAttribute('url') }
+                    }
+                } catch {}
+                if (-not $img) {
+                    try {
+                        $rawItem = $item.OuterXml
+                        if ($rawItem -match '<media:(content|thumbnail)[^>]*url="([^"]+)"') { $img = [Net.WebUtility]::HtmlDecode($Matches[2]) }
+                    } catch {}
+                }
+                if (-not $img) {
+                    $dm = [regex]::Match($desc, '<img[^>]*src="([^"]+)"')
+                    if ($dm.Success) { $img = [Net.WebUtility]::HtmlDecode($dm.Groups[1].Value) }
+                }
+                if ($img -and $img -notmatch '^https?://') { $img = '' }
+                $desc = (($desc -replace '<[^>]+>', ' ') -replace '\s+', ' ').Trim()
                 [void]$out.Add([pscustomobject]@{
                     id = [guid]::NewGuid().ToString('N')
                     title = $title
@@ -544,12 +529,36 @@ function Get-TennisNews {
                     published = $pubIso
                     source = $f.source
                     description = $desc
+                    image = $img
                 })
             }
         } catch {
             try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
         }
     }
+    try {
+        $needImg = @($out | Where-Object { $_.source -eq 'Punto de Break' -and -not $_.image })
+        if ($needImg.Count -gt 0) {
+            $homeHtml = Get-WebFile 'https://www.puntodebreak.com/' 'Mozilla/5.0'
+            if ($homeHtml -and $homeHtml.Length -gt 5000) {
+                $imgMap = @{}
+                foreach ($mm in [regex]::Matches($homeHtml, '(?:data-src|src)="(/sites/puntodebreak/files/[^"]+)"')) {
+                    $u2 = (($mm.Groups[1].Value) -split '\?')[0]
+                    $fname = ($u2 -split '/')[-1]
+                    $core = ($fname -replace '\.avif$', '' -replace '\.webp$', '' -replace '\.(jpg|jpeg|png|gif)$', '').ToLower()
+                    if ($core -and $imgMap.ContainsKey($core) -eq $false -and $core.Length -gt 8) { $imgMap[$core] = 'https://www.puntodebreak.com' + $u2 }
+                }
+                foreach ($it2 in $out) {
+                    if ($it2.source -eq 'Punto de Break' -and -not $it2.image) {
+                        $seg = (($it2.link -split '\?')[0]).TrimEnd('/').Split('/')[-1].ToLower()
+                        if ($seg -and $imgMap.ContainsKey($seg)) {
+                            $it2 | Add-Member -NotePropertyName image -NotePropertyValue $imgMap[$seg] -Force
+                        }
+                    }
+                }
+            }
+        }
+    } catch {}
     $sorted = @($out | Sort-Object @{ Expression = { try { [datetime]$_.published } catch { [datetime]::MinValue } }; Descending = $true })
     if ($sorted.Count -gt 60) { $sorted = $sorted[0..59] }
     return @{ ok = ($sorted.Count -gt 0); updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; items = @($sorted) }
@@ -1325,7 +1334,7 @@ function Get-LiveRanking([string]$tour, [bool]$isRace, [bool]$isOfficial) {
         $pM = [regex]::Match($t.Substring($afterIdx), '<td>\s*(\d[\d.]*)\s*</td>')
         if ($pM.Success) { $pts = $pM.Groups[1].Value }
         $move = 0
-        $mM = [regex]::Match($t, 'class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*<')
+        $mM = [regex]::Match($t, 'class="?rdf"?>\s*([+-]?\d+)\s*<')
         if ($mM.Success) { $move = [int]$mM.Groups[1].Value }
         $rows += @{ rank = [int]$rankM.Groups[1].Value; name = $name; country = $country; points = $pts; move = $move }
     }
@@ -1355,7 +1364,8 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
             $tour = if ($q['tour'] -eq 'wta') { 'wta' } else { 'atp' }
             $isRace = ($q['race'] -eq '1')
             $isOfficial = ($q['official'] -eq '1')
-            $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isRace $isOfficial } 300
+            $tltl = if ($isOfficial) { 300 } else { 60 }
+$data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isRace $isOfficial } $tltl
             Send-Json $resp $data
             return
         }
@@ -1453,11 +1463,6 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
             }
             $key = ("stats_{0}_vs_{1}" -f ($n1 -replace '\s+','_'), ($n2 -replace '\s+','_')).ToLower()
             $data = Get-Cached $key { Get-MatchStats $n1 $n2 } 3600
-            Send-Json $resp $data
-            return
-        }
-        if ($path -eq '/api/birthdays') {
-            $data = Get-Cached 'todays_birthdays' { Get-TodaysBirthdays } 3600
             Send-Json $resp $data
             return
         }
