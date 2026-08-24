@@ -89,6 +89,7 @@ body[data-mode='fluo'] .tab.active {
 body[data-mode='fluo'] .tour-head { border-color: #ff10f0; box-shadow: 0 0 14px rgba(255,16,240,0.35); }
 body[data-mode='fluo'] .live-pill,
 body[data-mode='fluo'] .ball { border-color: #ffe600; }
+body[data-mode='fluo'] .live-pill { color: #ffe600; }
 body[data-mode='fluo'] .clock {
   color: #39ff14;
   border-color: #39ff14;
@@ -142,6 +143,16 @@ button { font-family: inherit; cursor: pointer; }
 .live-pill {
   display: inline-flex; align-items: center; gap: 6px;
   color: var(--red); font-weight: 700; letter-spacing: 0.14em;
+  padding: 3px 12px;
+  border: 2px solid currentColor; border-radius: 999px;
+  text-shadow: 0 0 7px color-mix(in srgb, currentColor 60%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, currentColor 40%, transparent),
+              inset 0 0 8px color-mix(in srgb, currentColor 15%, transparent);
+  animation: liveGlow 2.2s ease-in-out infinite;
+}
+@keyframes liveGlow {
+  0%, 100% { box-shadow: 0 0 12px color-mix(in srgb, currentColor 40%, transparent), inset 0 0 8px color-mix(in srgb, currentColor 15%, transparent); }
+  50% { box-shadow: 0 0 20px color-mix(in srgb, currentColor 65%, transparent), inset 0 0 12px color-mix(in srgb, currentColor 25%, transparent); }
 }
 .live-pill .dot {
   width: 8px; height: 8px; border-radius: 50%;
