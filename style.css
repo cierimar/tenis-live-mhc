@@ -674,33 +674,42 @@ main { max-width: 1180px; margin: 0 auto; padding: 8px 22px 40px; }
 
 /* ---------------- noticias ---------------- */
 
+.news-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px; align-items: stretch;
+}
 .news-card {
-  border-bottom: 1px solid var(--hairline);
-  padding: 16px 2px;
-  display: grid; grid-template-columns: 150px 1fr; gap: 16px;
+  border: 2px solid var(--ink);
+  background: color-mix(in srgb, var(--paper) 88%, var(--ink));
+  display: flex; flex-direction: column;
   text-decoration: none;
+  padding-bottom: 12px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
-.news-card:hover { background: var(--red-soft); }
-.news-thumb, .news-thumb-placeholder {
-  width: 150px; height: 100px; object-fit: cover; display: block;
-  filter: grayscale(20%) contrast(1.02);
-  border: 1px solid var(--hairline-dark);
+.news-card:hover {
+  background: var(--red-soft);
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0 rgba(25,21,18,0.85);
 }
-.news-thumb-placeholder { background: repeating-linear-gradient(45deg, var(--paper-3), var(--paper-3) 7px, var(--paper-2) 7px, var(--paper-2) 14px); }
-.news-body { min-width: 0; }
-.news-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.news-thumb {
+  width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; display: block;
+  filter: grayscale(15%) contrast(1.02);
+  border-bottom: 2px solid var(--ink);
+}
+.news-body { min-width: 0; padding: 12px 12px 0; flex: 1; }
+.news-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
 .news-source {
   font-size: 9.5px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--red);
 }
-.news-time { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.news-time { font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
 .news-title {
-  font-family: var(--serif); font-weight: 700; font-size: 19px; line-height: 1.25;
-  margin: 4px 0 6px;
+  font-family: var(--serif); font-weight: 700; font-size: 17px; line-height: 1.3;
+  margin: 6px 0 6px;
 }
 .news-title a { text-decoration: none; color: var(--ink); }
 .news-title a:hover { color: var(--red); }
-.news-desc { font-size: 13.5px; color: var(--ink-2); max-width: 70ch; }
+.news-desc { font-size: 12.5px; color: var(--ink-2); }
 
 .gender-badge {
   font-size: 9px; font-weight: 800; letter-spacing: 0.1em;
