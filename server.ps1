@@ -537,6 +537,26 @@ function Get-TennisNews {
                     $desc = ([Net.WebUtility]::HtmlDecode($descNode.InnerText) -replace '&nbsp;', ' ' -replace '\s+', ' ').Trim()
                     if ($desc.Length -gt 300) { $desc = $desc.Substring(0, 300) + '...' }
                 }
+                $img = ''
+                try {
+                    $encNode = $item.SelectSingleNode('enclosure')
+                    if ($encNode) {
+                        $et = [string]$encNode.GetAttribute('type')
+                        if ($et -like 'image*') { $img = [string]$encNode.GetAttribute('url') }
+                    }
+                } catch {}
+                if (-not $img) {
+                    try {
+                        $rawItem = $item.OuterXml
+                        if ($rawItem -match '<media:(content|thumbnail)[^>]*url="([^"]+)"') { $img = [Net.WebUtility]::HtmlDecode($Matches[2]) }
+                    } catch {}
+                }
+                if (-not $img) {
+                    $dm = [regex]::Match($desc, '<img[^>]*src="([^"]+)"')
+                    if ($dm.Success) { $img = [Net.WebUtility]::HtmlDecode($dm.Groups[1].Value) }
+                }
+                if ($img -and $img -notmatch '^https?://') { $img = '' }
+                $desc = (($desc -replace '<[^>]+>', ' ') -replace '\s+', ' ').Trim()
                 [void]$out.Add([pscustomobject]@{
                     id = [guid]::NewGuid().ToString('N')
                     title = $title
@@ -544,12 +564,36 @@ function Get-TennisNews {
                     published = $pubIso
                     source = $f.source
                     description = $desc
+                    image = $img
                 })
             }
         } catch {
             try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
         }
     }
+    try {
+        $needImg = @($out | Where-Object { $_.source -eq 'Punto de Break' -and -not $_.image })
+        if ($needImg.Count -gt 0) {
+            $homeHtml = Get-WebFile 'https://www.puntodebreak.com/' 'Mozilla/5.0'
+            if ($homeHtml -and $homeHtml.Length -gt 5000) {
+                $imgMap = @{}
+                foreach ($mm in [regex]::Matches($homeHtml, '(?:data-src|src)="(/sites/puntodebreak/files/[^"]+)"')) {
+                    $u2 = (($mm.Groups[1].Value) -split '\?')[0]
+                    $fname = ($u2 -split '/')[-1]
+                    $core = ($fname -replace '\.avif$', '' -replace '\.webp$', '' -replace '\.(jpg|jpeg|png|gif)$', '').ToLower()
+                    if ($core -and $imgMap.ContainsKey($core) -eq $false -and $core.Length -gt 8) { $imgMap[$core] = 'https://www.puntodebreak.com' + $u2 }
+                }
+                foreach ($it2 in $out) {
+                    if ($it2.source -eq 'Punto de Break' -and -not $it2.image) {
+                        $seg = (($it2.link -split '\?')[0]).TrimEnd('/').Split('/')[-1].ToLower()
+                        if ($seg -and $imgMap.ContainsKey($seg)) {
+                            $it2 | Add-Member -NotePropertyName image -NotePropertyValue $imgMap[$seg] -Force
+                        }
+                    }
+                }
+            }
+        }
+    } catch {}
     $sorted = @($out | Sort-Object @{ Expression = { try { [datetime]$_.published } catch { [datetime]::MinValue } }; Descending = $true })
     if ($sorted.Count -gt 60) { $sorted = $sorted[0..59] }
     return @{ ok = ($sorted.Count -gt 0); updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; items = @($sorted) }
@@ -1355,7 +1399,8 @@ function Handle-Request([System.Net.HttpListenerContext]$ctx) {
             $tour = if ($q['tour'] -eq 'wta') { 'wta' } else { 'atp' }
             $isRace = ($q['race'] -eq '1')
             $isOfficial = ($q['official'] -eq '1')
-            $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isRace $isOfficial } 300
+            $tltl = if ($isOfficial) { 300 } else { 60 }
+$data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isRace $isOfficial } $tltl
             Send-Json $resp $data
             return
         }
