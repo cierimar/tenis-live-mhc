@@ -5,7 +5,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
-$cache = @{}
+$cache = [System.Collections.Hashtable]::Synchronized(@{})
 
 function Get-Cached([string]$key, [scriptblock]$fn, [int]$ttlSeconds) {
     $now = Get-Date
@@ -106,7 +106,7 @@ function Get-WebFile([string]$url, [string]$UserAgent = 'Mozilla/5.0 (Windows NT
             }
             return $text
         } catch {
-            try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) URL=$url ERR=$($_.Exception.Message)" } catch {}
+            try { Add-Content -Path (Join-Path $root 'server_debug.log') -Value "$(Get-Date -Format s) URL=$url ERR=$($_.Exception.Message)" } catch {}
             Start-Sleep -Seconds 3
         } finally {
             Remove-Item $tmp -Force -ErrorAction SilentlyContinue
@@ -533,7 +533,7 @@ function Get-TennisNews {
                 })
             }
         } catch {
-            try { Add-Content -Path (Join-Path $PSScriptRoot 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
+            try { Add-Content -Path (Join-Path $root 'server_debug.log') -Value "$(Get-Date -Format s) NEWS feed=$($f.url) ERR=$($_.Exception.Message)" } catch {}
         }
     }
     try {
@@ -607,6 +607,76 @@ function Get-TournamentCalendar {
         })
     }
     return @{ ok = $true; circuit = $Circuit; tournaments = $out }
+}
+
+function Get-ChallengerCalendar {
+    $url = 'https://www.atptour.com/en/-/tournaments/calendar/challenger'
+    $tmp = [System.IO.Path]::GetTempFileName()
+    try {
+        curl.exe -s -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36' -H 'Referer: https://www.atptour.com/en/atp-challenger-tour/calendar' -o $tmp --max-time 30 $url | Out-Null
+        $json = [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8)
+    } finally {
+        Remove-Item -LiteralPath $tmp -ErrorAction SilentlyContinue
+    }
+    if (-not $json -or $json.Length -lt 50) { return @{ ok = $false; circuit = 'chall'; tournaments = @() } }
+    $parsed = $null
+    try { $parsed = $json | ConvertFrom-Json } catch {}
+    if (-not $parsed -or -not $parsed.TournamentDates) { return @{ ok = $false; circuit = 'chall'; tournaments = @() } }
+    $inv = [Globalization.CultureInfo]::InvariantCulture
+    function Parse-ChallDate([string]$fd, [string]$fallbackMonth) {
+        if (-not $fd) { return '' }
+        $m = [regex]::Match($fd, '^(\d{1,2})\s*(?:([A-Za-z]+)\s*)?-\s*\d{1,2}\s+([A-Za-z]+),\s*(\d{4})$')
+        if (-not $m.Success) { return '' }
+        $day = $m.Groups[1].Value
+        $monName = if ($m.Groups[2].Value) { $m.Groups[2].Value } else { $m.Groups[3].Value }
+        $year = $m.Groups[4].Value
+        try {
+            $mon = [datetime]::ParseExact($monName, 'MMMM', $inv).Month.ToString('00')
+            return "$year-$mon-$($day.PadLeft(2, '0'))"
+        } catch {
+            try {
+                $mon = [datetime]::ParseExact($fallbackMonth, 'MMMM', $inv).Month.ToString('00')
+                return "$year-$mon-$($day.PadLeft(2, '0'))"
+            } catch { return '' }
+        }
+    }
+    function Parse-ChallEndDate([string]$fd) {
+        if (-not $fd) { return '' }
+        $m = [regex]::Match($fd, '^\d{1,2}(?:\s+[A-Za-z]+)?\s*-\s*(\d{1,2})\s+([A-Za-z]+),\s*(\d{4})$')
+        if (-not $m.Success) { return '' }
+        try {
+            $mon = [datetime]::ParseExact($m.Groups[2].Value, 'MMMM', $inv).Month.ToString('00')
+            return "$($m.Groups[3].Value)-$mon-$($m.Groups[1].Value.PadLeft(2, '0'))"
+        } catch { return '' }
+    }
+    $today = (Get-Date).ToString('yyyy-MM-dd')
+    $out = New-Object System.Collections.ArrayList
+    foreach ($month in $parsed.TournamentDates) {
+        $fbMon = ''
+        if ($month.DisplayDate -match '^([A-Za-z]+)') { $fbMon = $Matches[1] }
+        foreach ($t in $month.Tournaments) {
+            $start = Parse-ChallDate $t.FormattedDate $fbMon
+            $end = Parse-ChallEndDate $t.FormattedDate
+            $isNow = $false
+            if ($t.IsLive) { $isNow = $true }
+            elseif ($start -and $end -and $today -ge $start -and $today -le $end) { $isNow = $true }
+            elseif (-not $end -and $start -and $today.Substring(0,7) -eq $start.Substring(0,7)) { $isNow = $today -ne '' }
+            [void]$out.Add([pscustomobject]@{
+                date     = $start
+                endDate  = $end
+                name     = (($t.Name -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+                circuit  = 'chall'
+                surface  = $t.Surface
+                prize    = $t.TotalFinancialCommitment
+                draw     = if ($t.SglDrawSize) { [int]$t.SglDrawSize } else { 0 }
+                level    = 'chall'
+                current  = $isNow
+                winner   = ''
+                location = $t.Location
+            })
+        }
+    }
+    return @{ ok = ($out.Count -gt 0); circuit = 'chall'; source = 'atptour.com'; updated = (Get-Date).ToUniversalTime().ToString('s') + 'Z'; tournaments = $out }
 }
 
 function Get-MatchH2H([string]$matchId) {
@@ -1442,6 +1512,24 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
             Send-Json $resp $data
             return
         }
+        if ($path -eq '/api/calendar/chall') {
+            $data = Get-Cached 'calendar_chall' { Get-ChallengerCalendar } 21600
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/calendar/itf') {
+            $itfFile = Join-Path $root 'calendar_itf.json'
+            if (Test-Path -LiteralPath $itfFile -PathType Leaf) {
+                $raw = [System.IO.File]::ReadAllText($itfFile, [System.Text.Encoding]::UTF8)
+                $resp.ContentType = 'application/json; charset=utf-8'
+                $buf = [System.Text.Encoding]::UTF8.GetBytes($raw)
+                $resp.ContentLength64 = $buf.Length
+                $resp.OutputStream.Write($buf, 0, $buf.Length)
+            } else {
+                Send-Json $resp @{ ok = $false; error = 'calendar_itf.json not found (correr scripts/update-calendars-chall-itf.ps1)' }
+            }
+            return
+        }
         if ($path -eq '/api/news') {
             $data = Get-Cached 'news' { Get-TennisNews } 600
             Send-Json $resp $data
@@ -1557,6 +1645,8 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
     }
 }
 
+### === WORKER DISPATCHER (atencion multihilo - los workers ejecutan solo lo anterior a esta linea) ===
+
 function Test-Admin {
     ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent())
         .IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -1616,23 +1706,88 @@ if (-not $NoBrowser) {
     Start-Process "http://localhost:$Port" -ErrorAction SilentlyContinue
 }
 
-while ($listener.IsListening) {
-    $ctx = $null
+$preambleText = ''
+try { $preambleText = [System.IO.File]::ReadAllText($PSCommandPath, [System.Text.Encoding]::UTF8) } catch {}
+if (-not $preambleText) { try { $preambleText = [System.IO.File]::ReadAllText($PSCommandPath) } catch {} }
+$mIdx = $preambleText.IndexOf('### === WORKER DISPATCHER')
+if ($mIdx -gt 0) { $preambleText = $preambleText.Substring(0, $mIdx) }
+
+$workerCodeText = @'
+param($ctx, $pre, $rootAbs, $cache)
+try {
+    $ErrorActionPreference = 'Stop'
+    . ([scriptblock]::Create($pre))
+    $root = $rootAbs
+    Handle-Request $ctx
+} catch {
     try {
-        $ctx = $listener.GetContext()
-        Handle-Request $ctx
-    } catch {
-        Write-Host "Error atendiendo request: $($_.Exception.Message)" -ForegroundColor Red
-        if ($ctx -and $ctx.Response) {
-            try {
-                $ctx.Response.StatusCode = 500
-                $body = [Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
-                $ctx.Response.ContentType = 'application/json'
-                $ctx.Response.ContentLength64 = $body.Length
-                $ctx.Response.OutputStream.Write($body, 0, $body.Length)
-                $ctx.Response.Close()
-            } catch {}
+        $r2 = $ctx.Response
+        if ($r2) {
+            try { $r2.StatusCode = 500 } catch {}
+            $b2 = [System.Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
+            try { $r2.ContentType = 'application/json' } catch {}
+            try { $r2.ContentLength64 = $b2.Length } catch {}
+            try { $r2.OutputStream.Write($b2, 0, $b2.Length) } catch {}
+            $r2.Close()
         }
-        Start-Sleep -Milliseconds 200
+    } catch {}
+}
+'@
+$workerSb = [scriptblock]::Create($workerCodeText)
+
+$workerJobs = New-Object System.Collections.ArrayList
+$workerSem = New-Object System.Threading.Semaphore(8, 8)
+
+while ($listener.IsListening) {
+    for ($wi = $workerJobs.Count - 1; $wi -ge 0; $wi--) {
+        $wj = $workerJobs[$wi]
+        $st = $null
+        try { $st = $wj.ps.InvocationStateInfo.State } catch { $st = 'Failed' }
+        if ($st -eq 'Completed' -or $st -eq 'Failed' -or $st -eq 'Stopped') {
+            try { $wj.ps.Dispose() } catch {}
+            try { $wj.rs.Dispose() } catch {}
+            $workerJobs.RemoveAt($wi)
+            try { [void]$workerSem.Release() } catch {}
+        }
+    }
+
+    $ctx = $null
+    try { $ctx = $listener.GetContext() } catch { break }
+
+    $gotSlot = $false
+    try { $gotSlot = $workerSem.WaitOne(2500) } catch { $gotSlot = $true }
+    if (-not $gotSlot) {
+        try {
+            $r2 = $ctx.Response
+            $r2.StatusCode = 503
+            $b2 = [System.Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"server ocupado"}')
+            $r2.ContentType = 'application/json'
+            $r2.ContentLength64 = $b2.Length
+            $r2.OutputStream.Write($b2, 0, $b2.Length)
+            $r2.Close()
+        } catch {}
+        continue
+    }
+
+    try {
+        $rs = [runspacefactory]::CreateRunspace()
+        $rs.Open()
+        $ps = [powershell]::Create()
+        $ps.Runspace = $rs
+        [void]$ps.AddScript($workerSb).AddArgument($ctx).AddArgument($preambleText).AddArgument($root).AddArgument($cache)
+        [void]$ps.BeginInvoke()
+        [void]$workerJobs.Add(@{ ps = $ps; rs = $rs })
+    } catch {
+        try { [void]$workerSem.Release() } catch {}
+        Write-Host "Error lanzando worker: $($_.Exception.Message)" -ForegroundColor Red
+        try {
+            $r2 = $ctx.Response
+            $r2.StatusCode = 500
+            $b2 = [System.Text.Encoding]::UTF8.GetBytes('{"ok":false,"error":"error interno"}')
+            $r2.ContentType = 'application/json'
+            $r2.ContentLength64 = $b2.Length
+            $r2.OutputStream.Write($b2, 0, $b2.Length)
+            $r2.Close()
+        } catch {}
     }
 }
