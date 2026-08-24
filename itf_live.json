@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-08-24T22:59:25Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -935,33 +933,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3304507",
-          "p1": "Blomqvist",
-          "p2": "Caliman",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3304499",
-          "p1": "Gergec",
-          "p2": "Rojas",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3304495",
-          "p1": "Vagramov",
-          "p2": "Mazzoni",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3304509",
           "p1": "Zaremba",
           "p2": "Mazzoni",
@@ -998,6 +969,15 @@
           "finished": false
         },
         {
+          "teId": "3304507",
+          "p1": "Blomqvist",
+          "p2": "Caliman",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3304503",
           "p1": "Feldmane",
           "p2": "Kikawada",
@@ -1007,9 +987,27 @@
           "finished": false
         },
         {
+          "teId": "3304499",
+          "p1": "Gergec",
+          "p2": "Rojas",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3304497",
           "p1": "Garakani",
           "p2": "Nosei",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3304495",
+          "p1": "Vagramov",
+          "p2": "Mazzoni",
           "time": "10:30",
           "round": "1R",
           "h2h": "0-0",
@@ -1184,5 +1182,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-24T23:51:37Z",
+  "ok": true
 }
