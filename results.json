@@ -1,5 +1,4 @@
 {
-  "count": 2,
   "matches": [
     {
       "id": "te-3302879",
@@ -13,31 +12,31 @@
       "competitors": [
         {
           "homeAway": "home",
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
           "name": "Nijboer R.",
           "linescores": [
             {
               "value": 1,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             }
-          ],
-          "flagAlt": "",
-          "flag": "",
-          "winner": false
+          ]
         },
         {
           "homeAway": "away",
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
           "name": "Curras Abasolo T.",
           "linescores": [
             {
               "value": 2,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             }
-          ],
-          "flagAlt": "",
-          "flag": "",
-          "winner": true
+          ]
         }
       ]
     },
@@ -53,35 +52,36 @@
       "competitors": [
         {
           "homeAway": "home",
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
           "name": "Milev Y.",
           "linescores": [
             {
               "value": 2,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             }
-          ],
-          "flagAlt": "",
-          "flag": "",
-          "winner": false
+          ]
         },
         {
           "homeAway": "away",
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
           "name": "Lopez Montagud C.",
           "linescores": [
             {
               "value": 0,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             }
-          ],
-          "flagAlt": "",
-          "flag": "",
-          "winner": true
+          ]
         }
       ]
     }
   ],
-  "updated": "2026-08-24T22:00:32Z",
+  "updated": "2026-08-24T23:01:35Z",
+  "count": 2,
   "ok": true
 }
