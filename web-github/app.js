@@ -3014,10 +3014,10 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa', 'rosaoscuro', 'verdefluor', 'arcoiris', 'graffiti', 'argentina', 'wimbledon', 'rolandgarros', 'synthwave', 'lectura'];
-      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;' };
-      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura' };
-      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd' };
+      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa', 'rosaoscuro', 'verdefluor', 'arcoiris', 'graffiti', 'argentina', 'wimbledon', 'rolandgarros', 'synthwave', 'lectura', 'veamna'];
+      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;', veamna: '&#9889;' };
+      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura', veamna: 'Modo veamna' };
+      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd', veamna: '#000000' };
       let mode = 'light';
       try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'light';
