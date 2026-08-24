@@ -68,7 +68,6 @@
       <div class="dropdown">
         <button class="tab" data-tab="news">NOTICIAS</button>
         <button class="tab" data-tab="videos">VIDEOS</button>
-        <button class="tab" data-tab="birthdays">CUMPLEA&Ntilde;OS</button>
         <button class="tab" data-tab="wheelchair">WHEELCHAIR</button>
       </div>
     </li>
@@ -161,16 +160,6 @@
     <div id="h2hSearchContent" class="content"><div class="loading">Escrib&iacute; dos jugadores y presion&aacute; BUSCAR.</div></div>
   </div>
 
-  <div id="view-birthdays" class="view">
-    <div class="section-head"><h2>Cumpleaños de Hoy</h2><span class="section-meta" id="birthdaysMeta"></span></div>
-    <div class="seg" id="segBirthdays">
-      <button class="seg-btn active" data-bdtab="all">TODOS</button>
-      <button class="seg-btn" data-bdtab="atp">ATP</button>
-      <button class="seg-btn" data-bdtab="wta">WTA</button>
-    </div>
-    <div id="birthdaysContent" class="content"><div class="loading">Cargando cumpleaños...</div></div>
-  </div>
-
   <div id="view-calendar" class="view">
     <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
     <div class="seg" id="segCal">
@@ -187,6 +176,7 @@
       <button class="seg-btn" data-wc="menDoubles">Doubles Men</button>
       <button class="seg-btn" data-wc="womenDoubles">Doubles Women</button>
       <button class="seg-btn" data-wc="quad">Quad</button>
+      <button class="seg-btn" data-wc="quadDoubles">Quad Doubles</button>
       <button class="seg-btn" data-wc="calendar">Calendario</button>
       <button class="seg-btn" data-wc="results">Resultados</button>
       <button class="seg-btn" data-wc="live">En Vivo</button>
@@ -214,7 +204,7 @@
   </div>
 </div>
 
-<script src="app.js?v=26"></script>
+<script src="app.js?v=28"></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
