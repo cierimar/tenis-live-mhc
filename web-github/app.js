@@ -1715,21 +1715,9 @@
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
     const suspNote = m.suspended ? '<div class="note susp-note">' + esc(m.suspReason || 'Partido suspendido') + '</div>' : '';
     const time = m.state === 'pre' ? '<span class="time">' + fmtTime(m.date) + '</span>' : '';
-    let h2hBtn = '';
-    let statsBtn = '';
-    if (m.tour === 'itf') {
-      h2hBtn = m.teId ? '<button class="itf-h2h" data-teid="' + esc(m.teId) + '">H2H ' + esc(m.h2h || '0-0') + '</button>' : '';
-    } else if (comps.length === 2 && m.state !== 'in') {
-      const p1n = comps[0].name || '';
-      const p2n = comps[1].name || '';
-      if (p1n && p2n) {
-        h2hBtn = '<button class="m-h2h" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">H2H</button>';
-        statsBtn = '<button class="m-stats" data-p1="' + esc(p1n) + '" data-p2="' + esc(p2n) + '">STATS</button>';
-      }
-    }
     const itfInfo = m.tour === 'itf'
-      ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span>' + h2hBtn + '</div>'
-      : ((h2hBtn || statsBtn) ? '<div class="m-h2h-wrap">' + h2hBtn + statsBtn + '</div>' : '');
+      ? '<div class="itf-info"><span class="itf-time">' + esc(m.itfTime || '') + '</span></div>'
+      : '';
     const points = pts ? '<div class="live-points">' +
       '<span class="lp-label">PUNTO</span>' +
       '<span class="lp-score' + (pointPair(pts.g0, pts.g1) === 'DEUCE' ? ' deuce' : '') + '">' + esc(pointPair(pts.g0, pts.g1) || '—') + '</span>' +
@@ -2988,14 +2976,6 @@
         if (e.target === statsOverlay || e.target.closest('.h2h-close')) closeStats();
       });
     }
-    document.addEventListener('click', e => {
-      const itfBtn = e.target.closest('.itf-h2h');
-      if (itfBtn) { openH2H(itfBtn.getAttribute('data-teid')); return; }
-      const h2hBtn = e.target.closest('.m-h2h');
-      if (h2hBtn) { openH2HByName(h2hBtn.getAttribute('data-p1'), h2hBtn.getAttribute('data-p2')); return; }
-      const statsBtn = e.target.closest('.m-stats');
-      if (statsBtn) { openStats(statsBtn.getAttribute('data-p1'), statsBtn.getAttribute('data-p2')); }
-    });
 
     const segRankView = document.getElementById('segRankView');
     if (segRankView) {
