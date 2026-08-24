@@ -1908,7 +1908,7 @@
       const co = t.match(/class="?sm"?\s+p="?[\d.]+"?>\s*([A-Z]{3})\s*</);
       const after = co ? co.index + co[0].length : (nm ? nm.index + nm[0].length : 0);
       const pt = t.slice(after).match(/<td>\s*(\d[\d.]*)\s*<\/td>/);
-      const mv = t.match(/class="?(?:rdf|srd|sgr)"?>\s*([+-]?\d+)\s*</);
+      const mv = t.match(/class="?rdf"?>\s*([+-]?\d+)\s*</);
       rows.push({ rank: parseInt(rk[1], 10), name: name, country: co ? co[1] : '', points: pt ? pt[1] : '', move: mv ? parseInt(mv[1], 10) : 0 });
     }
     return rows;
