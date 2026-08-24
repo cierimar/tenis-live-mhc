@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    TENIS LIVE MHC - edicion editorial deportiva
    Papel crema, tinta, rojo de diario, Playfair Display + Inter
    ============================================================ */
@@ -1461,6 +1461,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 8px 22px 40px; }
   text-transform: uppercase; color: var(--muted); margin-top: 2px;
 }
 .cal-surf, .cal-prize { font-size: 11px; color: var(--muted); }
+.cal-loc { font-size: 11px; color: var(--muted); opacity: .8; }
 .cal-winner {
   font-size: 11px; letter-spacing: 0.04em; color: var(--ink-2);
   text-align: right; max-width: 220px;
