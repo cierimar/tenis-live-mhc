@@ -1740,8 +1740,7 @@
         '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
     }
-    const dbg = list.filter(m => m.state === 'in').map(m => (m.competitors[0] || {}).name + ' vs ' + (m.competitors[1] || {}).name + ' => ' + (m.pbpDbg || 'sin intento')).join('\n');
-    el.innerHTML = html + (dbg ? '<pre style="font:11px monospace;color:#c8102e;white-space:pre-wrap;margin-top:10px">DEBUG PBP:\n' + esc(dbg) + '</pre>' : '');
+    el.innerHTML = html;
     const srcLabel = (function () {
       if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
       const sm = state.sofaMeta;
