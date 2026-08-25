@@ -978,6 +978,138 @@ body[data-mode='veamtu'] .rank-section-title { color: #00ffd0; }
 body[data-mode='veamtu'] .seed-badge { border-color: #eaff00; color: #eaff00; }
 body[data-mode='veamtu'] .mode-label { color: #00ffd0; }
 
+/* ---------------- modo LASER (mandarina laser + rojo plasma + orquidea UV) ---------------- */
+
+body[data-mode='laser'] {
+  --paper: #0d0006;
+  --paper-2: #140009;
+  --paper-3: #1c000e;
+  --ink: #fff0f5;
+  --ink-2: #f7dce6;
+  --muted: #b06a86;
+  --hairline: rgba(192, 38, 255, 0.18);
+  --hairline-dark: rgba(192, 38, 255, 0.38);
+  --red: #ff1744;
+  --red-dark: #cc0038;
+  --red-vivo: #ff7a00;
+  --red-soft: rgba(255, 23, 68, 0.12);
+  --green: #ff7a00;
+  --amber: #c026ff;
+  --shadow: none;
+}
+body[data-mode='laser'] ::selection { background: #ff7a00; color: #0d0006; }
+body[data-mode='laser'] .gender-badge.gender-m { border-color: #c026ff; color: #c026ff; }
+body[data-mode='laser'] .news-card img { filter: saturate(1.25) brightness(0.85); }
+body[data-mode='laser'] .video-play { background: rgba(13, 0, 6, 0.35); }
+
+body[data-mode='laser'] .nameplate h1 {
+  background: linear-gradient(90deg, #ff7a00, #ff1744, #c026ff, #ff1744, #ff7a00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 6s linear infinite;
+}
+body[data-mode='laser'] .nameplate .np-red { color: inherit; }
+body[data-mode='laser'] .tagline { color: #ff7a00; }
+
+body[data-mode='laser'] .tab.active {
+  border-color: #ff1744;
+  color: #ff7a00;
+  box-shadow: 0 0 12px rgba(255, 23, 68, 0.55), inset 0 0 10px rgba(192, 38, 255, 0.18);
+}
+body[data-mode='laser'] .tour-head {
+  border-color: #c026ff;
+  box-shadow: 0 0 14px rgba(192, 38, 255, 0.40), 0 0 28px rgba(255, 23, 68, 0.15);
+}
+body[data-mode='laser'] .live-pill,
+body[data-mode='laser'] .ball { border-color: #ff7a00; }
+body[data-mode='laser'] .live-pill { color: #ff7a00; }
+body[data-mode='laser'] .clock {
+  color: #ff7a00;
+  border-color: #c026ff;
+  text-shadow: 0 0 8px rgba(255, 122, 0, 0.70);
+}
+
+body[data-mode='laser'] .match:nth-of-type(3n+1) { border-color: #ff7a00; }
+body[data-mode='laser'] .match:nth-of-type(3n+2) { border-color: #ff1744; }
+body[data-mode='laser'] .match:nth-of-type(3n+3) { border-color: #c026ff; }
+body[data-mode='laser'] .match.live {
+  border-left-color: #ff1744;
+  background: linear-gradient(90deg, rgba(255, 122, 0, 0.10), transparent 65%);
+}
+body[data-mode='laser'] .set.win { color: #c026ff; font-weight: 800; }
+body[data-mode='laser'] .set.live-set { background: #ff7a00; color: #0d0006; }
+body[data-mode='laser'] .rank-section-title { color: #ff1744; }
+body[data-mode='laser'] .seed-badge { border-color: #ff7a00; color: #ff7a00; }
+body[data-mode='laser'] .mode-label { color: #c026ff; }
+
+/* ---------------- modo RADIOACTIVO (negro radiactivo + lima fluor + blanco cosmico) ---------------- */
+
+body[data-mode='radioactivo'] {
+  --paper: #030602;
+  --paper-2: #060d04;
+  --paper-3: #0b1407;
+  --ink: #f2fff0;
+  --ink-2: #e2f5da;
+  --muted: #7fa06b;
+  --hairline: rgba(204, 255, 0, 0.16);
+  --hairline-dark: rgba(204, 255, 0, 0.36);
+  --red: #ccff00;
+  --red-dark: #9db800;
+  --red-vivo: #ffffff;
+  --red-soft: rgba(204, 255, 0, 0.10);
+  --green: #ccff00;
+  --amber: #ffffff;
+  --shadow: none;
+}
+body[data-mode='radioactivo'] ::selection { background: #ccff00; color: #030602; }
+body[data-mode='radioactivo'] .gender-badge.gender-m { border-color: #ffffff; color: #ffffff; }
+body[data-mode='radioactivo'] .news-card img { filter: saturate(1.25) brightness(0.85); }
+body[data-mode='radioactivo'] .video-play { background: rgba(3, 6, 2, 0.35); }
+
+body[data-mode='radioactivo'] .nameplate h1 {
+  background: linear-gradient(90deg, #ccff00, #ffffff, #ccff00, #aaff00, #ccff00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 6s linear infinite;
+}
+body[data-mode='radioactivo'] .nameplate .np-red { color: inherit; }
+body[data-mode='radioactivo'] .tagline { color: #ccff00; }
+
+body[data-mode='radioactivo'] .tab.active {
+  border-color: #ffffff;
+  color: #ccff00;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.45), inset 0 0 10px rgba(204, 255, 0, 0.20);
+}
+body[data-mode='radioactivo'] .tour-head {
+  border-color: #ccff00;
+  box-shadow: 0 0 14px rgba(204, 255, 0, 0.40);
+}
+body[data-mode='radioactivo'] .live-pill,
+body[data-mode='radioactivo'] .ball { border-color: #ffffff; }
+body[data-mode='radioactivo'] .live-pill { color: #ffffff; }
+body[data-mode='radioactivo'] .clock {
+  color: #ffffff;
+  border-color: #ccff00;
+  text-shadow: 0 0 8px rgba(204, 255, 0, 0.65);
+}
+
+body[data-mode='radioactivo'] .match:nth-of-type(3n+1) { border-color: #ccff00; }
+body[data-mode='radioactivo'] .match:nth-of-type(3n+2) { border-color: #ffffff; }
+body[data-mode='radioactivo'] .match:nth-of-type(3n+3) { border-color: #aaff00; }
+body[data-mode='radioactivo'] .match.live {
+  border-left-color: #ffffff;
+  background: linear-gradient(90deg, rgba(204, 255, 0, 0.12), transparent 65%);
+}
+body[data-mode='radioactivo'] .set.win { color: #ffffff; font-weight: 800; }
+body[data-mode='radioactivo'] .set.live-set { background: #ccff00; color: #0b1407; }
+body[data-mode='radioactivo'] .rank-section-title { color: #ccff00; }
+body[data-mode='radioactivo'] .seed-badge { border-color: #ffffff; color: #ffffff; }
+body[data-mode='radioactivo'] .mode-label { color: #ffffff; }
+
 
 html { scroll-behavior: smooth; }
 
