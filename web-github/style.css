@@ -1242,6 +1242,72 @@ body[data-mode='mandarina'] .rank-section-title { color: #ff7a00; }
 body[data-mode='mandarina'] .seed-badge { border-color: #ff9d00; color: #ff9d00; }
 body[data-mode='mandarina'] .mode-label { color: #ff9d00; }
 
+/* ---------------- modo ROJO (6 rojos neon sobre negro absoluto) ---------------- */
+
+body[data-mode='rojo'] {
+  --paper: #000000;
+  --paper-2: #0d0104;
+  --paper-3: #150205;
+  --ink: #ffeef2;
+  --ink-2: #f7dbe1;
+  --muted: #b05060;
+  --hairline: rgba(255, 7, 58, 0.20);
+  --hairline-dark: rgba(255, 7, 58, 0.40);
+  --red: #ff073a;
+  --red-dark: #ff0026;
+  --red-vivo: #ff0044;
+  --red-soft: rgba(255, 7, 58, 0.12);
+  --green: #ff0033;
+  --amber: #ff0015;
+  --shadow: none;
+}
+body[data-mode='rojo'] ::selection { background: #ff003c; color: #000000; }
+body[data-mode='rojo'] .gender-badge.gender-m { border-color: #ff0044; color: #ff0044; }
+body[data-mode='rojo'] .news-card img { filter: saturate(1.25) brightness(0.85); }
+body[data-mode='rojo'] .video-play { background: rgba(0, 0, 0, 0.35); }
+
+body[data-mode='rojo'] .nameplate h1 {
+  background: linear-gradient(90deg, #ff073a, #ff0033, #ff0015, #ff003c, #ff0044, #ff0026, #ff073a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 7s linear infinite;
+}
+body[data-mode='rojo'] .nameplate .np-red { color: inherit; }
+body[data-mode='rojo'] .tagline { color: #ff073a; }
+
+body[data-mode='rojo'] .tab.active {
+  border-color: #ff0033;
+  color: #ff073a;
+  box-shadow: 0 0 12px rgba(255, 7, 58, 0.60), inset 0 0 10px rgba(255, 0, 51, 0.20);
+}
+body[data-mode='rojo'] .tour-head {
+  border-color: #ff0044;
+  box-shadow: 0 0 14px rgba(255, 7, 58, 0.45);
+}
+body[data-mode='rojo'] .live-pill,
+body[data-mode='rojo'] .ball { border-color: #ff073a; }
+body[data-mode='rojo'] .live-pill { color: #ff073a; }
+body[data-mode='rojo'] .clock {
+  color: #ff0044;
+  border-color: #ff073a;
+  text-shadow: 0 0 8px rgba(255, 0, 68, 0.70);
+}
+
+body[data-mode='rojo'] .match:nth-of-type(3n+1) { border-color: #ff073a; }
+body[data-mode='rojo'] .match:nth-of-type(3n+2) { border-color: #ff0044; }
+body[data-mode='rojo'] .match:nth-of-type(3n+3) { border-color: #ff003c; }
+body[data-mode='rojo'] .match.live {
+  border-left-color: #ff0026;
+  background: linear-gradient(90deg, rgba(255, 7, 58, 0.13), transparent 65%);
+}
+body[data-mode='rojo'] .set.win { color: #ff0044; font-weight: 800; }
+body[data-mode='rojo'] .set.live-set { background: #ff073a; color: #000000; }
+body[data-mode='rojo'] .rank-section-title { color: #ff0033; }
+body[data-mode='rojo'] .seed-badge { border-color: #ff003c; color: #ff003c; }
+body[data-mode='rojo'] .mode-label { color: #ff0044; }
+
 
 html { scroll-behavior: smooth; }
 
