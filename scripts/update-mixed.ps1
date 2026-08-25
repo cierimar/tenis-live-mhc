@@ -6,8 +6,15 @@ function Get-MixedLiveStandalone {
     $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
     $tmp = [System.IO.Path]::GetTempFileName()
     try {
-        & curl.exe -s -L --compressed --connect-timeout 15 --max-time 40 -A $ua -o $tmp 'https://www.tennis.com/' 2>$null
-        if (-not (Test-Path $tmp) -or ((Get-Item $tmp).Length -lt 10000)) { return $null }
+        $curlCmd = @('curl.exe', 'curl') | Where-Object { Get-Command $_ -ErrorAction SilentlyContinue } | Select-Object -First 1
+        if (-not $curlCmd) { Write-Output 'sin curl disponible'; return $null }
+        & $curlCmd -s -L --compressed --connect-timeout 15 --max-time 40 -A $ua -o $tmp 'https://www.tennis.com/' 2>$null
+        if (-not (Test-Path $tmp) -or ((Get-Item $tmp).Length -lt 10000)) {
+            Write-Output 'tennis.com directo fallo o bloqueado - reintento via r.jina.ai'
+            Start-Sleep 2
+            & $curlCmd -s -L --connect-timeout 20 --max-time 90 -A $ua -H 'X-Return-Format: html' -o $tmp 'https://r.jina.ai/https://www.tennis.com/' 2>$null
+        }
+        if (-not (Test-Path $tmp) -or ((Get-Item $tmp).Length -lt 10000)) { Write-Output 'sin html util de tennis.com'; return $null }
         $html = [IO.File]::ReadAllText($tmp)
         $flight = New-Object System.Text.StringBuilder
         foreach ($c in [regex]::Matches($html, '<script[^>]*>([\s\S]*?)</script>')) {
