@@ -6,7 +6,7 @@ $outFile = Join-Path $repoRoot 'news.json'
 $curl = if ($IsWindows -or $env:OS -match 'Windows') { 'curl.exe' } else { 'curl' }
 
 function Get-Feed([string]$url) {
-    $tmp = Join-Path $env:TEMP ([guid]::NewGuid().ToString() + '.xml')
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ([guid]::NewGuid().ToString() + '.xml')
     for ($i = 1; $i -le 3; $i++) {
         Remove-Item $tmp -Force -ErrorAction SilentlyContinue
         & $curl -s -L --compressed --connect-timeout 20 --max-time 45 -A 'Mozilla/5.0' -o $tmp $url 2>$null
