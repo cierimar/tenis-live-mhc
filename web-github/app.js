@@ -1521,6 +1521,14 @@
         const last = state.mixedLive.at || 0;
         if (now - last < 60000) { state.mixedLive.loaded = true; return; }
         state.mixedLive.at = now;
+        try {
+          const jf = await fetchJson('mixed.json');
+          if (jf && Array.isArray(jf.matches) && jf.matches.length) {
+            state.mixedLive.matches = jf.matches;
+            window.__mhcMixDebug = { ts: new Date().toISOString(), src: 'json', count: jf.matches.length };
+            state.mixedLive.loaded = true; return;
+          }
+        } catch (e1) {}
         const r = await fetch('https://r.jina.ai/https://www.tennis.com/', { headers: { 'X-Return-Format': 'html' } });
         if (!r.ok) throw new Error('jina ' + r.status);
         const txt = await r.text();
@@ -1706,7 +1714,7 @@
   }
 
   function renderLive() {
-    const list = filteredMatches().filter(m => m.state !== 'post');
+    const list = filteredMatches().filter(m => m.state !== 'post' || state.tour === 'mixto');
     const el = $('liveContent');
     if (!allMatches().length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
@@ -3134,10 +3142,10 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa', 'rosaoscuro', 'verdefluor', 'arcoiris', 'graffiti', 'argentina', 'wimbledon', 'rolandgarros', 'synthwave', 'lectura', 'veamna', 'boom', 'veamtu'];
-      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;', veamna: '&#9889;', boom: '&#10041;', veamtu: '&#9671;' };
-      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura', veamna: 'Modo veamna', boom: 'Modo boom', veamtu: 'Modo veamtu' };
-      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd', veamna: '#000000', boom: '#06001a', veamtu: '#000000' };
+      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa', 'rosaoscuro', 'verdefluor', 'arcoiris', 'graffiti', 'argentina', 'wimbledon', 'rolandgarros', 'synthwave', 'lectura', 'veamna', 'boom', 'veamtu', 'laser', 'radioactivo'];
+      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;', veamna: '&#9889;', boom: '&#10041;', veamtu: '&#9671;', laser: '&#9830;', radioactivo: '&#9762;' };
+      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura', veamna: 'Modo veamna', boom: 'Modo boom', veamtu: 'Modo veamtu', laser: 'Modo laser', radioactivo: 'Modo radioactivo' };
+      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd', veamna: '#000000', boom: '#06001a', veamtu: '#000000', laser: '#0d0006', radioactivo: '#030602' };
       let mode = 'light';
       try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'light';
