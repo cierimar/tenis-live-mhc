@@ -1515,13 +1515,22 @@
     try {
       if (useLocalBackend()) {
         const j = await fetchJson('api/mixed/live');
-        state.mixedLive.matches = j && j.ok && Array.isArray(j.matches) ? j.matches : [];
+        if (j && j.ok && Array.isArray(j.matches) && j.matches.length) state.mixedLive.matches = j.matches;
       } else {
+        const now = Date.now();
+        const last = state.mixedLive.at || 0;
+        if (now - last < 60000) { state.mixedLive.loaded = true; return; }
+        state.mixedLive.at = now;
         const r = await fetch('https://r.jina.ai/https://www.tennis.com/', { headers: { 'X-Return-Format': 'html' } });
+        if (!r.ok) throw new Error('jina ' + r.status);
         const txt = await r.text();
-        state.mixedLive.matches = parseMixedHtml(txt);
+        const parsed = parseMixedHtml(txt);
+        if (parsed.length) state.mixedLive.matches = parsed;
+        window.__mhcMixDebug = { ts: new Date().toISOString(), len: txt.length, count: parsed.length };
       }
-    } catch (e) { state.mixedLive.matches = []; }
+    } catch (e) {
+      try { window.__mhcMixDebug = { err: String(e).slice(0, 120), ts: new Date().toISOString() }; } catch (e2) {}
+    }
     state.mixedLive.loaded = true;
   }
 
