@@ -15,6 +15,7 @@
     challPoints: [],
     challLive: { tournaments: [], matches: [] },
     itfLive: { tournaments: [], matches: [] },
+    mixedLive: { matches: [], loaded: false },
     cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
@@ -174,6 +175,7 @@
     return types;
   }
   function tourOf(m) {
+    if (m.tour === 'mixto') return 'mixto';
     if (m.tour === 'chall') return 'chall';
     if (m.tour === 'itf') return 'itf';
     if (m.tour === 'atp' || m.tour === 'wta') return m.tour;
@@ -183,6 +185,7 @@
   function tourLabel(m) {
     const t = tourOf(m);
     if (t === 'chall') return 'CHALL';
+    if (t === 'mixto') return 'MIXTO';
     if (t === 'itf') return m.cat === 'w' ? 'ITF W' : 'ITF M';
     return t === 'atp' ? 'ATP' : 'WTA';
   }
@@ -1175,9 +1178,10 @@
   }
 
   async function refreshRankingsDoubles() {
+    const local = useLocalBackend();
     const [atp, wta] = await Promise.all([
-      fetchJson('api/rankings/atp?type=doubles'),
-      fetchJson('api/rankings/wta?type=doubles')
+      fetchJson(local ? 'api/rankings/atp?type=doubles' : 'rankings/atp_doubles.json'),
+      fetchJson(local ? 'api/rankings/wta?type=doubles' : 'rankings/wta_doubles.json')
     ]);
     state.rankDoubles.atp = atp;
     state.rankDoubles.wta = wta;
@@ -1415,12 +1419,118 @@
     state.liveSnapshot = {};
   }
 
+  function parseMixedHtml(html) {
+    try {
+      let flight = '';
+      const rx = /\[1,\s*"((?:[^"\\]|\\.)*)"\s*\]/g;
+      let m2;
+      while ((m2 = rx.exec(html)) !== null) {
+        try { flight += JSON.parse('"' + m2[1] + '"'); } catch (e) {}
+      }
+      if (!flight) return [];
+      const raws = [];
+      const lines = flight.split('\n');
+      for (const line of lines) {
+        const t = line.trim();
+        const ci = t.indexOf(':');
+        if (ci < 1 || ci > 10) continue;
+        const payload = t.slice(ci + 1);
+        if (!(payload.startsWith('[') || payload.startsWith('{'))) continue;
+        if (payload.indexOf('Mixed Doubles') < 0) continue;
+        let obj = null;
+        try { obj = JSON.parse(payload); } catch (e) { continue; }
+        const stack = [obj];
+        while (stack.length) {
+          const cur = stack.pop();
+          if (Array.isArray(cur)) { for (const e2 of cur) stack.push(e2); continue; }
+          if (!cur || typeof cur !== 'object') continue;
+          if (Array.isArray(cur.initialMatches)) {
+            for (const mm of cur.initialMatches) {
+              if (mm && mm.eventCategory === 'Mixed Doubles') raws.push(mm);
+            }
+          }
+          for (const k in cur) { const v = cur[k]; if (v && typeof v === 'object') stack.push(v); }
+        }
+      }
+      return mapMixedRaw(raws);
+    } catch (e) { return []; }
+  }
+
+  function mapMixedRaw(raws) {
+    const out = [];
+    for (const mm of raws || []) {
+      try {
+        const st = String(mm.status || '');
+        const mstate = st === 'live' || st === 'in_progress' ? 'in' : st === 'completed' ? 'post' : 'pre';
+        const h = mm.homeTeam, a = mm.awayTeam;
+        if (!h || !h.name) continue;
+        const an = a && a.name ? a.name : 'Por definir';
+        const hCode = h.player1 && h.player1.countryCode ? String(h.player1.countryCode).toLowerCase() : '';
+        const aCode = a && a.player1 && a.player1.countryCode ? String(a.player1.countryCode).toLowerCase() : '';
+        const sets = mm.score && Array.isArray(mm.score.sets) ? mm.score.sets : [];
+        const total = sets.length;
+        const lsH = [], lsA = [];
+        sets.forEach((s, idx) => {
+          const decided = mstate === 'post' || idx < total - 1;
+          const lh = { value: s.homeGames, winner: false }, la = { value: s.awayGames, winner: false };
+          const tbH = s.homeTiebreakPoints != null ? s.homeTiebreakPoints : null;
+          const tbA = s.awayTiebreakPoints != null ? s.awayTiebreakPoints : null;
+          if (tbH != null || tbA != null) {
+            if (tbA != null && (tbH == null || tbA < tbH)) la.tiebreak = tbA;
+            else if (tbH != null) lh.tiebreak = tbH;
+          }
+          if (decided) {
+            if (s.homeGames > s.awayGames) lh.winner = true;
+            else if (s.awayGames > s.homeGames) la.winner = true;
+          }
+          lsH.push(lh); lsA.push(la);
+        });
+        const wid = String(mm.winnerId || '');
+        const mid = 'tcom-' + String(mm.id).replace(/[^a-zA-Z0-9]/g, '');
+        const cg = mstate === 'in' && mm.score && mm.score.currentGame ? mm.score.currentGame : null;
+        out.push({
+          id: mid,
+          tournamentId: 'tcom-mixed',
+          tournamentName: 'US Open Mixed Doubles',
+          date: mm.startTime,
+          state: mstate,
+          type: "Mixed Doubles",
+          tour: 'mixto',
+          round: mm.round || '',
+          venue: mm.venue && mm.venue.name ? mm.venue.name : '',
+          competitors: [
+            { name: h.name, flag: hCode, flagAlt: hCode.toUpperCase(), homeAway: 'home', winner: !!wid && wid === String(h.id), linescores: lsH },
+            { name: an, flag: aCode, flagAlt: aCode.toUpperCase(), homeAway: 'away', winner: !!wid && !!a && wid === String(a.id), linescores: lsA }
+          ],
+          pts0: cg ? String(cg.homePointDisplay || '') : '',
+          pts1: cg ? String(cg.awayPointDisplay || '') : '',
+          period: mstate === 'in' && mm.score && mm.score.currentSetNumber ? mm.score.currentSetNumber : 0
+        });
+      } catch (e) {}
+    }
+    return out;
+  }
+
+  async function refreshMixed() {
+    try {
+      if (useLocalBackend()) {
+        const j = await fetchJson('api/mixed/live');
+        state.mixedLive.matches = j && j.ok && Array.isArray(j.matches) ? j.matches : [];
+      } else {
+        const r = await fetch('https://r.jina.ai/https://www.tennis.com/', { headers: { 'X-Return-Format': 'html' } });
+        const txt = await r.text();
+        state.mixedLive.matches = parseMixedHtml(txt);
+      }
+    } catch (e) { state.mixedLive.matches = []; }
+    state.mixedLive.loaded = true;
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed()]);
       await refreshSofaPoints();
       if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
@@ -1555,7 +1665,8 @@
   function allMatches() {
     const chall = state.challLive && state.challLive.matches ? state.challLive.matches : [];
     const itf = state.itfLive && state.itfLive.matches ? state.itfLive.matches : [];
-    return [...state.matches, ...chall, ...itf];
+    const mix = state.mixedLive && state.mixedLive.matches ? state.mixedLive.matches : [];
+    return [...state.matches, ...chall, ...itf, ...mix];
   }
   function allTournaments() {
     const chall = state.challLive && state.challLive.tournaments ? state.challLive.tournaments : [];
@@ -1563,6 +1674,7 @@
     return [...state.tournaments, ...chall, ...itf];
   }
   function filteredMatches() {
+    if (state.tour === 'mixto') return allMatches().filter(m => tourOf(m) === 'mixto');
     const types = new Set(selectedTypes());
     const tours = new Set(selectedTours());
     return allMatches().filter(m => types.has(m.type) && tours.has(tourOf(m)));
@@ -1587,7 +1699,7 @@
   function renderLive() {
     const list = filteredMatches().filter(m => m.state !== 'post');
     const el = $('liveContent');
-    if (!state.matches.length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
+    if (!allMatches().length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
       if (!state.itfLive.matches.length && !state.matches.some(x => x.tour === 'itf')) {
         el.innerHTML = useLocalBackend()
@@ -3014,10 +3126,10 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa', 'rosaoscuro', 'verdefluor', 'arcoiris', 'graffiti', 'argentina', 'wimbledon', 'rolandgarros', 'synthwave', 'lectura', 'veamna'];
-      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;', veamna: '&#9889;' };
-      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura', veamna: 'Modo veamna' };
-      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd', veamna: '#000000' };
+      const MODES = ['light', 'dark', 'fluo', 'usopen', 'rosa', 'rosaoscuro', 'verdefluor', 'arcoiris', 'graffiti', 'argentina', 'wimbledon', 'rolandgarros', 'synthwave', 'lectura', 'veamna', 'boom'];
+      const ICONS = { light: '&#9788;', dark: '&#9790;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;', veamna: '&#9889;', boom: '&#10041;' };
+      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura', veamna: 'Modo veamna', boom: 'Modo boom' };
+      const METACOLORS = { light: '#faf7f2', dark: '#16130e', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd', veamna: '#000000', boom: '#06001a' };
       let mode = 'light';
       try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'light';
