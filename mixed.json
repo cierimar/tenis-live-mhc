@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updated": "2026-08-25T22:18:28Z",
+  "updated": "2026-08-25T23:36:05Z",
   "source": "tennis.com",
   "count": 12,
   "matches": [
@@ -529,64 +529,6 @@
       "pts1": ""
     },
     {
-      "id": "tcom-srsportevent73960592",
-      "tournamentId": "tcom-mixed",
-      "tournamentName": "US Open Mixed Doubles",
-      "date": "2026-08-25T21:00:00Z",
-      "state": "post",
-      "type": "Mixed Doubles",
-      "tour": "mixto",
-      "round": "Quarterfinal",
-      "venue": "",
-      "competitors": [
-        {
-          "name": "Rublev A / Andreeva M",
-          "flag": "",
-          "flagAlt": "",
-          "homeAway": "home",
-          "winner": true,
-          "linescores": [
-            {
-              "value": 4,
-              "winner": true
-            },
-            {
-              "value": 4,
-              "winner": false,
-              "tiebreak": 9
-            },
-            {
-              "value": 4,
-              "winner": false
-            }
-          ]
-        },
-        {
-          "name": "Ruud C / Shnaider D",
-          "flag": "nor",
-          "flagAlt": "NOR",
-          "homeAway": "away",
-          "winner": false,
-          "linescores": [
-            {
-              "value": 1,
-              "winner": false
-            },
-            {
-              "value": 5,
-              "winner": true
-            },
-            {
-              "value": 5,
-              "winner": true
-            }
-          ]
-        }
-      ],
-      "pts0": "",
-      "pts1": ""
-    },
-    {
       "id": "tcom-srsportevent73960602",
       "tournamentId": "tcom-mixed",
       "tournamentName": "US Open Mixed Doubles",
@@ -636,6 +578,64 @@
             },
             {
               "value": 0,
+              "winner": false
+            }
+          ]
+        }
+      ],
+      "pts0": "",
+      "pts1": ""
+    },
+    {
+      "id": "tcom-srsportevent73960592",
+      "tournamentId": "tcom-mixed",
+      "tournamentName": "US Open Mixed Doubles",
+      "date": "2026-08-25T21:00:00Z",
+      "state": "post",
+      "type": "Mixed Doubles",
+      "tour": "mixto",
+      "round": "Quarterfinal",
+      "venue": "",
+      "competitors": [
+        {
+          "name": "Rublev A / Andreeva M",
+          "flag": "",
+          "flagAlt": "",
+          "homeAway": "home",
+          "winner": true,
+          "linescores": [
+            {
+              "value": 4,
+              "winner": true
+            },
+            {
+              "value": 4,
+              "winner": false,
+              "tiebreak": 9
+            },
+            {
+              "value": 10,
+              "winner": true
+            }
+          ]
+        },
+        {
+          "name": "Ruud C / Shnaider D",
+          "flag": "nor",
+          "flagAlt": "NOR",
+          "homeAway": "away",
+          "winner": false,
+          "linescores": [
+            {
+              "value": 1,
+              "winner": false
+            },
+            {
+              "value": 5,
+              "winner": true
+            },
+            {
+              "value": 5,
               "winner": false
             }
           ]
