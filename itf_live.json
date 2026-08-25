@@ -269,7 +269,7 @@
           "teId": "3304533",
           "p1": "Kotliar",
           "p2": "Steur",
-          "time": "13:50",
+          "time": "15:00",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
@@ -278,7 +278,7 @@
           "teId": "3304531",
           "p1": "Brockmann",
           "p2": "Niemeier",
-          "time": "15:00",
+          "time": "15:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -460,19 +460,19 @@
           "finished": false
         },
         {
-          "teId": "3304991",
-          "p1": "Biolay",
-          "p2": "Nagy",
-          "time": "13:00",
+          "teId": "3304993",
+          "p1": "Mariani",
+          "p2": "Teixido Garcia",
+          "time": "13:55",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3304993",
-          "p1": "Mariani",
-          "p2": "Teixido Garcia",
-          "time": "13:10",
+          "teId": "3304991",
+          "p1": "Biolay",
+          "p2": "Nagy",
+          "time": "14:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -481,7 +481,7 @@
           "teId": "3304999",
           "p1": "Argyrokastriti",
           "p2": "Colmegna",
-          "time": "13:30",
+          "time": "14:05",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -490,16 +490,7 @@
           "teId": "3302903",
           "p1": "Turini",
           "p2": "Steiner",
-          "time": "13:40",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3302899",
-          "p1": "Meliss",
-          "p2": "Zanolini",
-          "time": "14:30",
+          "time": "14:05",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -508,7 +499,16 @@
           "teId": "3304987",
           "p1": "Ormaechea",
           "p2": "Primorac",
-          "time": "14:40",
+          "time": "15:05",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3302899",
+          "p1": "Meliss",
+          "p2": "Zanolini",
+          "time": "15:05",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -517,7 +517,7 @@
           "teId": "3304997",
           "p1": "Hejtmanek",
           "p2": "Antici",
-          "time": "15:00",
+          "time": "15:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -683,24 +683,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3305005",
-          "p1": "Danilova",
-          "p2": "Bayerlova",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3305013",
-          "p1": "Guth",
-          "p2": "Komano",
-          "time": "12:40",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3305007",
           "p1": "Kozakova",
           "p2": "Manta",
@@ -713,7 +695,7 @@
           "teId": "3305015",
           "p1": "Sawant",
           "p2": "Okutoyi",
-          "time": "13:00",
+          "time": "13:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -722,7 +704,7 @@
           "teId": "3304577",
           "p1": "Ryser",
           "p2": "Ivankovic",
-          "time": "14:05",
+          "time": "14:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -816,6 +798,44 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3305013",
+          "p1": "Guth",
+          "p2": "Komano",
+          "round": "1. round",
+          "date": "25.08.",
+          "time": "12:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3305005",
+          "p1": "Danilova",
+          "p2": "Bayerlova",
+          "round": "1. round",
+          "date": "25.08.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3305003",
@@ -1022,21 +1042,21 @@
           "finished": false
         },
         {
-          "teId": "3304505",
-          "p1": "Chen",
-          "p2": "Villet",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3304501",
           "p1": "Tse",
           "p2": "Ismail",
-          "time": "11:00",
+          "time": "12:30",
           "round": "1R",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3304505",
+          "p1": "Chen",
+          "p2": "Villet",
+          "time": "13:00",
+          "round": "1R",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1149,7 +1169,7 @@
           "teId": "3303741",
           "p1": "Zheng",
           "p2": "Wang",
-          "time": "08:50",
+          "time": "09:00",
           "round": "1R",
           "h2h": "2-1",
           "finished": false
@@ -1285,6 +1305,6 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-08-25T11:01:45Z"
+  "time": "2026-08-25T12:03:00Z",
+  "ok": true
 }
