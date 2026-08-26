@@ -1585,6 +1585,70 @@ body[data-mode='uva'] .rank-section-title { color: #39ff14; }
 body[data-mode='uva'] .seed-badge { border-color: #f2efe9; color: #f2efe9; }
 body[data-mode='uva'] .mode-label { color: #39ff14; }
 
+body[data-mode='munich'] {
+  --paper: #000000;
+  --paper-2: #0a0500;
+  --paper-3: #140a02;
+  --ink: #fff1e2;
+  --ink-2: #f3e6d3;
+  --muted: #9d8672;
+  --hairline: rgba(255, 106, 0, 0.18);
+  --hairline-dark: rgba(255, 106, 0, 0.38);
+  --red: #ff6a00;
+  --red-dark: #b34900;
+  --red-vivo: #ffb35e;
+  --red-soft: rgba(255, 106, 0, 0.12);
+  --green: #00a8ff;
+  --amber: #ffd9b0;
+  --shadow: none;
+}
+body[data-mode='munich'] ::selection { background: #00a8ff; color: #000000; }
+body[data-mode='munich'] .gender-badge.gender-m { border-color: #00a8ff; color: #00a8ff; }
+body[data-mode='munich'] .news-card img { filter: saturate(1.3) brightness(0.85); }
+body[data-mode='munich'] .video-play { background: rgba(0, 0, 0, 0.35); }
+
+body[data-mode='munich'] .nameplate h1 {
+  background: linear-gradient(90deg, #ff6a00, #00a8ff, #fff1e2, #00a8ff, #ff6a00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 6s linear infinite;
+}
+body[data-mode='munich'] .nameplate .np-red { color: inherit; }
+body[data-mode='munich'] .tagline { color: #00a8ff; }
+
+body[data-mode='munich'] .tab.active {
+  border-color: #fff1e2;
+  color: #00a8ff;
+  box-shadow: 0 0 12px rgba(255, 106, 0, 0.60), inset 0 0 10px rgba(0, 168, 255, 0.18);
+}
+body[data-mode='munich'] .tour-head {
+  border-color: #ff6a00;
+  box-shadow: 0 0 14px rgba(255, 106, 0, 0.45), 0 0 28px rgba(0, 168, 255, 0.15);
+}
+body[data-mode='munich'] .live-pill,
+body[data-mode='munich'] .ball { border-color: #00a8ff; }
+body[data-mode='munich'] .live-pill { color: #00a8ff; }
+body[data-mode='munich'] .clock {
+  color: #fff1e2;
+  border-color: #ff6a00;
+  text-shadow: 0 0 8px rgba(255, 179, 94, 0.55);
+}
+
+body[data-mode='munich'] .match:nth-of-type(3n+1) { border-color: #ff6a00; }
+body[data-mode='munich'] .match:nth-of-type(3n+2) { border-color: #00a8ff; }
+body[data-mode='munich'] .match:nth-of-type(3n+3) { border-color: #ffd9b0; }
+body[data-mode='munich'] .match.live {
+  border-left-color: #00a8ff;
+  background: linear-gradient(90deg, rgba(255, 106, 0, 0.13), transparent 65%);
+}
+body[data-mode='munich'] .set.win { color: #fff1e2; font-weight: 800; }
+body[data-mode='munich'] .set.live-set { background: #00a8ff; color: #000000; }
+body[data-mode='munich'] .rank-section-title { color: #00a8ff; }
+body[data-mode='munich'] .seed-badge { border-color: #ffb35e; color: #ffb35e; }
+body[data-mode='munich'] .mode-label { color: #00a8ff; }
+
 
 html { scroll-behavior: smooth; }
 
