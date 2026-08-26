@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updated": "2026-08-25T23:36:05Z",
+  "updated": "2026-08-26T03:33:22Z",
   "source": "tennis.com",
   "count": 12,
   "matches": [
@@ -45,63 +45,6 @@
             },
             {
               "value": 1,
-              "winner": false
-            }
-          ]
-        }
-      ],
-      "pts0": "",
-      "pts1": ""
-    },
-    {
-      "id": "tcom-srsportevent74034626",
-      "tournamentId": "tcom-mixed",
-      "tournamentName": "US Open Mixed Doubles",
-      "date": "2026-08-25T15:00:00Z",
-      "state": "post",
-      "type": "Mixed Doubles",
-      "tour": "mixto",
-      "round": "Round 1",
-      "venue": "Louis Armstrong Stadium",
-      "competitors": [
-        {
-          "name": "Mensik J / Muchova K",
-          "flag": "cze",
-          "flagAlt": "CZE",
-          "homeAway": "home",
-          "winner": true,
-          "linescores": [
-            {
-              "value": 4,
-              "winner": true
-            },
-            {
-              "value": 2,
-              "winner": false
-            },
-            {
-              "value": 10,
-              "winner": true
-            }
-          ]
-        },
-        {
-          "name": "Arevalo M / Mladenovic K",
-          "flag": "slv",
-          "flagAlt": "SLV",
-          "homeAway": "away",
-          "winner": false,
-          "linescores": [
-            {
-              "value": 1,
-              "winner": false
-            },
-            {
-              "value": 4,
-              "winner": true
-            },
-            {
-              "value": 7,
               "winner": false
             }
           ]
@@ -160,6 +103,63 @@
             {
               "value": 10,
               "winner": true
+            }
+          ]
+        }
+      ],
+      "pts0": "",
+      "pts1": ""
+    },
+    {
+      "id": "tcom-srsportevent74034626",
+      "tournamentId": "tcom-mixed",
+      "tournamentName": "US Open Mixed Doubles",
+      "date": "2026-08-25T15:00:00Z",
+      "state": "post",
+      "type": "Mixed Doubles",
+      "tour": "mixto",
+      "round": "Round 1",
+      "venue": "Louis Armstrong Stadium",
+      "competitors": [
+        {
+          "name": "Mensik J / Muchova K",
+          "flag": "cze",
+          "flagAlt": "CZE",
+          "homeAway": "home",
+          "winner": true,
+          "linescores": [
+            {
+              "value": 4,
+              "winner": true
+            },
+            {
+              "value": 2,
+              "winner": false
+            },
+            {
+              "value": 10,
+              "winner": true
+            }
+          ]
+        },
+        {
+          "name": "Arevalo M / Mladenovic K",
+          "flag": "slv",
+          "flagAlt": "SLV",
+          "homeAway": "away",
+          "winner": false,
+          "linescores": [
+            {
+              "value": 1,
+              "winner": false
+            },
+            {
+              "value": 4,
+              "winner": true
+            },
+            {
+              "value": 7,
+              "winner": false
             }
           ]
         }
@@ -551,12 +551,8 @@
               "winner": true
             },
             {
-              "value": 0,
-              "winner": false
-            },
-            {
-              "value": 0,
-              "winner": false
+              "value": 4,
+              "winner": true
             }
           ]
         },
@@ -573,11 +569,7 @@
               "tiebreak": 4
             },
             {
-              "value": 0,
-              "winner": false
-            },
-            {
-              "value": 0,
+              "value": 1,
               "winner": false
             }
           ]
