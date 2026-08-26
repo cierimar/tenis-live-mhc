@@ -1768,11 +1768,9 @@
       if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
       const sm = state.sofaMeta;
       if (!sm || !sm.ts) return '';
-      if (sm.err) return '(Sofascore: ' + sm.err + ')';
-      if (!(sm.nKept)) return '(Sofascore: ' + sm.nEvents + ' eventos, ninguno de tenis profesional)';
       return '';
     })();
-    $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total' + (srcLabel ? ' · ' + srcLabel : '');
+    $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total';
   }
 
   function rankMatch(m) {
