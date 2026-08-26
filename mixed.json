@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "updated": "2026-08-26T03:33:22Z",
+  "updated": "2026-08-26T05:17:53Z",
   "source": "tennis.com",
   "count": 12,
   "matches": [
@@ -235,9 +235,9 @@
           "winner": false,
           "linescores": [
             {
+              "tiebreak": 6,
               "value": 4,
-              "winner": false,
-              "tiebreak": 6
+              "winner": false
             },
             {
               "value": 5,
@@ -261,9 +261,9 @@
               "winner": true
             },
             {
+              "tiebreak": 3,
               "value": 4,
-              "winner": false,
-              "tiebreak": 3
+              "winner": false
             },
             {
               "value": 10,
@@ -564,9 +564,9 @@
           "winner": false,
           "linescores": [
             {
+              "tiebreak": 4,
               "value": 4,
-              "winner": false,
-              "tiebreak": 4
+              "winner": false
             },
             {
               "value": 1,
@@ -601,9 +601,9 @@
               "winner": true
             },
             {
+              "tiebreak": 9,
               "value": 4,
-              "winner": false,
-              "tiebreak": 9
+              "winner": false
             },
             {
               "value": 10,
