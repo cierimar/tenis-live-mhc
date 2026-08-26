@@ -42,6 +42,7 @@
     seedSurnameTours: {},
     finishedAt: {},
     finishedMatches: {},
+    liveView: 'vivos',
     liveSnapshot: {},
     h2hCache: null,
     statsCache: null,
@@ -1714,8 +1715,13 @@
   }
 
   function renderLive() {
-    const list = filteredMatches().filter(m => m.state !== 'post' || state.tour === 'mixto');
+    const allList = filteredMatches().filter(m => m.state !== 'post' || state.tour === 'mixto');
+    const list = state.liveView === 'vivos'
+      ? allList.filter(m => m.state === 'in')
+      : allList.filter(m => m.state === 'pre');
     const el = $('liveContent');
+    if (!allMatches().length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
+    const lvBar = '<div class="live-view-bar"><button class="lv-btn' + (state.liveView === 'vivos' ? ' active' : '') + '" data-lv="vivos">EN VIVO</button><button class="lv-btn' + (state.liveView === 'proximos' ? ' active' : '') + '" data-lv="proximos">PRÓXIMOS</button></div>';
     if (!allMatches().length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
       if (!state.itfLive.matches.length && !state.matches.some(x => x.tour === 'itf')) {
@@ -2299,7 +2305,7 @@
 
   async function refreshWcLive() {
     try {
-      const today = new Date().toISOString().slice(0, 10);
+    const now = new Date(); const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
       const url = 'https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1';
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(resp.status);
@@ -2404,7 +2410,7 @@
       });
       html += '</div>';
       html += '<div style="margin-top:16px"><a href="https://www.youtube.com/results?search_query=wheelchair+tennis+2026+highlights" target="_blank" class="ta-link">Ver más highlights en YouTube &rarr;</a></div>';
-      el.innerHTML = html;
+    el.innerHTML = lvBar + html;
       if (meta) meta.textContent = 'Videos de wheelchair tennis · Highlights y Torneos';
       return;
     }
@@ -3019,6 +3025,13 @@
       state.mode = b.dataset.mode;
       document.querySelectorAll('#segMode .seg-btn').forEach(x => x.classList.toggle('active', x === b));
       render();
+    });
+
+    $('liveContent').addEventListener('click', e => {
+      const b = e.target.closest('.lv-btn');
+      if (!b) return;
+      state.liveView = b.dataset.lv;
+      renderLive();
     });
 
     $('drawSelect').addEventListener('change', e => {
