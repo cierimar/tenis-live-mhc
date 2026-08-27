@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const REFRESH_SEC = 30;
+  const REFRESH_SEC = 10;
   const ESPN = 'https://site.api.espn.com/apis/site/v2/sports/tennis';
 
   const state = {
