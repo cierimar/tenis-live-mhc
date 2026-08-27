@@ -198,6 +198,7 @@
     <div class="col-actions">
       <button class="col-btn" id="colNew">+ Nueva nota</button>
       <button class="col-btn col-btn-sec" id="colToggle">Escribir / Ver notas</button>
+      <button class="col-btn col-btn-sec" id="colClear">Vaciar borradores</button>
     </div>
     <div class="col-editor" id="colEditor" style="display:none">
       <input type="text" id="colTitle" class="rank-search" placeholder="T&iacute;tulo de la nota...">
@@ -230,7 +231,7 @@
   </div>
 </div>
 
-<script src="app.js?v=70"></script>
+<script src="app.js?v=71"></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
