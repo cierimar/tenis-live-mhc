@@ -2603,6 +2603,17 @@
     try { navigator.clipboard.writeText(JSON.stringify(entry, null, 2) + ','); } catch (_) {}
   }
 
+  function clearColDrafts() {
+    if (!localStorage.getItem('mhc-columna')) { alert('No hay borradores guardados.'); return; }
+    if (!confirm('¿Vaciar todos los borradores de esta columna en este dispositivo?')) return;
+    localStorage.removeItem('mhc-columna');
+    const editor = $('colEditor');
+    if (editor) { editor.style.display = 'none'; }
+    const title = $('colTitle'), body = $('colBody');
+    if (title) title.value = ''; if (body) body.value = '';
+    renderColumnas();
+  }
+
   function renderPlayers() {
     const el = $('playersContent');
     if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
@@ -3239,6 +3250,8 @@
     if (colSave) colSave.addEventListener('click', saveColDraft);
     const colCopy = $('colCopyJson');
     if (colCopy) colCopy.addEventListener('click', copyColJson);
+    const colClear = $('colClear');
+    if (colClear) colClear.addEventListener('click', clearColDrafts);
     ['h2hP1', 'h2hP2'].forEach(id => {
       const el = $(id);
       if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') runH2HSearch(); });
