@@ -2541,8 +2541,9 @@
     const el = $('colContent');
     const meta = $('colMeta');
     const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-    const list = state.columna.data.slice().concat(local);
-    list.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    let list = state.columna.data.slice().concat(local);
+    list = list.filter(n => n && (typeof n === 'object'));
+    list.sort((a, b) => String(b && b.date || '').localeCompare(String(a && a.date || '')));
     if (!list.length) {
       el.innerHTML = '<div class="error-box">Aún no hay notas publicadas. Usá "+ Nueva nota" para escribir la primera.</div>';
       if (meta) meta.textContent = 'Aún sin publicaciones';
