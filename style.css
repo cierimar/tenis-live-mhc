@@ -1851,6 +1851,11 @@ button { font-family: inherit; cursor: pointer; }
   font-family: var(--display); font-weight: 800;
   font-size: clamp(44px, 7vw, 84px);
   line-height: 0.95; letter-spacing: 0.02em; color: var(--ink);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.35), 0 0 30px rgba(255, 255, 255, 0.15);
+  padding: 4px 14px;
+  display: inline-block;
+  border-radius: 8px;
 }
 .nameplate .np-red { color: var(--red-vivo); }
 
