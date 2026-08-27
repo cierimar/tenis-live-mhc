@@ -2793,6 +2793,9 @@ tr.wc-row-live td { background: linear-gradient(90deg, var(--red-soft), transpar
 }
 .col-body { display: none; font-size: 13.5px; line-height: 1.6; color: var(--ink); }
 .col-firma { color: var(--muted); font-style: italic; margin-top: 6px; }
+.col-cardbar { margin-top: 8px; text-align: right; }
+.col-edit { background: none; border: 1px solid var(--ink); color: var(--ink); border-radius: 6px; padding: 2px 10px; font-size: 12px; cursor: pointer; }
+.col-edit:hover { background: var(--red-soft); color: var(--red-vivo); }
 .col-card.open .col-excerpt { display: none; }
 .col-card.open { grid-column: 1 / -1; display: block; }
 .col-card.open .col-body { display: block; }
