@@ -1,24 +1,32 @@
 {
   "name": "TENIS LIVE MHC",
-  "short_name": "Tennis Live",
-  "description": "Resultados en tiempo real - ATP, WTA, Challenger e ITF",
-  "start_url": "/",
+  "short_name": "Tenis MHC",
+  "description": "Marcadores en vivo de tenis: ATP, WTA, Challenger, ITF y Mixto, con H2H y rankings.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1020",
-  "theme_color": "#c9f24b",
-  "orientation": "any",
+  "background_color": "#c8102e",
+  "theme_color": "#c8102e",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
