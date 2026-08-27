@@ -1649,6 +1649,73 @@ body[data-mode='munich'] .rank-section-title { color: #00a8ff; }
 body[data-mode='munich'] .seed-badge { border-color: #ffb35e; color: #ffb35e; }
 body[data-mode='munich'] .mode-label { color: #00a8ff; }
 
+body[data-mode='lima'] {
+  --paper: #000000;
+  --paper-2: #050a02;
+  --paper-3: #0a1405;
+  --ink: #e8ffe0;
+  --ink-2: #d0f5b8;
+  --muted: #8fad6a;
+  --hairline: rgba(204, 255, 0, 0.18);
+  --hairline-dark: rgba(204, 255, 0, 0.38);
+  --red: #ccff00;
+  --red-dark: #99cc00;
+  --red-vivo: #efff00;
+  --red-soft: rgba(204, 255, 0, 0.12);
+  --green: #00ffd0;
+  --amber: #39ff14;
+  --shadow: none;
+}
+body[data-mode='lima'] ::selection { background: #00ffd0; color: #000000; }
+body[data-mode='lima'] .gender-badge.gender-m { border-color: #00bfff; color: #00bfff; }
+body[data-mode='lima'] .news-card img { filter: saturate(1.3) brightness(0.85); }
+body[data-mode='lima'] .video-play { background: rgba(0, 0, 0, 0.35); }
+
+body[data-mode='lima'] .nameplate h1 {
+  background: linear-gradient(90deg, #ccff00, #00bfff, #00ffd0, #39ff14, #efff00, #ccff00);
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: uso-shift 8s linear infinite;
+}
+body[data-mode='lima'] .nameplate .np-red { color: inherit; }
+body[data-mode='lima'] .tagline { color: #00ffd0; }
+
+body[data-mode='lima'] .tab.active {
+  border-color: #e8ffe0;
+  color: #ccff00;
+  box-shadow: 0 0 12px rgba(204, 255, 0, 0.60), inset 0 0 10px rgba(0, 255, 208, 0.18);
+}
+body[data-mode='lima'] .tour-head {
+  border-color: #ccff00;
+  box-shadow: 0 0 14px rgba(204, 255, 0, 0.45), 0 0 28px rgba(0, 255, 208, 0.15);
+}
+body[data-mode='lima'] .live-pill,
+body[data-mode='lima'] .ball { border-color: #00ffd0; }
+body[data-mode='lima'] .live-pill { color: #00ffd0; }
+body[data-mode='lima'] .clock {
+  color: #e8ffe0;
+  border-color: #ccff00;
+  text-shadow: 0 0 8px rgba(204, 255, 0, 0.55);
+}
+
+body[data-mode='lima'] .match:nth-of-type(6n+1) { border-color: #ccff00; }
+body[data-mode='lima'] .match:nth-of-type(6n+2) { border-color: #00bfff; }
+body[data-mode='lima'] .match:nth-of-type(6n+3) { border-color: #00ffd0; }
+body[data-mode='lima'] .match:nth-of-type(6n+4) { border-color: #39ff14; }
+body[data-mode='lima'] .match:nth-of-type(6n+5) { border-color: #efff00; }
+body[data-mode='lima'] .match:nth-of-type(6n+6) { border-color: #ccff00; }
+body[data-mode='lima'] .match.live {
+  border-left-color: #00ffd0;
+  background: linear-gradient(90deg, rgba(204, 255, 0, 0.13), transparent 65%);
+}
+body[data-mode='lima'] .set.win { color: #39ff14; font-weight: 800; }
+body[data-mode='lima'] .set.live-set { background: #00ffd0; color: #000000; }
+body[data-mode='lima'] .rank-section-title { color: #ccff00; }
+body[data-mode='lima'] .seed-badge { border-color: #efff00; color: #efff00; }
+body[data-mode='lima'] .mode-label { color: #39ff14; }
+
 
 html { scroll-behavior: smooth; }
 
