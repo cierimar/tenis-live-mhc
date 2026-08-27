@@ -201,9 +201,18 @@
   /* ---------------- data fetching ---------------- */
 
   async function fetchJson(url) {
-    const r = await fetch(url, { cache: 'no-store' });
+    const r = await fetchJsonWithTimeout(url);
     if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url);
     return r.json();
+  }
+  async function fetchJsonWithTimeout(url, ms = 12000) {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), ms);
+    try {
+      return await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+    } finally {
+      clearTimeout(t);
+    }
   }
 
   function normalizeScoreboard(json, circuit) {
