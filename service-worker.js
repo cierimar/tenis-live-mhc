@@ -1,12 +1,12 @@
-const CACHE_NAME = 'tenis-live-mhc-v61';
+const CACHE_NAME = 'tenis-live-mhc-v62';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/app.js',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  '/icons/icon-192.png',
+  '/icons/icon-512.png'
 ];
 
 self.addEventListener('install', e => {
