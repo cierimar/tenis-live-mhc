@@ -1,70 +1,102 @@
 {
-  "ok": true,
-  "updated": "2026-08-26T14:27:16Z",
-  "source": "tennis.com",
-  "count": 2,
-  "matches": [
-    {
-      "id": "tcom-srsportevent73960594",
-      "tournamentId": "tcom-mixed",
-      "tournamentName": "US Open Mixed Doubles",
-      "date": "2026-08-26T23:00:00Z",
-      "state": "pre",
-      "type": "Mixed Doubles",
-      "tour": "mixto",
-      "round": "Semifinal",
-      "venue": "Arthur Ashe Stadium",
-      "competitors": [
-        {
-          "name": "Monfils G / Svitolina E",
-          "flag": "fra",
-          "flagAlt": "FRA",
-          "homeAway": "home",
-          "winner": false,
-          "linescores": []
-        },
-        {
-          "name": "Cobolli F / Bencic B",
-          "flag": "che",
-          "flagAlt": "CHE",
-          "homeAway": "away",
-          "winner": false,
-          "linescores": []
-        }
-      ],
-      "pts0": "",
-      "pts1": ""
-    },
-    {
-      "id": "tcom-srsportevent73960596",
-      "tournamentId": "tcom-mixed",
-      "tournamentName": "US Open Mixed Doubles",
-      "date": "2026-08-26T23:50:00Z",
-      "state": "pre",
-      "type": "Mixed Doubles",
-      "tour": "mixto",
-      "round": "Semifinal",
-      "venue": "Arthur Ashe Stadium",
-      "competitors": [
-        {
-          "name": "Mensik J / Muchova K",
-          "flag": "cze",
-          "flagAlt": "CZE",
-          "homeAway": "home",
-          "winner": false,
-          "linescores": []
-        },
-        {
-          "name": "Rublev A / Andreeva M",
-          "flag": "",
-          "flagAlt": "",
-          "homeAway": "away",
-          "winner": false,
-          "linescores": []
-        }
-      ],
-      "pts0": "",
-      "pts1": ""
-    }
-  ]
+    "count":  2,
+    "ok":  true,
+    "matches":  [
+                    {
+                        "id":  "tcom-srsportevent73960594",
+                        "tournamentId":  "tcom-mixed",
+                        "tournamentName":  "US Open Mixed Doubles",
+                        "date":  "2026-08-26T23:05:00Z",
+                        "state":  "in",
+                        "type":  "Mixed Doubles",
+                        "tour":  "mixto",
+                        "round":  "Semifinal",
+                        "venue":  "Arthur Ashe Stadium",
+                        "competitors":  [
+                                            {
+                                                "name":  "Monfils G / Svitolina E",
+                                                "flag":  "fra",
+                                                "flagAlt":  "FRA",
+                                                "homeAway":  "home",
+                                                "winner":  false,
+                                                "linescores":  [
+                                                                   {
+                                                                       "value":  5,
+                                                                       "winner":  true
+                                                                   },
+                                                                   {
+                                                                       "winner":  false,
+                                                                       "value":  1
+                                                                   },
+                                                                   {
+                                                                       "winner":  false,
+                                                                       "value":  0
+                                                                   }
+                                                               ]
+                                            },
+                                            {
+                                                "name":  "Cobolli F / Bencic B",
+                                                "flag":  "che",
+                                                "flagAlt":  "CHE",
+                                                "homeAway":  "away",
+                                                "winner":  false,
+                                                "linescores":  [
+                                                                   {
+                                                                       "tiebreak":  7,
+                                                                       "value":  4,
+                                                                       "winner":  false
+                                                                   },
+                                                                   {
+                                                                       "value":  4,
+                                                                       "winner":  true
+                                                                   },
+                                                                   {
+                                                                       "winner":  false,
+                                                                       "value":  0
+                                                                   }
+                                                               ]
+                                            }
+                                        ],
+                        "pts0":  "0",
+                        "pts1":  "1",
+                        "period":  3
+                    },
+                    {
+                        "id":  "tcom-srsportevent73960596",
+                        "tournamentId":  "tcom-mixed",
+                        "tournamentName":  "US Open Mixed Doubles",
+                        "date":  "2026-08-27T00:35:00Z",
+                        "state":  "pre",
+                        "type":  "Mixed Doubles",
+                        "tour":  "mixto",
+                        "round":  "Semifinal",
+                        "venue":  "Arthur Ashe Stadium",
+                        "competitors":  [
+                                            {
+                                                "name":  "Mensik J / Muchova K",
+                                                "flag":  "cze",
+                                                "flagAlt":  "CZE",
+                                                "homeAway":  "home",
+                                                "winner":  false,
+                                                "linescores":  [
+
+                                                               ]
+                                            },
+                                            {
+                                                "name":  "Rublev A / Andreeva M",
+                                                "flag":  "",
+                                                "flagAlt":  "",
+                                                "homeAway":  "away",
+                                                "winner":  false,
+                                                "linescores":  [
+
+                                                               ]
+                                            }
+                                        ],
+                        "pts0":  "",
+                        "pts1":  ""
+                    }
+                ],
+    "source":  "tennis.com",
+    "updated":  "2026-08-27T00:17:28Z"
 }
