@@ -3080,6 +3080,7 @@
 
     $('btnRefresh').addEventListener('click', () => {
       if (state.tab === 'calendar') { refreshCalendar(); return; }
+      state.refreshing = false;
       refreshAll(true);
     });
 
