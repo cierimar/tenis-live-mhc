@@ -2548,15 +2548,25 @@
       if (meta) meta.textContent = 'Aún sin publicaciones';
       return;
     }
-    const cards = list.map(n => {
+    const cards = list.map((n, i) => {
       let bodyHtml = esc(n.body || '');
+      let excerpt = bodyHtml.replace(/<br>/g, ' ');
       bodyHtml = bodyHtml.replace(/\n/g, '<br>');
-      return '<article class="col-card"><div class="col-date">' + esc(n.date || '') + '</div>' +
+      const hasFirma = /MHC\s*<br>\s*$/.test(bodyHtml.replace(/<br>\s*$/, ''));
+      return '<article class="col-card" data-i="' + i + '"><div class="col-date">' + esc(n.date || '') + '</div>' +
         '<h3 class="col-title">' + esc(n.title || '') + '</h3>' +
-        '<div class="col-body">' + bodyHtml + '</div></article>';
+        '<div class="col-excerpt">' + excerpt.slice(0, 160) + (excerpt.length > 160 ? '…' : '') + '</div>' +
+        '<div class="col-body">' + bodyHtml + (hasFirma ? '' : '<div class="col-firma"><br>— MHC</div>') + '</div></article>';
     }).join('');
     el.innerHTML = '<div class="col-grid">' + cards + '</div>';
-    if (meta) meta.textContent = list.length + ' nota(s)';
+    el.querySelectorAll('.col-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const wasOpen = card.classList.contains('open');
+        el.querySelectorAll('.col-card.open').forEach(c => c.classList.remove('open'));
+        if (!wasOpen) card.classList.add('open');
+      });
+    });
+    if (meta) meta.textContent = list.length + ' nota(s) · hacé clic en una para leerla';
   }
 
   function startColEditor() {
