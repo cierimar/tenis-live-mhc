@@ -2774,18 +2774,28 @@ tr.wc-row-live td { background: linear-gradient(90deg, var(--red-soft), transpar
   padding: 12px; margin-top: 12px; border: 1px solid #333;
 }
 
-.col-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+.col-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
 .col-card {
   border: 1px solid var(--hairline-dark); background: var(--paper);
-  padding: 16px 18px; display: flex; flex-direction: column;
+  padding: 10px 12px; display: flex; flex-direction: column;
+  cursor: pointer; transition: box-shadow 0.15s ease;
 }
-.col-card:hover { box-shadow: 4px 4px 0 var(--hairline-dark); }
+.col-card:hover { box-shadow: 3px 3px 0 var(--hairline-dark); }
 .col-date {
-  font-size: 9.5px; font-weight: 800; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--red); margin-bottom: 6px;
+  font-size: 9px; font-weight: 800; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--red); margin-bottom: 4px;
 }
-.col-title { font-family: var(--serif); font-weight: 700; font-size: 24px; line-height: 1.22; margin: 0 0 10px; color: #eaff00; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 8px rgba(234,255,0,.5); }
-.col-body { font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+.col-title { font-family: var(--serif); font-weight: 700; font-size: 15px; line-height: 1.2; margin: 0 0 4px; color: #eaff00; text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 8px rgba(234,255,0,.5); }
+.col-excerpt {
+  font-size: 12px; line-height: 1.5; color: var(--muted);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.col-body { display: none; font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+.col-firma { color: var(--muted); font-style: italic; margin-top: 6px; }
+.col-card.open .col-excerpt { display: none; }
+.col-card.open { grid-column: 1 / -1; display: block; }
+.col-card.open .col-body { display: block; }
 
 /* ---------------- modales (h2h + stats) ---------------- */
 
