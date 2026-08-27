@@ -35,7 +35,7 @@
   wcSearch: '',
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
-    columna: { data: [], loaded: false },
+    columna: { data: [], loaded: false }, colOpen: -1,
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -2553,7 +2553,7 @@
       let excerpt = bodyHtml.replace(/<br>/g, ' ');
       bodyHtml = bodyHtml.replace(/\n/g, '<br>');
       const hasFirma = /MHC\s*<br>\s*$/.test(bodyHtml.replace(/<br>\s*$/, ''));
-      return '<article class="col-card" data-i="' + i + '"><div class="col-date">' + esc(n.date || '') + '</div>' +
+      return '<article class="col-card' + (state.colOpen === i ? ' open' : '') + '" data-i="' + i + '"><div class="col-date">' + esc(n.date || '') + '</div>' +
         '<h3 class="col-title">' + esc(n.title || '') + '</h3>' +
         '<div class="col-excerpt">' + excerpt.slice(0, 160) + (excerpt.length > 160 ? '…' : '') + '</div>' +
         '<div class="col-body">' + bodyHtml + (hasFirma ? '' : '<div class="col-firma"><br>— MHC</div>') + '</div></article>';
@@ -2563,7 +2563,8 @@
       card.addEventListener('click', () => {
         const wasOpen = card.classList.contains('open');
         el.querySelectorAll('.col-card.open').forEach(c => c.classList.remove('open'));
-        if (!wasOpen) card.classList.add('open');
+        if (!wasOpen) { card.classList.add('open'); state.colOpen = parseInt(card.dataset.i, 10); }
+        else { state.colOpen = -1; }
       });
     });
     if (meta) meta.textContent = list.length + ' nota(s) · hacé clic en una para leerla';
