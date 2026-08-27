@@ -1522,20 +1522,26 @@
         const last = state.mixedLive.at || 0;
         if (now - last < 15000) { state.mixedLive.loaded = true; return; }
         state.mixedLive.at = now;
+        let ok = false;
         try {
-          const jf = await fetchJson('mixed.json');
-          if (jf && Array.isArray(jf.matches) && jf.matches.length) {
-            state.mixedLive.matches = jf.matches;
-            window.__mhcMixDebug = { ts: new Date().toISOString(), src: 'json', count: jf.matches.length };
-            state.mixedLive.loaded = true; return;
+          const r = await fetch('https://r.jina.ai/https://www.tennis.com/', { headers: { 'X-Return-Format': 'html' } });
+          if (r.ok) {
+            const txt = await r.text();
+            const parsed = parseMixedHtml(txt);
+            if (parsed.length) { state.mixedLive.matches = parsed; ok = true; }
+            window.__mhcMixDebug = { ts: new Date().toISOString(), src: 'jina', len: txt.length, count: parsed.length };
           }
         } catch (e1) {}
-        const r = await fetch('https://r.jina.ai/https://www.tennis.com/', { headers: { 'X-Return-Format': 'html' } });
-        if (!r.ok) throw new Error('jina ' + r.status);
-        const txt = await r.text();
-        const parsed = parseMixedHtml(txt);
-        if (parsed.length) state.mixedLive.matches = parsed;
-        window.__mhcMixDebug = { ts: new Date().toISOString(), len: txt.length, count: parsed.length };
+        if (!ok) {
+          try {
+            const jf = await fetchJson('mixed.json');
+            if (jf && Array.isArray(jf.matches) && jf.matches.length) {
+              state.mixedLive.matches = jf.matches;
+              window.__mhcMixDebug = { ts: new Date().toISOString(), src: 'json', count: jf.matches.length };
+              ok = true;
+            }
+          } catch (e2) {}
+        }
       }
     } catch (e) {
       try { window.__mhcMixDebug = { err: String(e).slice(0, 120), ts: new Date().toISOString() }; } catch (e2) {}
