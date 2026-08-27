@@ -35,6 +35,7 @@
   wcSearch: '',
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
+    columna: { data: [], loaded: false },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -1564,7 +1565,7 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed(), refreshColumnas()]);
       await refreshSofaPoints();
       if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
@@ -2527,6 +2528,81 @@
     if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--') + (wq ? ' · buscando "' + esc(wq) + '"' : '');
   }
 
+  function refreshColumnas() {
+    const url = 'columnas.json';
+    return fetchJson(url).catch(() => null).then(j => {
+      const list = (j && Array.isArray(j.columnas)) ? j.columnas : (Array.isArray(j) ? j : []);
+      state.columna = { data: list, loaded: true };
+      if (state.tab === 'columna') renderColumnas();
+    });
+  }
+
+  function renderColumnas() {
+    const el = $('colContent');
+    const meta = $('colMeta');
+    const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
+    const list = state.columna.data.slice().concat(local);
+    list.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    if (!list.length) {
+      el.innerHTML = '<div class="error-box">Aún no hay notas publicadas. Usá "+ Nueva nota" para escribir la primera.</div>';
+      if (meta) meta.textContent = 'Aún sin publicaciones';
+      return;
+    }
+    const cards = list.map(n => {
+      let bodyHtml = esc(n.body || '');
+      bodyHtml = bodyHtml.replace(/\n/g, '<br>');
+      return '<article class="col-card"><div class="col-date">' + esc(n.date || '') + '</div>' +
+        '<h3 class="col-title">' + esc(n.title || '') + '</h3>' +
+        '<div class="col-body">' + bodyHtml + '</div></article>';
+    }).join('');
+    el.innerHTML = '<div class="col-grid">' + cards + '</div>';
+    if (meta) meta.textContent = list.length + ' nota(s)';
+  }
+
+  function startColEditor() {
+    const editor = $('colEditor');
+    const title = $('colTitle');
+    const body = $('colBody');
+    if (!editor || !title || !body) return;
+    if (editor.style.display === 'none' || !editor.style.display) {
+      const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
+      const last = local[local.length - 1];
+      title.value = last ? last.title : '';
+      body.value = last ? last.body : '';
+      editor.style.display = 'block';
+    } else {
+      editor.style.display = 'none';
+    }
+    $('colJsonOut').style.display = 'none';
+  }
+
+  function saveColDraft() {
+    const title = $('colTitle');
+    const body = $('colBody');
+    if (!title || !body) return;
+    const t = title.value.trim(), b = body.value.trim();
+    if (!t && !b) { alert('Escribí algo primero.'); return; }
+    const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
+    local.push({ title: t, body: b, date: new Date().toISOString().slice(0, 10), local: true });
+    localStorage.setItem('mhc-columna', JSON.stringify(local));
+    renderColumnas();
+    $('colMeta').textContent = 'Borrador guardado en este dispositivo ✔';
+  }
+
+  function copyColJson() {
+    const title = $('colTitle');
+    const body = $('colBody');
+    if (!title || !body) return;
+    const t = title.value.trim(), b = body.value.trim();
+    if (!t && !b) { alert('Escribí el título y el cuerpo.'); return; }
+    const entry = { title: t, body: b, date: new Date().toISOString().slice(0, 10) };
+    const out = $('colJsonOut');
+    out.textContent = 'Agregá esto al array "columnas" de columnas.json (en la raíz y en web-github), y subilo:\n\n' +
+      JSON.stringify(entry, null, 2) + ',';
+    out.style.display = 'block';
+    try { navigator.clipboard.writeText(JSON.stringify(entry, null, 2) + ','); } catch (_) {}
+  }
+
   function renderPlayers() {
     const el = $('playersContent');
     if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
@@ -2586,6 +2662,7 @@
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
+    else if (state.tab === 'columna') renderColumnas();
   }
 
   function setTab(tab) {
@@ -2597,6 +2674,7 @@
   document.body.classList.toggle('tab-news', tab === 'news');
   document.body.classList.toggle('tab-videos', tab === 'videos');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
+    document.body.classList.toggle('tab-columna', tab === 'columna');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
@@ -2621,6 +2699,11 @@
     if (tab === 'wheelchair' && !state.wheelchair.loaded) {
       render();
       refreshWheelchair();
+      return;
+    }
+    if (tab === 'columna' && !state.columna.loaded) {
+      render();
+      refreshColumnas();
       return;
     }
     render();
@@ -3148,6 +3231,14 @@
     }
     const h2hGo = $('h2hSearchBtn');
     if (h2hGo) h2hGo.addEventListener('click', runH2HSearch);
+    const colNew = $('colNew');
+    if (colNew) colNew.addEventListener('click', startColEditor);
+    const colToggle = $('colToggle');
+    if (colToggle) colToggle.addEventListener('click', startColEditor);
+    const colSave = $('colSave');
+    if (colSave) colSave.addEventListener('click', saveColDraft);
+    const colCopy = $('colCopyJson');
+    if (colCopy) colCopy.addEventListener('click', copyColJson);
     ['h2hP1', 'h2hP2'].forEach(id => {
       const el = $(id);
       if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') runH2HSearch(); });
