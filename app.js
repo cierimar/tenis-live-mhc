@@ -35,7 +35,7 @@
   wcSearch: '',
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
-    columna: { data: [], loaded: false }, colOpen: -1,
+    columna: { data: [], loaded: false }, colOpen: -1, colEditing: -1,
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -2556,10 +2556,17 @@
       return '<article class="col-card' + (state.colOpen === i ? ' open' : '') + '" data-i="' + i + '"><div class="col-date">' + esc(n.date || '') + '</div>' +
         '<h3 class="col-title">' + esc(n.title || '') + '</h3>' +
         '<div class="col-excerpt">' + excerpt.slice(0, 160) + (excerpt.length > 160 ? '…' : '') + '</div>' +
-        '<div class="col-body">' + bodyHtml + (hasFirma ? '' : '<div class="col-firma"><br>— MHC</div>') + '</div></article>';
+        '<div class="col-body">' + bodyHtml + (hasFirma ? '' : '<div class="col-firma"><br>— MHC</div>') + '</div>' +
+        (useLocalBackend() ? '<div class="col-cardbar"><button class="col-edit" data-e="' + i + '">✎ Editar</button></div>' : '') + '</article>';
     }).join('');
     el.innerHTML = '<div class="col-grid">' + cards + '</div>';
     el.querySelectorAll('.col-card').forEach(card => {
+      card.querySelectorAll('.col-edit').forEach(btn => {
+        btn.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          editCol(parseInt(btn.dataset.e, 10));
+        });
+      });
       card.addEventListener('click', () => {
         const wasOpen = card.classList.contains('open');
         el.querySelectorAll('.col-card.open').forEach(c => c.classList.remove('open'));
@@ -2587,17 +2594,64 @@
     $('colJsonOut').style.display = 'none';
   }
 
+  function editCol(i) {
+    const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
+    const note = i < state.columna.data.length ? state.columna.data[i] : local[i - state.columna.data.length];
+    if (!note) return;
+    state.colEditing = i;
+    $('colTitle').value = note.title || '';
+    $('colBody').value = note.body || '';
+    $('colEditor').style.display = 'block';
+    $('colJsonOut').style.display = 'none';
+    $('colToggle').textContent = 'Cerrar editor';
+    $('colSave').textContent = 'Guardar edición';
+  }
+
+  function colIsLocal(i) {
+    const nData = state.columna.data.length;
+    return i >= nData;
+  }
+
   function saveColDraft() {
     const title = $('colTitle');
     const body = $('colBody');
     if (!title || !body) return;
     const t = title.value.trim(), b = body.value.trim();
     if (!t && !b) { alert('Escribí algo primero.'); return; }
+    const date = new Date().toISOString().slice(0, 10);
+    let meta = $('colMeta');
+    if (state.colEditing >= 0) {
+      const i = state.colEditing;
+      const edited = { title: t, body: b, date: date, edited: true };
+      if (colIsLocal(i)) {
+        const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
+        const li = i - state.columna.data.length;
+        local[li] = { title: t, body: b, date: local[li] ? local[li].date : date, local: true };
+        localStorage.setItem('mhc-columna', JSON.stringify(local));
+        if (meta) meta.textContent = 'Borrador editado en este dispositivo ✔';
+      } else {
+        if (!localStorage.getItem('mhc-coledit')) localStorage.setItem('mhc-coledit', '{}');
+        const edits = JSON.parse(localStorage.getItem('mhc-coledit'));
+        edits[i] = edited;
+        localStorage.setItem('mhc-coledit', JSON.stringify(edits));
+        if (meta) meta.textContent = 'Edición guardada localmente. Usá "Generar código" para publicarla ✔';
+      }
+      endColEdit();
+      renderColumnas();
+      return;
+    }
     const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-    local.push({ title: t, body: b, date: new Date().toISOString().slice(0, 10), local: true });
+    local.push({ title: t, body: b, date: date, local: true });
     localStorage.setItem('mhc-columna', JSON.stringify(local));
     renderColumnas();
     $('colMeta').textContent = 'Borrador guardado en este dispositivo ✔';
+  }
+
+  function endColEdit() {
+    state.colEditing = -1;
+    const t = $('colToggle'), s = $('colSave');
+    if (t) t.textContent = 'Escribir / Ver notas';
+    if (s) s.textContent = 'Guardar borrador';
   }
 
   function copyColJson() {
@@ -2606,12 +2660,24 @@
     if (!title || !body) return;
     const t = title.value.trim(), b = body.value.trim();
     if (!t && !b) { alert('Escribí el título y el cuerpo.'); return; }
-    const entry = { title: t, body: b, date: new Date().toISOString().slice(0, 10) };
+    const date = new Date().toISOString().slice(0, 10);
+    const entry = { title: t, body: b, date: date };
+    let outTxt;
+    let clip = JSON.stringify(entry, null, 2) + ',';
+    if (state.colEditing >= 0) {
+      const i = state.colEditing;
+      const arr = state.columna.data.slice();
+      if (!colIsLocal(i)) arr[i] = Object.assign({}, arr[i], { title: t, body: b, date: date });
+      outTxt = 'EDITÁ este fragmento en columnas.json (raíz y web-github) reemplazando la nota índice ' + i + ' (o el JSON completo):\n\n' + JSON.stringify(arr, null, 2);
+      clip = JSON.stringify(arr, null, 2);
+    } else {
+      outTxt = 'Agregá esto al array "columnas" de columnas.json (en la raíz y en web-github), y subilo:\n\n' +
+        JSON.stringify(entry, null, 2) + ',';
+    }
     const out = $('colJsonOut');
-    out.textContent = 'Agregá esto al array "columnas" de columnas.json (en la raíz y en web-github), y subilo:\n\n' +
-      JSON.stringify(entry, null, 2) + ',';
+    out.textContent = outTxt;
     out.style.display = 'block';
-    try { navigator.clipboard.writeText(JSON.stringify(entry, null, 2) + ','); } catch (_) {}
+    try { navigator.clipboard.writeText(clip); } catch (_) {}
   }
 
   function clearColDrafts() {
