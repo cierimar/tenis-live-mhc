@@ -32,6 +32,7 @@
     playerSearch: '',
     playerCountry: '',
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
+  wcSearch: '',
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
     seeds: { singles: {}, doubles: {}, loaded: false },
@@ -2368,6 +2369,7 @@
     const meta = $('wcMeta');
     const wc = state.wheelchair;
     const tab = wc.tab;
+    const sw = $('wcSearchWrap'); if (sw) sw.style.display = 'none';
 
     if (tab === 'live') {
       const wcLive = state.wcLive;
@@ -2423,7 +2425,7 @@
       });
       html += '</div>';
       html += '<div style="margin-top:16px"><a href="https://www.youtube.com/results?search_query=wheelchair+tennis+2026+highlights" target="_blank" class="ta-link">Ver más highlights en YouTube &rarr;</a></div>';
-    el.innerHTML = lvBar + html;
+    el.innerHTML = html;
       if (meta) meta.textContent = 'Videos de wheelchair tennis · Highlights y Torneos';
       return;
     }
@@ -2454,26 +2456,29 @@
 
     if (tab === 'results') {
       if (!d.recentResults || !d.recentResults.length) { el.innerHTML = '<div class="error-box">No hay resultados recientes.</div>'; return; }
-      const rows = d.recentResults.map(r => {
-        return '<tr>' +
-          '<td>' + esc(r.date) + '</td>' +
-          '<td><b>' + esc(r.tournament) + '</b></td>' +
-          '<td>' + esc(r.menSingles || '—') + '</td>' +
-          '<td>' + esc(r.womenSingles || '—') + '</td>' +
-          '<td>' + esc(r.menDoubles || '—') + '</td>' +
-          '<td>' + esc(r.womenDoubles || '—') + '</td>' +
-          '</tr>';
+      const cats = [
+        { k: 'menSingles', lbl: 'Singles M' },
+        { k: 'womenSingles', lbl: 'Singles W' },
+        { k: 'menDoubles', lbl: 'Dobles M' },
+        { k: 'womenDoubles', lbl: 'Dobles W' }
+      ];
+      const cards = d.recentResults.map(r => {
+        const items = cats.filter(c => r[c.k]).map(c =>
+          '<div class="wc-res-cat"><span class="wc-res-lbl">' + c.lbl + '</span><span class="wc-res-win">' + esc(r[c.k]) + '</span></div>'
+        ).join('');
+        if (!items) return '';
+        return '<div class="wc-res-card"><div class="wc-res-head"><span class="wc-res-date">' + esc(r.date) + '</span><span class="wc-res-tour">' + esc(r.tournament) + '</span></div>' + items + '</div>';
       }).join('');
-      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
-        '<thead><tr><th>Fecha</th><th>Torneo</th><th>Singles M</th><th>Singles W</th><th>Dobles M</th><th>Dobles W</th></tr></thead>' +
-        '<tbody>' + rows + '</tbody></table></div>';
-      if (meta) meta.textContent = 'Resultados recientes de Grand Slams y torneos principales';
+      el.innerHTML = '<div class="wc-res-grid">' + (cards || '<div class="error-box">Sin resultados.</div>') + '</div>';
+      if (meta) meta.textContent = 'Resultados recientes de torneos UNIQLO Wheelchair Tennis Tour';
       return;
     }
 
     const rankData = d.rankings && d.rankings[tab];
     const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles', quadDoubles: 'Quad Doubles' };
     if (!rankData || !rankData.length) { el.innerHTML = '<div class="error-box">No hay ranking disponible para esta categoría.</div>'; return; }
+    const wq = state.wcSearch;
+    const filtered = wq ? rankData.filter(r => (r.name || '').toLowerCase().indexOf(wq) > -1) : rankData;
     const hasPoints = rankData[0] && rankData[0].points != null;
     const hasRecord = rankData[0] && rankData[0].record2026;
     const hasTitles = rankData[0] && rankData[0].titles2026 != null;
@@ -2481,7 +2486,7 @@
     const thPoints = hasPoints ? '<th style="text-align:right">Puntos</th>' : '';
     const thRecord = hasRecord ? '<th>W-L 2026</th>' : '';
     const thTitles = hasTitles ? '<th>Títulos</th>' : '';
-    const rows = rankData.map(r => {
+    const rows = filtered.map(r => {
       const pts = r.points != null ? r.points.toLocaleString('es') : '—';
       const rankCls = r.rank === 1 ? 'r-rank top1' : 'r-rank';
       let mvCell = '';
@@ -2500,7 +2505,10 @@
         (hasPoints ? '<td class="r-pts">' + pts + '<span> pts</span></td>' : '') +
         '</tr>';
     }).join('');
+    const searchBox = $('wcSearchWrap');
+    if (searchBox) searchBox.style.display = 'block';
     el.innerHTML = '<div class="rank-section-title">' + (labels[tab] || tab) + ' Rankings</div>' +
+      (wq && !filtered.length ? '<div class="error-box">No se encontraron jugadores que coincidan con "' + esc(wq) + '".</div>' : '') +
       '<div class="rank-table-wrap"><table class="rank-table">' +
       '<thead><tr><th>#</th><th>Jugador</th>' +
       (hasMove ? '<th>Mov.</th>' : '') +
@@ -2509,7 +2517,7 @@
       (hasPoints ? '<th style="text-align:right">Puntos</th>' : '<th></th>') +
       '</tr></thead>' +
       '<tbody>' + rows + '</tbody></table></div>';
-    if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--');
+    if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--') + (wq ? ' · buscando "' + esc(wq) + '"' : '');
   }
 
   function renderPlayers() {
@@ -3115,6 +3123,20 @@
         if (b.dataset.wc === 'live') { refreshWcLive(); return; }
         if (b.dataset.wc === 'videos') { refreshWcVideos(); return; }
         renderWheelchair();
+      });
+    }
+    const wcSearch = $('wcSearch');
+    if (wcSearch) {
+      wcSearch.addEventListener('input', () => {
+        state.wcSearch = wcSearch.value.toLowerCase().trim();
+        renderWheelchair();
+      });
+      const wcClear = $('wcSearchClear');
+      if (wcClear) wcClear.addEventListener('click', () => {
+        wcSearch.value = '';
+        state.wcSearch = '';
+        renderWheelchair();
+        wcSearch.focus();
       });
     }
     const h2hGo = $('h2hSearchBtn');
