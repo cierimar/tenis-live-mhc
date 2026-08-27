@@ -1763,7 +1763,7 @@
         '</span>' + chip + tier + surf + '<span class="t-date">' + esc(dates) + '</span></div>' + cards + '</div>';
       liveCount += ms.filter(m => m.state === 'in').length;
     }
-    el.innerHTML = html;
+    el.innerHTML = lvBar + html;
     const srcLabel = (function () {
       if (state.matches.some(m => String(m.id).indexOf('sf-') === 0)) return 'datos: Sofascore';
       const sm = state.sofaMeta;
