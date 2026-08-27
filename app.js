@@ -2456,21 +2456,28 @@
 
     if (tab === 'results') {
       if (!d.recentResults || !d.recentResults.length) { el.innerHTML = '<div class="error-box">No hay resultados recientes.</div>'; return; }
+      const searchBox = $('wcSearchWrap');
+      if (searchBox) searchBox.style.display = 'block';
       const cats = [
         { k: 'menSingles', lbl: 'Singles M' },
         { k: 'womenSingles', lbl: 'Singles W' },
         { k: 'menDoubles', lbl: 'Dobles M' },
         { k: 'womenDoubles', lbl: 'Dobles W' }
       ];
-      const cards = d.recentResults.map(r => {
+      const q = state.wcSearch;
+      const list = q ? d.recentResults.filter(r => {
+        const full = (r.tournament || '') + ' ' + cats.map(c => r[c.k]).join(' ');
+        return full.toLowerCase().indexOf(q) > -1;
+      }) : d.recentResults;
+      const cards = list.map(r => {
         const items = cats.filter(c => r[c.k]).map(c =>
           '<div class="wc-res-cat"><span class="wc-res-lbl">' + c.lbl + '</span><span class="wc-res-win">' + esc(r[c.k]) + '</span></div>'
         ).join('');
         if (!items) return '';
         return '<div class="wc-res-card"><div class="wc-res-head"><span class="wc-res-date">' + esc(r.date) + '</span><span class="wc-res-tour">' + esc(r.tournament) + '</span></div>' + items + '</div>';
       }).join('');
-      el.innerHTML = '<div class="wc-res-grid">' + (cards || '<div class="error-box">Sin resultados.</div>') + '</div>';
-      if (meta) meta.textContent = 'Resultados recientes de torneos UNIQLO Wheelchair Tennis Tour';
+      el.innerHTML = '<div class="wc-res-grid">' + (cards || '<div class="error-box">No se encontraron resultados que coincidan con "' + esc(q) + '".</div>') + '</div>';
+      if (meta) meta.textContent = 'Resultados recientes de torneos UNIQLO Wheelchair Tennis Tour' + (q ? ' · buscando "' + esc(q) + '"' : '');
       return;
     }
 
