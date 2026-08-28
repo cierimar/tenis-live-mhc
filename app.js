@@ -315,7 +315,7 @@
     if (m500.test(n)) return isW ? 'WTA 500' : 'ATP 500';
     if (/challeng/.test(n) || circuit === 'chall') return 'CHALLENGER';
     if (/itf/.test(n) || circuit === 'itf') return 'ITF';
-    if (/\b250\b|open/.test(n)) return isW ? 'WTA 250' : 'ATP 250';
+    if (/\b250\b|open/.test(n)) return isW ? 'WTA' : 'ATP';
     return isW ? 'WTA' : 'ATP';
   }
 
