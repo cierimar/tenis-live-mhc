@@ -1772,7 +1772,7 @@
       const logo = tour && tour.logo
         ? '<img class="th-logo" src="' + esc(tour.logo) + '" alt="" onerror="this.outerHTML=\'<span class=&quot;th-logo th-logo-txt&quot;>' + esc((name || '?').charAt(0).toUpperCase()) + '</span>\'">'
         : '<span class="th-logo th-logo-txt">' + esc((name || '?').charAt(0).toUpperCase()) + '</span>';
-      const tierTxt = (tour && tour.tier) || tierLabel(tour && tour.name ? tour.name : name, state.tour === 'wta' ? 'wta' : (state.tour === 'chall' ? 'chall' : 'atp'));
+      const tierTxt = (tour && tour.tier) || tierLabel(tour && tour.name ? tour.name : name, tourOf(ms[0]));
       const tier = tierTxt ? '<span class="th-tier">' + esc(tierTxt) + '</span>' : '';
       const surfTxt = (tour && tour.surface) || guessSurface(name, tour && tour.date);
       const surf = surfTxt ? '<span class="th-surf surf-' + surfClassOf(surfTxt) + '">' + esc(surfShortOf(surfTxt)) + '</span>' : '';
