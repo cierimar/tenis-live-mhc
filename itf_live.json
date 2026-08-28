@@ -1,6 +1,4 @@
 {
-  "time": "2026-08-28T22:13:06Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -1720,6 +1718,15 @@
       "name": "Barueri ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3307911",
+          "p1": "Leme Da Silva",
+          "p2": "Brace",
+          "time": "15:00",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
         {
           "teId": "3307823",
           "p1": "Mi",
@@ -6277,5 +6284,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-28T22:23:31Z",
+  "ok": true
 }
