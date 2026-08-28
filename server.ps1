@@ -173,6 +173,7 @@ function Restore-Accents([string]$joinedName) {
 
 function Parse-AtpRanking([string]$html) {
     $result = [System.Collections.Generic.List[object]]::new()
+    $seen = New-Object 'System.Collections.Generic.HashSet[string]'
     $rows = [regex]::Matches($html, '<tr[^>]*>.*?</tr>', 'Singleline')
     foreach ($m in $rows) {
         $row = $m.Value
@@ -198,6 +199,8 @@ function Parse-AtpRanking([string]$html) {
         }
         if (-not $name) { continue }
         $name = Restore-Accents $name
+        $key = $name.ToLowerInvariant()
+        if (-not $seen.Add($key)) { continue }
         $flags = [regex]::Matches($row, '#flag-([a-z0-9]+)')
         $flag = ''
         if ($flags.Count -gt 0) { $flag = $flags[0].Groups[1].Value.ToLowerInvariant() }
@@ -629,6 +632,125 @@ function Get-ItfLive {
     }
     $pool.Dispose()
     return @{ ok = $true; time = (Get-Date).ToString('s'); tournaments = $tournaments }
+}
+
+function Get-LiveAll {
+    # Fuente universal de EN VIVO: TennisTemple (todos los circuitos, singles + dobles)
+    $ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
+    $tmp = [System.IO.Path]::GetTempFileName()
+    $html = $null
+    try {
+        & curl.exe -s -L --compressed --connect-timeout 15 --max-time 40 -A $ua -o $tmp 'https://es.tennistemple.com/matches/' 2>$null
+        if (Test-Path $tmp) {
+            $len = (Get-Item $tmp).Length
+            if ($len -gt 2000) { $html = [System.IO.File]::ReadAllText($tmp) }
+        }
+    } catch { $html = $null }
+    finally { Remove-Item $tmp -Force -ErrorAction SilentlyContinue }
+    if (-not $html -or $html.Length -lt 2000) { return @{ ok = $false; error = 'tennistemple no disponible'; tournaments = @() } }
+    $tournaments = [System.Collections.Generic.List[object]]::new()
+    $matchSeq = 0
+    foreach ($site in [regex]::Matches($html, '<section class="site">[\s\S]*?</section>', 'Singleline')) {
+        $sec = $site.Value
+        $nameM = [regex]::Match($sec, '<h2[^>]*>([\s\S]{0,60})</h2>', 'Singleline')
+        $name = if ($nameM.Success) { (($nameM.Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
+        if (-not $name) { continue }
+        $levelM = [regex]::Match($sec, '</h2>\s*<span>([\s\S]{0,30})</span>', 'Singleline')
+        $level = if ($levelM.Success) { (($levelM.Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
+        # circuito por nivel
+        $tour = 'atp'
+        if ($level -match '^WTA') { $tour = 'wta' }
+        elseif ($level -match 'ATP CH') { $tour = 'chall' }
+        elseif ($level -match '^W\s') { $tour = 'itf'; $cat = 'w' }
+        elseif ($level -match '^M\s') { $tour = 'itf'; $cat = 'm' }
+        elseif ($level -match 'MIXTO|Mixed') { $tour = 'mixto' }
+        $tid = 'tt-' + $matchSeq
+        $mList = [System.Collections.Generic.List[object]]::new()
+        foreach ($mm in [regex]::Matches($sec, '<a class="tt-match[^"]*" data-match-id="(\d+)"[\s\S]*?</a>', 'Singleline')) {
+            $matchSeq++
+            $m = $mm.Value
+            $mid = $mm.Groups[1].Value
+            $names = [regex]::Matches($m, '<span class="name">([\s\S]{0,40})</span>', 'Singleline')
+            $p1 = if ($names.Count -gt 0) { (($names[0].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
+            $p2 = if ($names.Count -gt 1) { (($names[1].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
+            $p3 = if ($names.Count -gt 2) { (($names[2].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
+            $p4 = if ($names.Count -gt 3) { (($names[3].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
+            $flags = [regex]::Matches($m, 'tt-flag ([a-z]{2})')
+            $f1 = if ($flags.Count -gt 0) { $flags[0].Groups[1].Value } else { '' }
+            $f2 = if ($flags.Count -gt 1) { $flags[1].Groups[1].Value } else { '' }
+            $f3 = if ($flags.Count -gt 2) { $flags[2].Groups[1].Value } else { '' }
+            $f4 = if ($flags.Count -gt 3) { $flags[3].Groups[1].Value } else { '' }
+            $isPlaying = $m -match 'class="tt-match match playing'
+            $isPostponed = $m -match 'postponed'
+            $isSuspended = $m -match 'suspended'
+            $state = 'pre'
+            if ($isPlaying) { $state = 'in' }
+            $roundM = [regex]::Match($m, 'class="round-label-short[^"]*">([^<]+)<')
+            $round = if ($roundM.Success) { $roundM.Groups[1].Value.Trim() } else { '' }
+            # marcador: game (punto) y sets
+            $games = [regex]::Matches($m, '<div class="game">\s*([^<]+)\s*</div>')
+            $game1 = if ($games.Count -gt 0) { $games[0].Groups[1].Value.Trim() } else { '' }
+            $game2 = if ($games.Count -gt 1) { $games[1].Groups[1].Value.Trim() } else { '' }
+            $serve1 = $m -match 'class="serve p1"'
+            $serve2 = $m -match 'class="serve p2"'
+            # sets por jugador
+            $sets1 = @()
+            foreach ($sm in [regex]::Matches($m, '<div class="player player1">[\s\S]*?</div>\s*</div>', 'Singleline')) {
+                foreach ($sv in [regex]::Matches($sm.Value, 'class="set set\d+[^"]*">\s*([^<]+)\s*</div>')) { if ($sv.Groups[1].Value.Trim() -ne '') { $sets1 += $sv.Groups[1].Value.Trim() } }
+            }
+            $sets2 = @()
+            foreach ($sm in [regex]::Matches($m, '<div class="player player2">[\s\S]*?</div>\s*</div>', 'Singleline')) {
+                foreach ($sv in [regex]::Matches($sm.Value, 'class="set set\d+[^"]*">\s*([^<]+)\s*</div>')) { if ($sv.Groups[1].Value.Trim() -ne '') { $sets2 += $sv.Groups[1].Value.Trim() } }
+            }
+            # dobles?
+            $isDoubles = $names.Count -ge 4
+            $k = if ($isDoubles) { 'Doubles' } else { 'Singles' }
+            $type = $k
+            if ($tour -eq 'wta') { $type = 'Women ' + $k }
+            elseif ($tour -eq 'itf') { $type = $(if ($cat -eq 'w') { 'Women ' } else { 'Men ' }) + $k }
+            else { $type = 'Men ' + $k }
+            $mList.Add([pscustomobject]@{
+                id = 'tt-' + $mid
+                date = $null
+                state = $state
+                period = $null
+                type = $type
+                round = $round
+                tournamentId = $tid
+                tournamentName = $name
+                tour = $tour
+                cat = if ($tour -eq 'itf') { $cat } else { $null }
+                venue = $level
+                notes = ''
+                fortified = $false
+                postponed = $isPostponed
+                suspended = $isSuspended
+                live = $state -eq 'in'
+                pts0 = $game1
+                pts1 = $game2
+                serverIdx = if ($serve1) { 1 } elseif ($serve2) { 2 } else { 0 }
+                competitors = @(
+                    @{ homeAway = 'home'; winner = $false; order = 1; name = if ($isDoubles) { "$p1 / $p3" } else { $p1 }; flag = $f1; flagAlt = ''; linescores = @($sets1) },
+                    @{ homeAway = 'away'; winner = $false; order = 2; name = if ($isDoubles) { "$p2 / $p4" } else { $p2 }; flag = $f2; flagAlt = ''; linescores = @($sets2) }
+                )
+            })
+        }
+        if ($mList.Count -gt 0) {
+            # derivar tier real desde el nivel (no adivinar por nombre del torneo)
+            $tier = ''
+            $lv = $level.ToLowerInvariant()
+            if ($lv -match 'grand slam') { $tier = 'GRAND SLAM' }
+            elseif ($lv -match 'wta') {
+                $tier = if ($lv -match 'wta 1000|wta 900|wta premi') { 'WTA 1000' } elseif ($lv -match 'wta 500') { 'WTA 500' } elseif ($lv -match 'wta 250') { 'WTA 250' } elseif ($lv -match 'wta 125') { 'WTA 125' } elseif ($lv -match 'wta 125') { 'WTA 125' } else { 'WTA' }
+            }
+            elseif ($lv -match 'atp ch') { $tier = 'CHALLENGER' }
+            elseif ($lv -match 'atp') { $tier = if ($lv -match 'masters|1000') { 'MASTERS 1000' } elseif ($lv -match 'atp 500|500') { 'ATP 500' } elseif ($lv -match 'atp 250|250') { 'ATP 250' } else { 'ATP' } }
+            elseif ($lv -match '^w\s*(\d+)') { $tier = 'ITF W' + $Matches[1] }
+            elseif ($lv -match '^m\s*(\d+)') { $tier = 'ITF M' + $Matches[1] }
+            $tournaments.Add([pscustomobject]@{ id = $tid; name = $name; level = $level; tour = $tour; cat = if ($tour -eq 'itf') { $cat } else { $null }; tier = $tier; matches = $mList })
+        }
+    }
+    return @{ ok = $true; time = (Get-Date).ToString('s'); source = 'tennistemple'; tournaments = $tournaments }
 }
 
 function Get-TennisNews {
@@ -1656,17 +1778,17 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
         }
         if ($path -eq '/api/live/atp') {
             $level = if ($q['level'] -eq 'challenger') { 'challenger' } else { 'tour' }
-            $data = Get-Cached "atp_live_$level" { Get-AtpLive $level } 15
+            $data = Get-Cached "atp_live_$level" { Get-AtpLive $level } 5
             Send-Json $resp $data
             return
         }
         if ($path -eq '/api/live/chall') {
-            $data = Get-Cached 'chall_live' { Get-ChallengerLive } 15
+            $data = Get-Cached 'chall_live' { Get-ChallengerLive } 5
             Send-Json $resp $data
             return
         }
         if ($path -eq '/api/mixed/live') {
-            $data = Get-Cached 'mixed_live' { Get-MixedLive } 30
+            $data = Get-Cached 'mixed_live' { Get-MixedLive } 10
             Send-Json $resp $data
             return
         }
@@ -1677,6 +1799,11 @@ $data = Get-Cached "lt_${tour}_$isRace_$isOfficial" { Get-LiveRanking $tour $isR
         }
         if ($path -eq '/api/itf/live') {
             $data = Get-Cached 'itf_live' { Get-ItfLive } 60
+            Send-Json $resp $data
+            return
+        }
+        if ($path -eq '/api/live/all') {
+            $data = Get-Cached 'live_all' { Get-LiveAll } 20
             Send-Json $resp $data
             return
         }
