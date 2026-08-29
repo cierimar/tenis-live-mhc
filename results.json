@@ -1,7 +1,6 @@
 {
+  "updated": "2026-08-29T03:37:47Z",
   "ok": true,
-  "updated": "2026-08-29T03:10:30Z",
-  "count": 3,
   "matches": [
     {
       "id": "te-3307629",
@@ -14,42 +13,42 @@
       "surface": "",
       "competitors": [
         {
+          "flagAlt": "",
           "name": "Fery A.",
+          "flag": "",
+          "homeAway": "home",
+          "winner": true,
           "linescores": [
             {
-              "tiebreak": null,
               "value": 6,
+              "tiebreak": null,
               "winner": true
             },
             {
-              "tiebreak": null,
               "value": 1,
+              "tiebreak": null,
               "winner": false
             }
-          ],
-          "flagAlt": "",
-          "winner": true,
-          "homeAway": "home",
-          "flag": ""
+          ]
         },
         {
+          "flagAlt": "",
           "name": "Duckworth J.",
+          "flag": "",
+          "homeAway": "away",
+          "winner": false,
           "linescores": [
             {
-              "tiebreak": null,
               "value": 4,
+              "tiebreak": null,
               "winner": false
             },
             {
-              "tiebreak": null,
               "value": 2,
+              "tiebreak": null,
               "winner": true
             }
-          ],
-          "flagAlt": "",
-          "winner": false,
-          "homeAway": "away",
-          "flag": ""
+          ]
         }
       ]
     },
@@ -64,52 +63,52 @@
       "surface": "",
       "competitors": [
         {
+          "flagAlt": "",
           "name": "Donski A. / Martin D.",
+          "flag": "",
+          "homeAway": "home",
+          "winner": true,
           "linescores": [
             {
-              "tiebreak": null,
               "value": 4,
+              "tiebreak": null,
               "winner": false
             },
             {
-              "tiebreak": null,
               "value": 6,
+              "tiebreak": null,
               "winner": true
             },
             {
-              "tiebreak": null,
               "value": 14,
+              "tiebreak": null,
               "winner": true
             }
-          ],
-          "flagAlt": "",
-          "winner": true,
-          "homeAway": "home",
-          "flag": ""
+          ]
         },
         {
+          "flagAlt": "",
           "name": "Puttergil / Rai A.",
+          "flag": "",
+          "homeAway": "away",
+          "winner": false,
           "linescores": [
             {
-              "tiebreak": null,
               "value": 6,
+              "tiebreak": null,
               "winner": true
             },
             {
-              "tiebreak": null,
               "value": 3,
+              "tiebreak": null,
               "winner": false
             },
             {
-              "tiebreak": null,
               "value": 12,
+              "tiebreak": null,
               "winner": false
             }
-          ],
-          "flagAlt": "",
-          "winner": false,
-          "homeAway": "away",
-          "flag": ""
+          ]
         }
       ]
     },
@@ -124,44 +123,45 @@
       "surface": "",
       "competitors": [
         {
+          "flagAlt": "",
           "name": "Parry D.",
+          "flag": "",
+          "homeAway": "home",
+          "winner": true,
           "linescores": [
             {
-              "tiebreak": null,
               "value": 7,
+              "tiebreak": null,
               "winner": true
             },
             {
-              "tiebreak": null,
               "value": 6,
+              "tiebreak": null,
               "winner": true
             }
-          ],
-          "flagAlt": "",
-          "winner": true,
-          "homeAway": "home",
-          "flag": ""
+          ]
         },
         {
+          "flagAlt": "",
           "name": "Li A.",
+          "flag": "",
+          "homeAway": "away",
+          "winner": false,
           "linescores": [
             {
-              "tiebreak": null,
               "value": 6,
+              "tiebreak": null,
               "winner": false
             },
             {
-              "tiebreak": null,
               "value": 4,
+              "tiebreak": null,
               "winner": false
             }
-          ],
-          "flagAlt": "",
-          "winner": false,
-          "homeAway": "away",
-          "flag": ""
+          ]
         }
       ]
     }
-  ]
+  ],
+  "count": 3
 }
