@@ -1,5 +1,4 @@
 {
-  "time": "2026-08-29T19:06:39Z",
   "ok": true,
   "tournaments": [
     {
@@ -1811,12 +1810,22 @@
       "matches": [
         {
           "teId": "3307911",
-          "p1": "Leme Da Silva",
-          "p2": "Brace",
+          "p1": "Brace",
+          "p2": "Leme Da Silva",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "19:20",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3307823",
@@ -5975,5 +5984,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-29T19:17:04Z"
 }
