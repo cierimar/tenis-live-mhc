@@ -11,6 +11,8 @@
       "surface": "",
       "competitors": [
         {
+          "winner": true,
+          "homeAway": "home",
           "linescores": [
             {
               "winner": true,
@@ -24,12 +26,12 @@
             }
           ],
           "name": "Fery A.",
-          "flagAlt": "",
           "flag": "",
-          "homeAway": "home",
-          "winner": true
+          "flagAlt": ""
         },
         {
+          "winner": false,
+          "homeAway": "away",
           "linescores": [
             {
               "winner": false,
@@ -43,10 +45,8 @@
             }
           ],
           "name": "Duckworth J.",
-          "flagAlt": "",
           "flag": "",
-          "homeAway": "away",
-          "winner": false
+          "flagAlt": ""
         }
       ]
     },
@@ -61,6 +61,8 @@
       "surface": "",
       "competitors": [
         {
+          "winner": true,
+          "homeAway": "home",
           "linescores": [
             {
               "winner": false,
@@ -79,12 +81,12 @@
             }
           ],
           "name": "Donski A. / Martin D.",
-          "flagAlt": "",
           "flag": "",
-          "homeAway": "home",
-          "winner": true
+          "flagAlt": ""
         },
         {
+          "winner": false,
+          "homeAway": "away",
           "linescores": [
             {
               "winner": true,
@@ -103,15 +105,13 @@
             }
           ],
           "name": "Puttergil / Rai A.",
-          "flagAlt": "",
           "flag": "",
-          "homeAway": "away",
-          "winner": false
+          "flagAlt": ""
         }
       ]
     }
   ],
-  "updated": "2026-08-29T01:09:18Z",
   "ok": true,
+  "updated": "2026-08-29T01:20:37Z",
   "count": 2
 }
