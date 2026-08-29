@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-08-29T16:42:14Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -1822,7 +1820,7 @@
           "teId": "3307911",
           "p1": "Leme Da Silva",
           "p2": "Brace",
-          "time": "18:55",
+          "time": "19:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4178,10 +4176,22 @@
           "teId": "3307787",
           "p1": "Kikawada",
           "p2": "Blomqvist",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "18:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3307785",
@@ -5944,5 +5954,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-29T16:52:17Z",
+  "ok": true
 }
