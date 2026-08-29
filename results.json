@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "updated": "2026-08-29T00:57:57Z",
   "matches": [
     {
       "id": "te-3307629",
@@ -13,11 +11,6 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "flagAlt": "",
-          "name": "Fery A.",
-          "winner": true,
-          "homeAway": "home",
           "linescores": [
             {
               "winner": true,
@@ -29,14 +22,14 @@
               "tiebreak": null,
               "value": 1
             }
-          ]
+          ],
+          "name": "Fery A.",
+          "flagAlt": "",
+          "flag": "",
+          "homeAway": "home",
+          "winner": true
         },
         {
-          "flag": "",
-          "flagAlt": "",
-          "name": "Duckworth J.",
-          "winner": false,
-          "homeAway": "away",
           "linescores": [
             {
               "winner": false,
@@ -48,7 +41,12 @@
               "tiebreak": null,
               "value": 2
             }
-          ]
+          ],
+          "name": "Duckworth J.",
+          "flagAlt": "",
+          "flag": "",
+          "homeAway": "away",
+          "winner": false
         }
       ]
     },
@@ -63,11 +61,6 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "flagAlt": "",
-          "name": "Donski A. / Martin D.",
-          "winner": true,
-          "homeAway": "home",
           "linescores": [
             {
               "winner": false,
@@ -84,14 +77,14 @@
               "tiebreak": null,
               "value": 14
             }
-          ]
+          ],
+          "name": "Donski A. / Martin D.",
+          "flagAlt": "",
+          "flag": "",
+          "homeAway": "home",
+          "winner": true
         },
         {
-          "flag": "",
-          "flagAlt": "",
-          "name": "Puttergil / Rai A.",
-          "winner": false,
-          "homeAway": "away",
           "linescores": [
             {
               "winner": true,
@@ -108,10 +101,17 @@
               "tiebreak": null,
               "value": 12
             }
-          ]
+          ],
+          "name": "Puttergil / Rai A.",
+          "flagAlt": "",
+          "flag": "",
+          "homeAway": "away",
+          "winner": false
         }
       ]
     }
   ],
+  "updated": "2026-08-29T01:09:18Z",
+  "ok": true,
   "count": 2
 }
