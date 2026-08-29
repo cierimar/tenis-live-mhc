@@ -1,6 +1,7 @@
 {
   "ok": true,
-  "updated": "2026-08-29T02:47:51Z",
+  "updated": "2026-08-29T03:10:30Z",
+  "count": 3,
   "matches": [
     {
       "id": "te-3307629",
@@ -14,7 +15,6 @@
       "competitors": [
         {
           "name": "Fery A.",
-          "winner": true,
           "linescores": [
             {
               "tiebreak": null,
@@ -28,12 +28,12 @@
             }
           ],
           "flagAlt": "",
+          "winner": true,
           "homeAway": "home",
           "flag": ""
         },
         {
           "name": "Duckworth J.",
-          "winner": false,
           "linescores": [
             {
               "tiebreak": null,
@@ -47,6 +47,7 @@
             }
           ],
           "flagAlt": "",
+          "winner": false,
           "homeAway": "away",
           "flag": ""
         }
@@ -64,7 +65,6 @@
       "competitors": [
         {
           "name": "Donski A. / Martin D.",
-          "winner": true,
           "linescores": [
             {
               "tiebreak": null,
@@ -83,12 +83,12 @@
             }
           ],
           "flagAlt": "",
+          "winner": true,
           "homeAway": "home",
           "flag": ""
         },
         {
           "name": "Puttergil / Rai A.",
-          "winner": false,
           "linescores": [
             {
               "tiebreak": null,
@@ -107,6 +107,7 @@
             }
           ],
           "flagAlt": "",
+          "winner": false,
           "homeAway": "away",
           "flag": ""
         }
@@ -124,7 +125,6 @@
       "competitors": [
         {
           "name": "Parry D.",
-          "winner": true,
           "linescores": [
             {
               "tiebreak": null,
@@ -138,12 +138,12 @@
             }
           ],
           "flagAlt": "",
+          "winner": true,
           "homeAway": "home",
           "flag": ""
         },
         {
           "name": "Li A.",
-          "winner": false,
           "linescores": [
             {
               "tiebreak": null,
@@ -157,11 +157,11 @@
             }
           ],
           "flagAlt": "",
+          "winner": false,
           "homeAway": "away",
           "flag": ""
         }
       ]
     }
-  ],
-  "count": 3
+  ]
 }
