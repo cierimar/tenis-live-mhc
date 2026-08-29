@@ -1,5 +1,6 @@
 {
-  "time": "2026-08-29T11:43:14Z",
+  "time": "2026-08-29T11:53:43Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -1173,15 +1174,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3307715",
-          "p1": "Ebeling Koning",
-          "p2": "Schunk",
-          "time": "11:40",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3307695",
           "p1": "Pace",
           "p2": "Steur",
@@ -1189,6 +1181,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3307715",
+          "p1": "Schunk",
+          "p2": "Ebeling Koning",
+          "round": "semifinal",
+          "date": "29.08.",
+          "time": "11:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3307193",
@@ -6411,6 +6422,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
