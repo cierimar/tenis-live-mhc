@@ -1,5 +1,5 @@
 {
-  "time": "2026-08-29T13:26:36Z",
+  "time": "2026-08-29T13:47:46Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -1214,10 +1214,22 @@
           "teId": "3307695",
           "p1": "Pace",
           "p2": "Steur",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "12:40",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "0",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3307715",
@@ -2356,7 +2368,7 @@
           "teId": "3308165",
           "p1": "Amariei",
           "p2": "Lahey",
-          "time": "",
+          "time": "09:30",
           "round": "F",
           "h2h": "0-0",
           "finished": false
