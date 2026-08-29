@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-08-29T10:10:40Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -579,22 +577,32 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3307745",
-          "p1": "De Stefano",
-          "p2": "Golovina",
-          "time": "10:10",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3307749",
           "p1": "Dencheva",
           "p2": "Stankovic",
-          "time": "12:05",
+          "time": "12:30",
           "round": "SF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3307745",
+          "p1": "De Stefano",
+          "p2": "Golovina",
+          "round": "semifinal",
+          "date": "29.08.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3307245",
@@ -2885,7 +2893,7 @@
           "teId": "3307691",
           "p1": "Ryser",
           "p2": "Okutoyi",
-          "time": "12:15",
+          "time": "12:20",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -3455,15 +3463,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3307717",
-          "p1": "Todoni",
-          "p2": "Lahey",
-          "time": "09:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3307739",
           "p1": "Craciun",
           "p2": "Amariei",
@@ -3471,6 +3470,27 @@
           "round": "SF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3307717",
+          "p1": "Lahey",
+          "p2": "Todoni",
+          "round": "semifinal",
+          "date": "29.08.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3307161",
@@ -6347,5 +6367,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-29T10:31:04Z",
+  "ok": true
 }
