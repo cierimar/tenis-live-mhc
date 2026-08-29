@@ -1,7 +1,5 @@
 {
-  "ok": true,
-  "updated": "2026-08-29T00:30:22Z",
-  "count": 1,
+  "updated": "2026-08-29T00:46:31Z",
   "matches": [
     {
       "id": "te-3307629",
@@ -14,44 +12,46 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
           "name": "Fery A.",
-          "homeAway": "home",
+          "flagAlt": "",
+          "winner": true,
           "linescores": [
             {
+              "winner": true,
               "tiebreak": null,
-              "value": 6,
-              "winner": true
+              "value": 6
             },
             {
+              "winner": false,
               "tiebreak": null,
-              "value": 1,
-              "winner": false
+              "value": 1
             }
           ],
-          "flagAlt": "",
-          "flag": ""
+          "flag": "",
+          "homeAway": "home"
         },
         {
-          "winner": false,
           "name": "Duckworth J.",
-          "homeAway": "away",
+          "flagAlt": "",
+          "winner": false,
           "linescores": [
             {
+              "winner": false,
               "tiebreak": null,
-              "value": 4,
-              "winner": false
+              "value": 4
             },
             {
+              "winner": true,
               "tiebreak": null,
-              "value": 2,
-              "winner": true
+              "value": 2
             }
           ],
-          "flagAlt": "",
-          "flag": ""
+          "flag": "",
+          "homeAway": "away"
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "count": 1
 }
