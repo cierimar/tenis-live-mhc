@@ -1,4 +1,6 @@
 {
+  "time": "2026-08-29T11:15:10Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -5814,15 +5816,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3307779",
-          "p1": "Kuzmova",
-          "p2": "Lutkemeyer Obregon",
-          "time": "10:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3307729",
           "p1": "Cervino Ruiz",
           "p2": "Garcia",
@@ -5830,6 +5823,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3307779",
+          "p1": "Lutkemeyer Obregon",
+          "p2": "Kuzmova",
+          "round": "semifinal",
+          "date": "29.08.",
+          "time": "10:03",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "1",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3307177",
@@ -6377,7 +6391,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-08-29T11:01:51Z",
-  "ok": true
+  ]
 }
