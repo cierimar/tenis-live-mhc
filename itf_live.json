@@ -1,5 +1,6 @@
 {
-  "time": "2026-08-29T12:35:36Z",
+  "time": "2026-08-29T12:45:45Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -2347,10 +2348,22 @@
           "teId": "3307753",
           "p1": "Ce",
           "p2": "Lovric",
+          "round": "final",
+          "date": "29.08.",
           "time": "11:40",
-          "round": "F",
-          "h2h": "2-1",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3307137",
@@ -6460,6 +6473,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
