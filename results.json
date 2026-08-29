@@ -1,5 +1,7 @@
 {
+  "count": 3,
   "ok": true,
+  "updated": "2026-08-29T01:47:48Z",
   "matches": [
     {
       "id": "te-3307629",
@@ -12,8 +14,10 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Fery A.",
+          "homeAway": "home",
           "flagAlt": "",
+          "name": "Fery A.",
+          "flag": "",
           "winner": true,
           "linescores": [
             {
@@ -26,13 +30,13 @@
               "value": 1,
               "winner": false
             }
-          ],
-          "flag": "",
-          "homeAway": "home"
+          ]
         },
         {
-          "name": "Duckworth J.",
+          "homeAway": "away",
           "flagAlt": "",
+          "name": "Duckworth J.",
+          "flag": "",
           "winner": false,
           "linescores": [
             {
@@ -45,9 +49,7 @@
               "value": 2,
               "winner": true
             }
-          ],
-          "flag": "",
-          "homeAway": "away"
+          ]
         }
       ]
     },
@@ -62,8 +64,10 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Donski A. / Martin D.",
+          "homeAway": "home",
           "flagAlt": "",
+          "name": "Donski A. / Martin D.",
+          "flag": "",
           "winner": true,
           "linescores": [
             {
@@ -81,13 +85,13 @@
               "value": 14,
               "winner": true
             }
-          ],
-          "flag": "",
-          "homeAway": "home"
+          ]
         },
         {
-          "name": "Puttergil / Rai A.",
+          "homeAway": "away",
           "flagAlt": "",
+          "name": "Puttergil / Rai A.",
+          "flag": "",
           "winner": false,
           "linescores": [
             {
@@ -105,9 +109,7 @@
               "value": 12,
               "winner": false
             }
-          ],
-          "flag": "",
-          "homeAway": "away"
+          ]
         }
       ]
     },
@@ -122,8 +124,10 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Parry D.",
+          "homeAway": "home",
           "flagAlt": "",
+          "name": "Parry D.",
+          "flag": "",
           "winner": true,
           "linescores": [
             {
@@ -136,13 +140,13 @@
               "value": 6,
               "winner": true
             }
-          ],
-          "flag": "",
-          "homeAway": "home"
+          ]
         },
         {
-          "name": "Li A.",
+          "homeAway": "away",
           "flagAlt": "",
+          "name": "Li A.",
+          "flag": "",
           "winner": false,
           "linescores": [
             {
@@ -155,13 +159,9 @@
               "value": 4,
               "winner": false
             }
-          ],
-          "flag": "",
-          "homeAway": "away"
+          ]
         }
       ]
     }
-  ],
-  "count": 3,
-  "updated": "2026-08-29T01:36:35Z"
+  ]
 }
