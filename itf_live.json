@@ -1,5 +1,4 @@
 {
-  "time": "2026-08-29T11:53:43Z",
   "ok": true,
   "tournaments": [
     {
@@ -590,12 +589,22 @@
       "matches": [
         {
           "teId": "3307749",
-          "p1": "Dencheva",
-          "p2": "Stankovic",
+          "p1": "Stankovic",
+          "p2": "Dencheva",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "12:30",
-          "round": "SF",
-          "h2h": "0-1",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3307745",
@@ -6422,5 +6431,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-29T12:04:29Z"
 }
