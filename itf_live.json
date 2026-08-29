@@ -1,5 +1,4 @@
 {
-  "time": "2026-08-29T04:35:36Z",
   "ok": true,
   "tournaments": [
     {
@@ -5150,22 +5149,42 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3307683",
-          "p1": "Han",
-          "p2": "Nugroho",
-          "time": "05:00",
-          "round": "SF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3307659",
           "p1": "Shi",
           "p2": "Adkar",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "05:00",
-          "round": "SF",
-          "h2h": "1-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3307683",
+          "p1": "Han",
+          "p2": "Nugroho",
+          "round": "semifinal",
+          "date": "29.08.",
+          "time": "05:00",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "2"
+          ],
+          "sets2": [
+            "3",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3307045",
@@ -6286,5 +6305,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-29T04:45:56Z"
 }
