@@ -1,4 +1,6 @@
 {
+  "time": "2026-08-29T10:00:17Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -589,7 +591,7 @@
           "teId": "3307749",
           "p1": "Dencheva",
           "p2": "Stankovic",
-          "time": "11:30",
+          "time": "12:00",
           "round": "SF",
           "h2h": "0-1",
           "finished": false
@@ -1155,7 +1157,7 @@
           "teId": "3307715",
           "p1": "Ebeling Koning",
           "p2": "Schunk",
-          "time": "11:30",
+          "time": "11:40",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2892,7 +2894,7 @@
           "teId": "3307691",
           "p1": "Ryser",
           "p2": "Okutoyi",
-          "time": "11:40",
+          "time": "11:55",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4020,12 +4022,24 @@
         },
         {
           "teId": "3307655",
-          "p1": "Diatlova",
-          "p2": "Brune",
+          "p1": "Brune",
+          "p2": "Diatlova",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "08:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "1",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "6",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3307127",
@@ -4595,12 +4609,22 @@
         },
         {
           "teId": "3307785",
-          "p1": "Vagramov",
-          "p2": "Rojas",
+          "p1": "Rojas",
+          "p2": "Vagramov",
+          "round": "semifinal",
+          "date": "29.08.",
           "time": "10:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3307073",
@@ -5151,7 +5175,7 @@
           "teId": "3308059",
           "p1": "Shi",
           "p2": "Han",
-          "time": "04:00",
+          "time": "05:00",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -6313,7 +6337,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-08-29T09:40:07Z"
+  ]
 }
