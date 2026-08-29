@@ -606,42 +606,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309331",
-          "p1": "Sun",
-          "p2": "Sato",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309329",
-          "p1": "Wang",
-          "p2": "Kitahara",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309327",
-          "p1": "Savinykh",
-          "p2": "Shimizu",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309325",
-          "p1": "Nugroho",
-          "p2": "Zhang",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
           "teId": "3309323",
           "p1": "Feng",
           "p2": "Yuan",
@@ -654,43 +618,16 @@
           "teId": "3309321",
           "p1": "Lu",
           "p2": "Sema",
-          "time": "",
+          "time": "04:00",
           "round": "Q-1R",
           "h2h": "1-1",
-          "finished": false
-        },
-        {
-          "teId": "3309319",
-          "p1": "Nishimura",
-          "p2": "Cheapchandej",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-1",
           "finished": false
         },
         {
           "teId": "3309317",
           "p1": "Kobori",
           "p2": "Yang",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309315",
-          "p1": "Kozaki",
-          "p2": "Kawaguchi",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309313",
-          "p1": "Kuramochi",
-          "p2": "Arystanbekova",
-          "time": "",
+          "time": "04:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -699,7 +636,7 @@
           "teId": "3309311",
           "p1": "Lee",
           "p2": "Shimizu",
-          "time": "",
+          "time": "04:00",
           "round": "Q-1R",
           "h2h": "0-1",
           "finished": false
@@ -708,7 +645,7 @@
           "teId": "3309309",
           "p1": "Ye",
           "p2": "Chanta",
-          "time": "",
+          "time": "04:00",
           "round": "Q-1R",
           "h2h": "1-2",
           "finished": false
@@ -717,7 +654,7 @@
           "teId": "3309307",
           "p1": "Hosogi",
           "p2": "Matsuda",
-          "time": "",
+          "time": "04:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -732,12 +669,48 @@
           "finished": false
         },
         {
+          "teId": "3309315",
+          "p1": "Kozaki",
+          "p2": "Kawaguchi",
+          "time": "05:00",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3309303",
           "p1": "Wang",
           "p2": "Sidorova",
-          "time": "05:30",
+          "time": "05:00",
           "round": "Q-1R",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309325",
+          "p1": "Nugroho",
+          "p2": "Zhang",
+          "time": "05:20",
+          "round": "Q-1R",
+          "h2h": "1-1",
+          "finished": false
+        },
+        {
+          "teId": "3309313",
+          "p1": "Kuramochi",
+          "p2": "Arystanbekova",
+          "time": "05:20",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309319",
+          "p1": "Nishimura",
+          "p2": "Cheapchandej",
+          "time": "06:50",
+          "round": "Q-1R",
+          "h2h": "0-1",
           "finished": false
         },
         {
@@ -745,6 +718,33 @@
           "p1": "Adkar",
           "p2": "Zheng",
           "time": "07:00",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309331",
+          "p1": "Sun",
+          "p2": "Sato",
+          "time": "08:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309329",
+          "p1": "Wang",
+          "p2": "Kitahara",
+          "time": "08:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309327",
+          "p1": "Savinykh",
+          "p2": "Shimizu",
+          "time": "08:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -4124,6 +4124,6 @@
       ]
     }
   ],
-  "time": "2026-08-29T21:10:33Z",
+  "time": "2026-08-29T21:31:12Z",
   "ok": true
 }
