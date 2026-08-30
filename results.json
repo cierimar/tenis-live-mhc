@@ -11,41 +11,41 @@
       "surface": "",
       "competitors": [
         {
+          "flag": "",
           "homeAway": "home",
           "name": "Aguiard E.",
           "linescores": [
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             },
             {
-              "value": 4,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 4
             }
           ],
           "winner": true,
-          "flag": "",
           "flagAlt": ""
         },
         {
+          "flag": "",
           "homeAway": "away",
           "name": "Delaney J.",
           "linescores": [
             {
-              "value": 3,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 3
             },
             {
-              "value": 4,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 4
             }
           ],
           "winner": false,
-          "flag": "",
           "flagAlt": ""
         }
       ]
@@ -53,5 +53,5 @@
   ],
   "ok": true,
   "count": 1,
-  "updated": "2026-08-30T23:48:56Z"
+  "updated": "2026-08-30T23:59:57Z"
 }
