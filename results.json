@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "updated": "2026-08-30T02:39:46Z",
   "matches": [
     {
       "id": "te-3308037",
@@ -11,52 +13,52 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flag": "",
           "flagAlt": "",
+          "flag": "",
+          "winner": true,
           "homeAway": "home",
+          "name": "Parry D.",
           "linescores": [
             {
               "value": 6,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             },
             {
               "value": 0,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             },
             {
               "value": 6,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             }
-          ],
-          "name": "Parry D."
+          ]
         },
         {
-          "winner": false,
-          "flag": "",
           "flagAlt": "",
+          "flag": "",
+          "winner": false,
           "homeAway": "away",
+          "name": "Mertens E.",
           "linescores": [
             {
               "value": 4,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             },
             {
               "value": 6,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             },
             {
               "value": 3,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             }
-          ],
-          "name": "Mertens E."
+          ]
         }
       ]
     },
@@ -71,20 +73,20 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flag": "",
           "flagAlt": "",
+          "flag": "",
+          "winner": true,
           "homeAway": "home",
-          "linescores": [],
-          "name": "Ohorodnyk D."
+          "name": "Ohorodnyk D.",
+          "linescores": []
         },
         {
-          "winner": false,
-          "flag": "",
           "flagAlt": "",
+          "flag": "",
+          "winner": false,
           "homeAway": "away",
-          "linescores": [],
-          "name": "Sauer Jimenez L."
+          "name": "Sauer Jimenez L.",
+          "linescores": []
         }
       ]
     },
@@ -99,25 +101,23 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flag": "",
           "flagAlt": "",
+          "flag": "",
+          "winner": true,
           "homeAway": "home",
-          "linescores": [],
-          "name": "Mihajloski J."
+          "name": "Mihajloski J.",
+          "linescores": []
         },
         {
-          "winner": false,
-          "flag": "",
           "flagAlt": "",
+          "flag": "",
+          "winner": false,
           "homeAway": "away",
-          "linescores": [],
-          "name": "Novotny A."
+          "name": "Novotny A.",
+          "linescores": []
         }
       ]
     }
   ],
-  "count": 3,
-  "ok": true,
-  "updated": "2026-08-30T02:16:40Z"
+  "count": 3
 }
