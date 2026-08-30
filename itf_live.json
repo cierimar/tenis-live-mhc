@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-08-30T11:53:47Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -963,15 +965,6 @@
           "finished": false
         },
         {
-          "teId": "3309241",
-          "p1": "Karunaratne",
-          "p2": "Allen",
-          "time": "10:32",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309243",
           "p1": "Fontenel",
           "p2": "Leon",
@@ -1008,19 +1001,19 @@
           "finished": false
         },
         {
-          "teId": "3309249",
-          "p1": "Martinez Vaquero",
-          "p2": "Marton",
-          "time": "13:34",
+          "teId": "3309247",
+          "p1": "Rajecki",
+          "p2": "Toma",
+          "time": "13:40",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3309247",
-          "p1": "Rajecki",
-          "p2": "Toma",
-          "time": "13:40",
+          "teId": "3309249",
+          "p1": "Martinez Vaquero",
+          "p2": "Marton",
+          "time": "13:42",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1044,15 +1037,6 @@
           "finished": false
         },
         {
-          "teId": "3309235",
-          "p1": "Barry",
-          "p2": "Kardava",
-          "time": "14:34",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309239",
           "p1": "Lacasse",
           "p2": "Bonardi",
@@ -1062,10 +1046,10 @@
           "finished": false
         },
         {
-          "teId": "3309227",
-          "p1": "Johnson",
-          "p2": "Defalco",
-          "time": "15:34",
+          "teId": "3309235",
+          "p1": "Barry",
+          "p2": "Kardava",
+          "time": "14:42",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1080,6 +1064,15 @@
           "finished": false
         },
         {
+          "teId": "3309227",
+          "p1": "Johnson",
+          "p2": "Defalco",
+          "time": "15:42",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3309225",
           "p1": "Dapkute",
           "p2": "Burrage",
@@ -1087,6 +1080,25 @@
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3309241",
+          "p1": "Karunaratne",
+          "p2": "Allen",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "10:32",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "0",
+            "5"
+          ],
+          "finished": true
         }
       ]
     },
@@ -1742,7 +1754,7 @@
           "teId": "3309293",
           "p1": "Lansaman",
           "p2": "Mattel",
-          "time": "13:08",
+          "time": "13:35",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1751,7 +1763,7 @@
           "teId": "3309289",
           "p1": "Gram",
           "p2": "Baslilar",
-          "time": "14:08",
+          "time": "14:13",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3116,7 +3128,7 @@
           "teId": "3308821",
           "p1": "Collin",
           "p2": "Roux",
-          "time": "11:30",
+          "time": "11:27",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3534,7 +3546,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-08-30T11:43:16Z"
+  ]
 }
