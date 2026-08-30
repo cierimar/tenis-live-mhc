@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": "2026-08-30T10:29:21Z",
+  "time": "2026-08-30T10:40:31Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -2505,12 +2505,22 @@
       "matches": [
         {
           "teId": "3308169",
-          "p1": "Okutoyi",
-          "p2": "Cvetkovic",
+          "p1": "Cvetkovic",
+          "p2": "Okutoyi",
+          "round": "final",
+          "date": "30.08.",
           "time": "10:40",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3307691",
@@ -3295,12 +3305,24 @@
       "matches": [
         {
           "teId": "3308165",
-          "p1": "Amariei",
-          "p2": "Lahey",
+          "p1": "Lahey",
+          "p2": "Amariei",
+          "round": "final",
+          "date": "30.08.",
           "time": "09:30",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3307739",
