@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-08-30T21:51:55Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -403,42 +405,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309239",
-          "p1": "Lacasse",
-          "p2": "Bonardi",
-          "time": "15:00",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309237",
-          "p1": "Yashina",
-          "p2": "Franco Dias",
-          "time": "15:00",
-          "round": "Q-1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3309227",
-          "p1": "Johnson",
-          "p2": "Defalco",
-          "time": "17:38",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309223",
-          "p1": "Visscher",
-          "p2": "Nozdrachova",
-          "time": "19:09",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309229",
           "p1": "Tsai",
           "p2": "Chan",
@@ -500,6 +466,84 @@
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3309223",
+          "p1": "Visscher",
+          "p2": "Nozdrachova",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "19:09",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309227",
+          "p1": "Johnson",
+          "p2": "Defalco",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "17:38",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "0",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309237",
+          "p1": "Yashina",
+          "p2": "Franco Dias",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "17:36",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309239",
+          "p1": "Lacasse",
+          "p2": "Bonardi",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "17:16",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3309235",
@@ -712,15 +756,6 @@
           "finished": false
         },
         {
-          "teId": "3309297",
-          "p1": "Cirotte",
-          "p2": "Briand",
-          "time": "18:00",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309291",
           "p1": "Vilar",
           "p2": "Lee",
@@ -764,6 +799,25 @@
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3309297",
+          "p1": "Cirotte",
+          "p2": "Briand",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "17:37",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3309283",
@@ -3182,7 +3236,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-08-30T21:41:55Z"
+  ]
 }
