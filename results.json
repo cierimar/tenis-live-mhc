@@ -1,4 +1,7 @@
 {
+  "ok": true,
+  "count": 1,
+  "updated": "2026-08-30T22:21:11Z",
   "matches": [
     {
       "id": "te-3308115",
@@ -11,47 +14,44 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "flagAlt": "",
-          "name": "Aguiard E.",
           "linescores": [
             {
               "tiebreak": null,
-              "value": 6,
-              "winner": true
+              "winner": true,
+              "value": 6
             },
             {
               "tiebreak": null,
-              "value": 4,
-              "winner": false
+              "winner": false,
+              "value": 4
             }
           ],
+          "homeAway": "home",
           "flag": "",
-          "winner": true
+          "winner": true,
+          "flagAlt": "",
+          "name": "Aguiard E."
         },
         {
-          "homeAway": "away",
-          "flagAlt": "",
-          "name": "Delaney J.",
           "linescores": [
             {
               "tiebreak": null,
-              "value": 3,
-              "winner": false
+              "winner": false,
+              "value": 3
             },
             {
               "tiebreak": null,
-              "value": 4,
-              "winner": true
+              "winner": true,
+              "value": 4
             }
           ],
+          "homeAway": "away",
           "flag": "",
-          "winner": false
+          "winner": false,
+          "flagAlt": "",
+          "name": "Delaney J."
         }
       ]
     }
-  ],
-  "updated": "2026-08-30T22:09:55Z",
-  "count": 1,
-  "ok": true
+  ]
 }
