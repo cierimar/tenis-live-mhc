@@ -1,4 +1,5 @@
 {
+  "time": "2026-08-30T20:29:54Z",
   "ok": true,
   "tournaments": [
     {
@@ -1741,15 +1742,6 @@
           "finished": false
         },
         {
-          "teId": "3310027",
-          "p1": "Litvinova",
-          "p2": "Charrier",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3310021",
           "p1": "Krajmer",
           "p2": "Busnel",
@@ -1768,10 +1760,19 @@
           "finished": false
         },
         {
+          "teId": "3310027",
+          "p1": "Litvinova",
+          "p2": "Charrier",
+          "time": "10:00",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3310019",
           "p1": "Martin",
           "p2": "Sasnouskaya",
-          "time": "10:15",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -3183,6 +3184,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-08-30T19:58:56Z"
+  ]
 }
