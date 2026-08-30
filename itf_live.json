@@ -423,7 +423,7 @@
           "teId": "3309233",
           "p1": "Pereira De Aguiar",
           "p2": "Da Silva Fick",
-          "time": "14:42",
+          "time": "14:57",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -539,12 +539,22 @@
       "matches": [
         {
           "teId": "3308177",
-          "p1": "Pace",
-          "p2": "Schunk",
+          "p1": "Schunk",
+          "p2": "Pace",
+          "round": "final",
+          "date": "30.08.",
           "time": "13:10",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3307695",
@@ -1136,28 +1146,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309285",
-          "p1": "Rengeard",
-          "p2": "Tran",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309295",
           "p1": "Hays",
           "p2": "Boulard",
           "time": "12:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309293",
-          "p1": "Lansaman",
-          "p2": "Mattel",
-          "time": "13:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1172,10 +1164,19 @@
           "finished": false
         },
         {
+          "teId": "3309293",
+          "p1": "Lansaman",
+          "p2": "Mattel",
+          "time": "13:33",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3309289",
           "p1": "Gram",
           "p2": "Baslilar",
-          "time": "14:13",
+          "time": "14:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1184,7 +1185,16 @@
           "teId": "3309283",
           "p1": "Bertrand",
           "p2": "Biolay",
-          "time": "14:29",
+          "time": "14:43",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309285",
+          "p1": "Rengeard",
+          "p2": "Tran",
+          "time": "14:55",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3150,6 +3160,6 @@
       ]
     }
   ],
-  "time": "2026-08-30T13:06:31Z",
-  "ok": true
+  "ok": true,
+  "time": "2026-08-30T13:16:57Z"
 }
