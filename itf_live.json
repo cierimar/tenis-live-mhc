@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-08-30T08:35:14Z",
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -608,84 +606,12 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309311",
-          "p1": "Lee",
-          "p2": "Shimizu",
-          "time": "04:00",
-          "round": "Q-1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
-          "teId": "3309309",
-          "p1": "Ye",
-          "p2": "Chanta",
-          "time": "04:00",
-          "round": "Q-1R",
-          "h2h": "1-2",
-          "finished": false
-        },
-        {
-          "teId": "3309307",
-          "p1": "Hosogi",
-          "p2": "Matsuda",
-          "time": "04:00",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309317",
-          "p1": "Kobori",
-          "p2": "Yang",
-          "time": "04:01",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309321",
-          "p1": "Lu",
-          "p2": "Sema",
-          "time": "04:03",
-          "round": "Q-1R",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
           "teId": "3309303",
           "p1": "Wang",
           "p2": "Sidorova",
           "time": "05:30",
           "round": "Q-1R",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309315",
-          "p1": "Kozaki",
-          "p2": "Kawaguchi",
-          "time": "06:29",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309313",
-          "p1": "Kuramochi",
-          "p2": "Arystanbekova",
-          "time": "07:08",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309301",
-          "p1": "Huang",
-          "p2": "Wei",
-          "time": "07:32",
-          "round": "Q-1R",
-          "h2h": "0-1",
           "finished": false
         },
         {
@@ -737,7 +663,7 @@
           "teId": "3309329",
           "p1": "Wang",
           "p2": "Kitahara",
-          "time": "10:06",
+          "time": "10:33",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -746,10 +672,170 @@
           "teId": "3309327",
           "p1": "Savinykh",
           "p2": "Shimizu",
-          "time": "10:28",
+          "time": "10:36",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3309301",
+          "p1": "Huang",
+          "p2": "Wei",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "07:31",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309313",
+          "p1": "Kuramochi",
+          "p2": "Arystanbekova",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "07:08",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309315",
+          "p1": "Kozaki",
+          "p2": "Kawaguchi",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "06:29",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309309",
+          "p1": "Ye",
+          "p2": "Chanta",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "04:09",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309307",
+          "p1": "Matsuda",
+          "p2": "Hosogi",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "04:06",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "6",
+            "5"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309311",
+          "p1": "Lee",
+          "p2": "Shimizu",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "04:06",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309321",
+          "p1": "Lu",
+          "p2": "Sema",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "04:03",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309317",
+          "p1": "Kobori",
+          "p2": "Yang",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "04:01",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "5"
+          ],
+          "finished": true
         }
       ]
     },
@@ -2948,7 +3034,7 @@
           "teId": "3308169",
           "p1": "Okutoyi",
           "p2": "Cvetkovic",
-          "time": "10:30",
+          "time": "10:40",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -4604,5 +4690,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-30T08:45:21Z",
+  "ok": true
 }
