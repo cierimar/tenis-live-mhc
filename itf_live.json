@@ -1361,24 +1361,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309241",
-          "p1": "Karunaratne",
-          "p2": "Allen",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309233",
-          "p1": "Pereira De Aguiar",
-          "p2": "Da Silva Fick",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309229",
           "p1": "Tsai",
           "p2": "Chan",
@@ -1401,6 +1383,15 @@
           "p1": "Ishii",
           "p2": "Radwanska",
           "time": "08:45",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309241",
+          "p1": "Karunaratne",
+          "p2": "Allen",
+          "time": "10:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1437,6 +1428,15 @@
           "p1": "Rajecki",
           "p2": "Toma",
           "time": "12:45",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309233",
+          "p1": "Pereira De Aguiar",
+          "p2": "Da Silva Fick",
+          "time": "13:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -4603,6 +4603,6 @@
       ]
     }
   ],
-  "time": "2026-08-30T02:11:41Z",
-  "ok": true
+  "ok": true,
+  "time": "2026-08-30T02:22:08Z"
 }
