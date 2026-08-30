@@ -1,8 +1,65 @@
 {
-  "count": 2,
-  "ok": true,
-  "updated": "2026-08-30T02:01:05Z",
   "matches": [
+    {
+      "id": "te-3308037",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3308037",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "winner": true,
+          "flag": "",
+          "flagAlt": "",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 0,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "name": "Parry D."
+        },
+        {
+          "winner": false,
+          "flag": "",
+          "flagAlt": "",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 3,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "name": "Mertens E."
+        }
+      ]
+    },
     {
       "id": "te-3308607",
       "state": "post",
@@ -15,18 +72,18 @@
       "competitors": [
         {
           "winner": true,
-          "linescores": [],
-          "flagAlt": "",
           "flag": "",
+          "flagAlt": "",
           "homeAway": "home",
+          "linescores": [],
           "name": "Ohorodnyk D."
         },
         {
           "winner": false,
-          "linescores": [],
-          "flagAlt": "",
           "flag": "",
+          "flagAlt": "",
           "homeAway": "away",
+          "linescores": [],
           "name": "Sauer Jimenez L."
         }
       ]
@@ -43,21 +100,24 @@
       "competitors": [
         {
           "winner": true,
-          "linescores": [],
-          "flagAlt": "",
           "flag": "",
+          "flagAlt": "",
           "homeAway": "home",
+          "linescores": [],
           "name": "Mihajloski J."
         },
         {
           "winner": false,
-          "linescores": [],
-          "flagAlt": "",
           "flag": "",
+          "flagAlt": "",
           "homeAway": "away",
+          "linescores": [],
           "name": "Novotny A."
         }
       ]
     }
-  ]
+  ],
+  "count": 3,
+  "ok": true,
+  "updated": "2026-08-30T02:16:40Z"
 }
