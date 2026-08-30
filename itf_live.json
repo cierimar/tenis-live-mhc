@@ -1,46 +1,12 @@
 {
+  "time": "2026-08-30T16:53:59Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
       "name": "Tianjin 5 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3310135",
-          "p1": "Wang",
-          "p2": "Sato",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310133",
-          "p1": "Nugroho",
-          "p2": "Savinykh",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
-          "teId": "3310131",
-          "p1": "Lu",
-          "p2": "Yuan",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
-          "teId": "3310129",
-          "p1": "Kobori",
-          "p2": "Cheapchandej",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "0-2",
-          "finished": false
-        },
         {
           "teId": "3309677",
           "p1": "Adkar",
@@ -75,6 +41,42 @@
           "time": "04:00",
           "round": "Q-R16",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3310131",
+          "p1": "Lu",
+          "p2": "Yuan",
+          "time": "05:00",
+          "round": "Q-R16",
+          "h2h": "1-1",
+          "finished": false
+        },
+        {
+          "teId": "3310129",
+          "p1": "Kobori",
+          "p2": "Cheapchandej",
+          "time": "05:00",
+          "round": "Q-R16",
+          "h2h": "0-2",
+          "finished": false
+        },
+        {
+          "teId": "3310135",
+          "p1": "Wang",
+          "p2": "Sato",
+          "time": "06:00",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3310133",
+          "p1": "Nugroho",
+          "p2": "Savinykh",
+          "time": "06:00",
+          "round": "Q-R16",
+          "h2h": "1-1",
           "finished": false
         },
         {
@@ -415,7 +417,7 @@
           "teId": "3309239",
           "p1": "Lacasse",
           "p2": "Bonardi",
-          "time": "17:16",
+          "time": "15:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -424,7 +426,7 @@
           "teId": "3309237",
           "p1": "Yashina",
           "p2": "Franco Dias",
-          "time": "17:36",
+          "time": "15:00",
           "round": "Q-1R",
           "h2h": "1-0",
           "finished": false
@@ -433,7 +435,16 @@
           "teId": "3309227",
           "p1": "Johnson",
           "p2": "Defalco",
-          "time": "17:38",
+          "time": "17:40",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309225",
+          "p1": "Dapkute",
+          "p2": "Burrage",
+          "time": "18:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -443,15 +454,6 @@
           "p1": "Visscher",
           "p2": "Nozdrachova",
           "time": "18:23",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309225",
-          "p1": "Dapkute",
-          "p2": "Burrage",
-          "time": "20:42",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -475,10 +477,19 @@
           "finished": false
         },
         {
+          "teId": "3310061",
+          "p1": "Toma",
+          "p2": "Munk Mortensen",
+          "time": "",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3310065",
           "p1": "Martinez Vaquero",
           "p2": "Kardava",
-          "time": "",
+          "time": "13:30",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -487,16 +498,7 @@
           "teId": "3310063",
           "p1": "Ivanov",
           "p2": "Da Silva Fick",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310061",
-          "p1": "Toma",
-          "p2": "Munk Mortensen",
-          "time": "",
+          "time": "13:30",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -703,15 +705,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309289",
-          "p1": "Gram",
-          "p2": "Baslilar",
-          "time": "14:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309285",
           "p1": "Rengeard",
           "p2": "Tran",
@@ -721,19 +714,19 @@
           "finished": false
         },
         {
-          "teId": "3309291",
-          "p1": "Vilar",
-          "p2": "Lee",
-          "time": "17:00",
+          "teId": "3309297",
+          "p1": "Cirotte",
+          "p2": "Briand",
+          "time": "18:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3309297",
-          "p1": "Cirotte",
-          "p2": "Briand",
-          "time": "17:37",
+          "teId": "3309291",
+          "p1": "Vilar",
+          "p2": "Lee",
+          "time": "18:07",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -745,15 +738,6 @@
           "time": "",
           "round": "Q-R16",
           "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3310123",
-          "p1": "Berecoechea",
-          "p2": "Biolay",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "0-0",
           "finished": false
         },
         {
@@ -775,6 +759,15 @@
           "finished": false
         },
         {
+          "teId": "3310123",
+          "p1": "Berecoechea",
+          "p2": "Biolay",
+          "time": "18:00",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3309283",
           "p1": "Biolay",
           "p2": "Bertrand",
@@ -790,6 +783,25 @@
           "sets2": [
             "0",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3309289",
+          "p1": "Baslilar",
+          "p2": "Gram",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "14:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4"
           ],
           "finished": true
         },
@@ -880,10 +892,22 @@
           "teId": "3309395",
           "p1": "Brace",
           "p2": "Mi",
+          "round": "final",
+          "date": "30.08.",
           "time": "16:10",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "1",
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "5",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3307911",
@@ -3939,7 +3963,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-08-30T16:43:47Z",
-  "ok": true
+  ]
 }
