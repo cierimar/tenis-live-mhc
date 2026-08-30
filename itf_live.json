@@ -1,5 +1,6 @@
 {
-  "time": "2026-08-30T12:04:34Z",
+  "time": "2026-08-30T12:15:00Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-bytom2026wta-women",
@@ -10,10 +11,22 @@
           "teId": "3308163",
           "p1": "Palicova",
           "p2": "Zoldakova",
+          "round": "final",
+          "date": "30.08.",
           "time": "11:10",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "5",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3307747",
@@ -3545,6 +3558,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
