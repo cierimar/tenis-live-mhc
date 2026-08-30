@@ -1,8 +1,105 @@
 {
-  "updated": "2026-08-30T03:06:54Z",
-  "ok": true,
-  "count": 3,
   "matches": [
+    {
+      "id": "te-3307923",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3307923",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "homeAway": "home",
+          "winner": true,
+          "name": "Mayo A.",
+          "flag": "",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 7,
+              "winner": true
+            }
+          ]
+        },
+        {
+          "flagAlt": "",
+          "homeAway": "away",
+          "winner": false,
+          "name": "Andrade A.",
+          "flag": "",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "value": 3,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "te-3308083",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3308083",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "homeAway": "home",
+          "winner": true,
+          "name": "Gavrea M.",
+          "flag": "",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
+            }
+          ]
+        },
+        {
+          "flagAlt": "",
+          "homeAway": "away",
+          "winner": false,
+          "name": "Bharadwaj P.",
+          "flag": "",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "value": 1,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 1,
+              "winner": false
+            }
+          ]
+        }
+      ]
+    },
     {
       "id": "te-3308037",
       "state": "post",
@@ -15,109 +112,106 @@
       "competitors": [
         {
           "flagAlt": "",
-          "winner": true,
           "homeAway": "home",
-          "flag": "",
+          "winner": true,
           "name": "Parry D.",
+          "flag": "",
           "linescores": [
             {
-              "winner": true,
               "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "winner": true
             },
             {
-              "winner": false,
               "tiebreak": null,
-              "value": 0
+              "value": 0,
+              "winner": false
             },
             {
-              "winner": true,
               "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "winner": true
             }
           ]
         },
         {
           "flagAlt": "",
-          "winner": false,
           "homeAway": "away",
-          "flag": "",
+          "winner": false,
           "name": "Mertens E.",
+          "flag": "",
           "linescores": [
             {
-              "winner": false,
               "tiebreak": null,
-              "value": 4
+              "value": 4,
+              "winner": false
             },
             {
-              "winner": true,
               "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "winner": true
             },
             {
-              "winner": false,
               "tiebreak": null,
-              "value": 3
+              "value": 3,
+              "winner": false
             }
           ]
         }
       ]
     },
     {
-      "id": "te-3308607",
+      "id": "te-3308017",
       "state": "post",
       "tour": "atp",
       "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3308607",
+      "tournamentId": "te-3308017",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
           "flagAlt": "",
-          "winner": true,
           "homeAway": "home",
+          "winner": true,
+          "name": "Tan S.",
           "flag": "",
-          "name": "Ohorodnyk D.",
-          "linescores": []
+          "linescores": [
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 7,
+              "winner": true
+            }
+          ]
         },
         {
           "flagAlt": "",
-          "winner": false,
           "homeAway": "away",
-          "flag": "",
-          "name": "Sauer Jimenez L.",
-          "linescores": []
-        }
-      ]
-    },
-    {
-      "id": "te-3308625",
-      "state": "post",
-      "tour": "atp",
-      "type": "Men's Singles",
-      "round": "",
-      "tournamentId": "te-3308625",
-      "tournamentName": "",
-      "surface": "",
-      "competitors": [
-        {
-          "flagAlt": "",
-          "winner": true,
-          "homeAway": "home",
-          "flag": "",
-          "name": "Mihajloski J.",
-          "linescores": []
-        },
-        {
-          "flagAlt": "",
           "winner": false,
-          "homeAway": "away",
+          "name": "Bergeson S.",
           "flag": "",
-          "name": "Novotny A.",
-          "linescores": []
+          "linescores": [
+            {
+              "tiebreak": null,
+              "value": 3,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": false
+            }
+          ]
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "count": 4,
+  "updated": "2026-08-30T03:18:17Z"
 }
