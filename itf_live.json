@@ -6,15 +6,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3309329",
-          "p1": "Wang",
-          "p2": "Kitahara",
-          "time": "08:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3309677",
           "p1": "Adkar",
           "p2": "Huang",
@@ -49,6 +40,25 @@
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3309329",
+          "p1": "Wang",
+          "p2": "Kitahara",
+          "round": "Qualification - 1. round",
+          "date": "30.08.",
+          "time": "11:22",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3309327",
@@ -387,25 +397,7 @@
           "teId": "3309245",
           "p1": "Santos",
           "p2": "Lewis",
-          "time": "12:50",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309249",
-          "p1": "Martinez Vaquero",
-          "p2": "Marton",
-          "time": "13:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3309247",
-          "p1": "Rajecki",
-          "p2": "Toma",
-          "time": "13:30",
+          "time": "12:49",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -420,10 +412,28 @@
           "finished": false
         },
         {
+          "teId": "3309249",
+          "p1": "Martinez Vaquero",
+          "p2": "Marton",
+          "time": "14:14",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3309247",
+          "p1": "Rajecki",
+          "p2": "Toma",
+          "time": "14:24",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3309233",
           "p1": "Pereira De Aguiar",
           "p2": "Da Silva Fick",
-          "time": "14:57",
+          "time": "15:17",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -432,7 +442,7 @@
           "teId": "3309235",
           "p1": "Barry",
           "p2": "Kardava",
-          "time": "15:20",
+          "time": "15:44",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -441,7 +451,7 @@
           "teId": "3309239",
           "p1": "Lacasse",
           "p2": "Bonardi",
-          "time": "15:30",
+          "time": "15:46",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -450,7 +460,7 @@
           "teId": "3309227",
           "p1": "Johnson",
           "p2": "Defalco",
-          "time": "16:20",
+          "time": "16:44",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -459,7 +469,7 @@
           "teId": "3309223",
           "p1": "Visscher",
           "p2": "Nozdrachova",
-          "time": "16:30",
+          "time": "16:46",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -468,7 +478,7 @@
           "teId": "3309225",
           "p1": "Dapkute",
           "p2": "Burrage",
-          "time": "17:54",
+          "time": "19:46",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -586,7 +596,7 @@
           "teId": "3309285",
           "p1": "Rengeard",
           "p2": "Tran",
-          "time": "14:55",
+          "time": "15:14",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3160,6 +3170,6 @@
       ]
     }
   ],
-  "time": "2026-08-30T13:37:41Z",
+  "time": "2026-08-30T13:48:01Z",
   "ok": true
 }
