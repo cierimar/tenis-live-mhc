@@ -1,5 +1,6 @@
 {
   "ok": true,
+  "time": "2026-08-31T00:29:25Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -422,6 +423,15 @@
           "finished": false
         },
         {
+          "teId": "3310069",
+          "p1": "Fontenel",
+          "p2": "Lewis",
+          "time": "12:00",
+          "round": "Q-R16",
+          "h2h": "1-0",
+          "finished": false
+        },
+        {
           "teId": "3310067",
           "p1": "Karunaratne",
           "p2": "Radwanska",
@@ -440,19 +450,10 @@
           "finished": false
         },
         {
-          "teId": "3310069",
-          "p1": "Fontenel",
-          "p2": "Lewis",
-          "time": "12:15",
-          "round": "Q-R16",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3310065",
           "p1": "Martinez Vaquero",
           "p2": "Kardava",
-          "time": "14:15",
+          "time": "13:30",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -461,7 +462,7 @@
           "teId": "3310063",
           "p1": "Ivanov",
           "p2": "Da Silva Fick",
-          "time": "14:15",
+          "time": "13:30",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -767,7 +768,7 @@
           "teId": "3310125",
           "p1": "Lollia",
           "p2": "Boulard",
-          "time": "",
+          "time": "11:00",
           "round": "Q-R16",
           "h2h": "1-0",
           "finished": false
@@ -794,7 +795,7 @@
           "teId": "3310123",
           "p1": "Berecoechea",
           "p2": "Biolay",
-          "time": "18:15",
+          "time": "18:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -3235,6 +3236,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-08-31T00:18:59Z"
+  ]
 }
