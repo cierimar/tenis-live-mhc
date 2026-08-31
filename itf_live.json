@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-08-31T20:27:42Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1711,15 +1710,6 @@
           "finished": false
         },
         {
-          "teId": "3311351",
-          "p1": "Schuknecht",
-          "p2": "Wirges",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311345",
           "p1": "Jovanovic",
           "p2": "Groen",
@@ -1759,6 +1749,15 @@
           "teId": "3311355",
           "p1": "Willemse",
           "p2": "De Zeeuw",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3311351",
+          "p1": "Schuknecht",
+          "p2": "Wirges",
           "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
@@ -2283,5 +2282,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-08-31T20:48:20Z"
 }
