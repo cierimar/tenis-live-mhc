@@ -1701,7 +1701,7 @@
     const chall = state.challLive && state.challLive.matches ? state.challLive.matches : [];
     const itf = state.itfLive && state.itfLive.matches ? state.itfLive.matches : [];
     const mix = state.mixedLive && state.mixedLive.matches ? state.mixedLive.matches : [];
-    return [...state.matches, ...chall, ...itf, ...mix];
+    return [...state.matches, ...chall, ...itf, ...mix].filter(m => m && typeof m === 'object');
   }
   function allTournaments() {
     const chall = state.challLive && state.challLive.tournaments ? state.challLive.tournaments : [];
