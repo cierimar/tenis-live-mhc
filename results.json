@@ -1,6 +1,56 @@
 {
-  "count": 1,
+  "updated": "2026-08-31T23:57:40Z",
   "matches": [
+    {
+      "id": "te-3307355",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3307355",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flag": "",
+          "flagAlt": "",
+          "winner": true,
+          "name": "Siniakova K."
+        },
+        {
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 2,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flag": "",
+          "flagAlt": "",
+          "winner": false,
+          "name": "Cocciaretto E."
+        }
+      ]
+    },
     {
       "id": "te-3311033",
       "state": "post",
@@ -12,56 +62,56 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
+          "homeAway": "home",
           "linescores": [
             {
-              "tiebreak": null,
               "value": 6,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "value": 2,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "value": 12,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             }
           ],
-          "homeAway": "home",
           "flag": "",
-          "name": "Garnevska V.",
-          "winner": true
+          "flagAlt": "",
+          "winner": true,
+          "name": "Garnevska V."
         },
         {
-          "flagAlt": "",
+          "homeAway": "away",
           "linescores": [
             {
-              "tiebreak": null,
               "value": 1,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "value": 6,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "value": 10,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             }
           ],
-          "homeAway": "away",
           "flag": "",
-          "name": "Masiianskaia M.",
-          "winner": false
+          "flagAlt": "",
+          "winner": false,
+          "name": "Masiianskaia M."
         }
       ]
     }
   ],
   "ok": true,
-  "updated": "2026-08-31T23:46:31Z"
+  "count": 2
 }
