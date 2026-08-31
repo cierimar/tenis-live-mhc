@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -158,15 +157,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311903",
-          "p1": "Tomai",
-          "p2": "Cervino Ruiz",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311907",
           "p1": "Klimovicova",
           "p2": "Voloshchuk",
@@ -197,6 +187,15 @@
           "teId": "3311905",
           "p1": "Arseneault",
           "p2": "Gasanova",
+          "time": "11:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3311903",
+          "p1": "Tomai",
+          "p2": "Cervino Ruiz",
           "time": "11:00",
           "round": "1R",
           "h2h": "0-0",
@@ -804,15 +803,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311263",
-          "p1": "Lahey",
-          "p2": "Natal Gomez",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311259",
           "p1": "Liu",
           "p2": "Roura Llaverias",
@@ -844,6 +834,15 @@
           "p1": "Cirpanli",
           "p2": "Giraldi Requena",
           "time": "12:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3311263",
+          "p1": "Lahey",
+          "p2": "Natal Gomez",
+          "time": "09:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1118,7 +1117,7 @@
           "teId": "3311847",
           "p1": "Krajmer",
           "p2": "Litvinova",
-          "time": "15:45",
+          "time": "13:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1692,33 +1691,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311357",
-          "p1": "Van De Peer",
-          "p2": "Pikkaart",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311353",
-          "p1": "Raschdorf",
-          "p2": "Van Der Werff",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311345",
-          "p1": "Jovanovic",
-          "p2": "Groen",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311343",
           "p1": "Coppez",
           "p2": "Kleinenberg",
@@ -1746,6 +1718,15 @@
           "finished": false
         },
         {
+          "teId": "3311357",
+          "p1": "Van De Peer",
+          "p2": "Pikkaart",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3311355",
           "p1": "Willemse",
           "p2": "De Zeeuw",
@@ -1755,9 +1736,27 @@
           "finished": false
         },
         {
+          "teId": "3311353",
+          "p1": "Raschdorf",
+          "p2": "Van Der Werff",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3311351",
           "p1": "Schuknecht",
           "p2": "Wirges",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3311345",
+          "p1": "Jovanovic",
+          "p2": "Groen",
           "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
@@ -2283,5 +2282,6 @@
       ]
     }
   ],
-  "time": "2026-08-31T22:11:23Z"
+  "time": "2026-08-31T22:21:47Z",
+  "ok": true
 }
