@@ -1,4 +1,6 @@
 {
+  "time": "2026-08-31T21:30:04Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -166,12 +168,21 @@
           "finished": false
         },
         {
-          "teId": "3311905",
-          "p1": "Arseneault",
-          "p2": "Gasanova",
-          "time": "14:00",
+          "teId": "3311907",
+          "p1": "Klimovicova",
+          "p2": "Voloshchuk",
+          "time": "01:00",
           "round": "1R",
-          "h2h": "0-0",
+          "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3311901",
+          "p1": "Kuzmova",
+          "p2": "Jorge",
+          "time": "01:00",
+          "round": "1R",
+          "h2h": "0-1",
           "finished": false
         },
         {
@@ -184,21 +195,12 @@
           "finished": false
         },
         {
-          "teId": "3311907",
-          "p1": "Klimovicova",
-          "p2": "Voloshchuk",
+          "teId": "3311905",
+          "p1": "Arseneault",
+          "p2": "Gasanova",
           "time": "11:00",
           "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3311901",
-          "p1": "Kuzmova",
-          "p2": "Jorge",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-1",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2281,7 +2283,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-08-31T21:19:38Z"
+  ]
 }
