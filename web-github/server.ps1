@@ -657,9 +657,12 @@ function Get-LiveAll {
         if (-not $name) { continue }
         $levelM = [regex]::Match($sec, '</h2>\s*<span>([\s\S]{0,30})</span>', 'Singleline')
         $level = if ($levelM.Success) { (($levelM.Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
-        # circuito por nivel
+        $hrefM = [regex]::Match($sec, "window\.location\.href = '([^']+)'", 'Singleline')
+        $href = if ($hrefM.Success) { $hrefM.Groups[1].Value } else { '' }
+        # circuito por nivel (y gender por href: /ladies/ o /men/)
         $tour = 'atp'
-        if ($level -match '^WTA') { $tour = 'wta' }
+        if ($href -match '/(ladies|women)/') { $tour = 'wta' }
+        elseif ($href -notmatch '/(ladies|women)/' -and $level -match '^WTA') { $tour = 'wta' }
         elseif ($level -match 'ATP CH') { $tour = 'chall' }
         elseif ($level -match '^W\s') { $tour = 'itf'; $cat = 'w' }
         elseif ($level -match '^M\s') { $tour = 'itf'; $cat = 'm' }
@@ -670,7 +673,7 @@ function Get-LiveAll {
             $matchSeq++
             $m = $mm.Value
             $mid = $mm.Groups[1].Value
-            $names = [regex]::Matches($m, '<span class="name">([\s\S]{0,40})</span>', 'Singleline')
+            $names = [regex]::Matches($m, '<span class="name[^"]*">([\s\S]{0,40}?)</span>', 'Singleline')
             $p1 = if ($names.Count -gt 0) { (($names[0].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
             $p2 = if ($names.Count -gt 1) { (($names[1].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
             $p3 = if ($names.Count -gt 2) { (($names[2].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
@@ -736,7 +739,18 @@ function Get-LiveAll {
             })
         }
         if ($mList.Count -gt 0) {
-            $tournaments.Add([pscustomobject]@{ id = $tid; name = $name; level = $level; tour = $tour; cat = if ($tour -eq 'itf') { $cat } else { $null }; matches = $mList })
+            # derivar tier real desde el nivel (no adivinar por nombre del torneo)
+            $tier = ''
+            $lv = $level.ToLowerInvariant()
+            if ($lv -match 'grand slam') { $tier = 'GRAND SLAM' }
+            elseif ($lv -match 'wta') {
+                $tier = if ($lv -match 'wta 1000|wta 900|wta premi') { 'WTA 1000' } elseif ($lv -match 'wta 500') { 'WTA 500' } elseif ($lv -match 'wta 250') { 'WTA 250' } elseif ($lv -match 'wta 125') { 'WTA 125' } elseif ($lv -match 'wta 125') { 'WTA 125' } else { 'WTA' }
+            }
+            elseif ($lv -match 'atp ch') { $tier = 'CHALLENGER' }
+            elseif ($lv -match 'atp') { $tier = if ($lv -match 'masters|1000') { 'MASTERS 1000' } elseif ($lv -match 'atp 500|500') { 'ATP 500' } elseif ($lv -match 'atp 250|250') { 'ATP 250' } else { 'ATP' } }
+            elseif ($lv -match '^w\s*(\d+)') { $tier = 'ITF W' + $Matches[1] }
+            elseif ($lv -match '^m\s*(\d+)') { $tier = 'ITF M' + $Matches[1] }
+            $tournaments.Add([pscustomobject]@{ id = $tid; name = $name; level = $level; tour = $tour; cat = if ($tour -eq 'itf') { $cat } else { $null }; tier = $tier; matches = $mList })
         }
     }
     return @{ ok = $true; time = (Get-Date).ToString('s'); source = 'tennistemple'; tournaments = $tournaments }
