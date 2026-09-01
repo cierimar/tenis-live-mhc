@@ -657,9 +657,12 @@ function Get-LiveAll {
         if (-not $name) { continue }
         $levelM = [regex]::Match($sec, '</h2>\s*<span>([\s\S]{0,30})</span>', 'Singleline')
         $level = if ($levelM.Success) { (($levelM.Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
-        # circuito por nivel
+        $hrefM = [regex]::Match($sec, "window\.location\.href = '([^']+)'", 'Singleline')
+        $href = if ($hrefM.Success) { $hrefM.Groups[1].Value } else { '' }
+        # circuito por nivel (y gender por href: /ladies/ o /men/)
         $tour = 'atp'
-        if ($level -match '^WTA') { $tour = 'wta' }
+        if ($href -match '/(ladies|women)/') { $tour = 'wta' }
+        elseif ($href -notmatch '/(ladies|women)/' -and $level -match '^WTA') { $tour = 'wta' }
         elseif ($level -match 'ATP CH') { $tour = 'chall' }
         elseif ($level -match '^W\s') { $tour = 'itf'; $cat = 'w' }
         elseif ($level -match '^M\s') { $tour = 'itf'; $cat = 'm' }
@@ -670,7 +673,7 @@ function Get-LiveAll {
             $matchSeq++
             $m = $mm.Value
             $mid = $mm.Groups[1].Value
-            $names = [regex]::Matches($m, '<span class="name">([\s\S]{0,40})</span>', 'Singleline')
+            $names = [regex]::Matches($m, '<span class="name[^"]*">([\s\S]{0,40}?)</span>', 'Singleline')
             $p1 = if ($names.Count -gt 0) { (($names[0].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
             $p2 = if ($names.Count -gt 1) { (($names[1].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
             $p3 = if ($names.Count -gt 2) { (($names[2].Groups[1].Value -replace '<[^>]+>', '') -replace '\s+', ' ').Trim() } else { '' }
