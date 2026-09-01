@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-01T12:51:50Z",
   "ok": true,
   "tournaments": [
     {
@@ -269,15 +270,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312427",
-          "p1": "Karunaratne",
-          "p2": "Reasco Gonzalez",
-          "time": "13:10",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311905",
           "p1": "Arseneault",
           "p2": "Gasanova",
@@ -409,6 +401,25 @@
           ],
           "sets2": [
             "0",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312427",
+          "p1": "Reasco Gonzalez",
+          "p2": "Karunaratne",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
             "4"
           ],
           "finished": true
@@ -1687,6 +1698,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-01T12:36:13Z"
+  ]
 }
