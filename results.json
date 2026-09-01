@@ -1,5 +1,6 @@
 {
-  "updated": "2026-08-31T23:57:40Z",
+  "count": 2,
+  "updated": "2026-09-01T00:27:25Z",
   "matches": [
     {
       "id": "te-3307355",
@@ -12,41 +13,41 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
+          "winner": true,
           "linescores": [
             {
-              "value": 6,
               "winner": true,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
-              "value": 6,
               "winner": true,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             }
           ],
+          "homeAway": "home",
           "flag": "",
           "flagAlt": "",
-          "winner": true,
           "name": "Siniakova K."
         },
         {
-          "homeAway": "away",
+          "winner": false,
           "linescores": [
             {
-              "value": 3,
               "winner": false,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             },
             {
-              "value": 2,
               "winner": false,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             }
           ],
+          "homeAway": "away",
           "flag": "",
           "flagAlt": "",
-          "winner": false,
           "name": "Cocciaretto E."
         }
       ]
@@ -62,56 +63,55 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
+          "winner": true,
           "linescores": [
             {
-              "value": 6,
               "winner": true,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
-              "value": 2,
               "winner": false,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             },
             {
-              "value": 12,
               "winner": true,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 12
             }
           ],
+          "homeAway": "home",
           "flag": "",
           "flagAlt": "",
-          "winner": true,
           "name": "Garnevska V."
         },
         {
-          "homeAway": "away",
+          "winner": false,
           "linescores": [
             {
-              "value": 1,
               "winner": false,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             },
             {
-              "value": 6,
               "winner": true,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
-              "value": 10,
               "winner": false,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 10
             }
           ],
+          "homeAway": "away",
           "flag": "",
           "flagAlt": "",
-          "winner": false,
           "name": "Masiianskaia M."
         }
       ]
     }
   ],
-  "ok": true,
-  "count": 2
+  "ok": true
 }
