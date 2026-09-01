@@ -1,5 +1,4 @@
 {
-  "updated": "2026-09-01T23:39:08Z",
   "matches": [
     {
       "id": "te-3307361",
@@ -12,11 +11,6 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "winner": false,
-          "name": "Vidmanova D.",
-          "flag": "",
-          "homeAway": "home",
           "linescores": [
             {
               "winner": false,
@@ -28,14 +22,14 @@
               "value": 2,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "home",
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
+          "name": "Vidmanova D."
         },
         {
-          "flagAlt": "",
-          "winner": true,
-          "name": "Bouzas Maneiro J.",
-          "flag": "",
-          "homeAway": "away",
           "linescores": [
             {
               "winner": true,
@@ -47,7 +41,12 @@
               "value": 3,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "away",
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
+          "name": "Bouzas Maneiro J."
         }
       ]
     },
@@ -62,11 +61,6 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "winner": true,
-          "name": "Panasa O.",
-          "flag": "",
-          "homeAway": "home",
           "linescores": [
             {
               "winner": true,
@@ -78,14 +72,14 @@
               "value": 6,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "home",
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
+          "name": "Panasa O."
         },
         {
-          "flagAlt": "",
-          "winner": false,
-          "name": "Bednarczyk C.",
-          "flag": "",
-          "homeAway": "away",
           "linescores": [
             {
               "winner": false,
@@ -97,7 +91,12 @@
               "value": 4,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "away",
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
+          "name": "Bednarczyk C."
         }
       ]
     },
@@ -112,11 +111,6 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "winner": true,
-          "name": "Barth A.",
-          "flag": "",
-          "homeAway": "home",
           "linescores": [
             {
               "winner": true,
@@ -128,14 +122,14 @@
               "value": 6,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "home",
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
+          "name": "Barth A."
         },
         {
-          "flagAlt": "",
-          "winner": false,
-          "name": "Dzjachangirova M.",
-          "flag": "",
-          "homeAway": "away",
           "linescores": [
             {
               "winner": false,
@@ -147,11 +141,17 @@
               "value": 2,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "away",
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
+          "name": "Dzjachangirova M."
         }
       ]
     }
   ],
+  "count": 3,
   "ok": true,
-  "count": 3
+  "updated": "2026-09-01T23:50:36Z"
 }
