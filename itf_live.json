@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-01T06:02:26Z",
+  "time": "2026-09-01T06:26:06Z",
   "ok": true,
   "tournaments": [
     {
@@ -14,24 +14,6 @@
           "time": "06:25",
           "round": "1R",
           "h2h": "3-6",
-          "finished": false
-        },
-        {
-          "teId": "3310855",
-          "p1": "Huang",
-          "p2": "Ma",
-          "time": "06:45",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310827",
-          "p1": "Okamura",
-          "p2": "Sidorova",
-          "time": "07:00",
-          "round": "1R",
-          "h2h": "0-0",
           "finished": false
         },
         {
@@ -105,6 +87,44 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3310827",
+          "p1": "Sidorova",
+          "p2": "Okamura",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "07:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3310855",
+          "p1": "Ma",
+          "p2": "Huang",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "06:45",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3310845",
@@ -441,15 +461,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312391",
-          "p1": "Cvetkovic",
-          "p2": "Xiao",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312393",
           "p1": "Sakellaridi",
           "p2": "Oz",
@@ -582,6 +593,15 @@
           "time": "10:00",
           "round": "1R",
           "h2h": "2-0",
+          "finished": false
+        },
+        {
+          "teId": "3312391",
+          "p1": "Cvetkovic",
+          "p2": "Xiao",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
           "finished": false
         }
       ]
