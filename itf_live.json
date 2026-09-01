@@ -51,6 +51,15 @@
           "finished": false
         },
         {
+          "teId": "3310849",
+          "p1": "Tian",
+          "p2": "Li",
+          "time": "05:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3310843",
           "p1": "Shi",
           "p2": "Saigo",
@@ -60,19 +69,10 @@
           "finished": false
         },
         {
-          "teId": "3310849",
-          "p1": "Tian",
-          "p2": "Li",
-          "time": "05:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3310841",
           "p1": "Kaji",
           "p2": "Ren",
-          "time": "05:30",
+          "time": "05:00",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
@@ -1864,15 +1864,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311321",
-          "p1": "Wainwright",
-          "p2": "Brooks",
-          "time": "16:00",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3313007",
           "p1": "Burylo",
           "p2": "Adams",
@@ -1909,15 +1900,6 @@
           "finished": false
         },
         {
-          "teId": "3312801",
-          "p1": "Wrobel",
-          "p2": "Cialkowska",
-          "time": "10:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312799",
           "p1": "Chudejova",
           "p2": "Ozerova",
@@ -1939,6 +1921,15 @@
           "teId": "3312805",
           "p1": "Pushkar",
           "p2": "Drozdz",
+          "time": "11:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312801",
+          "p1": "Wrobel",
+          "p2": "Cialkowska",
           "time": "11:00",
           "round": "1R",
           "h2h": "0-0",
@@ -1970,6 +1961,27 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311321",
+          "p1": "Wainwright",
+          "p2": "Brooks",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3311319",
@@ -2183,7 +2195,7 @@
           "p2": "Ait El Bachir",
           "round": "1. round",
           "date": "01.09.",
-          "time": "16:43",
+          "time": "14:30",
           "res1": 2,
           "res2": 0,
           "sets1": [
@@ -2501,5 +2513,5 @@
     }
   ],
   "ok": true,
-  "time": "2026-09-01T19:58:16Z"
+  "time": "2026-09-01T20:16:38Z"
 }
