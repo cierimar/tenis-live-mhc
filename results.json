@@ -1,167 +1,207 @@
 {
+  "updated": "2026-09-01T02:15:08Z",
+  "ok": true,
+  "count": 3,
   "matches": [
     {
-      "id": "te-3307355",
+      "id": "te-3307367",
       "state": "post",
       "tour": "atp",
       "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3307355",
+      "tournamentId": "te-3307367",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
+          "winner": true,
           "flag": "",
           "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 6
+              "value": 6,
+              "winner": true
             },
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 6
+              "value": 7,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
             }
           ],
-          "name": "Siniakova K.",
-          "homeAway": "home",
-          "winner": true
+          "name": "Halys Q."
         },
         {
+          "homeAway": "away",
+          "winner": false,
           "flag": "",
           "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 3
+              "value": 4,
+              "winner": false
             },
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 2
+              "value": 5,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 7,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 1,
+              "winner": false
             }
           ],
-          "name": "Cocciaretto E.",
-          "homeAway": "away",
-          "winner": false
+          "name": "Diaz Acosta F."
         }
       ]
     },
     {
-      "id": "te-3307343",
+      "id": "te-3307397",
       "state": "post",
       "tour": "atp",
       "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3307343",
+      "tournamentId": "te-3307397",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
+          "winner": true,
           "flag": "",
           "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 6
+              "value": 6,
+              "winner": true
             },
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 6
+              "value": 6,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
             }
           ],
-          "name": "Swiatek I.",
-          "homeAway": "home",
-          "winner": true
+          "name": "Tien L."
         },
         {
+          "homeAway": "away",
+          "winner": false,
           "flag": "",
           "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 2
+              "value": 4,
+              "winner": false
             },
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 3
+              "value": 1,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 2,
+              "winner": false
             }
           ],
-          "name": "Wang X.",
-          "homeAway": "away",
-          "winner": false
+          "name": "Borges N."
         }
       ]
     },
     {
-      "id": "te-3311033",
+      "id": "te-3307433",
       "state": "post",
       "tour": "atp",
       "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3311033",
+      "tournamentId": "te-3307433",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
+          "winner": true,
           "flag": "",
           "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 6
+              "value": 1,
+              "winner": false
             },
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 2
+              "value": 6,
+              "winner": true
             },
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 12
+              "value": 7,
+              "winner": true
+            },
+            {
+              "tiebreak": null,
+              "value": 6,
+              "winner": true
             }
           ],
-          "name": "Garnevska V.",
-          "homeAway": "home",
-          "winner": true
+          "name": "Shelton B."
         },
         {
+          "homeAway": "away",
+          "winner": false,
           "flag": "",
           "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 1
+              "value": 6,
+              "winner": true
             },
             {
               "tiebreak": null,
-              "winner": true,
-              "value": 6
+              "value": 1,
+              "winner": false
             },
             {
               "tiebreak": null,
-              "winner": false,
-              "value": 10
+              "value": 6,
+              "winner": false
+            },
+            {
+              "tiebreak": null,
+              "value": 2,
+              "winner": false
             }
           ],
-          "name": "Masiianskaia M.",
-          "homeAway": "away",
-          "winner": false
+          "name": "Griekspoor T."
         }
       ]
     }
-  ],
-  "count": 3,
-  "updated": "2026-09-01T01:57:09Z",
-  "ok": true
+  ]
 }
