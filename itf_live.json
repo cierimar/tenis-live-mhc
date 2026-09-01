@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-01T12:51:50Z",
+  "time": "2026-09-01T13:04:18Z",
   "ok": true,
   "tournaments": [
     {
@@ -562,15 +562,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312393",
-          "p1": "Sakellaridi",
-          "p2": "Oz",
-          "time": "13:20",
-          "round": "1R",
-          "h2h": "0-3",
-          "finished": false
-        },
-        {
           "teId": "3312421",
           "p1": "Schnyder",
           "p2": "Pedone",
@@ -704,6 +695,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312393",
+          "p1": "Oz",
+          "p2": "Sakellaridi",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
+          ],
+          "finished": true
         }
       ]
     },
