@@ -35,7 +35,6 @@
   wcSearch: '',
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
-    columna: { data: [], loaded: false }, colOpen: -1, colEditing: -1,
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -1565,7 +1564,7 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed(), refreshColumnas()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed()]);
       await refreshSofaPoints();
       if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
@@ -2528,170 +2527,6 @@
     if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--') + (wq ? ' · buscando "' + esc(wq) + '"' : '');
   }
 
-  function refreshColumnas() {
-    const url = 'columnas.json';
-    return fetchJson(url).catch(() => null).then(j => {
-      const list = (j && Array.isArray(j.columnas)) ? j.columnas : (Array.isArray(j) ? j : []);
-      state.columna = { data: list, loaded: true };
-      if (state.tab === 'columna') renderColumnas();
-    });
-  }
-
-  function renderColumnas() {
-    const el = $('colContent');
-    const meta = $('colMeta');
-    const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-    let list = state.columna.data.slice().concat(local);
-    list = list.filter(n => n && (typeof n === 'object'));
-    list.sort((a, b) => String(b && b.date || '').localeCompare(String(a && a.date || '')));
-    if (!list.length) {
-      el.innerHTML = '<div class="error-box">Aún no hay notas publicadas. Usá "+ Nueva nota" para escribir la primera.</div>';
-      if (meta) meta.textContent = 'Aún sin publicaciones';
-      return;
-    }
-    const cards = list.map((n, i) => {
-      let bodyHtml = esc(n.body || '');
-      let excerpt = bodyHtml.replace(/<br>/g, ' ');
-      bodyHtml = bodyHtml.replace(/\n/g, '<br>');
-      const hasFirma = /MHC\s*<br>\s*$/.test(bodyHtml.replace(/<br>\s*$/, ''));
-      return '<article class="col-card' + (state.colOpen === i ? ' open' : '') + '" data-i="' + i + '"><div class="col-date">' + esc(n.date || '') + '</div>' +
-        '<h3 class="col-title">' + esc(n.title || '') + '</h3>' +
-        '<div class="col-excerpt">' + excerpt.slice(0, 160) + (excerpt.length > 160 ? '…' : '') + '</div>' +
-        '<div class="col-body">' + bodyHtml + (hasFirma ? '' : '<div class="col-firma"><br>— MHC</div>') + '</div>' +
-        (useLocalBackend() ? '<div class="col-cardbar"><button class="col-edit" data-e="' + i + '">✎ Editar</button></div>' : '') + '</article>';
-    }).join('');
-    el.innerHTML = '<div class="col-grid">' + cards + '</div>';
-    el.querySelectorAll('.col-card').forEach(card => {
-      card.querySelectorAll('.col-edit').forEach(btn => {
-        btn.addEventListener('click', (ev) => {
-          ev.stopPropagation();
-          editCol(parseInt(btn.dataset.e, 10));
-        });
-      });
-      card.addEventListener('click', () => {
-        const wasOpen = card.classList.contains('open');
-        el.querySelectorAll('.col-card.open').forEach(c => c.classList.remove('open'));
-        if (!wasOpen) { card.classList.add('open'); state.colOpen = parseInt(card.dataset.i, 10); }
-        else { state.colOpen = -1; }
-      });
-    });
-    if (meta) meta.textContent = list.length + ' nota(s) · hacé clic en una para leerla';
-  }
-
-  function startColEditor() {
-    const editor = $('colEditor');
-    const title = $('colTitle');
-    const body = $('colBody');
-    if (!editor || !title || !body) return;
-    if (editor.style.display === 'none' || !editor.style.display) {
-      const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-      const last = local[local.length - 1];
-      title.value = last ? last.title : '';
-      body.value = last ? last.body : '';
-      editor.style.display = 'block';
-    } else {
-      editor.style.display = 'none';
-    }
-    $('colJsonOut').style.display = 'none';
-  }
-
-  function editCol(i) {
-    const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-    const note = i < state.columna.data.length ? state.columna.data[i] : local[i - state.columna.data.length];
-    if (!note) return;
-    state.colEditing = i;
-    $('colTitle').value = note.title || '';
-    $('colBody').value = note.body || '';
-    $('colEditor').style.display = 'block';
-    $('colJsonOut').style.display = 'none';
-    $('colToggle').textContent = 'Cerrar editor';
-    $('colSave').textContent = 'Guardar edición';
-  }
-
-  function colIsLocal(i) {
-    const nData = state.columna.data.length;
-    return i >= nData;
-  }
-
-  function saveColDraft() {
-    const title = $('colTitle');
-    const body = $('colBody');
-    if (!title || !body) return;
-    const t = title.value.trim(), b = body.value.trim();
-    if (!t && !b) { alert('Escribí algo primero.'); return; }
-    const date = new Date().toISOString().slice(0, 10);
-    let meta = $('colMeta');
-    if (state.colEditing >= 0) {
-      const i = state.colEditing;
-      const edited = { title: t, body: b, date: date, edited: true };
-      if (colIsLocal(i)) {
-        const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-        const li = i - state.columna.data.length;
-        local[li] = { title: t, body: b, date: local[li] ? local[li].date : date, local: true };
-        localStorage.setItem('mhc-columna', JSON.stringify(local));
-        if (meta) meta.textContent = 'Borrador editado en este dispositivo ✔';
-      } else {
-        if (!localStorage.getItem('mhc-coledit')) localStorage.setItem('mhc-coledit', '{}');
-        const edits = JSON.parse(localStorage.getItem('mhc-coledit'));
-        edits[i] = edited;
-        localStorage.setItem('mhc-coledit', JSON.stringify(edits));
-        if (meta) meta.textContent = 'Edición guardada localmente. Usá "Generar código" para publicarla ✔';
-      }
-      endColEdit();
-      renderColumnas();
-      return;
-    }
-    const local = JSON.parse(localStorage.getItem('mhc-columna') || '[]');
-    local.push({ title: t, body: b, date: date, local: true });
-    localStorage.setItem('mhc-columna', JSON.stringify(local));
-    renderColumnas();
-    $('colMeta').textContent = 'Borrador guardado en este dispositivo ✔';
-  }
-
-  function endColEdit() {
-    state.colEditing = -1;
-    const t = $('colToggle'), s = $('colSave');
-    if (t) t.textContent = 'Escribir / Ver notas';
-    if (s) s.textContent = 'Guardar borrador';
-  }
-
-  function copyColJson() {
-    const title = $('colTitle');
-    const body = $('colBody');
-    if (!title || !body) return;
-    const t = title.value.trim(), b = body.value.trim();
-    if (!t && !b) { alert('Escribí el título y el cuerpo.'); return; }
-    const date = new Date().toISOString().slice(0, 10);
-    const entry = { title: t, body: b, date: date };
-    let outTxt;
-    let clip = JSON.stringify(entry, null, 2) + ',';
-    if (state.colEditing >= 0) {
-      const i = state.colEditing;
-      const arr = state.columna.data.slice();
-      if (!colIsLocal(i)) arr[i] = Object.assign({}, arr[i], { title: t, body: b, date: date });
-      outTxt = 'EDITÁ este fragmento en columnas.json (raíz y web-github) reemplazando la nota índice ' + i + ' (o el JSON completo):\n\n' + JSON.stringify(arr, null, 2);
-      clip = JSON.stringify(arr, null, 2);
-    } else {
-      outTxt = 'Agregá esto al array "columnas" de columnas.json (en la raíz y en web-github), y subilo:\n\n' +
-        JSON.stringify(entry, null, 2) + ',';
-    }
-    const out = $('colJsonOut');
-    out.textContent = outTxt;
-    out.style.display = 'block';
-    try { navigator.clipboard.writeText(clip); } catch (_) {}
-  }
-
-  function clearColDrafts() {
-    if (!localStorage.getItem('mhc-columna')) { alert('No hay borradores guardados.'); return; }
-    if (!confirm('¿Vaciar todos los borradores de esta columna en este dispositivo?')) return;
-    localStorage.removeItem('mhc-columna');
-    const editor = $('colEditor');
-    if (editor) { editor.style.display = 'none'; }
-    const title = $('colTitle'), body = $('colBody');
-    if (title) title.value = ''; if (body) body.value = '';
-    renderColumnas();
-  }
-
   function renderPlayers() {
     const el = $('playersContent');
     if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
@@ -2751,7 +2586,6 @@
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
-    else if (state.tab === 'columna') renderColumnas();
   }
 
   function setTab(tab) {
@@ -2763,7 +2597,6 @@
   document.body.classList.toggle('tab-news', tab === 'news');
   document.body.classList.toggle('tab-videos', tab === 'videos');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
-    document.body.classList.toggle('tab-columna', tab === 'columna');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
@@ -2788,11 +2621,6 @@
     if (tab === 'wheelchair' && !state.wheelchair.loaded) {
       render();
       refreshWheelchair();
-      return;
-    }
-    if (tab === 'columna' && !state.columna.loaded) {
-      render();
-      refreshColumnas();
       return;
     }
     render();
@@ -3320,16 +3148,16 @@
     }
     const h2hGo = $('h2hSearchBtn');
     if (h2hGo) h2hGo.addEventListener('click', runH2HSearch);
-    const colNew = $('colNew');
-    if (colNew) colNew.addEventListener('click', startColEditor);
-    const colToggle = $('colToggle');
-    if (colToggle) colToggle.addEventListener('click', startColEditor);
-    const colSave = $('colSave');
-    if (colSave) colSave.addEventListener('click', saveColDraft);
-    const colCopy = $('colCopyJson');
-    if (colCopy) colCopy.addEventListener('click', copyColJson);
-    const colClear = $('colClear');
-    if (colClear) colClear.addEventListener('click', clearColDrafts);
+
+
+
+
+
+
+
+
+
+
     ['h2hP1', 'h2hP2'].forEach(id => {
       const el = $(id);
       if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') runH2HSearch(); });
