@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-01T11:31:04Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -282,7 +280,7 @@
           "teId": "3312427",
           "p1": "Karunaratne",
           "p2": "Reasco Gonzalez",
-          "time": "13:00",
+          "time": "13:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -300,7 +298,7 @@
           "teId": "3311905",
           "p1": "Arseneault",
           "p2": "Gasanova",
-          "time": "14:30",
+          "time": "14:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -421,28 +419,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311457",
-          "p1": "Zantedeschi",
-          "p2": "Monnot",
-          "time": "11:10",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311465",
           "p1": "Hietaranta",
           "p2": "Nguyen Tan",
           "time": "11:20",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311459",
-          "p1": "Cherubini",
-          "p2": "Martynov",
-          "time": "11:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -491,6 +471,44 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311459",
+          "p1": "Cherubini",
+          "p2": "Martynov",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "11:45",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311457",
+          "p1": "Zantedeschi",
+          "p2": "Monnot",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "11:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
+          ],
+          "finished": true
         }
       ]
     },
@@ -845,24 +863,6 @@
           "finished": false
         },
         {
-          "teId": "3311841",
-          "p1": "Lorrimer",
-          "p2": "Sasnouskaya",
-          "time": "10:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311839",
-          "p1": "Mettraux",
-          "p2": "Charrier",
-          "time": "10:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311863",
           "p1": "Collin",
           "p2": "Soriano Santiago",
@@ -933,6 +933,44 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311839",
+          "p1": "Mettraux",
+          "p2": "Charrier",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311841",
+          "p1": "Sasnouskaya",
+          "p2": "Lorrimer",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3311833",
@@ -1029,33 +1067,6 @@
           "finished": false
         },
         {
-          "teId": "3312359",
-          "p1": "Maines",
-          "p2": "Giordano",
-          "time": "10:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312369",
-          "p1": "Mais",
-          "p2": "Voracek",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312367",
-          "p1": "Stagno",
-          "p2": "Gasparini",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312365",
           "p1": "Alvisi",
           "p2": "Bilardo",
@@ -1144,6 +1155,65 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312367",
+          "p1": "Gasparini",
+          "p2": "Stagno",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312369",
+          "p1": "Voracek",
+          "p2": "Mais",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312359",
+          "p1": "Maines",
+          "p2": "Giordano",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "7",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3312361",
@@ -1528,5 +1598,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-01T11:44:42Z",
+  "ok": true
 }
