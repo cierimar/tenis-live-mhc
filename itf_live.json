@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-01T12:14:39Z",
   "ok": true,
   "tournaments": [
     {
@@ -279,19 +278,10 @@
           "finished": false
         },
         {
-          "teId": "3312425",
-          "p1": "Fontenel",
-          "p2": "Kardava",
-          "time": "13:10",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311905",
           "p1": "Arseneault",
           "p2": "Gasanova",
-          "time": "14:15",
+          "time": "14:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -403,6 +393,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312425",
+          "p1": "Fontenel",
+          "p2": "Kardava",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3312423",
@@ -790,15 +799,6 @@
           "finished": false
         },
         {
-          "teId": "3311285",
-          "p1": "Sauciuc",
-          "p2": "Safta",
-          "time": "12:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311275",
           "p1": "Prisacariu",
           "p2": "Marinescu",
@@ -860,6 +860,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311285",
+          "p1": "Safta",
+          "p2": "Sauciuc",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         }
       ]
     },
@@ -868,15 +887,6 @@
       "name": "Cap d'Agde ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3311845",
-          "p1": "Martin",
-          "p2": "Buculei",
-          "time": "10:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3311843",
           "p1": "Ciocan",
@@ -959,6 +969,15 @@
           "finished": false
         },
         {
+          "teId": "3312603",
+          "p1": "Mettraux",
+          "p2": "Sasnouskaya",
+          "time": "",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3312585",
           "p1": "Ruchkina",
           "p2": "Szostak",
@@ -1002,6 +1021,25 @@
           "sets2": [
             "1",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311845",
+          "p1": "Buculei",
+          "p2": "Martin",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2"
           ],
           "finished": true
         },
@@ -1123,6 +1161,24 @@
           "p2": "Sevcikova",
           "time": "13:00",
           "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312607",
+          "p1": "Milanese",
+          "p2": "Voracek",
+          "time": "",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312605",
+          "p1": "Gasparini",
+          "p2": "Giambelli",
+          "time": "",
+          "round": "R16",
           "h2h": "0-0",
           "finished": false
         },
@@ -1394,7 +1450,7 @@
           "teId": "3311349",
           "p1": "Ait El Bachir",
           "p2": "Brand",
-          "time": "15:32",
+          "time": "15:41",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1631,5 +1687,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-01T12:36:13Z"
 }
