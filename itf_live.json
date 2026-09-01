@@ -1,6 +1,6 @@
 {
+  "time": "2026-09-01T12:14:39Z",
   "ok": true,
-  "time": "2026-09-01T11:55:27Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -270,15 +270,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312423",
-          "p1": "Munk Mortensen",
-          "p2": "Kinoshita",
-          "time": "12:40",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312427",
           "p1": "Karunaratne",
           "p2": "Reasco Gonzalez",
@@ -412,6 +403,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312423",
+          "p1": "Kinoshita",
+          "p2": "Munk Mortensen",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "12:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "0",
+            "5"
+          ],
+          "finished": true
         }
       ]
     },
@@ -420,15 +430,6 @@
       "name": "Saint Palais sur Mer ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3311465",
-          "p1": "Hietaranta",
-          "p2": "Nguyen Tan",
-          "time": "11:20",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3311461",
           "p1": "Sieg",
@@ -489,6 +490,27 @@
           ],
           "sets2": [
             "4",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311465",
+          "p1": "Nguyen Tan",
+          "p2": "Hietaranta",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "11:20",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
             "1"
           ],
           "finished": true
