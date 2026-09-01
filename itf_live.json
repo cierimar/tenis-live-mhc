@@ -1,6 +1,5 @@
 {
-  "ok": true,
-  "time": "2026-09-01T18:57:23Z",
+  "time": "2026-09-01T19:13:08Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1857,15 +1856,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311325",
-          "p1": "Paredes Perez",
-          "p2": "Adams",
-          "time": "15:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311321",
           "p1": "Wainwright",
           "p2": "Brooks",
@@ -1994,6 +1984,25 @@
           "finished": true
         },
         {
+          "teId": "3311325",
+          "p1": "Adams",
+          "p2": "Paredes Perez",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "15:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3311311",
           "p1": "Heuser",
           "p2": "Gorska",
@@ -2077,15 +2086,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311347",
-          "p1": "Hageman",
-          "p2": "Nuudi",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311357",
           "p1": "Van De Peer",
           "p2": "Pikkaart",
@@ -2129,6 +2129,27 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311347",
+          "p1": "Nuudi",
+          "p2": "Hageman",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "6",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3311349",
@@ -2430,5 +2451,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
