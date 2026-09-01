@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-01T04:14:08Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -26,15 +24,6 @@
           "finished": false
         },
         {
-          "teId": "3310847",
-          "p1": "Naito",
-          "p2": "Astakhova",
-          "time": "04:15",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3310845",
           "p1": "Kuramochi",
           "p2": "Inoue",
@@ -47,7 +36,7 @@
           "teId": "3310855",
           "p1": "Huang",
           "p2": "Ma",
-          "time": "06:15",
+          "time": "06:25",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -56,7 +45,7 @@
           "teId": "3310853",
           "p1": "Wang",
           "p2": "Yang",
-          "time": "06:15",
+          "time": "06:25",
           "round": "1R",
           "h2h": "3-6",
           "finished": false
@@ -65,7 +54,7 @@
           "teId": "3310827",
           "p1": "Okamura",
           "p2": "Sidorova",
-          "time": "06:15",
+          "time": "06:25",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -141,6 +130,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3310847",
+          "p1": "Astakhova",
+          "p2": "Naito",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "04:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "1",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3310829",
@@ -2293,5 +2301,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-01T04:29:30Z"
 }
