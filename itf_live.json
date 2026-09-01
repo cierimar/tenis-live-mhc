@@ -6,24 +6,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3310847",
-          "p1": "Naito",
-          "p2": "Astakhova",
-          "time": "04:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310835",
-          "p1": "Kulikova",
-          "p2": "Yao",
-          "time": "04:00",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3310831",
           "p1": "Wang",
           "p2": "Bai",
@@ -33,10 +15,28 @@
           "finished": false
         },
         {
+          "teId": "3310847",
+          "p1": "Naito",
+          "p2": "Astakhova",
+          "time": "04:10",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3310835",
+          "p1": "Kulikova",
+          "p2": "Yao",
+          "time": "04:10",
+          "round": "1R",
+          "h2h": "0-1",
+          "finished": false
+        },
+        {
           "teId": "3310829",
           "p1": "Yamaguchi",
           "p2": "Back",
-          "time": "04:00",
+          "time": "04:10",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
@@ -45,7 +45,7 @@
           "teId": "3310855",
           "p1": "Huang",
           "p2": "Ma",
-          "time": "05:00",
+          "time": "05:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -54,7 +54,7 @@
           "teId": "3310853",
           "p1": "Wang",
           "p2": "Yang",
-          "time": "05:00",
+          "time": "05:10",
           "round": "1R",
           "h2h": "3-6",
           "finished": false
@@ -63,7 +63,7 @@
           "teId": "3310845",
           "p1": "Kuramochi",
           "p2": "Inoue",
-          "time": "05:00",
+          "time": "05:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -72,7 +72,7 @@
           "teId": "3310827",
           "p1": "Okamura",
           "p2": "Sidorova",
-          "time": "05:00",
+          "time": "05:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2282,6 +2282,6 @@
       ]
     }
   ],
-  "time": "2026-09-01T02:03:38Z",
-  "ok": true
+  "ok": true,
+  "time": "2026-09-01T02:20:34Z"
 }
