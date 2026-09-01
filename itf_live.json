@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-01T17:43:23Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -474,7 +473,7 @@
           "teId": "3312929",
           "p1": "Lollia",
           "p2": "Carle",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -483,7 +482,7 @@
           "teId": "3312927",
           "p1": "Paquet",
           "p2": "Strakhova",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "2-0",
           "finished": false
@@ -492,7 +491,7 @@
           "teId": "3312925",
           "p1": "Babel",
           "p2": "Aikawa",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -501,7 +500,7 @@
           "teId": "3312923",
           "p1": "Berecoechea",
           "p2": "Mikulskyte",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -510,7 +509,7 @@
           "teId": "3312921",
           "p1": "Van Emst",
           "p2": "Burel",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -519,7 +518,7 @@
           "teId": "3312919",
           "p1": "Mattel",
           "p2": "Lene",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -528,7 +527,7 @@
           "teId": "3312917",
           "p1": "Ebeling Koning",
           "p2": "Kovackova",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -537,7 +536,7 @@
           "teId": "3312915",
           "p1": "Ferro",
           "p2": "Cirotte",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1184,15 +1183,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311851",
-          "p1": "Bayerlova",
-          "p2": "Boullay",
-          "time": "13:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312885",
           "p1": "Krajmer",
           "p2": "Mpetshi Perricard",
@@ -1214,7 +1204,7 @@
           "teId": "3312659",
           "p1": "Van Zyl",
           "p2": "Crinebouch",
-          "time": "",
+          "time": "10:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1223,25 +1213,7 @@
           "teId": "3312643",
           "p1": "Buculei",
           "p2": "Soriano Santiago",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312641",
-          "p1": "Ebster",
-          "p2": "Fornasieri",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312603",
-          "p1": "Mettraux",
-          "p2": "Sasnouskaya",
-          "time": "",
+          "time": "10:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1250,7 +1222,25 @@
           "teId": "3312585",
           "p1": "Ruchkina",
           "p2": "Szostak",
-          "time": "",
+          "time": "10:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312603",
+          "p1": "Mettraux",
+          "p2": "Sasnouskaya",
+          "time": "11:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312641",
+          "p1": "Ebster",
+          "p2": "Fornasieri",
+          "time": "14:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1309,6 +1299,27 @@
           "sets2": [
             "1",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311851",
+          "p1": "Bayerlova",
+          "p2": "Boullay",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "1",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "3"
           ],
           "finished": true
         },
@@ -2369,5 +2380,6 @@
       ]
     }
   ],
+  "time": "2026-09-01T17:53:58Z",
   "ok": true
 }
