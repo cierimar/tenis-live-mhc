@@ -1,6 +1,6 @@
 {
-  "count": 2,
-  "updated": "2026-09-01T00:27:25Z",
+  "count": 3,
+  "updated": "2026-09-01T00:48:47Z",
   "matches": [
     {
       "id": "te-3307355",
@@ -13,42 +13,92 @@
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
           "winner": true,
+          "flag": "",
           "linescores": [
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             },
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             }
           ],
-          "homeAway": "home",
-          "flag": "",
           "flagAlt": "",
           "name": "Siniakova K."
         },
         {
+          "homeAway": "away",
           "winner": false,
+          "flag": "",
           "linescores": [
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 3
+              "value": 3,
+              "tiebreak": null
             },
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 2
+              "value": 2,
+              "tiebreak": null
             }
           ],
-          "homeAway": "away",
-          "flag": "",
           "flagAlt": "",
           "name": "Cocciaretto E."
+        }
+      ]
+    },
+    {
+      "id": "te-3307343",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3307343",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "homeAway": "home",
+          "winner": true,
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            },
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "name": "Swiatek I."
+        },
+        {
+          "homeAway": "away",
+          "winner": false,
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "value": 2,
+              "tiebreak": null
+            },
+            {
+              "winner": false,
+              "value": 3,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "name": "Wang X."
         }
       ]
     },
@@ -63,50 +113,50 @@
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
           "winner": true,
+          "flag": "",
           "linescores": [
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             },
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 2
+              "value": 2,
+              "tiebreak": null
             },
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 12
+              "value": 12,
+              "tiebreak": null
             }
           ],
-          "homeAway": "home",
-          "flag": "",
           "flagAlt": "",
           "name": "Garnevska V."
         },
         {
+          "homeAway": "away",
           "winner": false,
+          "flag": "",
           "linescores": [
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 1
+              "value": 1,
+              "tiebreak": null
             },
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             },
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 10
+              "value": 10,
+              "tiebreak": null
             }
           ],
-          "homeAway": "away",
-          "flag": "",
           "flagAlt": "",
           "name": "Masiianskaia M."
         }
