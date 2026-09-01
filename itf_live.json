@@ -1,4 +1,6 @@
 {
+  "time": "2026-09-01T10:17:55Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -825,36 +827,9 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311859",
-          "p1": "Yersh",
-          "p2": "Ruchkina",
-          "time": "09:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311837",
           "p1": "Luescher",
           "p2": "Szostak",
-          "time": "09:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311835",
-          "p1": "Longueville",
-          "p2": "Grekul",
-          "time": "09:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311833",
-          "p1": "Ebster",
-          "p2": "Favier",
           "time": "09:30",
           "round": "1R",
           "h2h": "0-0",
@@ -967,6 +942,63 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311833",
+          "p1": "Ebster",
+          "p2": "Favier",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311835",
+          "p1": "Longueville",
+          "p2": "Grekul",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311859",
+          "p1": "Ruchkina",
+          "p2": "Yersh",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "1"
+          ],
+          "finished": true
         }
       ]
     },
@@ -980,24 +1012,6 @@
           "p1": "Schaefer",
           "p2": "Novak",
           "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312363",
-          "p1": "Koleva",
-          "p2": "Milanese",
-          "time": "10:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312361",
-          "p1": "Giambelli",
-          "p2": "Tomase",
-          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1118,6 +1132,44 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312361",
+          "p1": "Giambelli",
+          "p2": "Tomase",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312363",
+          "p1": "Milanese",
+          "p2": "Koleva",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
         }
       ]
     },
@@ -1227,7 +1279,7 @@
           "teId": "3311349",
           "p1": "Ait El Bachir",
           "p2": "Brand",
-          "time": "14:30",
+          "time": "14:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1464,7 +1516,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-01T09:48:09Z"
+  ]
 }
