@@ -1,21 +1,10 @@
 {
-  "ok": true,
-  "time": "2026-09-01T07:31:28Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
       "name": "Tianjin 5 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3310853",
-          "p1": "Wang",
-          "p2": "Yang",
-          "time": "06:25",
-          "round": "1R",
-          "h2h": "3-6",
-          "finished": false
-        },
         {
           "teId": "3310851",
           "p1": "Lu",
@@ -141,6 +130,27 @@
           "sets2": [
             "3",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3310853",
+          "p1": "Wang",
+          "p2": "Yang",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "06:25",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "7",
+            "6"
           ],
           "finished": true
         },
@@ -1445,5 +1455,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-01T07:46:09Z"
 }
