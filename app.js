@@ -18,7 +18,7 @@
     mixedLive: { matches: [], loaded: false },
     cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
-    rankView: 'oficial',
+    rankView: 'vivo',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
     rankLiveUpdated: '',
     rankSinglesUpdated: '',
@@ -1566,7 +1566,7 @@
       snapshotLiveMatches();
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed()]);
       await refreshSofaPoints();
-      if (state.rankView !== 'oficial') refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
+      refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
@@ -2192,46 +2192,24 @@
       return;
     }
     if ((state.rankView === 'vivo' || state.rankView === 'race') && selectedModes().length === 1 && selectedModes()[0] === 'doubles') {
-      el.innerHTML = '<div class="error-box">No existe ranking EN VIVO de dobles en fuentes públicas. Usá OFICIAL para dobles.</div>';
+      el.innerHTML = '<div class="error-box">No existe ranking EN VIVO de dobles en fuentes públicas.</div>';
       $('rankMeta').textContent = 'Ranking ' + state.rankView.toUpperCase() + ' · dobles no disponible';
       return;
     }
-    if (state.rankView !== 'oficial') {
-      const wantAtp = state.tour === 'todos' || state.tour === 'atp';
-      const wantWta = state.tour === 'todos' || state.tour === 'wta';
-      if (!state.rankLive.loaded && !state.rankLiveLoading) refreshRankingsLive();
-      const suffix = state.rankView === 'vivo' ? '' : 'Race';
-      const label = state.rankView === 'vivo' ? 'EN VIVO' : 'RACE';
-      const html = [];
-      if (wantAtp) html.push(renderLiveRankSection('ATP Singles · ' + label, state.rankLive['atp' + suffix]));
-      if (wantWta) html.push(renderLiveRankSection('WTA Singles · ' + label, state.rankLive['wta' + suffix]));
-      if (selectedModes().includes('doubles')) html.push('<div class="rank-note">El ranking EN VIVO/RACE de dobles no está disponible en fuentes públicas.</div>');
-      el.innerHTML = html.join('');
-      const n = (state.rankLive.atp.length || 0) + (state.rankLive.wta.length || 0);
-      $('rankMeta').textContent = 'Ranking ' + label + ' (live-tennis.eu) · se actualiza automáticamente' +
-        (n ? ' · ' + n + ' jugadores' : '') +
-        (state.rankLiveUpdated ? ' · datos: ' + fmtRankData(state.rankLiveUpdated) : '') +
-        (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
-      return;
-    }
-    const rTours = selectedTours().filter(t => t === 'atp' || t === 'wta');
-    const needsDoubles = selectedModes().includes('doubles') && rTours.some(t => !state.rankDoubles[t]);
-    if (needsDoubles && !state.rankDoublesLoading) {
-      state.rankDoublesLoading = true;
-      refreshRankingsDoubles().then(() => {
-        state.rankDoublesLoading = false;
-        renderRankings();
-      }).catch(() => {
-        state.rankDoublesLoading = false;
-        renderRankings();
-      });
-    }
+    const wantAtp = state.tour === 'todos' || state.tour === 'atp';
+    const wantWta = state.tour === 'todos' || state.tour === 'wta';
+    if (!state.rankLive.loaded && !state.rankLiveLoading) refreshRankingsLive();
+    const suffix = state.rankView === 'vivo' ? '' : 'Race';
+    const label = state.rankView === 'vivo' ? 'EN VIVO' : 'RACE';
     const html = [];
-    for (const t of rTours) for (const m of selectedModes()) html.push(renderRankSection(t, m));
+    if (wantAtp) html.push(renderLiveRankSection('ATP Singles · ' + label, state.rankLive['atp' + suffix]));
+    if (wantWta) html.push(renderLiveRankSection('WTA Singles · ' + label, state.rankLive['wta' + suffix]));
+    if (selectedModes().includes('doubles')) html.push('<div class="rank-note">El ranking EN VIVO/RACE de dobles no está disponible en fuentes públicas.</div>');
     el.innerHTML = html.join('');
-    const total = rTours.length * selectedModes().length;
-    $('rankMeta').textContent = 'Rankings · ' + total + ' lista(s)' +
-      (state.rankSinglesUpdated ? ' · datos: ' + fmtRankData(state.rankSinglesUpdated) : '') +
+    const n = (state.rankLive.atp.length || 0) + (state.rankLive.wta.length || 0);
+    $('rankMeta').textContent = 'Ranking ' + label + ' (live-tennis.eu) · se actualiza automáticamente' +
+      (n ? ' · ' + n + ' jugadores' : '') +
+      (state.rankLiveUpdated ? ' · datos: ' + fmtRankData(state.rankLiveUpdated) : '') +
       (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
   }
 
