@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-01T15:38:16Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -466,7 +464,7 @@
           "teId": "3311461",
           "p1": "Sieg",
           "p2": "Wolff",
-          "time": "18:00",
+          "time": "18:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -783,7 +781,7 @@
           "teId": "3311263",
           "p1": "Lahey",
           "p2": "Natal Gomez",
-          "time": "10:00",
+          "time": "13:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -984,15 +982,6 @@
           "finished": false
         },
         {
-          "teId": "3311847",
-          "p1": "Krajmer",
-          "p2": "Litvinova",
-          "time": "13:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311853",
           "p1": "Gabriel",
           "p2": "Eto",
@@ -1054,6 +1043,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311847",
+          "p1": "Krajmer",
+          "p2": "Litvinova",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3311849",
@@ -1325,15 +1333,6 @@
           "finished": false
         },
         {
-          "teId": "3312373",
-          "p1": "Valente",
-          "p2": "Sevcikova",
-          "time": "13:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312627",
           "p1": "Maines",
           "p2": "Alvisi",
@@ -1422,6 +1421,27 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312373",
+          "p1": "Sevcikova",
+          "p2": "Valente",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "1",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3312375",
@@ -1575,15 +1595,6 @@
           "finished": false
         },
         {
-          "teId": "3311313",
-          "p1": "Straszewska",
-          "p2": "Narti",
-          "time": "13:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311311",
           "p1": "Heuser",
           "p2": "Gorska",
@@ -1632,10 +1643,29 @@
           "teId": "3311315",
           "p1": "Komano",
           "p2": "Hrastar",
-          "time": "10:00",
+          "time": "12:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3311313",
+          "p1": "Narti",
+          "p2": "Straszewska",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3311309",
@@ -1925,5 +1955,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-01T16:25:43Z",
+  "ok": true
 }
