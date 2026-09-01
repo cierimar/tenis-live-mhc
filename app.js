@@ -16,6 +16,7 @@
     challLive: { tournaments: [], matches: [] },
     itfLive: { tournaments: [], matches: [] },
     mixedLive: { matches: [], loaded: false },
+    ttLive: { matches: [], tournaments: [], loaded: false },
     cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
     rankView: 'vivo',
@@ -1559,12 +1560,99 @@
     state.mixedLive.loaded = true;
   }
 
+  function parseTennisTemple(j) {
+    const out = [];
+    const touts = [];
+    if (!j || !Array.isArray(j.tournaments)) return { matches: out, tournaments: touts };
+    for (const t of j.tournaments) {
+      const name = t.name || '';
+      const level = t.level || '';
+      const tour = String(t.tour || 'atp');
+      const tcat = tour === 'itf' ? (t.cat === 'w' ? 'w' : 'm') : null;
+      touts.push({ id: t.id, name: name, tour: tour, cat: tcat, tier: t.tier || '', logo: t.logo || '', surface: t.surface || '', date: null });
+      const fixedType = raw => {
+        const r = String(raw || '');
+        const isD = /doubles/i.test(r);
+        if (tour === 'wta' || tcat === 'w') return "Women's " + (isD ? 'Doubles' : 'Singles');
+        if (tour === 'itf' || tour === 'chall' || tour === 'atp') return "Men's " + (isD ? 'Doubles' : 'Singles');
+        if (tour === 'mixto') return 'Mixed Doubles';
+        return sexOf(r) + ' ' + (isD ? 'Doubles' : 'Singles');
+      };
+      const sexOf = r => /^women|^w\b/i.test(r) ? "Women's" : "Men's";
+      for (const m of (t.matches || [])) {
+        const comps = (m.competitors || []).slice(0, 2).map(c => ({
+          homeAway: c.homeAway === 'away' ? 'away' : 'home',
+          winner: !!c.winner,
+          order: c.homeAway === 'away' ? 2 : 1,
+          name: c.name || 'TBD',
+          flag: c.flag || '',
+          flagAlt: c.flagAlt || '',
+          linescores: (c.linescores || []).map(s => {
+            if (s && typeof s === 'object' && 'value' in s) return { value: s.value, winner: !!s.winner, tiebreak: s.tiebreak };
+            const v = parseInt(String(s).trim(), 10);
+            return { value: isNaN(v) ? null : v, winner: false };
+          })
+        }));
+        out.push({
+          id: String(m.id || ('tt-' + Math.random().toString(36).slice(2, 10))),
+          date: m.date || null,
+          state: m.state === 'in' ? 'in' : m.state === 'post' ? 'post' : 'pre',
+          period: m.period || null,
+          type: fixedType(m.type),
+          round: m.round || '',
+          tournamentId: m.tournamentId || t.id,
+          tournamentName: name,
+          tour: tour,
+          cat: tcat,
+          venue: m.venue || level,
+          notes: m.notes || '',
+          postponed: !!m.postponed,
+          suspended: !!m.suspended,
+          live: m.state === 'in',
+          pts0: m.pts0,
+          pts1: m.pts1,
+          serverIdx: m.serverIdx || 0,
+          competitors: comps
+        });
+      }
+    }
+    return { matches: out, tournaments: touts };
+  }
+
+  async function refreshLiveAll() {
+    try {
+      let j = null;
+      if (useLocalBackend()) {
+        j = await fetchJson('api/live/all').catch(() => null);
+      } else {
+        j = await fetchJson('live_all.json').catch(() => null);
+      }
+      let parsed = parseTennisTemple(j);
+      let list = parsed.matches;
+      let touts = parsed.tournaments;
+      const espnKeys = new Set();
+      for (const m of state.matches) {
+        const comps = (m.competitors || []).filter(c => c && c.name);
+        if (comps.length >= 2) espnKeys.add(seedPairKey(comps[0].name) + '|' + seedPairKey(comps[1].name));
+      }
+      list = list.filter(m => {
+        const comps = (m.competitors || []).filter(c => c && c.name);
+        if (comps.length < 2) return true;
+        const k = seedPairKey(comps[0].name) + '|' + seedPairKey(comps[1].name);
+        return !espnKeys.has(k);
+      });
+      state.ttLive = { matches: list, tournaments: touts, loaded: true };
+    } catch (err) {
+      state.ttLive = { matches: [], loaded: true };
+    }
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed(), refreshLiveAll()]);
       await refreshSofaPoints();
       refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
@@ -1700,12 +1788,14 @@
     const chall = state.challLive && state.challLive.matches ? state.challLive.matches : [];
     const itf = state.itfLive && state.itfLive.matches ? state.itfLive.matches : [];
     const mix = state.mixedLive && state.mixedLive.matches ? state.mixedLive.matches : [];
-    return [...state.matches, ...chall, ...itf, ...mix].filter(m => m && typeof m === 'object');
+    const tt = state.ttLive && state.ttLive.matches ? state.ttLive.matches : [];
+    return [...state.matches, ...chall, ...itf, ...mix, ...tt].filter(m => m && typeof m === 'object');
   }
   function allTournaments() {
     const chall = state.challLive && state.challLive.tournaments ? state.challLive.tournaments : [];
     const itf = state.itfLive && state.itfLive.tournaments ? state.itfLive.tournaments : [];
-    return [...state.tournaments, ...chall, ...itf];
+    const tt = state.ttLive && state.ttLive.tournaments ? state.ttLive.tournaments : [];
+    return [...state.tournaments, ...chall, ...itf, ...tt];
   }
   function filteredMatches() {
     if (state.tour === 'mixto') return allMatches().filter(m => tourOf(m) === 'mixto');
