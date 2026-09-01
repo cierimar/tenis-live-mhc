@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-01T04:44:15Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -12,15 +10,6 @@
           "p1": "Wang",
           "p2": "Bai",
           "time": "04:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310845",
-          "p1": "Kuramochi",
-          "p2": "Inoue",
-          "time": "05:40",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -47,7 +36,7 @@
           "teId": "3310827",
           "p1": "Okamura",
           "p2": "Sidorova",
-          "time": "06:50",
+          "time": "07:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -123,6 +112,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3310845",
+          "p1": "Kuramochi",
+          "p2": "Inoue",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "05:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3310847",
@@ -2315,5 +2323,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-01T04:55:15Z",
+  "ok": true
 }
