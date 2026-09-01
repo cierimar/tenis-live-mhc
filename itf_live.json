@@ -1,48 +1,10 @@
 {
-  "ok": true,
-  "time": "2026-09-01T10:59:07Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
       "name": "Tianjin 5 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3310851",
-          "p1": "Lu",
-          "p2": "Cheapchandej",
-          "time": "04:00",
-          "round": "1R",
-          "h2h": "5-0",
-          "finished": false
-        },
-        {
-          "teId": "3310849",
-          "p1": "Tian",
-          "p2": "Li",
-          "time": "04:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310843",
-          "p1": "Shi",
-          "p2": "Saigo",
-          "time": "04:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3310841",
-          "p1": "Kaji",
-          "p2": "Ren",
-          "time": "04:00",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
         {
           "teId": "3310839",
           "p1": "Morvayova",
@@ -77,6 +39,42 @@
           "time": "04:00",
           "round": "1R",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3310851",
+          "p1": "Lu",
+          "p2": "Cheapchandej",
+          "time": "05:30",
+          "round": "1R",
+          "h2h": "5-0",
+          "finished": false
+        },
+        {
+          "teId": "3310849",
+          "p1": "Tian",
+          "p2": "Li",
+          "time": "05:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3310843",
+          "p1": "Shi",
+          "p2": "Saigo",
+          "time": "05:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3310841",
+          "p1": "Kaji",
+          "p2": "Ren",
+          "time": "05:30",
+          "round": "1R",
+          "h2h": "1-0",
           "finished": false
         },
         {
@@ -503,7 +501,7 @@
           "teId": "3312393",
           "p1": "Sakellaridi",
           "p2": "Oz",
-          "time": "13:00",
+          "time": "13:20",
           "round": "1R",
           "h2h": "0-3",
           "finished": false
@@ -827,15 +825,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311837",
-          "p1": "Luescher",
-          "p2": "Szostak",
-          "time": "09:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311845",
           "p1": "Martin",
           "p2": "Buculei",
@@ -978,6 +967,27 @@
           "sets2": [
             "4",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311837",
+          "p1": "Szostak",
+          "p2": "Luescher",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "7",
+            "4"
           ],
           "finished": true
         },
@@ -1516,5 +1526,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-01T11:17:03Z"
 }
