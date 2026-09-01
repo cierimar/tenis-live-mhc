@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#faf7f2">
 <title>TENIS LIVE MHC</title>
 <link rel="icon" id="faviconLink" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='35%25' cy='28%25' r='85%25'><stop offset='0%25' stop-color='%23f7ff72'/><stop offset='45%25' stop-color='%23d8f63c'/><stop offset='100%25' stop-color='%239dbd20'/></radialGradient></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><path d='M50 4 C 76 34, 76 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><path d='M50 4 C 24 34, 24 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='50' r='46' fill='none' stroke='rgba(0,0,0,0.25)' stroke-width='1.5'/></svg>">
-  <link rel="stylesheet" href="style.css?v=57">
+  <link rel="stylesheet" href="style.css?v=58">
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -40,8 +40,7 @@
 <nav class="mainnav" id="tabs">
   <button class="nav-toggle" id="navToggle" aria-label="Men&uacute;">&#9776;</button>
   <ul class="nav-list">
-    <li><button class="tab nav-direct active" data-tab="live">EN VIVO</button></li>
-    <li><button class="tab nav-direct" data-tab="columna">MI COLUMNA</button></li>
+<li><button class="tab nav-direct active" data-tab="live">EN VIVO</button></li>
     <li class="has-sub">
       <span class="group-label">Juego</span>
       <div class="dropdown">
@@ -193,24 +192,6 @@
     <div id="wcContent" class="content"><div class="loading">Cargando datos wheelchair...</div></div>
   </div>
 
-  <div id="view-columna" class="view">
-    <div class="section-head"><h2>Mi Columna</h2><span class="section-meta" id="colMeta"></span></div>
-    <div class="col-actions">
-      <button class="col-btn" id="colNew">+ Nueva nota</button>
-      <button class="col-btn col-btn-sec" id="colToggle">Escribir / Ver notas</button>
-      <button class="col-btn col-btn-sec" id="colClear">Vaciar borradores</button>
-    </div>
-    <div class="col-editor" id="colEditor" style="display:none">
-      <input type="text" id="colTitle" class="rank-search" placeholder="T&iacute;tulo de la nota...">
-      <textarea id="colBody" class="col-textarea" placeholder="Escrib&iacute; ac&aacute; tu columna de tenis..."></textarea>
-      <div class="col-editor-bar">
-        <button class="col-btn col-btn-save" id="colSave">Guardar borrador</button>
-        <button class="col-btn col-btn-sec" id="colCopyJson">Generar c&oacute;digo para publicar</button>
-      </div>
-      <pre class="col-jsonout" id="colJsonOut" style="display:none"></pre>
-    </div>
-    <div id="colContent" class="content"><div class="loading">Cargando columnas...</div></div>
-  </div>
 </main>
 
 <footer>
@@ -231,7 +212,7 @@
   </div>
 </div>
 
-<script src="app.js?v=82"></script>
+<script src="app.js?v=83"></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
