@@ -1,5 +1,6 @@
 {
   "ok": true,
+  "time": "2026-09-01T19:37:34Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -2395,33 +2396,6 @@
           "finished": false
         },
         {
-          "teId": "3312443",
-          "p1": "Estevez",
-          "p2": "Urrutia",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
-          "teId": "3312441",
-          "p1": "Barrera Aguirre",
-          "p2": "Ayala",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3312451",
-          "p1": "Lopez",
-          "p2": "Maruca",
-          "time": "19:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312449",
           "p1": "Gobbi Monllau",
           "p2": "Gerald Gonzalez",
@@ -2440,15 +2414,6 @@
           "finished": false
         },
         {
-          "teId": "3312455",
-          "p1": "Duarte",
-          "p2": "Markus",
-          "time": "20:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312453",
           "p1": "Cabezas Dominguez",
           "p2": "Soto Neira",
@@ -2456,6 +2421,64 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312451",
+          "p1": "Lopez",
+          "p2": "Maruca",
+          "time": "20:45",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312455",
+          "p1": "Duarte",
+          "p2": "Markus",
+          "time": "21:15",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312441",
+          "p1": "Ayala",
+          "p2": "Barrera Aguirre",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312443",
+          "p1": "Urrutia",
+          "p2": "Estevez",
+          "round": "1. round",
+          "date": "01.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3312445",
@@ -2478,6 +2501,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-01T19:26:02Z"
+  ]
 }
