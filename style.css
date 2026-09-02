@@ -161,6 +161,32 @@ body[data-mode='colors'] .tour-block .match:nth-of-type(10n+10) { border-left: 3
 body[data-mode='colors'] .tour-block .match:nth-of-type(10n+11) { border-left: 3px solid #FF6B00; }
 body[data-mode='colors'] .tour-block .match.live { border-left: 4px solid #FF3B4F !important; }
 
+/* ---- nameplate / título con gradiente de los 10 colores ---- */
+@keyframes colorsShift {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+body[data-mode='colors'] .sb-logo {
+  color: transparent;
+  background: linear-gradient(90deg,
+    #0066FF, #7B2CFF, #00D9FF, #FF2DA6, #39FF14,
+    #FF6B00, #FFD600, #FF3B4F, #D500F9, #00E5B0,
+    #0066FF);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: colorsShift 8s linear infinite;
+  font-weight: 800;
+}
+body[data-mode='colors'] .sb-logo-sub {
+  color: transparent;
+  background: linear-gradient(90deg, #00D9FF, #FF2DA6, #00E5B0, #00D9FF);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: colorsShift 10s linear infinite;
+}
+
 ::selection { background: var(--red); color: #fff; }
 
 a { color: var(--blue); }
