@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#faf7f2">
+<meta name="theme-color" content="#0b0e14">
 <title>TENIS LIVE MHC</title>
 <link rel="icon" id="faviconLink" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='35%25' cy='28%25' r='85%25'><stop offset='0%25' stop-color='%23f7ff72'/><stop offset='45%25' stop-color='%23d8f63c'/><stop offset='100%25' stop-color='%239dbd20'/></radialGradient></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><path d='M50 4 C 76 34, 76 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><path d='M50 4 C 24 34, 24 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='50' r='46' fill='none' stroke='rgba(0,0,0,0.25)' stroke-width='1.5'/></svg>">
-  <link rel="stylesheet" href="style.css?v=63">
+  <link rel="stylesheet" href="style.css?v=65">
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -14,189 +14,188 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-mode="broadcast">
 
-<header class="masthead">
-  <div class="dateline">
-    <span class="dl-left" id="datelineTxt">&nbsp;</span>
-    <span class="dl-right">
-      <button id="themeToggle" class="theme-toggle" title="Tema claro / oscuro">&#9790;</button><span id="modeLabel" class="mode-label">Modo claro</span>
-      <span id="livePill" class="live-pill"><span class="dot"></span> EN VIVO</span>
-      <span class="clock"><span id="clock">--:--:--</span></span>
-    </span>
-  </div>
-  <div class="nameplate">
-    <h1>TENIS&nbsp;LIVE&nbsp;<span class="np-red">MHC</span></h1>
-    <p class="tagline">&ldquo;El tenis no se juega. Se siente.&rdquo;</p>
-  </div>
-  <div class="subline">
-    <span>Resultados en tiempo real &middot; ATP &amp; WTA &middot; Challenger &amp; ITF</span>
-    <span class="sl-right">Actualizado <span id="lastUpdate">--</span> &middot; Auto-refresco <span id="countdown">30</span>s</span>
-  </div>
-</header>
-
-<nav class="mainnav" id="tabs">
-  <button class="nav-toggle" id="navToggle" aria-label="Men&uacute;">&#9776;</button>
-  <ul class="nav-list">
-<li><button class="tab nav-direct active" data-tab="live">EN VIVO</button></li>
-    <li class="has-sub">
-      <span class="group-label">Juego</span>
-      <div class="dropdown">
-        <button class="tab" data-tab="draws">CUADROS / RESULTADOS</button>
-        <button class="tab" data-tab="tournaments">TORNEOS</button>
-        <button class="tab" data-tab="calendar">CALENDARIO</button>
-      </div>
-    </li>
-    <li class="has-sub">
-      <span class="group-label">Rankings</span>
-      <div class="dropdown">
-        <button class="tab" data-tab="rankings">RANKINGS</button>
-        <button class="tab" data-tab="argentina">ARGENTINA</button>
-        <button class="tab" data-tab="players">PLAYERS</button>
-      </div>
-    </li>
-    <li class="has-sub">
-      <span class="group-label">An&aacute;lisis</span>
-      <div class="dropdown">
-        <button class="tab" data-tab="h2hsearch">H2H SEARCH</button>
-      </div>
-    </li>
-    <li class="has-sub">
-      <span class="group-label">M&aacute;s</span>
-      <div class="dropdown">
-        <button class="tab" data-tab="news">NOTICIAS</button>
-        <button class="tab" data-tab="videos">VIDEOS</button>
-        <button class="tab" data-tab="wheelchair">WHEELCHAIR</button>
-      </div>
-    </li>
-  </ul>
-</nav>
-
-<div class="controls">
-  <div class="seg" id="segTour">
-    <button class="seg-btn active" data-tour="todos">TODOS</button>
-    <button class="seg-btn" data-tour="atp">ATP</button>
-    <button class="seg-btn" data-tour="wta">WTA</button>
-    <button class="seg-btn" data-tour="chall">CHALL</button>
-    <button class="seg-btn" data-tour="itf">ITF</button>
-    <button class="seg-btn" data-tour="mixto">MIXTO</button>
-  </div>
-  <div class="seg" id="segMode">
-    <button class="seg-btn active" data-mode="todos">TODOS</button>
-    <button class="seg-btn" data-mode="singles">SINGLES</button>
-    <button class="seg-btn" data-mode="doubles">DOBLES</button>
-  </div>
-  <div class="controls-spacer"></div>
-  <button id="btnRefresh" class="btn-refresh">&#x21bb; Actualizar</button>
+<div class="tickerbar" id="ticker">
+  <span class="ticker-label">EN VIVO</span>
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
-<main>
-  <div id="view-live" class="view active">
-    <div class="section-head"><h2>Partidos</h2><span class="section-meta" id="liveMeta"></span></div>
-    <div id="liveContent" class="content"><div class="loading">Cargando partidos...</div></div>
-  </div>
-
-  <div id="view-news" class="view">
-    <div class="section-head"><h2>Noticias de tenis</h2><span class="section-meta" id="newsMeta"></span></div>
-    <div id="newsContent" class="content"><div class="loading">Cargando noticias...</div></div>
-  </div>
-
-  <div id="view-videos" class="view">
-    <div class="section-head"><h2>Videos y highlights</h2><span class="section-meta" id="videosMeta"></span></div>
-    <div id="videosContent" class="content"><div class="loading">Cargando videos...</div></div>
-  </div>
-
-  <div id="view-tournaments" class="view">
-    <div class="section-head"><h2>Torneos</h2><span class="section-meta" id="tourMeta"></span></div>
-    <div id="tourContent" class="content grid-tournaments"><div class="loading">Cargando torneos...</div></div>
-  </div>
-
-  <div id="view-draws" class="view">
-    <div class="section-head">
-      <h2>Cuadros</h2>
-      <select id="drawSelect" class="select-tour"></select>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">TENIS LIVE</div>
+      <div class="sb-logo-sub">MHC</div>
     </div>
-    <div id="drawMeta" class="section-meta"></div>
-    <div id="drawContent" class="content"><div class="loading">Cargando cuadros...</div></div>
+    <div class="sb-status">
+      <span id="livePill" class="live-pill"><span class="dot"></span> EN VIVO</span>
+      <span class="clock"><span id="clock">--:--:--</span></span>
+    </div>
+    <nav class="mainnav" id="tabs">
+      <ul class="nav-list">
+        <li class="nav-section">Directo</li>
+        <li><button class="tab nav-item active" data-tab="live" title="EN VIVO"><span class="ic">&#9673;</span><span class="lb">EN VIVO</span></button></li>
+        <li class="nav-section">Juego</li>
+        <li><button class="tab nav-item" data-tab="draws" title="CUADROS / RESULTADOS"><span class="ic">&#9638;</span><span class="lb">CUADROS</span></button></li>
+        <li><button class="tab nav-item" data-tab="tournaments" title="TORNEOS"><span class="ic">&#9670;</span><span class="lb">TORNEOS</span></button></li>
+        <li><button class="tab nav-item" data-tab="calendar" title="CALENDARIO"><span class="ic">&#9745;</span><span class="lb">CALENDARIO</span></button></li>
+        <li class="nav-section">Rankings</li>
+        <li><button class="tab nav-item" data-tab="rankings" title="RANKINGS"><span class="ic">&#8599;</span><span class="lb">RANKINGS</span></button></li>
+        <li><button class="tab nav-item" data-tab="argentina" title="ARGENTINA"><span class="ic">&#9737;</span><span class="lb">ARGENTINA</span></button></li>
+        <li><button class="tab nav-item" data-tab="players" title="PLAYERS"><span class="ic">&#9786;</span><span class="lb">PLAYERS</span></button></li>
+        <li class="nav-section">An&aacute;lisis</li>
+        <li><button class="tab nav-item" data-tab="h2hsearch" title="H2H SEARCH"><span class="ic">&#8646;</span><span class="lb">H2H SEARCH</span></button></li>
+        <li class="nav-section">M&aacute;s</li>
+        <li><button class="tab nav-item" data-tab="news" title="NOTICIAS"><span class="ic">&#128240;</span><span class="lb">NOTICIAS</span></button></li>
+        <li><button class="tab nav-item" data-tab="videos" title="VIDEOS"><span class="ic">&#9654;</span><span class="lb">VIDEOS</span></button></li>
+        <li><button class="tab nav-item" data-tab="wheelchair" title="WHEELCHAIR"><span class="ic">&#9855;</span><span class="lb">WHEELCHAIR</span></button></li>
+      </ul>
+    </nav>
+    <div class="sb-foot">
+      <button id="themeToggle" class="theme-toggle" title="Tema broadcast / claro">&#9790;</button>
+      <span id="modeLabel" class="mode-label">Modo broadcast</span>
+    </div>
+  </aside>
+
+  <div class="maincol">
+    <header class="masthead">
+      <div class="dateline">
+        <span class="dl-left" id="datelineTxt">&nbsp;</span>
+        <span class="dl-right">
+          <span class="sl-upd">Actualizado <span id="lastUpdate">--</span> &middot; Auto-refresco <span id="countdown">30</span>s</span>
+        </span>
+      </div>
+      <div class="sb-menu" id="navToggle" title="Men&uacute;">&#9776;</div>
+    </header>
+
+    <div class="controls">
+      <div class="seg" id="segTour">
+        <button class="seg-btn active" data-tour="todos">TODOS</button>
+        <button class="seg-btn" data-tour="atp">ATP</button>
+        <button class="seg-btn" data-tour="wta">WTA</button>
+        <button class="seg-btn" data-tour="chall">CHALL</button>
+        <button class="seg-btn" data-tour="itf">ITF</button>
+        <button class="seg-btn" data-tour="mixto">MIXTO</button>
+      </div>
+      <div class="seg" id="segMode">
+        <button class="seg-btn active" data-mode="todos">TODOS</button>
+        <button class="seg-btn" data-mode="singles">SINGLES</button>
+        <button class="seg-btn" data-mode="doubles">DOBLES</button>
+      </div>
+      <div class="controls-spacer"></div>
+      <button id="btnRefresh" class="btn-refresh">&#x21bb; Actualizar</button>
+    </div>
+
+    <main>
+      <div id="view-live" class="view active">
+        <div class="section-head"><h2>Partidos</h2><span class="section-meta" id="liveMeta"></span></div>
+        <div id="liveContent" class="content"><div class="loading">Cargando partidos...</div></div>
+      </div>
+
+      <div id="view-news" class="view">
+        <div class="section-head"><h2>Noticias de tenis</h2><span class="section-meta" id="newsMeta"></span></div>
+        <div id="newsContent" class="content"><div class="loading">Cargando noticias...</div></div>
+      </div>
+
+      <div id="view-videos" class="view">
+        <div class="section-head"><h2>Videos y highlights</h2><span class="section-meta" id="videosMeta"></span></div>
+        <div id="videosContent" class="content"><div class="loading">Cargando videos...</div></div>
+      </div>
+
+      <div id="view-tournaments" class="view">
+        <div class="section-head"><h2>Torneos</h2><span class="section-meta" id="tourMeta"></span></div>
+        <div id="tourContent" class="content grid-tournaments"><div class="loading">Cargando torneos...</div></div>
+      </div>
+
+      <div id="view-draws" class="view">
+        <div class="section-head">
+          <h2>Cuadros</h2>
+          <select id="drawSelect" class="select-tour"></select>
+        </div>
+        <div id="drawMeta" class="section-meta"></div>
+        <div id="drawContent" class="content"><div class="loading">Cargando cuadros...</div></div>
+      </div>
+
+      <div id="view-rankings" class="view">
+        <div class="section-head"><h2>Ranking</h2><div class="seg" id="segRankView"><button class="seg-btn active" data-rv="oficial">OFICIAL</button><button class="seg-btn" data-rv="vivo">EN VIVO</button><button class="seg-btn" data-rv="race">RACE</button></div><span class="section-meta" id="rankMeta"></span></div>
+        <div class="rank-search-wrap">
+          <input type="text" id="rankSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+          <button id="rankSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+        </div>
+        <div id="rankContent" class="content"><div class="loading">Cargando ranking...</div></div>
+      </div>
+
+      <div id="view-argentina" class="view">
+        <div class="section-head"><h2>Ranking Argentina</h2><span class="section-meta" id="argMeta"></span></div>
+        <div id="argContent" class="content"><div class="loading">Cargando jugadores de Argentina...</div></div>
+      </div>
+
+      <div id="view-players" class="view">
+        <div class="section-head"><h2>Player Search</h2><span class="section-meta" id="playersMeta"></span></div>
+        <div class="seg" id="segPlayerTab">
+          <button class="seg-btn active" data-playertab="todos">TODOS</button>
+          <button class="seg-btn" data-playertab="atp">ATP</button>
+          <button class="seg-btn" data-playertab="wta">WTA</button>
+        </div>
+        <div class="rank-search-wrap">
+          <input type="text" id="playerSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
+          <button id="playerSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+        </div>
+        <div id="playersContent" class="content"><div class="loading">Cargando jugadores...</div></div>
+      </div>
+
+      <div id="view-h2hsearch" class="view">
+        <div class="section-head"><h2>Head-to-head search</h2><span class="section-meta" id="h2hSearchMeta"></span></div>
+        <div class="h2h-search-bar">
+          <input type="text" id="h2hP1" class="rank-search h2h-input" placeholder="Jugador 1 (ej. Djokovic)" autocomplete="off" />
+          <span class="h2h-vs-label">VS</span>
+          <input type="text" id="h2hP2" class="rank-search h2h-input" placeholder="Jugador 2 (ej. Alcaraz)" autocomplete="off" />
+          <button id="h2hSearchBtn" class="h2h-go">BUSCAR</button>
+        </div>
+        <div id="h2hSearchContent" class="content"><div class="loading">Escrib&iacute; dos jugadores y presion&aacute; BUSCAR.</div></div>
+      </div>
+
+      <div id="view-calendar" class="view">
+        <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
+        <div class="seg" id="segCal">
+          <button class="seg-btn active" data-cal="todos">TODOS</button>
+          <button class="seg-btn" data-cal="atp">ATP</button>
+          <button class="seg-btn" data-cal="wta">WTA</button>
+          <button class="seg-btn" data-cal="chall">CHALLENGER</button>
+          <button class="seg-btn" data-cal="itf">ITF</button>
+        </div>
+        <div id="calContent" class="content"><div class="loading">Cargando calendario...</div></div>
+      </div>
+      <div id="view-wheelchair" class="view">
+        <div class="section-head"><h2>UNIQLO Wheelchair Tennis Tour</h2><span class="section-meta" id="wcMeta"></span></div>
+        <div class="seg" id="segWC">
+          <button class="seg-btn active" data-wc="menSingles">Singles Men</button>
+          <button class="seg-btn" data-wc="womenSingles">Singles Women</button>
+          <button class="seg-btn" data-wc="menDoubles">Doubles Men</button>
+          <button class="seg-btn" data-wc="womenDoubles">Doubles Women</button>
+          <button class="seg-btn" data-wc="quad">Quad</button>
+          <button class="seg-btn" data-wc="quadDoubles">Quad Doubles</button>
+          <button class="seg-btn" data-wc="calendar">Calendario</button>
+          <button class="seg-btn" data-wc="results">Resultados</button>
+          <button class="seg-btn" data-wc="live">En Vivo</button>
+          <button class="seg-btn" data-wc="videos">Videos</button>
+        </div>
+        <div class="rank-search-wrap" id="wcSearchWrap" style="display:none">
+          <input type="text" id="wcSearch" class="rank-search" placeholder="Buscar jugador en rankings...">
+          <button id="wcSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
+        </div>
+        <div id="wcContent" class="content"><div class="loading">Cargando datos wheelchair...</div></div>
+      </div>
+
+    </main>
+
+    <footer>
+      <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking) &middot; TennisAbstract (Elo ratings) &middot; ITF (Wheelchair Tennis Tour)</p>
+    </footer>
   </div>
-
-  <div id="view-rankings" class="view">
-    <div class="section-head"><h2>Ranking</h2><div class="seg" id="segRankView"><button class="seg-btn active" data-rv="oficial">OFICIAL</button><button class="seg-btn" data-rv="vivo">EN VIVO</button><button class="seg-btn" data-rv="race">RACE</button></div><span class="section-meta" id="rankMeta"></span></div>
-    <div class="rank-search-wrap">
-      <input type="text" id="rankSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
-      <button id="rankSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
-    </div>
-    <div id="rankContent" class="content"><div class="loading">Cargando ranking...</div></div>
-  </div>
-
-  <div id="view-argentina" class="view">
-    <div class="section-head"><h2>Ranking Argentina</h2><span class="section-meta" id="argMeta"></span></div>
-    <div id="argContent" class="content"><div class="loading">Cargando jugadores de Argentina...</div></div>
-  </div>
-
-  <div id="view-players" class="view">
-    <div class="section-head"><h2>Player Search</h2><span class="section-meta" id="playersMeta"></span></div>
-    <div class="seg" id="segPlayerTab">
-      <button class="seg-btn active" data-playertab="todos">TODOS</button>
-      <button class="seg-btn" data-playertab="atp">ATP</button>
-      <button class="seg-btn" data-playertab="wta">WTA</button>
-    </div>
-    <div class="rank-search-wrap">
-      <input type="text" id="playerSearch" class="rank-search" placeholder="Buscar jugador por nombre..." />
-      <button id="playerSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
-    </div>
-    <div id="playersContent" class="content"><div class="loading">Cargando jugadores...</div></div>
-  </div>
-
-  <div id="view-h2hsearch" class="view">
-    <div class="section-head"><h2>Head-to-head search</h2><span class="section-meta" id="h2hSearchMeta"></span></div>
-    <div class="h2h-search-bar">
-      <input type="text" id="h2hP1" class="rank-search h2h-input" placeholder="Jugador 1 (ej. Djokovic)" autocomplete="off" />
-      <span class="h2h-vs-label">VS</span>
-      <input type="text" id="h2hP2" class="rank-search h2h-input" placeholder="Jugador 2 (ej. Alcaraz)" autocomplete="off" />
-      <button id="h2hSearchBtn" class="h2h-go">BUSCAR</button>
-    </div>
-    <div id="h2hSearchContent" class="content"><div class="loading">Escrib&iacute; dos jugadores y presion&aacute; BUSCAR.</div></div>
-  </div>
-
-  <div id="view-calendar" class="view">
-    <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
-    <div class="seg" id="segCal">
-      <button class="seg-btn active" data-cal="todos">TODOS</button>
-      <button class="seg-btn" data-cal="atp">ATP</button>
-      <button class="seg-btn" data-cal="wta">WTA</button>
-      <button class="seg-btn" data-cal="chall">CHALLENGER</button>
-      <button class="seg-btn" data-cal="itf">ITF</button>
-    </div>
-    <div id="calContent" class="content"><div class="loading">Cargando calendario...</div></div>
-  </div>  <div id="view-wheelchair" class="view">
-    <div class="section-head"><h2>UNIQLO Wheelchair Tennis Tour</h2><span class="section-meta" id="wcMeta"></span></div>
-    <div class="seg" id="segWC">
-      <button class="seg-btn active" data-wc="menSingles">Singles Men</button>
-      <button class="seg-btn" data-wc="womenSingles">Singles Women</button>
-      <button class="seg-btn" data-wc="menDoubles">Doubles Men</button>
-      <button class="seg-btn" data-wc="womenDoubles">Doubles Women</button>
-      <button class="seg-btn" data-wc="quad">Quad</button>
-      <button class="seg-btn" data-wc="quadDoubles">Quad Doubles</button>
-      <button class="seg-btn" data-wc="calendar">Calendario</button>
-      <button class="seg-btn" data-wc="results">Resultados</button>
-      <button class="seg-btn" data-wc="live">En Vivo</button>
-      <button class="seg-btn" data-wc="videos">Videos</button>
-    </div>
-    <div class="rank-search-wrap" id="wcSearchWrap" style="display:none">
-      <input type="text" id="wcSearch" class="rank-search" placeholder="Buscar jugador en rankings...">
-      <button id="wcSearchClear" class="rank-search-clear" title="Limpiar">&times;</button>
-    </div>
-    <div id="wcContent" class="content"><div class="loading">Cargando datos wheelchair...</div></div>
-  </div>
-
-</main>
-
-<footer>
-  <p>TENIS LIVE MHC &middot; Datos: ESPN (resultados y ranking en vivo) &middot; ATP (rankings dobles) &middot; WTA (ranking) &middot; TennisAbstract (Elo ratings) &middot; ITF (Wheelchair Tennis Tour)</p>
-</footer>
+</div>
 
 <div id="h2hOverlay" class="h2h-overlay hidden">
   <div class="h2h-modal">
@@ -212,7 +211,7 @@
   </div>
 </div>
 
-<script src="app.js?v=92"></script>
+<script src="app.js?v=94"></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
