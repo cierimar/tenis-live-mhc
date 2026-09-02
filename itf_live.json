@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -397,15 +398,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311893",
-          "p1": "Podrez",
-          "p2": "Werner",
-          "time": "12:10",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311897",
           "p1": "Ku",
           "p2": "Rouvroy",
@@ -427,7 +419,7 @@
           "teId": "3311901",
           "p1": "Kuzmova",
           "p2": "Jorge",
-          "time": "14:00",
+          "time": "14:15",
           "round": "1R",
           "h2h": "0-1",
           "finished": false
@@ -442,19 +434,19 @@
           "finished": false
         },
         {
-          "teId": "3312433",
-          "p1": "Ivanov",
-          "p2": "Jorge",
-          "time": "15:00",
+          "teId": "3311903",
+          "p1": "Tomai",
+          "p2": "Cervino Ruiz",
+          "time": "14:50",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3311903",
-          "p1": "Tomai",
-          "p2": "Cervino Ruiz",
-          "time": "15:00",
+          "teId": "3312433",
+          "p1": "Ivanov",
+          "p2": "Jorge",
+          "time": "15:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -485,6 +477,27 @@
           "round": "1R",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3311893",
+          "p1": "Werner",
+          "p2": "Podrez",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "12:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3311895",
@@ -619,19 +632,19 @@
           "finished": false
         },
         {
-          "teId": "3312929",
-          "p1": "Lollia",
-          "p2": "Carle",
-          "time": "14:00",
+          "teId": "3312923",
+          "p1": "Berecoechea",
+          "p2": "Mikulskyte",
+          "time": "14:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3312923",
-          "p1": "Berecoechea",
-          "p2": "Mikulskyte",
-          "time": "14:00",
+          "teId": "3312929",
+          "p1": "Lollia",
+          "p2": "Carle",
+          "time": "14:20",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -925,7 +938,7 @@
           "teId": "3312413",
           "p1": "Petkovic",
           "p2": "Senic",
-          "time": "14:05",
+          "time": "14:10",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -949,15 +962,6 @@
           "finished": false
         },
         {
-          "teId": "3312395",
-          "p1": "Janicijevic",
-          "p2": "Glushkova",
-          "time": "14:55",
-          "round": "1R",
-          "h2h": "2-0",
-          "finished": false
-        },
-        {
           "teId": "3312421",
           "p1": "Schnyder",
           "p2": "Pedone",
@@ -967,10 +971,19 @@
           "finished": false
         },
         {
+          "teId": "3312395",
+          "p1": "Janicijevic",
+          "p2": "Glushkova",
+          "time": "15:10",
+          "round": "1R",
+          "h2h": "2-0",
+          "finished": false
+        },
+        {
           "teId": "3312415",
           "p1": "Milovanovic",
           "p2": "Virc",
-          "time": "15:30",
+          "time": "15:25",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1161,15 +1174,6 @@
           "finished": false
         },
         {
-          "teId": "3311249",
-          "p1": "Quesada Oyonarte",
-          "p2": "Diaz Adrover",
-          "time": "09:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312769",
           "p1": "Xu",
           "p2": "Bruno",
@@ -1277,6 +1281,25 @@
           ],
           "sets2": [
             "0",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311249",
+          "p1": "Diaz Adrover",
+          "p2": "Quesada Oyonarte",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
             "3"
           ],
           "finished": true
@@ -3371,6 +3394,5 @@
       ]
     }
   ],
-  "time": "2026-09-02T11:54:30Z",
-  "ok": true
+  "time": "2026-09-02T12:11:49Z"
 }
