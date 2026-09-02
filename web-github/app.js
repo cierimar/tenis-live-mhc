@@ -1877,35 +1877,11 @@
       return '';
     })();
     $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total';
-    renderTicker();
   }
 
   function rankMatch(m) {
     const w = m.state === 'in' ? 0 : m.suspended ? 1 : m.state === 'pre' ? 2 : 3;
     return w;
-  }
-
-  /* ---------------- ticker (cinta de resultados) ---------------- */
-
-  function renderTicker() {
-    const track = $('tickerTrack');
-    if (!track) return;
-    const ms = allMatches().filter(m => m && m.state === 'in' || m && m.state === 'pre');
-    const live = ms.filter(m => m.state === 'in');
-    const items = [];
-    for (const m of live) {
-      const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
-      const label = '<span class="tick-live">&#9679;</span> ' + comps.map(c => esc(c.name)).join(' vs ');
-      const sets = comps.map(c => (c.linescores || []).map(ls => ls.value != null ? ls.value : '-').join('-')).join(' ');
-      items.push('<span class="ticker-item">' + label + ' <b>' + esc(sets) + '</b></span>');
-    }
-    for (const m of ms.filter(x => x.state !== 'in').slice(0, 4)) {
-      const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
-      const label = comps.map(c => esc(c.name)).join(' - ');
-      items.push('<span class="ticker-item"><span class="tick-tour">' + esc(tourLabel(m)) + '</span> ' + label + '</span>');
-    }
-    if (!items.length) { track.innerHTML = '<span class="ticker-item">No hay partidos en este momento</span>'; return; }
-    track.innerHTML = items.join('') + items.join('');
   }
 
   /* ---------------- render: finalizados ---------------- */
@@ -2706,7 +2682,6 @@
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
-    renderTicker();
   }
 
   function setTab(tab) {
