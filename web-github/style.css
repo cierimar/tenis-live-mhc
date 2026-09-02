@@ -135,6 +135,32 @@ body[data-mode='colors'] .lp-score { background: rgba(0, 213, 255, 0.18); }
 body[data-mode='colors'] .r-move.up { color: #39FF14; }
 body[data-mode='colors'] .r-move.down { color: #FF3B4F; }
 
+/* ---- módulos del contenido: cada tipo con su color ---- */
+body[data-mode='colors'] .tour-block { border: 1px solid #2e2e44; }
+body[data-mode='colors'] .tour-block .tour-head { border-bottom: 2px solid rgba(255,255,255,0.06); }
+body[data-mode='colors'] .news-card { border-top: 3px solid #D500F9; }       /* noticias - magenta */
+body[data-mode='colors'] .video-card { border-top: 3px solid #FF6B00; }      /* videos - naranja */
+body[data-mode='colors'] .col-card { border-top: 3px solid #FF2DA6; }       /* mi columna - fucsia */
+body[data-mode='colors'] .wc-res-card { border-top: 3px solid #00E5B0; }    /* wheelchair - turquesa */
+body[data-mode='colors'] .calendar, body[data-mode='colors'] .cal-block { border-top: 3px solid #FFD600; } /* calendario - amarillo */
+body[data-mode='colors'] .draw-board { border-top: 3px solid #00D9FF; }     /* cuadros - cian */
+body[data-mode='colors'] .h2h-block { border-top: 3px solid #FF2DA6; }      /* h2h - fucsia */
+body[data-mode='colors'] .rank-table-wrap { border-top: 3px solid #39FF14; } /* rankings - verde lima */
+body[data-mode='colors'] .ct-card { border-top: 3px solid #7B2CFF; }        /* current tour - violeta */
+
+/* tarjetas de partido: borde izquierdo rotativo (10 colores) */
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+2) { border-left: 3px solid #FF3B4F; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+3) { border-left: 3px solid #00D9FF; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+4) { border-left: 3px solid #0066FF; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+5) { border-left: 3px solid #FFD600; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+6) { border-left: 3px solid #39FF14; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+7) { border-left: 3px solid #00E5B0; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+8) { border-left: 3px solid #7B2CFF; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+9) { border-left: 3px solid #FF2DA6; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+10) { border-left: 3px solid #D500F9; }
+body[data-mode='colors'] .tour-block .match:nth-of-type(10n+11) { border-left: 3px solid #FF6B00; }
+body[data-mode='colors'] .tour-block .match.live { border-left: 4px solid #FF3B4F !important; }
+
 ::selection { background: var(--red); color: #fff; }
 
 a { color: var(--blue); }
