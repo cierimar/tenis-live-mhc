@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-02T18:40:16Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -4004,15 +4002,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311375",
-          "p1": "Kuharenko",
-          "p2": "Diatlova",
-          "time": "16:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313841",
           "p1": "Perapekhina",
           "p2": "Vaissaud",
@@ -4110,6 +4099,27 @@
           ],
           "sets2": [
             "1",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311375",
+          "p1": "Diatlova",
+          "p2": "Kuharenko",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
             "4"
           ],
           "finished": true
@@ -4356,15 +4366,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313115",
-          "p1": "Madrid Rocca",
-          "p2": "Doldan",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313849",
           "p1": "Bosio",
           "p2": "Zornada",
@@ -4426,6 +4427,27 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313115",
+          "p1": "Doldan",
+          "p2": "Madrid Rocca",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "0",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "6",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3312437",
@@ -4716,5 +4738,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-02T18:52:38Z",
+  "ok": true
 }
