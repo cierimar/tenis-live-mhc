@@ -94,8 +94,19 @@ body[data-mode='colors'] a { color: #00D9FF; }                 /* cian */
 body[data-mode='colors'] .section-head h2 { color: #0066FF; }  /* azul */
 body[data-mode='colors'] .section-head h2::before { background: #00D9FF; } /* cian */
 body[data-mode='colors'] .ticker-label { background: #FF3B4F; } /* rojo coral */
-body[data-mode='colors'] .nav-item.active .ic { color: #0066FF; }
-body[data-mode='colors'] .nav-item.active { border-left-color: #00D9FF; color: #ffffff; border-top: 1px solid #1a1a2a; border-bottom: 1px solid #1a1a2a; }
+body[data-mode='colors'] .nav-item.active { border-left-color: #00D9FF; border-top: 1px solid #1a1a2a; border-bottom: 1px solid #1a1a2a; background: rgba(0, 217, 255, 0.07); }
+body[data-mode='colors'] .nav-item[data-tab='live'] .ic, body[data-mode='colors'] .nav-item[data-tab='live'] .lb { color: #FF3B4F; }        /* EN VIVO - rojo coral */
+body[data-mode='colors'] .nav-item[data-tab='draws'] .ic, body[data-mode='colors'] .nav-item[data-tab='draws'] .lb { color: #00D9FF; }    /* CUADROS - cian */
+body[data-mode='colors'] .nav-item[data-tab='tournaments'] .ic, body[data-mode='colors'] .nav-item[data-tab='tournaments'] .lb { color: #0066FF; } /* TORNEOS - azul */
+body[data-mode='colors'] .nav-item[data-tab='calendar'] .ic, body[data-mode='colors'] .nav-item[data-tab='calendar'] .lb { color: #FFD600; } /* CALENDARIO - amarillo */
+body[data-mode='colors'] .nav-item[data-tab='rankings'] .ic, body[data-mode='colors'] .nav-item[data-tab='rankings'] .lb { color: #39FF14; } /* RANKINGS - verde lima */
+body[data-mode='colors'] .nav-item[data-tab='argentina'] .ic, body[data-mode='colors'] .nav-item[data-tab='argentina'] .lb { color: #00E5B0; } /* ARGENTINA - turquesa */
+body[data-mode='colors'] .nav-item[data-tab='players'] .ic, body[data-mode='colors'] .nav-item[data-tab='players'] .lb { color: #7B2CFF; } /* PLAYERS - violeta */
+body[data-mode='colors'] .nav-item[data-tab='h2hsearch'] .ic, body[data-mode='colors'] .nav-item[data-tab='h2hsearch'] .lb { color: #FF2DA6; } /* H2H - fucsia */
+body[data-mode='colors'] .nav-item[data-tab='news'] .ic, body[data-mode='colors'] .nav-item[data-tab='news'] .lb { color: #D500F9; }       /* NOTICIAS - magenta */
+body[data-mode='colors'] .nav-item[data-tab='videos'] .ic, body[data-mode='colors'] .nav-item[data-tab='videos'] .lb { color: #FF6B00; }  /* VIDEOS - naranja */
+body[data-mode='colors'] .nav-item[data-tab='wheelchair'] .ic, body[data-mode='colors'] .nav-item[data-tab='wheelchair'] .lb { color: #0066FF; } /* WHEELCHAIR - azul */
+body[data-mode='colors'] .nav-item:hover .ic, body[data-mode='colors'] .nav-item:hover .lb { color: #fff; }
 body[data-mode='colors'] .rank-section-title { color: #7B2CFF; } /* violeta */
 body[data-mode='colors'] .th-tier { border-color: #7B2CFF; color: #00D9FF; }
 body[data-mode='colors'] .th-surf { color: #8B93B3; }
