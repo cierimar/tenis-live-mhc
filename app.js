@@ -1877,11 +1877,35 @@
       return '';
     })();
     $('liveMeta').textContent = liveCount + ' partidos en vivo de ' + allMatches().filter(m => m.state === 'in').length + ' en total';
+    renderTicker();
   }
 
   function rankMatch(m) {
     const w = m.state === 'in' ? 0 : m.suspended ? 1 : m.state === 'pre' ? 2 : 3;
     return w;
+  }
+
+  /* ---------------- ticker (cinta de resultados) ---------------- */
+
+  function renderTicker() {
+    const track = $('tickerTrack');
+    if (!track) return;
+    const ms = allMatches().filter(m => m && m.state === 'in' || m && m.state === 'pre');
+    const live = ms.filter(m => m.state === 'in');
+    const items = [];
+    for (const m of live) {
+      const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
+      const label = '<span class="tick-live">&#9679;</span> ' + comps.map(c => esc(c.name)).join(' vs ');
+      const sets = comps.map(c => (c.linescores || []).map(ls => ls.value != null ? ls.value : '-').join('-')).join(' ');
+      items.push('<span class="ticker-item">' + label + ' <b>' + esc(sets) + '</b></span>');
+    }
+    for (const m of ms.filter(x => x.state !== 'in').slice(0, 4)) {
+      const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
+      const label = comps.map(c => esc(c.name)).join(' - ');
+      items.push('<span class="ticker-item"><span class="tick-tour">' + esc(tourLabel(m)) + '</span> ' + label + '</span>');
+    }
+    if (!items.length) { track.innerHTML = '<span class="ticker-item">No hay partidos en este momento</span>'; return; }
+    track.innerHTML = items.join('') + items.join('');
   }
 
   /* ---------------- render: finalizados ---------------- */
@@ -2682,6 +2706,7 @@
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
+    renderTicker();
   }
 
   function setTab(tab) {
@@ -3304,21 +3329,21 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['light', 'dark', 'arcoiris8', 'bn', 'estadio', 'glass'];
-      const ICONS = { light: '&#9788;', dark: '&#9790;', arcoiris8: '&#127752;', bn: '&#9632;', estadio: '&#127937;', glass: '&#9675;', fluo: '&#10038;', usopen: '&#9670;', rosa: '&#10047;', rosaoscuro: '&#10048;', verdefluor: '&#9827;', arcoiris: '&#9733;', graffiti: '&#10022;', argentina: '&#9737;', wimbledon: '&#9824;', rolandgarros: '&#9825;', synthwave: '&#9650;', lectura: '&#9998;', veamna: '&#9889;', boom: '&#10041;', veamtu: '&#9671;', laser: '&#9830;', radioactivo: '&#9762;', obdi: '&#10052;', mandarina: '&#127818;', rojo: '&#128308;', amarillo: '&#128993;', superamarillo: '&#11088;', multicolor: '&#127752;', uva: '&#127815;', munich: '&#127866;', lima: '&#127808;', rose: '&#127800;', fluorfull: '&#128302;', arte: '&#127912;', naranjaintenso: '&#127777;', pelota: '&#127934;', blancopuro: '&#9724;' };
-      const TITLES = { light: 'Modo claro', dark: 'Modo oscuro', arcoiris8: 'Modo arcoíris', bn: 'Modo BN', estadio: 'Modo estadio', glass: 'Modo glass', fluo: 'Modo flúor', usopen: 'Modo US Open', rosa: 'Modo rosa', rosaoscuro: 'Modo rosa oscuro', verdefluor: 'Modo verde flúor', arcoiris: 'Modo arcoíris', graffiti: 'Modo graffiti', argentina: 'Modo Argentina', wimbledon: 'Modo Wimbledon', rolandgarros: 'Modo Roland Garros', synthwave: 'Modo synthwave', lectura: 'Modo lectura', veamna: 'Modo veamna', boom: 'Modo boom', veamtu: 'Modo veamtu', laser: 'Modo laser', radioactivo: 'Modo radioactivo', obdi: 'Modo obdi', mandarina: 'Modo mandarina', rojo: 'Modo rojo', amarillo: 'Modo amarillo', superamarillo: 'Modo super amarillo', multicolor: 'Modo multicolor', uva: 'Modo uva', munich: 'Modo munich', lima: 'Modo lima', rose: 'Modo rose', fluorfull: 'Modo fluorfull', arte: 'Modo arte', naranjaintenso: 'Modo naranja intenso', pelota: 'Modo pelota de tenis', blancopuro: 'Modo blanco puro' };
-      const METACOLORS = { light: '#faf7f2', dark: '#16130e', arcoiris8: '#000000', bn: '#000000', estadio: '#0d1117', glass: '#0b1224', fluo: '#0b0b12', usopen: '#071a38', rosa: '#ffe3ef', rosaoscuro: '#2b0a1d', verdefluor: '#071008', arcoiris: '#000000', graffiti: '#1b1720', argentina: '#070a10', wimbledon: '#0e1f16', rolandgarros: '#201008', synthwave: '#12081f', lectura: '#f7eedd', veamna: '#000000', boom: '#06001a', veamtu: '#000000', laser: '#0d0006', radioactivo: '#030602', obdi: '#060608', mandarina: '#0d0603', rojo: '#000000', amarillo: '#000000', superamarillo: '#000000', multicolor: '#000000', uva: '#000000', munich: '#000000', lima: '#000000', rose: '#1a0a14', fluorfull: '#000000', arte: '#000000', naranjaintenso: '#000000', pelota: '#000000', blancopuro: '#f5f7f6' };
-      let mode = 'light';
-      try { mode = localStorage.getItem('mhc-mode') || 'light'; } catch (e) {}
-      if (MODES.indexOf(mode) === -1) mode = 'light';
+      const MODES = ['broadcast', 'colors', 'claro'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', claro: '&#9788;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', claro: 'Modo claro' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', claro: '#faf7f2' };
+      let mode = 'broadcast';
+      try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
+      if (MODES.indexOf(mode) === -1) mode = 'broadcast';
       const applyMode = m => {
         document.body.setAttribute('data-mode', m);
-        themeToggle.innerHTML = ICONS[m] || ICONS.light;
-        themeToggle.title = TITLES[m] || TITLES.light;
+        themeToggle.innerHTML = ICONS[m] || ICONS.broadcast;
+        themeToggle.title = TITLES[m] || TITLES.broadcast;
         const lbl = document.getElementById('modeLabel');
-        if (lbl) lbl.textContent = TITLES[m] || TITLES.light;
+        if (lbl) lbl.textContent = TITLES[m] || TITLES.broadcast;
         const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', METACOLORS[m] || METACOLORS.light);
+        if (meta) meta.setAttribute('content', METACOLORS[m] || METACOLORS.broadcast);
       };
       applyMode(mode);
       themeToggle.addEventListener('click', () => {
