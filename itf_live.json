@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-02T18:24:27Z",
+  "time": "2026-09-02T18:40:16Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -780,15 +781,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311469",
-          "p1": "Zolotareva",
-          "p2": "Hesse",
-          "time": "17:50",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313773",
           "p1": "Strakhova",
           "p2": "Carle",
@@ -850,6 +842,27 @@
           "round": "R16",
           "h2h": "2-0",
           "finished": false
+        },
+        {
+          "teId": "3311469",
+          "p1": "Zolotareva",
+          "p2": "Hesse",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "17:50",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "7"
+          ],
+          "sets2": [
+            "4",
+            "7",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3312917",
@@ -4703,6 +4716,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
