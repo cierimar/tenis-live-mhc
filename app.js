@@ -19,7 +19,7 @@
     ttLive: { matches: [], tournaments: [], loaded: false },
     cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
     rankSingles: { atp: null, wta: null },
-    rankView: 'vivo',
+    rankView: 'oficial',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
     rankLiveUpdated: '',
     rankSinglesUpdated: '',
@@ -2281,9 +2281,37 @@
       $('rankMeta').textContent = '';
       return;
     }
+    if (state.rankView === 'oficial') {
+      const wantsDoubles = state.mode !== 'singles';
+      if (wantsDoubles && !(state.rankDoubles.atp && state.rankDoubles.wta) && !state.rankDoublesLoading) {
+        state.rankDoublesLoading = true;
+        refreshRankingsDoubles().then(() => {
+          state.rankDoublesLoading = false;
+          if (state.tab === 'rankings') renderRankings();
+        }).catch(() => {
+          state.rankDoublesLoading = false;
+          if (state.tab === 'rankings') renderRankings();
+        });
+      }
+      if (state.mode !== 'doubles' && !(state.rankSingles.atp && state.rankSingles.wta)) refreshRankingsSingles();
+      const tours = [];
+      if (state.tour === 'todos' || state.tour === 'atp') tours.push('atp');
+      if (state.tour === 'todos' || state.tour === 'wta') tours.push('wta');
+      const modes = [];
+      if (state.mode === 'todos' || state.mode === 'singles') modes.push('singles');
+      if (state.mode === 'todos' || state.mode === 'doubles') modes.push('doubles');
+      const ofHtml = [];
+      for (const t of tours) for (const m of modes) ofHtml.push(renderRankSection(t, m));
+      el.innerHTML = ofHtml.join('');
+      $('rankMeta').textContent = 'Ranking OFICIAL · singles y dobles' +
+        ((state.rankSingles.atp && state.rankSingles.wta) ? '' : ' · cargando singles...') +
+        (state.rankSinglesUpdated ? ' · datos: ' + fmtRankData(state.rankSinglesUpdated) : '') +
+        (state.rankSearch ? ' · buscando "' + state.rankSearch + '"' : '');
+      return;
+    }
     if ((state.rankView === 'vivo' || state.rankView === 'race') && selectedModes().length === 1 && selectedModes()[0] === 'doubles') {
-      el.innerHTML = '<div class="error-box">No existe ranking EN VIVO de dobles en fuentes públicas.</div>';
-      $('rankMeta').textContent = 'Ranking ' + state.rankView.toUpperCase() + ' · dobles no disponible';
+      el.innerHTML = '<div class="error-box">No existe ranking EN VIVO de dobles en fuentes públicas. Usá la vista OFICIAL para ver el ranking de dobles.</div>';
+      $('rankMeta').textContent = 'Ranking ' + state.rankView.toUpperCase() + ' · dobles: usar OFICIAL';
       return;
     }
     const wantAtp = state.tour === 'todos' || state.tour === 'atp';
