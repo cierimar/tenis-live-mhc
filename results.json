@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "count": 3,
   "matches": [
     {
       "id": "te-3310941",
@@ -13,11 +12,6 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flagAlt": "",
-          "flag": "",
-          "homeAway": "home",
-          "name": "Sun F.",
           "linescores": [
             {
               "value": 6,
@@ -29,14 +23,14 @@
               "winner": false,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "home",
+          "flagAlt": "",
+          "winner": true,
+          "name": "Sun F.",
+          "flag": ""
         },
         {
-          "winner": false,
-          "flagAlt": "",
-          "flag": "",
-          "homeAway": "away",
-          "name": "Liu H.",
           "linescores": [
             {
               "value": 0,
@@ -48,7 +42,12 @@
               "winner": true,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "away",
+          "flagAlt": "",
+          "winner": false,
+          "name": "Liu H.",
+          "flag": ""
         }
       ]
     },
@@ -63,11 +62,6 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flagAlt": "",
-          "flag": "",
-          "homeAway": "home",
-          "name": "Leong M.",
           "linescores": [
             {
               "value": 6,
@@ -79,14 +73,14 @@
               "winner": true,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "home",
+          "flagAlt": "",
+          "winner": true,
+          "name": "Leong M.",
+          "flag": ""
         },
         {
-          "winner": false,
-          "flagAlt": "",
-          "flag": "",
-          "homeAway": "away",
-          "name": "Matsuda K.",
           "linescores": [
             {
               "value": 3,
@@ -98,7 +92,12 @@
               "winner": false,
               "tiebreak": null
             }
-          ]
+          ],
+          "homeAway": "away",
+          "flagAlt": "",
+          "winner": false,
+          "name": "Matsuda K.",
+          "flag": ""
         }
       ]
     },
@@ -113,23 +112,24 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flagAlt": "",
-          "flag": "",
+          "linescores": [],
           "homeAway": "home",
+          "flagAlt": "",
+          "winner": true,
           "name": "Mehra R. / Qabazard",
-          "linescores": []
+          "flag": ""
         },
         {
-          "winner": false,
-          "flagAlt": "",
-          "flag": "",
+          "linescores": [],
           "homeAway": "away",
+          "flagAlt": "",
+          "winner": false,
           "name": "Gretskiy / Yilmaz K.",
-          "linescores": []
+          "flag": ""
         }
       ]
     }
   ],
-  "updated": "2026-09-02T22:17:42Z"
+  "updated": "2026-09-02T22:33:53Z",
+  "count": 3
 }
