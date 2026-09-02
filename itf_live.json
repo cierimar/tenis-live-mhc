@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-02T16:30:40Z",
+  "time": "2026-09-02T16:46:11Z",
   "ok": true,
   "tournaments": [
     {
@@ -399,15 +399,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312433",
-          "p1": "Ivanov",
-          "p2": "Jorge",
-          "time": "17:20",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312435",
           "p1": "Lacasse",
           "p2": "Fruhvirtova",
@@ -429,7 +420,7 @@
           "teId": "3311907",
           "p1": "Klimovicova",
           "p2": "Voloshchuk",
-          "time": "18:40",
+          "time": "18:50",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
@@ -469,6 +460,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312433",
+          "p1": "Jorge",
+          "p2": "Ivanov",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "17:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3311903",
@@ -1088,15 +1098,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312395",
-          "p1": "Janicijevic",
-          "p2": "Glushkova",
-          "time": "16:00",
-          "round": "1R",
-          "h2h": "2-0",
-          "finished": false
-        },
-        {
           "teId": "3312421",
           "p1": "Schnyder",
           "p2": "Pedone",
@@ -1158,6 +1159,27 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3312395",
+          "p1": "Janicijevic",
+          "p2": "Glushkova",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3312419",
@@ -1415,6 +1437,15 @@
       "name": "Badalona ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3313799",
+          "p1": "Jialin",
+          "p2": "Lopez Alcaraz",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
+          "finished": false
+        },
         {
           "teId": "3313719",
           "p1": "Fojcik",
@@ -1800,15 +1831,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313753",
-          "p1": "Ogescu",
-          "p2": "Cirstea",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313751",
           "p1": "Prisacariu",
           "p2": "Dumitru",
@@ -1836,24 +1858,6 @@
           "finished": false
         },
         {
-          "teId": "3313669",
-          "p1": "Popescu",
-          "p2": "Breaz",
-          "time": "09:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313577",
-          "p1": "Trush",
-          "p2": "Raggi",
-          "time": "09:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313573",
           "p1": "Todoni",
           "p2": "Safta",
@@ -1863,10 +1867,37 @@
           "finished": false
         },
         {
+          "teId": "3313669",
+          "p1": "Popescu",
+          "p2": "Breaz",
+          "time": "10:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3313605",
           "p1": "Kryvoruchko",
           "p2": "Paris",
           "time": "10:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3313753",
+          "p1": "Ogescu",
+          "p2": "Cirstea",
+          "time": "10:35",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3313577",
+          "p1": "Trush",
+          "p2": "Raggi",
+          "time": "12:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -3497,24 +3528,6 @@
           "finished": false
         },
         {
-          "teId": "3311357",
-          "p1": "Van De Peer",
-          "p2": "Pikkaart",
-          "time": "14:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311355",
-          "p1": "Willemse",
-          "p2": "De Zeeuw",
-          "time": "17:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311353",
           "p1": "Raschdorf",
           "p2": "Van Der Werff",
@@ -3536,15 +3549,6 @@
           "teId": "3313633",
           "p1": "Groen",
           "p2": "Claeys",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313583",
-          "p1": "Van Zonneveld",
-          "p2": "Coppez",
           "time": "10:00",
           "round": "R16",
           "h2h": "0-0",
@@ -3567,6 +3571,53 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313583",
+          "p1": "Van Zonneveld",
+          "p2": "Coppez",
+          "time": "11:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3311355",
+          "p1": "De Zeeuw",
+          "p2": "Willemse",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "17:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311357",
+          "p1": "Van De Peer",
+          "p2": "Pikkaart",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "14:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3313093",
@@ -3825,15 +3876,6 @@
           "finished": false
         },
         {
-          "teId": "3312819",
-          "p1": "Vlajic",
-          "p2": "Bartone",
-          "time": "16:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312813",
           "p1": "El Sayed",
           "p2": "Bedini",
@@ -3870,15 +3912,6 @@
           "finished": false
         },
         {
-          "teId": "3311369",
-          "p1": "Mdlulwa",
-          "p2": "Petretic",
-          "time": "16:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3311377",
           "p1": "Atay",
           "p2": "Weckerle",
@@ -3906,6 +3939,25 @@
           "finished": false
         },
         {
+          "teId": "3311369",
+          "p1": "Petretic",
+          "p2": "Mdlulwa",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "0"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3311371",
           "p1": "Ezzat",
           "p2": "Marinkovic",
@@ -3921,6 +3973,25 @@
           "sets2": [
             "1",
             "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312819",
+          "p1": "Bartone",
+          "p2": "Vlajic",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "0"
           ],
           "finished": true
         },
@@ -4067,15 +4138,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3312437",
-          "p1": "Bosio",
-          "p2": "Arabarco",
-          "time": "16:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313115",
           "p1": "Madrid Rocca",
           "p2": "Doldan",
@@ -4121,15 +4183,6 @@
           "finished": false
         },
         {
-          "teId": "3313163",
-          "p1": "Cabezas Dominguez",
-          "p2": "Duarte",
-          "time": "05:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313165",
           "p1": "Sousa Salazar",
           "p2": "Gerald Gonzalez",
@@ -4137,6 +4190,34 @@
           "round": "R16",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3313163",
+          "p1": "Cabezas Dominguez",
+          "p2": "Duarte",
+          "time": "15:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312437",
+          "p1": "Bosio",
+          "p2": "Arabarco",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "16:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3312439",
