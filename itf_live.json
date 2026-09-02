@@ -415,15 +415,6 @@
           "finished": false
         },
         {
-          "teId": "3311901",
-          "p1": "Kuzmova",
-          "p2": "Jorge",
-          "time": "13:50",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3311899",
           "p1": "Klugman",
           "p2": "Friedsam",
@@ -433,19 +424,28 @@
           "finished": false
         },
         {
-          "teId": "3312433",
-          "p1": "Ivanov",
+          "teId": "3311901",
+          "p1": "Kuzmova",
           "p2": "Jorge",
-          "time": "14:40",
+          "time": "14:00",
           "round": "1R",
-          "h2h": "0-0",
+          "h2h": "0-1",
           "finished": false
         },
         {
           "teId": "3311909",
           "p1": "Rapolu",
           "p2": "Stojsavljevic",
-          "time": "14:40",
+          "time": "14:50",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3312433",
+          "p1": "Ivanov",
+          "p2": "Jorge",
+          "time": "15:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -454,7 +454,7 @@
           "teId": "3311903",
           "p1": "Tomai",
           "p2": "Cervino Ruiz",
-          "time": "14:40",
+          "time": "15:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -913,19 +913,19 @@
           "finished": false
         },
         {
-          "teId": "3312413",
-          "p1": "Petkovic",
-          "p2": "Senic",
-          "time": "13:45",
+          "teId": "3312411",
+          "p1": "Golovina",
+          "p2": "Taraba Wallberg",
+          "time": "13:50",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3312411",
-          "p1": "Golovina",
-          "p2": "Taraba Wallberg",
-          "time": "13:45",
+          "teId": "3312413",
+          "p1": "Petkovic",
+          "p2": "Senic",
+          "time": "14:05",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -943,7 +943,7 @@
           "teId": "3312419",
           "p1": "Cakarun",
           "p2": "Kokkinis",
-          "time": "14:45",
+          "time": "14:50",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -952,7 +952,7 @@
           "teId": "3312395",
           "p1": "Janicijevic",
           "p2": "Glushkova",
-          "time": "14:45",
+          "time": "14:55",
           "round": "1R",
           "h2h": "2-0",
           "finished": false
@@ -1134,6 +1134,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3311263",
+          "p1": "Lahey",
+          "p2": "Natal Gomez",
+          "time": "09:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3311261",
           "p1": "Lutkemeyer Obregon",
           "p2": "Corte",
@@ -1183,15 +1192,6 @@
           "p1": "Montesinos",
           "p2": "Reva",
           "time": "13:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3311263",
-          "p1": "Lahey",
-          "p2": "Natal Gomez",
-          "time": "14:02",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1390,15 +1390,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3311283",
-          "p1": "Todoni",
-          "p2": "Sagmar",
-          "time": "09:00",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3311279",
           "p1": "Cirstea",
           "p2": "Stamatova",
@@ -1515,6 +1506,25 @@
           "sets2": [
             "6",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3311283",
+          "p1": "Todoni",
+          "p2": "Sagmar",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "09:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
           ],
           "finished": true
         },
@@ -2507,25 +2517,6 @@
           "finished": true
         },
         {
-          "teId": "3312801",
-          "p1": "Wrobel",
-          "p2": "Cialkowska",
-          "round": "1. round",
-          "date": "02.09.",
-          "time": "10:01",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "0",
-            "1"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3312799",
           "p1": "Chudejova",
           "p2": "Ozerova",
@@ -2543,6 +2534,25 @@
             "1",
             "6",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3312801",
+          "p1": "Wrobel",
+          "p2": "Cialkowska",
+          "round": "1. round",
+          "date": "02.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
           ],
           "finished": true
         },
@@ -3154,7 +3164,7 @@
           "teId": "3313117",
           "p1": "E'halli Obeid",
           "p2": "Tarantola",
-          "time": "16:00",
+          "time": "16:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -3361,6 +3371,6 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-02T11:43:54Z"
+  "time": "2026-09-02T11:54:30Z",
+  "ok": true
 }
