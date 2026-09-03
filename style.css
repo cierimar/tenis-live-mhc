@@ -191,6 +191,53 @@ body[data-mode='colors'] .sb-logo-sub {
 a { color: var(--blue); }
 
 /* ============================================================
+   RESUMEN FIJO EN VIVO (franja superior, sin animacion)
+   ============================================================ */
+
+.slivebar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+  height: 34px;
+  display: flex; align-items: stretch;
+  background: #080a0e;
+  border-bottom: 1px solid var(--hairline);
+  overflow: hidden;
+}
+.slive-label {
+  flex: 0 0 auto;
+  display: flex; align-items: center;
+  padding: 0 12px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; color: #fff;
+  background: var(--red);
+}
+.slive-track {
+  flex: 1 1 auto;
+  display: flex; align-items: center; gap: 40px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 16px;
+  -ms-overflow-style: none;
+}
+.slive-track::-webkit-scrollbar { display: none; }
+.slive-item {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-size: 12px; color: var(--ink-2);
+}
+.slive-tour {
+  color: var(--muted); font-weight: 700; letter-spacing: 0.06em;
+  border: 1px solid var(--hairline-dark); border-radius: 4px;
+  padding: 1px 6px; font-size: 10px;
+}
+.slive-player { display: inline-flex; align-items: center; gap: 6px; }
+.slive-player b { color: var(--ink); font-weight: 700; }
+.slive-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red); flex: 0 0 auto;
+}
+.slive-vs { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ============================================================
    LAYOUT 2 COLUMNAS (sidebar + contenido)
    ============================================================ */
 
@@ -198,6 +245,7 @@ a { color: var(--blue); }
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
   min-height: 100vh;
+  padding-top: 34px; /* espacio de la franja superior */
 }
 
 /* ---------------- sidebar ---------------- */
@@ -1017,7 +1065,7 @@ footer p {
   /* sidebar colapsa a iconos */
   :root { --sidebar-w: var(--sidebar-w-collapsed); }
   .layout { grid-template-columns: var(--sidebar-w-collapsed) 1fr; }
-  .sidebar { top: 0; height: 100vh; }
+  .sidebar { top: 34px; height: calc(100vh - 34px); }
   .sb-logo { font-size: 0; }
   .sb-logo::first-letter { font-size: 14px; }
   .sb-logo-sub { display: none; }
