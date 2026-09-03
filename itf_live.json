@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-03T18:50:07Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -4659,15 +4660,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313917",
-          "p1": "Zhenikhova",
-          "p2": "Dzjachangirova",
-          "time": "15:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314525",
           "p1": "Van Zonneveld",
           "p2": "Claeys",
@@ -4732,6 +4724,27 @@
           "sets2": [
             "3",
             "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313917",
+          "p1": "Zhenikhova",
+          "p2": "Dzjachangirova",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "15:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "1",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "1"
           ],
           "finished": true
         },
@@ -6080,6 +6093,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-03T18:34:28Z"
+  "ok": true
 }
