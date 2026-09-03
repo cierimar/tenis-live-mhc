@@ -1,4 +1,6 @@
 {
+  "time": "2026-09-03T07:51:20Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -9,10 +11,22 @@
           "teId": "3312495",
           "p1": "Wang",
           "p2": "Ma",
+          "round": "round of 16",
+          "date": "03.09.",
           "time": "07:40",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3313201",
@@ -1264,7 +1278,7 @@
           "teId": "3313599",
           "p1": "Zaytseva",
           "p2": "Cortez Llorca",
-          "time": "09:30",
+          "time": "09:50",
           "round": "R16",
           "h2h": "1-0",
           "finished": false
@@ -1273,7 +1287,7 @@
           "teId": "3313675",
           "p1": "Golovina",
           "p2": "Petkovic",
-          "time": "10:30",
+          "time": "10:40",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1282,7 +1296,7 @@
           "teId": "3313515",
           "p1": "Martinez Cirez",
           "p2": "Cvetkovic",
-          "time": "10:30",
+          "time": "10:50",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -4896,7 +4910,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-03T07:38:30Z"
+  ]
 }
