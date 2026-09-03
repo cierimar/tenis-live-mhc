@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-03T19:15:50Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1028,6 +1030,15 @@
           "time": "13:00",
           "round": "QF",
           "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3314703",
+          "p1": "Lene",
+          "p2": "Burel",
+          "time": "15:00",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -4659,10 +4670,37 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314687",
+          "p1": "De Zeeuw",
+          "p2": "Horvit",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
+          "teId": "3314685",
+          "p1": "De Koning",
+          "p2": "Tran",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
+          "teId": "3314683",
+          "p1": "Brand",
+          "p2": "Zhenikhova",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3314525",
           "p1": "Van Zonneveld",
           "p2": "Claeys",
-          "time": "10:00",
+          "time": "15:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5667,21 +5705,30 @@
           "finished": false
         },
         {
-          "teId": "3313789",
-          "p1": "Tarantola",
-          "p2": "Urrutia",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313697",
           "p1": "Agudelo",
           "p2": "Labrana",
           "time": "17:30",
           "round": "R16",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314701",
+          "p1": "Cabezas Dominguez",
+          "p2": "Gerald Gonzalez",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
+          "teId": "3314699",
+          "p1": "Bosio",
+          "p2": "Romero",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -5700,6 +5747,25 @@
           "sets2": [
             "4",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313789",
+          "p1": "Urrutia",
+          "p2": "Tarantola",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
           ],
           "finished": true
         },
@@ -6091,7 +6157,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-03T19:00:11Z",
-  "ok": true
+  ]
 }
