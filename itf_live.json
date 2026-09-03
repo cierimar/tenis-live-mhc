@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-03T16:47:42Z",
+  "ok": true,
+  "time": "2026-09-03T16:58:24Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1502,15 +1503,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313865",
-          "p1": "Kokkinis",
-          "p2": "Pedone",
-          "time": "15:50",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313779",
           "p1": "Tona",
           "p2": "Stankovic",
@@ -1536,6 +1528,27 @@
           "round": "QF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3313865",
+          "p1": "Pedone",
+          "p2": "Kokkinis",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "15:50",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3313863",
@@ -1978,7 +1991,7 @@
           "p2": "Primorac",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "1-0",
           "finished": false
         },
         {
@@ -4088,7 +4101,7 @@
           "p2": "Adams",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5944,6 +5957,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
