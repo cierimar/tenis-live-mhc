@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -5787,6 +5788,25 @@
           "finished": true
         },
         {
+          "teId": "3313789",
+          "p1": "Urrutia",
+          "p2": "Tarantola",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3314133",
           "p1": "Ayala",
           "p2": "Doldan",
@@ -5804,25 +5824,6 @@
             "6",
             "2",
             "2"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3313789",
-          "p1": "Urrutia",
-          "p2": "Tarantola",
-          "round": "round of 16",
-          "date": "03.09.",
-          "time": "16:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "1"
           ],
           "finished": true
         },
@@ -6215,6 +6216,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-03T21:09:20Z"
+  "time": "2026-09-03T21:24:21Z"
 }
