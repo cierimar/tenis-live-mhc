@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-03T20:44:13Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -538,6 +536,15 @@
           "p1": "Klugman",
           "p2": "Fontenel",
           "time": "14:30",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314733",
+          "p1": "Rapolu",
+          "p2": "Fruhvirtova",
+          "time": "16:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5706,6 +5713,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314735",
+          "p1": "Moyano",
+          "p2": "Labrana",
+          "time": "",
+          "round": "QF",
+          "h2h": "2-2",
+          "finished": false
+        },
+        {
           "teId": "3314721",
           "p1": "Ayala",
           "p2": "Urrutia",
@@ -5771,25 +5787,6 @@
           "finished": true
         },
         {
-          "teId": "3313789",
-          "p1": "Urrutia",
-          "p2": "Tarantola",
-          "round": "round of 16",
-          "date": "03.09.",
-          "time": "17:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "1"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3314133",
           "p1": "Ayala",
           "p2": "Doldan",
@@ -5807,6 +5804,25 @@
             "6",
             "2",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313789",
+          "p1": "Urrutia",
+          "p2": "Tarantola",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "16:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
           ],
           "finished": true
         },
@@ -6198,5 +6214,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-03T20:54:40Z",
+  "ok": true
 }
