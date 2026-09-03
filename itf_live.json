@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-03T14:34:08Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -2911,7 +2911,7 @@
           "teId": "3314479",
           "p1": "Sasnouskaya",
           "p2": "Bayerlova",
-          "time": "",
+          "time": "10:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -3976,10 +3976,19 @@
           "finished": false
         },
         {
+          "teId": "3314439",
+          "p1": "Kadzielska",
+          "p2": "Kolonus",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3314483",
           "p1": "Chudejova",
           "p2": "Lazarenko",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3988,16 +3997,7 @@
           "teId": "3314459",
           "p1": "Appleton",
           "p2": "Komano",
-          "time": "",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3314439",
-          "p1": "Kadzielska",
-          "p2": "Kolonus",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4461,24 +4461,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313633",
-          "p1": "Groen",
-          "p2": "Claeys",
-          "time": "13:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313583",
-          "p1": "Van Zonneveld",
-          "p2": "Coppez",
-          "time": "13:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313833",
           "p1": "Van De Peer",
           "p2": "Horvit",
@@ -4531,6 +4513,57 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314525",
+          "p1": "Van Zonneveld",
+          "p2": "Claeys",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
+          "teId": "3313583",
+          "p1": "Van Zonneveld",
+          "p2": "Coppez",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313633",
+          "p1": "Claeys",
+          "p2": "Groen",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3311353",
@@ -5399,15 +5432,6 @@
           "finished": false
         },
         {
-          "teId": "3313789",
-          "p1": "Tarantola",
-          "p2": "Urrutia",
-          "time": "16:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314133",
           "p1": "Ayala",
           "p2": "Doldan",
@@ -5420,6 +5444,15 @@
           "teId": "3313849",
           "p1": "Bosio",
           "p2": "Zornada",
+          "time": "17:30",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3313789",
+          "p1": "Tarantola",
+          "p2": "Urrutia",
           "time": "17:30",
           "round": "R16",
           "h2h": "0-0",
@@ -5745,5 +5778,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-03T14:49:04Z"
 }
