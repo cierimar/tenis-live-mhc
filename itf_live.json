@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-03T16:58:24Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -528,7 +527,7 @@
           "teId": "3313847",
           "p1": "Reasco Gonzalez",
           "p2": "Fruhvirtova",
-          "time": "20:00",
+          "time": "20:10",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1015,15 +1014,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314141",
-          "p1": "Zolotareva",
-          "p2": "Lene",
-          "time": "17:45",
-          "round": "R16",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3313725",
           "p1": "Burel",
           "p2": "Mikulskyte",
@@ -1058,6 +1048,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314141",
+          "p1": "Lene",
+          "p2": "Zolotareva",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "17:45",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3313593",
@@ -1503,19 +1512,28 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313779",
+          "teId": "3314653",
+          "p1": "Cakarevic",
+          "p2": "Pedone",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
+          "teId": "3314651",
           "p1": "Tona",
-          "p2": "Stankovic",
-          "time": "16:10",
-          "round": "R16",
-          "h2h": "0-0",
+          "p2": "Zaytseva",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
           "teId": "3314511",
           "p1": "Janicijevic",
           "p2": "Radovanovic",
-          "time": "10:00",
+          "time": "00:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1524,10 +1542,31 @@
           "teId": "3314449",
           "p1": "Cvetkovic",
           "p2": "Petkovic",
-          "time": "10:00",
+          "time": "00:00",
           "round": "QF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3313779",
+          "p1": "Tona",
+          "p2": "Stankovic",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "16:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3313865",
@@ -2007,7 +2046,7 @@
           "teId": "3314547",
           "p1": "Mair",
           "p2": "Giraldi Requena",
-          "time": "",
+          "time": "09:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -2016,7 +2055,7 @@
           "teId": "3314477",
           "p1": "Pozarenko",
           "p2": "Roura Llaverias",
-          "time": "",
+          "time": "09:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3592,7 +3631,7 @@
           "teId": "3314481",
           "p1": "Maines",
           "p2": "Gasparini",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3601,7 +3640,7 @@
           "teId": "3314457",
           "p1": "Gentili",
           "p2": "Voracek",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4105,15 +4144,6 @@
           "finished": false
         },
         {
-          "teId": "3314459",
-          "p1": "Appleton",
-          "p2": "Komano",
-          "time": "00:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314439",
           "p1": "Kadzielska",
           "p2": "Kolonus",
@@ -4126,6 +4156,15 @@
           "teId": "3314483",
           "p1": "Chudejova",
           "p2": "Lazarenko",
+          "time": "10:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314459",
+          "p1": "Appleton",
+          "p2": "Komano",
           "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
@@ -4641,7 +4680,7 @@
           "teId": "3314525",
           "p1": "Van Zonneveld",
           "p2": "Claeys",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5067,6 +5106,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314413",
+          "p1": "Diatlova",
+          "p2": "Hansen",
+          "time": "08:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3314411",
           "p1": "Ezzat",
           "p2": "Tkacheva",
@@ -5089,15 +5137,6 @@
           "p1": "Mdlulwa",
           "p2": "Perapekhina",
           "time": "08:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3314413",
-          "p1": "Diatlova",
-          "p2": "Hansen",
-          "time": "09:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5585,24 +5624,6 @@
           "finished": false
         },
         {
-          "teId": "3313723",
-          "p1": "Moyano",
-          "p2": "Lopez",
-          "time": "16:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313165",
-          "p1": "Sousa Salazar",
-          "p2": "Gerald Gonzalez",
-          "time": "16:00",
-          "round": "R16",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3313163",
           "p1": "Cabezas Dominguez",
           "p2": "Duarte",
@@ -5615,15 +5636,6 @@
           "teId": "3314133",
           "p1": "Ayala",
           "p2": "Doldan",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313789",
-          "p1": "Tarantola",
-          "p2": "Urrutia",
           "time": "17:30",
           "round": "R16",
           "h2h": "0-0",
@@ -5646,6 +5658,53 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313789",
+          "p1": "Tarantola",
+          "p2": "Urrutia",
+          "time": "18:42",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3313165",
+          "p1": "Gerald Gonzalez",
+          "p2": "Sousa Salazar",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313723",
+          "p1": "Moyano",
+          "p2": "Lopez",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3313115",
@@ -5957,5 +6016,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-03T17:15:42Z"
 }
