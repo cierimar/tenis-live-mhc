@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-03T13:49:09Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -529,6 +531,15 @@
           "time": "20:30",
           "round": "R16",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314485",
+          "p1": "Klugman",
+          "p2": "Fontenel",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -1461,19 +1472,19 @@
           "finished": false
         },
         {
-          "teId": "3313779",
-          "p1": "Tona",
-          "p2": "Stankovic",
-          "time": "15:35",
+          "teId": "3313865",
+          "p1": "Kokkinis",
+          "p2": "Pedone",
+          "time": "15:50",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3313865",
-          "p1": "Kokkinis",
-          "p2": "Pedone",
-          "time": "15:40",
+          "teId": "3313779",
+          "p1": "Tona",
+          "p2": "Stankovic",
+          "time": "15:50",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1911,15 +1922,6 @@
           "finished": false
         },
         {
-          "teId": "3313799",
-          "p1": "Jialin",
-          "p2": "Lopez Alcaraz",
-          "time": "13:00",
-          "round": "R16",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3313717",
           "p1": "Mair",
           "p2": "Reva",
@@ -1938,6 +1940,15 @@
           "finished": false
         },
         {
+          "teId": "3314477",
+          "p1": "Pozarenko",
+          "p2": "Roura Llaverias",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3313627",
           "p1": "Roura Llaverias",
           "p2": "Bruno",
@@ -1953,6 +1964,25 @@
           "sets2": [
             "1",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313799",
+          "p1": "Lopez Alcaraz",
+          "p2": "Jialin",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
           ],
           "finished": true
         },
@@ -2818,6 +2848,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314479",
+          "p1": "Sasnouskaya",
+          "p2": "Bayerlova",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3314425",
           "p1": "Van Zyl",
           "p2": "Longueville",
@@ -3389,6 +3428,15 @@
           "finished": false
         },
         {
+          "teId": "3314481",
+          "p1": "Maines",
+          "p2": "Gasparini",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3314457",
           "p1": "Gentili",
           "p2": "Voracek",
@@ -3865,6 +3913,15 @@
           "time": "12:30",
           "round": "R16",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314483",
+          "p1": "Chudejova",
+          "p2": "Lazarenko",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -5282,15 +5339,6 @@
           "finished": false
         },
         {
-          "teId": "3313789",
-          "p1": "Tarantola",
-          "p2": "Urrutia",
-          "time": "16:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314133",
           "p1": "Ayala",
           "p2": "Doldan",
@@ -5303,6 +5351,15 @@
           "teId": "3313849",
           "p1": "Bosio",
           "p2": "Zornada",
+          "time": "17:30",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3313789",
+          "p1": "Tarantola",
+          "p2": "Urrutia",
           "time": "17:30",
           "round": "R16",
           "h2h": "0-0",
@@ -5627,7 +5684,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-03T13:35:35Z"
+  ]
 }
