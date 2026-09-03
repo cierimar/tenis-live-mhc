@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-03T15:35:55Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1013,30 +1014,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313593",
-          "p1": "Ferro",
-          "p2": "Zantedeschi",
-          "time": "14:45",
+          "teId": "3313725",
+          "p1": "Burel",
+          "p2": "Mikulskyte",
+          "time": "17:40",
           "round": "R16",
-          "h2h": "0-1",
+          "h2h": "2-0",
           "finished": false
         },
         {
           "teId": "3314141",
           "p1": "Zolotareva",
           "p2": "Lene",
-          "time": "17:20",
+          "time": "17:45",
           "round": "R16",
           "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3313725",
-          "p1": "Burel",
-          "p2": "Mikulskyte",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "2-0",
           "finished": false
         },
         {
@@ -1056,6 +1048,27 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3313593",
+          "p1": "Ferro",
+          "p2": "Zantedeschi",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "14:45",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "2",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3313701",
@@ -1965,7 +1978,7 @@
           "p2": "Argyrokastriti",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1974,7 +1987,7 @@
           "p2": "Giraldi Requena",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2450,7 +2463,7 @@
           "p2": "Lopatetska",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2475,7 +2488,7 @@
           "teId": "3314385",
           "p1": "Paris",
           "p2": "Breaz",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3540,7 +3553,7 @@
           "p2": "Gandolfi",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5853,6 +5866,5 @@
       ]
     }
   ],
-  "time": "2026-09-03T15:21:43Z",
   "ok": true
 }
