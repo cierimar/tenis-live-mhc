@@ -1891,17 +1891,25 @@
     if (!bar) return;
     const track = $('sliveTrack');
     const live = allMatches().filter(m => m && m.state === 'in');
-    if (!live.length) { bar.style.display = 'none'; return; }
+    const pre = allMatches().filter(m => m && m.state === 'pre').slice(0, 6);
+    if (!live.length && !pre.length) { bar.style.display = 'none'; return; }
     bar.style.display = 'flex';
-    const items = live.map(m => {
+    const items = [];
+    for (const m of live) {
       const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
       const row = comps.map(c => {
         const sets = (c.linescores || []).map(ls => (ls && ls.value != null ? ls.value : '-')).join(' ');
         return '<span class="slive-player"><span class="slive-dot"></span>' + esc(c.name) + (sets ? ' <b>' + esc(sets) + '</b>' : '') + '</span>';
       }).join('<span class="slive-vs">vs</span>');
-      return '<span class="slive-item"><span class="slive-tour">' + esc(tourLabel(m)) + '</span>' + row + '</span>';
-    }).join('\n');
-    track.innerHTML = items;
+      items.push('<span class="slive-item is-live"><span class="slive-tour">' + esc(tourLabel(m)) + '</span>' + row + '</span>');
+    }
+    if (pre.length) items.push('<span class="slive-glabel">PR&Oacute;XIMOS</span>');
+    for (const m of pre) {
+      const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
+      const row = comps.map(c => esc(c.name)).join('<span class="slive-vs">vs</span>');
+      items.push('<span class="slive-item is-pre"><span class="slive-tour">' + esc(tourLabel(m)) + '</span>' + row + '</span>');
+    }
+    track.innerHTML = items.join('\n');
   }
 
   /* ---------------- render: finalizados ---------------- */
