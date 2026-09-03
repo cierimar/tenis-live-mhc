@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-03T14:59:57Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1026,7 +1025,7 @@
           "teId": "3314141",
           "p1": "Zolotareva",
           "p2": "Lene",
-          "time": "17:00",
+          "time": "17:20",
           "round": "R16",
           "h2h": "1-0",
           "finished": false
@@ -1961,21 +1960,21 @@
           "finished": false
         },
         {
-          "teId": "3313717",
-          "p1": "Mair",
-          "p2": "Reva",
-          "time": "13:00",
-          "round": "R16",
-          "h2h": "0-0",
+          "teId": "3314549",
+          "p1": "Lopez Alcaraz",
+          "p2": "Argyrokastriti",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
-          "teId": "3313569",
-          "p1": "Monlleo Ramos",
-          "p2": "Argyrokastriti",
-          "time": "13:00",
-          "round": "R16",
-          "h2h": "0-0",
+          "teId": "3314547",
+          "p1": "Mair",
+          "p2": "Giraldi Requena",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -1986,6 +1985,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313569",
+          "p1": "Argyrokastriti",
+          "p2": "Monlleo Ramos",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3313627",
@@ -2003,6 +2021,25 @@
           "sets2": [
             "1",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313717",
+          "p1": "Mair",
+          "p2": "Reva",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "4"
           ],
           "finished": true
         },
@@ -2408,12 +2445,12 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313489",
-          "p1": "Lopatetska",
-          "p2": "Sandru",
-          "time": "12:00",
-          "round": "R16",
-          "h2h": "0-0",
+          "teId": "3314551",
+          "p1": "Todoni",
+          "p2": "Lopatetska",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -2442,6 +2479,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313489",
+          "p1": "Lopatetska",
+          "p2": "Sandru",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3313577",
@@ -3479,12 +3535,12 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313581",
+          "teId": "3314553",
           "p1": "Shapatava",
-          "p2": "Vismane",
-          "time": "13:00",
-          "round": "R16",
-          "h2h": "0-1",
+          "p2": "Gandolfi",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -3530,6 +3586,25 @@
           "sets2": [
             "2",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313581",
+          "p1": "Shapatava",
+          "p2": "Vismane",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
           ],
           "finished": true
         },
@@ -5432,6 +5507,15 @@
           "finished": false
         },
         {
+          "teId": "3313789",
+          "p1": "Tarantola",
+          "p2": "Urrutia",
+          "time": "16:30",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3314133",
           "p1": "Ayala",
           "p2": "Doldan",
@@ -5444,15 +5528,6 @@
           "teId": "3313849",
           "p1": "Bosio",
           "p2": "Zornada",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313789",
-          "p1": "Tarantola",
-          "p2": "Urrutia",
           "time": "17:30",
           "round": "R16",
           "h2h": "0-0",
@@ -5778,5 +5853,6 @@
       ]
     }
   ],
+  "time": "2026-09-03T15:21:43Z",
   "ok": true
 }
