@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-03T19:15:50Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1038,7 +1036,7 @@
           "p2": "Burel",
           "time": "15:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1535,7 +1533,7 @@
           "teId": "3314511",
           "p1": "Janicijevic",
           "p2": "Radovanovic",
-          "time": "00:00",
+          "time": "09:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1544,7 +1542,7 @@
           "teId": "3314449",
           "p1": "Cvetkovic",
           "p2": "Petkovic",
-          "time": "00:00",
+          "time": "09:30",
           "round": "QF",
           "h2h": "1-0",
           "finished": false
@@ -4673,27 +4671,27 @@
           "teId": "3314687",
           "p1": "De Zeeuw",
           "p2": "Horvit",
-          "time": "",
+          "time": "15:30",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3314685",
           "p1": "De Koning",
           "p2": "Tran",
-          "time": "",
+          "time": "15:30",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3314683",
           "p1": "Brand",
           "p2": "Zhenikhova",
-          "time": "",
+          "time": "15:30",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5696,15 +5694,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314133",
-          "p1": "Ayala",
-          "p2": "Doldan",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313697",
           "p1": "Agudelo",
           "p2": "Labrana",
@@ -5719,7 +5708,7 @@
           "p2": "Gerald Gonzalez",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5728,7 +5717,7 @@
           "p2": "Romero",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "5-0",
           "finished": false
         },
         {
@@ -5766,6 +5755,27 @@
           "sets2": [
             "1",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314133",
+          "p1": "Ayala",
+          "p2": "Doldan",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "2"
           ],
           "finished": true
         },
@@ -6157,5 +6167,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-03T19:39:07Z"
 }
