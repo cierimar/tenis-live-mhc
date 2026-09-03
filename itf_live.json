@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-03T09:52:39Z",
   "ok": true,
   "tournaments": [
     {
@@ -525,27 +524,9 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313845",
-          "p1": "Jorge",
-          "p2": "Gasanova",
-          "time": "10:10",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313587",
           "p1": "Werner",
           "p2": "Micic",
-          "time": "10:10",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313585",
-          "p1": "Dodin",
-          "p2": "Kinoshita",
           "time": "10:10",
           "round": "R16",
           "h2h": "0-0",
@@ -564,7 +545,7 @@
           "teId": "3314131",
           "p1": "Voloshchuk",
           "p2": "Rapolu",
-          "time": "12:00",
+          "time": "12:05",
           "round": "R16",
           "h2h": "0-1",
           "finished": false
@@ -573,7 +554,7 @@
           "teId": "3313765",
           "p1": "Fontenel",
           "p2": "Jorge",
-          "time": "12:00",
+          "time": "12:05",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -586,6 +567,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313585",
+          "p1": "Dodin",
+          "p2": "Kinoshita",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "5",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3313695",
@@ -603,6 +603,25 @@
           "sets2": [
             "4",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313845",
+          "p1": "Gasanova",
+          "p2": "Jorge",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "3"
           ],
           "finished": true
         },
@@ -2113,15 +2132,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313573",
-          "p1": "Todoni",
-          "p2": "Safta",
-          "time": "09:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313753",
           "p1": "Ogescu",
           "p2": "Cirstea",
@@ -2134,15 +2144,6 @@
           "teId": "3313751",
           "p1": "Prisacariu",
           "p2": "Dumitru",
-          "time": "10:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313605",
-          "p1": "Kryvoruchko",
-          "p2": "Paris",
           "time": "10:30",
           "round": "R16",
           "h2h": "0-0",
@@ -2165,6 +2166,46 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313605",
+          "p1": "Paris",
+          "p2": "Kryvoruchko",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313573",
+          "p1": "Todoni",
+          "p2": "Safta",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "09:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3313575",
@@ -2530,15 +2571,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313579",
-          "p1": "Van Zyl",
-          "p2": "Soriano Santiago",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313511",
           "p1": "Longueville",
           "p2": "Szostak",
@@ -2564,6 +2596,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313579",
+          "p1": "Van Zyl",
+          "p2": "Soriano Santiago",
+          "round": "quarterfinal",
+          "date": "03.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3312641",
@@ -3041,15 +3092,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313759",
-          "p1": "Lombardini",
-          "p2": "Gentili",
-          "time": "10:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313629",
           "p1": "Trevisan",
           "p2": "Schaefer",
@@ -3111,6 +3153,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313759",
+          "p1": "Gentili",
+          "p2": "Lombardini",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3312389",
@@ -4216,24 +4277,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314127",
-          "p1": "Diatlova",
-          "p2": "Bartone",
-          "time": "09:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3313839",
-          "p1": "Reguer",
-          "p2": "Mdlulwa",
-          "time": "09:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313837",
           "p1": "Bedini",
           "p2": "Petretic",
@@ -4270,6 +4313,25 @@
           "finished": false
         },
         {
+          "teId": "3313839",
+          "p1": "Mdlulwa",
+          "p2": "Reguer",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "09:30",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "4",
+            "4"
+          ],
+          "sets2": [
+            "6",
+            "1"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3313841",
           "p1": "Perapekhina",
           "p2": "Vaissaud",
@@ -4303,6 +4365,25 @@
           ],
           "sets2": [
             "3",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314127",
+          "p1": "Diatlova",
+          "p2": "Bartone",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
             "2"
           ],
           "finished": true
@@ -5008,5 +5089,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-03T10:05:45Z"
 }
