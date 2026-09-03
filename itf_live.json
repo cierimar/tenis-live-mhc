@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -5713,10 +5714,19 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314735",
+          "p1": "Moyano",
+          "p2": "Labrana",
+          "time": "15:30",
+          "round": "QF",
+          "h2h": "2-2",
+          "finished": false
+        },
+        {
           "teId": "3314721",
           "p1": "Ayala",
           "p2": "Urrutia",
-          "time": "",
+          "time": "15:30",
           "round": "QF",
           "h2h": "0-4",
           "finished": false
@@ -5725,7 +5735,7 @@
           "teId": "3314701",
           "p1": "Cabezas Dominguez",
           "p2": "Gerald Gonzalez",
-          "time": "",
+          "time": "15:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5734,18 +5744,9 @@
           "teId": "3314699",
           "p1": "Bosio",
           "p2": "Romero",
-          "time": "",
+          "time": "17:00",
           "round": "QF",
           "h2h": "5-0",
-          "finished": false
-        },
-        {
-          "teId": "3314735",
-          "p1": "Moyano",
-          "p2": "Labrana",
-          "time": "15:30",
-          "round": "QF",
-          "h2h": "2-2",
           "finished": false
         },
         {
@@ -6215,6 +6216,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-03T23:26:43Z"
+  "time": "2026-09-03T23:39:15Z"
 }
