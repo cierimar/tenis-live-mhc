@@ -98,6 +98,7 @@ body[data-mode='colors'] .nav-item[data-tab='live'] .ic, body[data-mode='colors'
 body[data-mode='colors'] .nav-item[data-tab='draws'] .ic, body[data-mode='colors'] .nav-item[data-tab='draws'] .lb { color: #00D9FF; }    /* CUADROS - cian */
 body[data-mode='colors'] .nav-item[data-tab='tournaments'] .ic, body[data-mode='colors'] .nav-item[data-tab='tournaments'] .lb { color: #0066FF; } /* TORNEOS - azul */
 body[data-mode='colors'] .nav-item[data-tab='calendar'] .ic, body[data-mode='colors'] .nav-item[data-tab='calendar'] .lb { color: #FFD600; } /* CALENDARIO - amarillo */
+body[data-mode='colors'] .nav-item[data-tab='schedule'] .ic, body[data-mode='colors'] .nav-item[data-tab='schedule'] .lb { color: #00E5B0; } /* SCHEDULE - turquesa */
 body[data-mode='colors'] .nav-item[data-tab='rankings'] .ic, body[data-mode='colors'] .nav-item[data-tab='rankings'] .lb { color: #39FF14; } /* RANKINGS - verde lima */
 body[data-mode='colors'] .nav-item[data-tab='argentina'] .ic, body[data-mode='colors'] .nav-item[data-tab='argentina'] .lb { color: #00E5B0; } /* ARGENTINA - turquesa */
 body[data-mode='colors'] .nav-item[data-tab='players'] .ic, body[data-mode='colors'] .nav-item[data-tab='players'] .lb { color: #7B2CFF; } /* PLAYERS - violeta */
@@ -366,7 +367,9 @@ body.tab-wheelchair #segMode,
 body.tab-news #segTour,
 body.tab-news #segMode,
 body.tab-videos #segTour,
-body.tab-videos #segMode { display: none; }
+body.tab-videos #segMode,
+body.tab-schedule #segTour,
+body.tab-schedule #segMode { display: none; }
 
 /* ---------------- layout contenido ---------------- */
 
@@ -853,6 +856,54 @@ main { max-width: 1180px; margin: 0 auto; padding: 8px 24px 40px; width: 100%; }
 .cal-body { overflow-x: auto; }
 .cal-item.cal-now { background: linear-gradient(90deg, var(--red-soft), transparent 60%); }
 .cal-now .cal-name::after { content: ' \2022'; color: var(--red); }
+
+/* ---------------- schedule of play ---------------- */
+
+.sched-block {
+  border: 1px solid var(--hairline-dark);
+  border-top: 3px solid var(--blue, var(--accent));
+  border-radius: 6px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.sched-tour {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  font-family: var(--serif); font-weight: 700; font-size: 16px;
+  border-bottom: 1px solid var(--hairline-dark);
+}
+.sched-tourtour {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase;
+}
+.sched-row {
+  display: grid; grid-template-columns: 58px 1fr auto 1fr auto auto;
+  gap: 10px; align-items: center;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 13px;
+}
+.sched-row:last-child { border-bottom: none; }
+.sched-row:hover { background: var(--red-soft); }
+.sched-time {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  color: var(--red); font-variant-numeric: tabular-nums;
+}
+.sched-name { color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sched-name.b { font-weight: 700; }
+.sched-vs { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; }
+.sched-round { color: var(--muted); font-size: 11px; text-align: right; white-space: nowrap; }
+.sched-status {
+  font-family: var(--mono); font-size: 9px; font-weight: 800;
+  letter-spacing: 0.08em; padding: 2px 6px; border-radius: 3px;
+  border: 1px solid currentColor;
+}
+.sched-live { color: var(--red); animation: schedPulse 1.6s ease-in-out infinite; }
+.sched-done { color: var(--green); }
+.sched-pre { color: var(--muted); }
+@keyframes schedPulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+.sched-score { color: var(--ink); font-weight: 700; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* ---------------- elo / players ---------------- */
 
