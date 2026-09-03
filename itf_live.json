@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-03T17:30:35Z",
   "ok": true,
   "tournaments": [
     {
@@ -536,9 +537,18 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "11:00",
+          "time": "01:00",
           "round": "QF",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314415",
+          "p1": "Werner",
+          "p2": "Dodin",
+          "time": "01:00",
+          "round": "QF",
+          "h2h": "0-1",
           "finished": false
         },
         {
@@ -548,15 +558,6 @@
           "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3314415",
-          "p1": "Werner",
-          "p2": "Dodin",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-1",
           "finished": false
         },
         {
@@ -1512,24 +1513,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314653",
-          "p1": "Cakarevic",
-          "p2": "Pedone",
-          "time": "",
-          "round": "QF",
-          "h2h": "-",
-          "finished": false
-        },
-        {
-          "teId": "3314651",
-          "p1": "Tona",
-          "p2": "Zaytseva",
-          "time": "",
-          "round": "QF",
-          "h2h": "-",
-          "finished": false
-        },
-        {
           "teId": "3314511",
           "p1": "Janicijevic",
           "p2": "Radovanovic",
@@ -1545,6 +1528,24 @@
           "time": "00:00",
           "round": "QF",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3314653",
+          "p1": "Cakarevic",
+          "p2": "Pedone",
+          "time": "10:00",
+          "round": "QF",
+          "h2h": "1-1",
+          "finished": false
+        },
+        {
+          "teId": "3314651",
+          "p1": "Tona",
+          "p2": "Zaytseva",
+          "time": "10:00",
+          "round": "QF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -6016,6 +6017,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-03T17:15:42Z"
+  ]
 }
