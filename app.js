@@ -18,7 +18,6 @@
     mixedLive: { matches: [], loaded: false },
     ttLive: { matches: [], tournaments: [], loaded: false },
     cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
-    schedDay: 'todos',
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
@@ -1671,7 +1670,6 @@
         await refreshRankingsDoubles();
       }
       state.lastUpdate = new Date();
-      refreshSchedule();
       render();
     } catch (err) {
       console.error(err);
@@ -1885,121 +1883,6 @@
   function rankMatch(m) {
     const w = m.state === 'in' ? 0 : m.suspended ? 1 : m.state === 'pre' ? 2 : 3;
     return w;
-  }
-
-  /* ---------------- schedule of play ---------------- */
-
-  function schedLocalKey(d) {
-    try {
-      const y = d.getFullYear(), m = ('0' + (d.getMonth() + 1)).slice(-2), dd = ('0' + d.getDate()).slice(-2);
-      return y + '-' + m + '-' + dd;
-    } catch (e) { return ''; }
-  }
-
-  function refreshSchedule() {
-    const key = schedLocalKey(new Date());
-    state.schedule = state.schedule || { data: [], loaded: false, key: '' };
-    if (state.schedule.loaded && state.schedule.key === key) return;
-    const matches = allMatches();
-    const seen = {};
-    const list = [];
-    for (const m of matches) {
-      if (!m || typeof m !== 'object' || !m.competitors) continue;
-      const did = m.id ? String(m.id) : '';
-      if (seen[did]) continue;
-      seen[did] = 1;
-      list.push(m);
-    }
-    state.schedule.data = list;
-    state.schedule.loaded = true;
-    state.schedule.key = key;
-  }
-
-  function schedGroupTours(list) {
-    const order = [];
-    const byT = {};
-    for (const m of list) {
-      const key = m.tournamentName || m.tournamentId || 'Otros';
-      if (!byT[key]) { byT[key] = { name: key, tour: m.tour || '', matches: [] }; order.push(key); }
-      byT[key].matches.push(m);
-    }
-    order.sort((a, b) => String(byT[a].name).localeCompare(String(byT[b].name)));
-    return order.map(k => byT[k]);
-  }
-
-  function schedSort(matches) {
-    return matches.slice().sort((a, b) => {
-      const ta = a.date ? new Date(a.date).getTime() : Infinity;
-      const tb = b.date ? new Date(b.date).getTime() : Infinity;
-      if (ta !== tb) return ta - tb;
-      return (a.round || '').localeCompare(b.round || '');
-    });
-  }
-
-  function renderSchedule() {
-    const el = $('schedContent');
-    const meta = $('schedMeta');
-    refreshSchedule();
-    if (!state.schedule || !state.schedule.loaded) { el.innerHTML = '<div class="loading">Cargando...</div>'; return; }
-    const now = new Date();
-    const todayKey = schedLocalKey(now);
-    const tomorrowKey = schedLocalKey(new Date(now.getTime() + 86400000));
-    let list = state.schedule.data;
-    if (state.schedDay === 'today' || state.schedDay === 'tomorrow') {
-      const wantKey = state.schedDay === 'tomorrow' ? tomorrowKey : todayKey;
-      list = list.filter(m => {
-        const d = m.date ? schedLocalKey(new Date(m.date)) : '';
-        return d === wantKey;
-      });
-    }
-    const groups = schedGroupTours(list);
-    let total = 0;
-    const html = groups.map(g => {
-      const ms = schedSort(g.matches);
-      total += ms.length;
-      const rows = ms.map(m => {
-        const home = m.competitors.find(c => c.homeAway === 'home') || m.competitors[0];
-        const away = m.competitors.find(c => c.homeAway === 'away') || (m.competitors[1] || null);
-        const hname = home ? (home.name || 'TBD') : 'TBD';
-        const aname = away ? (away.name || 'TBD') : 'TBD';
-        const timeTxt = m.date ? (function () {
-          const d = new Date(m.date);
-          if (isNaN(d.getTime())) return '';
-          return d.toLocaleTimeString('es', { hour: '2-digit', minute: '2-digit' });
-        })() : '--:--';
-        let statusChip = '';
-        if (m.state === 'in') statusChip = '<span class="sched-status sched-live">EN VIVO</span>';
-        else if (m.state === 'post') statusChip = '<span class="sched-status sched-done">FT</span>';
-        else statusChip = '<span class="sched-status sched-pre">PROX</span>';
-        let scoreTxt = '';
-        if (m.state === 'in' || m.state === 'post') {
-          const sets = [];
-          const sc = c => (c.linescores || []).map(ls => ls.value).join(' ');
-          sets.push(sc(home));
-          sets.push(sc(away));
-          const joined = sets.filter(s => s !== '').join(' / ');
-          if (joined) scoreTxt = '<span class="sched-score">' + esc(joined) + '</span>';
-        }
-        return '<div class="sched-row">' +
-          '<span class="sched-time">' + esc(timeTxt) + '</span>' +
-          '<span class="sched-name b">' + esc(hname) + '</span>' +
-          '<span class="sched-vs">vs</span>' +
-          '<span class="sched-name">' + esc(aname) + '</span>' +
-          '<span class="sched-round">' + esc(m.type + (m.round ? ' · ' + m.round : '')) + '</span>' +
-          statusChip + scoreTxt +
-          '</div>';
-      }).join('');
-      const gtour = g.tour === 'chall' ? 'CHALL' : (g.tour === 'itf' ? 'ITF' : (g.tour === 'mixto' ? 'MIXTO' : (g.tour === 'wta' ? 'WTA' : 'ATP')));
-      return '<div class="sched-block"><div class="sched-tour">' + esc(g.name) + ' <span class="sched-tourtour">' + gtour + '</span></div>' + rows + '</div>';
-    }).join('');
-    if (!total) {
-      el.innerHTML = '<div class="error-box">No hay partidos programados para este periodo.</div>';
-      meta.textContent = '0 partidos';
-      return;
-    }
-    el.innerHTML = html;
-    const when = state.schedDay === 'tomorrow' ? ' mañana' : (state.schedDay === 'today' ? ' hoy' : '');
-    meta.textContent = total + ' partidos' + when;
   }
 
   /* ---------------- render: finalizados ---------------- */
@@ -2799,7 +2682,6 @@
     else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
-    else if (state.tab === 'schedule') renderSchedule();
     else if (state.tab === 'wheelchair') renderWheelchair();
   }
 
@@ -2811,7 +2693,6 @@
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
   document.body.classList.toggle('tab-news', tab === 'news');
   document.body.classList.toggle('tab-videos', tab === 'videos');
-    document.body.classList.toggle('tab-schedule', tab === 'schedule');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
@@ -2821,11 +2702,6 @@
     if (tab === 'videos' && !state.videos.loaded) {
       render();
       refreshVideos();
-      return;
-    }
-    if (tab === 'schedule') {
-      render();
-      refreshAll();
       return;
     }
     if (tab === 'players' && !state.elo.loaded) {
@@ -2845,7 +2721,7 @@
       return;
     }
     render();
-    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'news' || tab === 'videos' || tab === 'schedule') && !state.matches.length) {
+    if ((tab === 'rankings' || tab === 'argentina' || tab === 'draws' || tab === 'tournaments' || tab === 'news' || tab === 'videos') && !state.matches.length) {
       refreshAll();
     }
   }
@@ -3328,17 +3204,6 @@
         state.cal.tab = b.dataset.cal;
         document.querySelectorAll('#segCal .seg-btn').forEach(x => x.classList.toggle('active', x === b));
         renderCalendar();
-      });
-    }
-
-    const segSched = document.getElementById('segSched');
-    if (segSched) {
-      segSched.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.schedDay = b.dataset.sd;
-        document.querySelectorAll('#segSched .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        renderSchedule();
       });
     }
 
