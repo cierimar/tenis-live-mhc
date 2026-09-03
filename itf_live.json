@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -24,15 +25,6 @@
           "finished": false
         },
         {
-          "teId": "3313201",
-          "p1": "Costoulas",
-          "p2": "Sidorova",
-          "time": "07:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3312495",
           "p1": "Wang",
           "p2": "Ma",
@@ -40,6 +32,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313201",
+          "p1": "Costoulas",
+          "p2": "Sidorova",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "07:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3312475",
@@ -4865,6 +4876,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-03T05:31:43Z"
+  "time": "2026-09-03T05:55:42Z"
 }
