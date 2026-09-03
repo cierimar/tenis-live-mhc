@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-03T13:02:38Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1005,15 +1004,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313011",
-          "p1": "Cherubini",
-          "p2": "Wolff",
-          "time": "13:15",
-          "round": "R16",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3313701",
           "p1": "Tubello",
           "p2": "Ebeling Koning",
@@ -1057,6 +1047,25 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3313011",
+          "p1": "Cherubini",
+          "p2": "Wolff",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3313595",
@@ -1473,7 +1482,7 @@
           "teId": "3313779",
           "p1": "Tona",
           "p2": "Stankovic",
-          "time": "15:10",
+          "time": "15:20",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -5557,5 +5566,6 @@
       ]
     }
   ],
+  "time": "2026-09-03T13:21:36Z",
   "ok": true
 }
