@@ -236,6 +236,15 @@ a { color: var(--blue); }
   background: var(--red); flex: 0 0 auto;
 }
 .slive-vs { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+.slive-item.is-pre { color: var(--muted); }
+.slive-item.is-pre .slive-player b { display: none; }
+.slive-glabel {
+  display: inline-flex; align-items: center;
+  margin-left: 10px; padding-left: 14px;
+  border-left: 1px solid var(--hairline-dark);
+  color: var(--accent, var(--blue)); font-weight: 700;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+}
 
 /* ============================================================
    LAYOUT 2 COLUMNAS (sidebar + contenido)
