@@ -1,6 +1,6 @@
 {
+  "time": "2026-09-03T13:59:37Z",
   "ok": true,
-  "time": "2026-09-03T13:49:09Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -537,9 +537,9 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1036,7 +1036,7 @@
           "teId": "3314141",
           "p1": "Zolotareva",
           "p2": "Lene",
-          "time": "16:45",
+          "time": "16:50",
           "round": "R16",
           "h2h": "1-0",
           "finished": false
@@ -1463,15 +1463,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313465",
-          "p1": "Radovanovic",
-          "p2": "Oz",
-          "time": "13:35",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313865",
           "p1": "Kokkinis",
           "p2": "Pedone",
@@ -1484,7 +1475,7 @@
           "teId": "3313779",
           "p1": "Tona",
           "p2": "Stankovic",
-          "time": "15:50",
+          "time": "16:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1514,6 +1505,27 @@
           "sets2": [
             "3",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313465",
+          "p1": "Radovanovic",
+          "p2": "Oz",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "13:35",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "2"
           ],
           "finished": true
         },
@@ -1945,7 +1957,7 @@
           "p2": "Roura Llaverias",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2369,15 +2381,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313577",
-          "p1": "Trush",
-          "p2": "Raggi",
-          "time": "12:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313489",
           "p1": "Lopatetska",
           "p2": "Sandru",
@@ -2403,6 +2406,27 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3313577",
+          "p1": "Raggi",
+          "p2": "Trush",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3313605",
@@ -2853,7 +2877,7 @@
           "p2": "Bayerlova",
           "time": "",
           "round": "SF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -3433,7 +3457,7 @@
           "p2": "Gasparini",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -3921,7 +3945,7 @@
           "p2": "Lazarenko",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
