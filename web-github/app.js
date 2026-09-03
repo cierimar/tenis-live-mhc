@@ -1884,6 +1884,26 @@
     return w;
   }
 
+  /* ---------------- resumen fijo EN VIVO (franja superior) ---------------- */
+
+  function renderSLive() {
+    const bar = $('slivebar');
+    if (!bar) return;
+    const track = $('sliveTrack');
+    const live = allMatches().filter(m => m && m.state === 'in');
+    if (!live.length) { bar.style.display = 'none'; return; }
+    bar.style.display = 'flex';
+    const items = live.map(m => {
+      const comps = (m.competitors || []).slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
+      const row = comps.map(c => {
+        const sets = (c.linescores || []).map(ls => (ls && ls.value != null ? ls.value : '-')).join(' ');
+        return '<span class="slive-player"><span class="slive-dot"></span>' + esc(c.name) + (sets ? ' <b>' + esc(sets) + '</b>' : '') + '</span>';
+      }).join('<span class="slive-vs">vs</span>');
+      return '<span class="slive-item"><span class="slive-tour">' + esc(tourLabel(m)) + '</span>' + row + '</span>';
+    }).join('\n');
+    track.innerHTML = items;
+  }
+
   /* ---------------- render: finalizados ---------------- */
 
   function renderNews() {
@@ -2682,6 +2702,7 @@
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
+    renderSLive();
   }
 
   function setTab(tab) {
