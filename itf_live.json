@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-02T23:59:51Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -4439,15 +4437,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313789",
-          "p1": "Tarantola",
-          "p2": "Urrutia",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3313767",
           "p1": "Romero",
           "p2": "Navarro Oliva",
@@ -4496,6 +4485,15 @@
           "teId": "3313849",
           "p1": "Bosio",
           "p2": "Zornada",
+          "time": "16:30",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3313789",
+          "p1": "Tarantola",
+          "p2": "Urrutia",
           "time": "16:30",
           "round": "R16",
           "h2h": "0-0",
@@ -4820,5 +4818,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-03T00:29:26Z"
 }
