@@ -1,4 +1,6 @@
 {
+  "time": "2026-09-03T19:49:40Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -523,11 +525,11 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313847",
-          "p1": "Reasco Gonzalez",
-          "p2": "Fruhvirtova",
-          "time": "20:15",
-          "round": "R16",
+          "teId": "3314461",
+          "p1": "Johnson",
+          "p2": "Gasanova",
+          "time": "13:00",
+          "round": "QF",
           "h2h": "0-0",
           "finished": false
         },
@@ -535,16 +537,7 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "01:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3314461",
-          "p1": "Johnson",
-          "p2": "Gasanova",
-          "time": "01:00",
+          "time": "14:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -553,10 +546,29 @@
           "teId": "3314415",
           "p1": "Werner",
           "p2": "Dodin",
-          "time": "01:00",
+          "time": "18:30",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3313847",
+          "p1": "Fruhvirtova",
+          "p2": "Reasco Gonzalez",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "20:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3313765",
@@ -1548,21 +1560,21 @@
           "finished": false
         },
         {
-          "teId": "3314653",
-          "p1": "Cakarevic",
-          "p2": "Pedone",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
           "teId": "3314651",
           "p1": "Tona",
           "p2": "Zaytseva",
-          "time": "10:00",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314653",
+          "p1": "Cakarevic",
+          "p2": "Pedone",
+          "time": "13:00",
+          "round": "QF",
+          "h2h": "1-1",
           "finished": false
         },
         {
@@ -5694,12 +5706,12 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3313697",
-          "p1": "Agudelo",
-          "p2": "Labrana",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "0-0",
+          "teId": "3314721",
+          "p1": "Ayala",
+          "p2": "Urrutia",
+          "time": "",
+          "round": "QF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -5740,9 +5752,9 @@
           "finished": true
         },
         {
-          "teId": "3313789",
-          "p1": "Urrutia",
-          "p2": "Tarantola",
+          "teId": "3313697",
+          "p1": "Labrana",
+          "p2": "Agudelo",
           "round": "round of 16",
           "date": "03.09.",
           "time": "17:30",
@@ -5753,8 +5765,8 @@
             "6"
           ],
           "sets2": [
-            "1",
-            "1"
+            "2",
+            "4"
           ],
           "finished": true
         },
@@ -5776,6 +5788,25 @@
             "6",
             "2",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313789",
+          "p1": "Urrutia",
+          "p2": "Tarantola",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "16:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
           ],
           "finished": true
         },
@@ -6167,7 +6198,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-03T19:39:07Z"
+  ]
 }
