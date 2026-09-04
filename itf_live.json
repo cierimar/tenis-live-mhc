@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-04T13:00:05Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -584,19 +584,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314461",
-          "p1": "Johnson",
-          "p2": "Gasanova",
-          "time": "13:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "14:55",
+          "time": "15:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -614,10 +605,29 @@
           "teId": "3314415",
           "p1": "Werner",
           "p2": "Dodin",
-          "time": "18:30",
+          "time": "19:30",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3314461",
+          "p1": "Johnson",
+          "p2": "Gasanova",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "13:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3313847",
@@ -1105,7 +1115,7 @@
           "teId": "3314703",
           "p1": "Lene",
           "p2": "Burel",
-          "time": "15:00",
+          "time": "15:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1114,7 +1124,7 @@
           "teId": "3314509",
           "p1": "Tubello",
           "p2": "Pace",
-          "time": "15:00",
+          "time": "15:45",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1623,7 +1633,7 @@
           "teId": "3314653",
           "p1": "Cakarevic",
           "p2": "Pedone",
-          "time": "14:55",
+          "time": "15:20",
           "round": "QF",
           "h2h": "1-1",
           "finished": false
@@ -2171,6 +2181,15 @@
       "name": "Badalona ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3314927",
+          "p1": "Mair",
+          "p2": "Argyrokastriti",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
         {
           "teId": "3314887",
           "p1": "Roura Llaverias",
@@ -3302,6 +3321,15 @@
           "finished": false
         },
         {
+          "teId": "3314935",
+          "p1": "Maines",
+          "p2": "Gentili",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3314553",
           "p1": "Gandolfi",
           "p2": "Shapatava",
@@ -3833,12 +3861,22 @@
       "matches": [
         {
           "teId": "3314617",
-          "p1": "Pabisiak",
-          "p2": "Adams",
+          "p1": "Adams",
+          "p2": "Pabisiak",
+          "round": "quarterfinal",
+          "date": "04.09.",
           "time": "12:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3314439",
@@ -6516,5 +6554,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-04T13:47:27Z"
 }
