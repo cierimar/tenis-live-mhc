@@ -1,5 +1,6 @@
 {
   "ok": true,
+  "time": "2026-09-04T11:27:14Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1610,22 +1611,32 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314651",
-          "p1": "Tona",
-          "p2": "Zaytseva",
-          "time": "11:25",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314653",
           "p1": "Cakarevic",
           "p2": "Pedone",
-          "time": "13:10",
+          "time": "13:30",
           "round": "QF",
           "h2h": "1-1",
           "finished": false
+        },
+        {
+          "teId": "3314651",
+          "p1": "Zaytseva",
+          "p2": "Tona",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "11:25",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3314449",
@@ -4860,7 +4871,7 @@
           "teId": "3314687",
           "p1": "De Zeeuw",
           "p2": "Horvit",
-          "time": "15:30",
+          "time": "18:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4869,7 +4880,7 @@
           "teId": "3314685",
           "p1": "De Koning",
           "p2": "Tran",
-          "time": "15:30",
+          "time": "18:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4878,7 +4889,7 @@
           "teId": "3314683",
           "p1": "Brand",
           "p2": "Zhenikhova",
-          "time": "15:30",
+          "time": "18:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4887,7 +4898,7 @@
           "teId": "3314525",
           "p1": "Van Zonneveld",
           "p2": "Claeys",
-          "time": "15:30",
+          "time": "18:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5386,7 +5397,7 @@
           "teId": "3314885",
           "p1": "Hansen",
           "p2": "Perapekhina",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -6448,6 +6459,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-04T11:12:06Z"
+  ]
 }
