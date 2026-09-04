@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1671,6 +1670,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314975",
+          "p1": "Petkovic",
+          "p2": "Pedone",
+          "time": "10:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3314901",
           "p1": "Radovanovic",
           "p2": "Zaytseva",
@@ -2806,21 +2814,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314931",
-          "p1": "Lopatetska",
-          "p2": "Raggi",
-          "time": "09:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314929",
           "p1": "Ogescu",
           "p2": "Breaz",
-          "time": "09:00",
+          "time": "10:00",
           "round": "SF",
           "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3314931",
+          "p1": "Lopatetska",
+          "p2": "Raggi",
+          "time": "11:00",
+          "round": "SF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5654,7 +5662,7 @@
           "teId": "3314885",
           "p1": "Hansen",
           "p2": "Perapekhina",
-          "time": "09:00",
+          "time": "08:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -6737,5 +6745,6 @@
       ]
     }
   ],
-  "time": "2026-09-04T15:44:28Z"
+  "ok": true,
+  "time": "2026-09-04T15:55:13Z"
 }
