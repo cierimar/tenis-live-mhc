@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-04T15:29:48Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1671,15 +1671,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314653",
-          "p1": "Cakarevic",
-          "p2": "Pedone",
-          "time": "15:20",
-          "round": "QF",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
           "teId": "3314901",
           "p1": "Radovanovic",
           "p2": "Zaytseva",
@@ -1687,6 +1678,27 @@
           "round": "SF",
           "h2h": "0-3",
           "finished": false
+        },
+        {
+          "teId": "3314653",
+          "p1": "Pedone",
+          "p2": "Cakarevic",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "15:20",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "0",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "6",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314651",
@@ -6212,24 +6224,6 @@
           "finished": false
         },
         {
-          "teId": "3314721",
-          "p1": "Ayala",
-          "p2": "Urrutia",
-          "time": "15:30",
-          "round": "QF",
-          "h2h": "0-4",
-          "finished": false
-        },
-        {
-          "teId": "3314701",
-          "p1": "Cabezas Dominguez",
-          "p2": "Gerald Gonzalez",
-          "time": "15:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314699",
           "p1": "Bosio",
           "p2": "Romero",
@@ -6237,6 +6231,44 @@
           "round": "QF",
           "h2h": "5-0",
           "finished": false
+        },
+        {
+          "teId": "3314701",
+          "p1": "Cabezas Dominguez",
+          "p2": "Gerald Gonzalez",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "15:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314721",
+          "p1": "Urrutia",
+          "p2": "Ayala",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "15:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3313849",
@@ -6705,5 +6737,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-04T15:44:28Z"
 }
