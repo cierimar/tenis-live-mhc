@@ -604,7 +604,7 @@
           "teId": "3314733",
           "p1": "Rapolu",
           "p2": "Fruhvirtova",
-          "time": "16:00",
+          "time": "17:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -2142,24 +2142,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314613",
-          "p1": "Lahey",
-          "p2": "Primorac",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3314477",
-          "p1": "Pozarenko",
-          "p2": "Roura Llaverias",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314549",
           "p1": "Lopez Alcaraz",
           "p2": "Argyrokastriti",
@@ -2176,6 +2158,53 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314887",
+          "p1": "Roura Llaverias",
+          "p2": "Lahey",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
+          "teId": "3314477",
+          "p1": "Roura Llaverias",
+          "p2": "Pozarenko",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314613",
+          "p1": "Lahey",
+          "p2": "Primorac",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3313569",
@@ -2655,15 +2684,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314437",
-          "p1": "Dumitru",
-          "p2": "Ogescu",
-          "time": "09:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314551",
           "p1": "Todoni",
           "p2": "Lopatetska",
@@ -2680,6 +2700,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314437",
+          "p1": "Ogescu",
+          "p2": "Dumitru",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3314503",
@@ -5304,15 +5343,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314409",
-          "p1": "Nepliy",
-          "p2": "Petretic",
-          "time": "08:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314885",
           "p1": "Hansen",
           "p2": "Perapekhina",
@@ -5337,6 +5367,27 @@
           "sets2": [
             "1",
             "6"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314409",
+          "p1": "Nepliy",
+          "p2": "Petretic",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "7",
+            "4"
           ],
           "finished": true
         },
@@ -6358,6 +6409,6 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-04T09:57:37Z"
+  "time": "2026-09-04T10:16:01Z",
+  "ok": true
 }
