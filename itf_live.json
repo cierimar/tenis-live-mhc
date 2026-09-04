@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1609,19 +1610,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314449",
-          "p1": "Cvetkovic",
-          "p2": "Petkovic",
-          "time": "09:50",
-          "round": "QF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3314651",
           "p1": "Tona",
           "p2": "Zaytseva",
-          "time": "11:00",
+          "time": "11:25",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1634,6 +1626,25 @@
           "round": "QF",
           "h2h": "1-1",
           "finished": false
+        },
+        {
+          "teId": "3314449",
+          "p1": "Petkovic",
+          "p2": "Cvetkovic",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "09:50",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3314511",
@@ -2645,15 +2656,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314503",
-          "p1": "Iancu",
-          "p2": "Raggi",
-          "time": "09:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314437",
           "p1": "Dumitru",
           "p2": "Ogescu",
@@ -2679,6 +2681,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314503",
+          "p1": "Raggi",
+          "p2": "Iancu",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3313489",
@@ -4251,15 +4272,6 @@
           "finished": false
         },
         {
-          "teId": "3314459",
-          "p1": "Appleton",
-          "p2": "Komano",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314439",
           "p1": "Kadzielska",
           "p2": "Kolonus",
@@ -4276,6 +4288,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314459",
+          "p1": "Appleton",
+          "p2": "Komano",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3313007",
@@ -5274,24 +5305,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314413",
-          "p1": "Diatlova",
-          "p2": "Hansen",
-          "time": "08:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3314411",
-          "p1": "Ezzat",
-          "p2": "Tkacheva",
-          "time": "08:00",
-          "round": "QF",
-          "h2h": "0-2",
-          "finished": false
-        },
-        {
           "teId": "3314409",
           "p1": "Nepliy",
           "p2": "Petretic",
@@ -5316,6 +5329,48 @@
           "sets2": [
             "1",
             "6"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314411",
+          "p1": "Ezzat",
+          "p2": "Tkacheva",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314413",
+          "p1": "Hansen",
+          "p2": "Diatlova",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "5"
           ],
           "finished": true
         },
@@ -6295,6 +6350,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-04T09:18:10Z"
+  "time": "2026-09-04T09:32:59Z"
 }
