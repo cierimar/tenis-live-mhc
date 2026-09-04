@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-04T16:40:55Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1114,15 +1113,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314509",
-          "p1": "Tubello",
-          "p2": "Pace",
-          "time": "16:40",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314963",
           "p1": "Burel",
           "p2": "Urgesi",
@@ -1130,6 +1120,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314509",
+          "p1": "Pace",
+          "p2": "Tubello",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "16:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3314703",
@@ -1672,21 +1681,21 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314901",
+          "p1": "Radovanovic",
+          "p2": "Zaytseva",
+          "time": "00:00",
+          "round": "SF",
+          "h2h": "0-3",
+          "finished": false
+        },
+        {
           "teId": "3314975",
           "p1": "Petkovic",
           "p2": "Pedone",
           "time": "10:00",
           "round": "SF",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3314901",
-          "p1": "Radovanovic",
-          "p2": "Zaytseva",
-          "time": "10:00",
-          "round": "SF",
-          "h2h": "0-3",
           "finished": false
         },
         {
@@ -6765,5 +6774,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-04T16:51:25Z"
 }
