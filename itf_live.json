@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-04T03:40:00Z",
+  "time": "2026-09-04T03:51:29Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -25,22 +26,30 @@
           "finished": false
         },
         {
-          "teId": "3314351",
-          "p1": "Garland",
-          "p2": "Morvayova",
-          "time": "05:10",
-          "round": "QF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3314349",
           "p1": "Costoulas",
           "p2": "Bai",
-          "time": "05:40",
+          "time": "05:55",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314351",
+          "p1": "Garland",
+          "p2": "Morvayova",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "05:10",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "5"
+          ],
+          "sets2": [
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3312495",
@@ -6215,6 +6224,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
