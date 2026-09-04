@@ -3305,10 +3305,10 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['broadcast', 'colors', 'claro'];
-      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', claro: '&#9788;' };
-      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', claro: 'Modo claro' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', claro: '#faf7f2' };
+      const MODES = ['broadcast', 'colors', 'verde', 'claro'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', claro: '&#9788;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', claro: 'Modo claro' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', claro: '#faf7f2' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
