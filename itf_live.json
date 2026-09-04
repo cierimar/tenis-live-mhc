@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-04T06:09:24Z",
+  "time": "2026-09-04T06:30:45Z",
   "ok": true,
   "tournaments": [
     {
@@ -13,6 +13,15 @@
           "p2": "Bai",
           "time": "07:05",
           "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314851",
+          "p1": "Astakhova",
+          "p2": "Cheapchandej",
+          "time": "04:00",
+          "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
@@ -567,7 +576,7 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "14:30",
+          "time": "14:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -2272,7 +2281,7 @@
           "p2": "Fojcik",
           "round": "round of 16",
           "date": "03.09.",
-          "time": "11:00",
+          "time": "10:41",
           "res1": 2,
           "res2": 0,
           "sets1": [
@@ -5781,25 +5790,6 @@
           "finished": false
         },
         {
-          "teId": "3313789",
-          "p1": "Urrutia",
-          "p2": "Tarantola",
-          "round": "round of 16",
-          "date": "03.09.",
-          "time": "19:16",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "1",
-            "1"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3313849",
           "p1": "Bosio",
           "p2": "Zornada",
@@ -5855,6 +5845,25 @@
             "6",
             "2",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3313789",
+          "p1": "Urrutia",
+          "p2": "Tarantola",
+          "round": "round of 16",
+          "date": "03.09.",
+          "time": "16:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
           ],
           "finished": true
         },
