@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-04T21:20:57Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -585,21 +583,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3315007",
-          "p1": "Johnson",
-          "p2": "Fruhvirtova",
+          "teId": "3315109",
+          "p1": "Werner",
+          "p2": "Klugman",
           "time": "11:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3315109",
-          "p1": "Werner",
-          "p2": "Klugman",
-          "time": "15:00",
+          "teId": "3315007",
+          "p1": "Johnson",
+          "p2": "Fruhvirtova",
+          "time": "13:00",
           "round": "SF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -6845,5 +6843,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-04T21:32:58Z"
 }
