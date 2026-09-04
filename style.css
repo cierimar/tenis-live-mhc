@@ -298,6 +298,108 @@ body[data-mode='verde'] .sb-logo-sub {
   animation: verdeShift 10s linear infinite;
 }
 
+/* ============================================================
+   MODO AMARILLO - fondo negro abs + letras/nums amarillo fluo
+   + bordes de recuadros en blanco brillante
+   ============================================================ */
+
+body[data-mode='amarillo'] {
+  --paper: #000000;
+  --paper-2: #000000;
+  --paper-3: #000000;
+  --ink: #eaff00;        /* letras/numeros = amarillo fluorescente */
+  --ink-2: #fffbe6;
+  --muted: #c8f200;
+  --hairline: #ffffff;   /* bordes = blanco brillante */
+  --hairline-dark: #ffffff;
+  --red: #eaff00;        /* rojo slot funciona con amarillo */
+  --red-dark: #eaff00;
+  --red-vivo: #ffffff;   /* acentos vivos = blanco */
+  --red-soft: rgba(234, 255, 0, 0.14);
+  --green: #ffffff;
+  --amber: #eaff00;
+  --blue: #eaff00;
+  --shadow: none;
+  --bg: #000000;
+}
+body[data-mode='amarillo'] ::selection { background: #eaff00; color: #000; }
+
+/* acentos por componente: letras/numeros amarillo, recuadros blanco */
+body[data-mode='amarillo'] a { color: #eaff00; }
+body[data-mode='amarillo'] .section-head h2 { color: #eaff00; }
+body[data-mode='amarillo'] .section-head h2::before { background: #ffffff; }
+body[data-mode='amarillo'] .nav-item.active { border-left-color: #ffffff; border-top: 1px solid #ffffff; border-bottom: 1px solid #ffffff; background: rgba(255, 255, 255, 0.05); }
+body[data-mode='amarillo'] .nav-item[data-tab='live'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='live'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='draws'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='draws'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='tournaments'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='tournaments'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='calendar'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='calendar'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='rankings'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='rankings'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='argentina'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='argentina'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='players'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='players'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='h2hsearch'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='h2hsearch'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='news'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='news'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='videos'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='videos'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item[data-tab='wheelchair'] .ic, body[data-mode='amarillo'] .nav-item[data-tab='wheelchair'] .lb { color: #eaff00; }
+body[data-mode='amarillo'] .nav-item:hover .ic, body[data-mode='amarillo'] .nav-item:hover .lb { color: #ffffff; }
+body[data-mode='amarillo'] .rank-section-title { color: #eaff00; }
+body[data-mode='amarillo'] .th-tier { border-color: #ffffff; color: #ffffff; }
+body[data-mode='amarillo'] .th-surf { color: #eaff00; }
+body[data-mode='amarillo'] .seed-badge { border-color: #ffffff; color: #ffffff; }
+body[data-mode='amarillo'] .set.win { color: #eaff00; }
+body[data-mode='amarillo'] .set.live-set { background: #eaff00; color: #000; }
+body[data-mode='amarillo'] .match.live { border-left-color: #ffffff; }
+body[data-mode='amarillo'] .match:hover { border-color: #ffffff; }
+body[data-mode='amarillo'] .pname.winner::after { color: #ffffff; }
+body[data-mode='amarillo'] .badge.live { background: #eaff00; }
+body[data-mode='amarillo'] .badge.final { background: #ffffff; color: #000; }
+body[data-mode='amarillo'] .seg-btn.active { background: #eaff00; color: #000; }
+body[data-mode='amarillo'] .btn-refresh:hover { background: #ffffff; border-color: #ffffff; }
+body[data-mode='amarillo'] .h2h-go { background: #eaff00; border-color: #eaff00; }
+body[data-mode='amarillo'] .h2h-go:hover { background: #ffffff; border-color: #ffffff; }
+body[data-mode='amarillo'] .rank-search:focus { border-bottom-color: #ffffff; }
+body[data-mode='amarillo'] .round-chip.active { background: #eaff00; border-color: #eaff00; }
+body[data-mode='amarillo'] .cal-month { color: #eaff00; }
+body[data-mode='amarillo'] .cal-now .cal-name::after { color: #eaff00; }
+body[data-mode='amarillo'] .mode-label { color: #eaff00; }
+body[data-mode='amarillo'] .news-title a:hover { color: #eaff00; }
+body[data-mode='amarillo'] .lv-btn.active { background: #eaff00; border-color: #eaff00; }
+body[data-mode='amarillo'] .draw-match.live { border-color: #ffffff; }
+body[data-mode='amarillo'] .stk-red { color: #eaff00; }
+body[data-mode='amarillo'] .lp-score { background: rgba(234, 255, 0, 0.18); }
+body[data-mode='amarillo'] .r-move.up { color: #eaff00; }
+body[data-mode='amarillo'] .r-move.down { color: #ffffff; }
+
+/* ---- recuadros con borde blanco brillante ---- */
+body[data-mode='amarillo'] .tour-block { border: 1px solid #ffffff; }
+body[data-mode='amarillo'] .tour-block .tour-head { border-bottom: 2px solid #ffffff; }
+body[data-mode='amarillo'] .tour-block .match { border: 1px solid #ffffff; }
+body[data-mode='amarillo'] .news-card { border: 1px solid #ffffff; border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .video-card { border: 1px solid #ffffff; border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .col-card { border: 1px solid #ffffff; border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .wc-res-card { border: 1px solid #ffffff; border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .calendar, body[data-mode='amarillo'] .cal-block { border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .draw-board { border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .h2h-block { border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .rank-table-wrap { border-top: 3px solid #ffffff; }
+body[data-mode='amarillo'] .ct-card { border-top: 3px solid #ffffff; }
+
+/* tarjetas de partido: borde izq rotativo blanco/amarillo */
+body[data-mode='amarillo'] .tour-block .match:nth-of-type(3n+1) { border-left: 3px solid #ffffff; }
+body[data-mode='amarillo'] .tour-block .match:nth-of-type(3n+2) { border-left: 3px solid #eaff00; }
+body[data-mode='amarillo'] .tour-block .match:nth-of-type(3n+3) { border-left: 3px solid #ffffff; }
+body[data-mode='amarillo'] .tour-block .match.live { border-left: 4px solid #ffffff !important; }
+
+/* ---- nameplate / titulo: amarillo fluo con glow ---- */
+body[data-mode='amarillo'] .sb-logo {
+  color: #eaff00;
+  text-shadow: 0 0 12px rgba(234, 255, 0, 0.8), 0 0 30px rgba(234, 255, 0, 0.4);
+  font-weight: 800;
+}
+body[data-mode='amarillo'] .sb-logo-sub {
+  color: #eaff00;
+  text-shadow: 0 0 8px rgba(234, 255, 0, 0.6);
+}
+
 ::selection { background: var(--red); color: #fff; }
 
 a { color: var(--blue); }
