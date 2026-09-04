@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-04T17:18:14Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1115,7 +1116,7 @@
           "teId": "3314963",
           "p1": "Burel",
           "p2": "Urgesi",
-          "time": "11:00",
+          "time": "14:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -6233,15 +6234,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314699",
-          "p1": "Bosio",
-          "p2": "Romero",
-          "time": "17:00",
-          "round": "QF",
-          "h2h": "5-0",
-          "finished": false
-        },
-        {
           "teId": "3314979",
           "p1": "Urrutia",
           "p2": "Labrana",
@@ -6249,6 +6241,25 @@
           "round": "SF",
           "h2h": "2-1",
           "finished": false
+        },
+        {
+          "teId": "3314699",
+          "p1": "Bosio",
+          "p2": "Romero",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "17:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3314701",
@@ -6774,6 +6785,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-04T17:02:33Z"
+  "ok": true
 }
