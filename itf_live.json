@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -586,7 +587,7 @@
           "teId": "3314461",
           "p1": "Johnson",
           "p2": "Gasanova",
-          "time": "13:00",
+          "time": "13:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -595,7 +596,7 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "14:00",
+          "time": "14:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1095,7 +1096,7 @@
           "teId": "3314571",
           "p1": "Ferro",
           "p2": "Cherubini",
-          "time": "13:00",
+          "time": "13:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1104,7 +1105,7 @@
           "teId": "3314465",
           "p1": "Urgesi",
           "p2": "Carle",
-          "time": "13:00",
+          "time": "13:10",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -1621,7 +1622,7 @@
           "teId": "3314653",
           "p1": "Cakarevic",
           "p2": "Pedone",
-          "time": "13:00",
+          "time": "13:10",
           "round": "QF",
           "h2h": "1-1",
           "finished": false
@@ -3223,15 +3224,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314479",
-          "p1": "Sasnouskaya",
-          "p2": "Bayerlova",
-          "time": "10:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314425",
           "p1": "Van Zyl",
           "p2": "Longueville",
@@ -3239,6 +3231,25 @@
           "round": "SF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3314479",
+          "p1": "Bayerlova",
+          "p2": "Sasnouskaya",
+          "round": "semifinal",
+          "date": "04.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3313687",
@@ -3803,15 +3814,6 @@
           "finished": false
         },
         {
-          "teId": "3314457",
-          "p1": "Gentili",
-          "p2": "Voracek",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314553",
           "p1": "Shapatava",
           "p2": "Gandolfi",
@@ -3828,6 +3830,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314457",
+          "p1": "Gentili",
+          "p2": "Voracek",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3312605",
@@ -4301,15 +4322,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314483",
-          "p1": "Chudejova",
-          "p2": "Lazarenko",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314439",
           "p1": "Kadzielska",
           "p2": "Kolonus",
@@ -4343,6 +4355,25 @@
           "sets2": [
             "0",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314483",
+          "p1": "Lazarenko",
+          "p2": "Chudejova",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4"
           ],
           "finished": true
         },
@@ -6418,6 +6449,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-04T10:46:06Z"
+  "time": "2026-09-04T11:12:06Z"
 }
