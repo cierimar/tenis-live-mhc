@@ -1,21 +1,10 @@
 {
-  "time": "2026-09-04T06:30:45Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
       "name": "Tianjin 5 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3314349",
-          "p1": "Costoulas",
-          "p2": "Bai",
-          "time": "07:05",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3314851",
           "p1": "Astakhova",
@@ -24,6 +13,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314349",
+          "p1": "Bai",
+          "p2": "Costoulas",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "07:05",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "1",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314351",
@@ -6255,5 +6265,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-04T07:00:51Z"
 }
