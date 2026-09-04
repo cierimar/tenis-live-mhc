@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-04T12:07:10Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -596,7 +595,7 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "14:10",
+          "time": "14:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1613,7 +1612,7 @@
           "teId": "3314653",
           "p1": "Cakarevic",
           "p2": "Pedone",
-          "time": "14:05",
+          "time": "14:30",
           "round": "QF",
           "h2h": "1-1",
           "finished": false
@@ -2162,15 +2161,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314549",
-          "p1": "Lopez Alcaraz",
-          "p2": "Argyrokastriti",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314887",
           "p1": "Roura Llaverias",
           "p2": "Lahey",
@@ -2195,6 +2185,25 @@
           "sets2": [
             "1",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314549",
+          "p1": "Argyrokastriti",
+          "p2": "Lopez Alcaraz",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
           ],
           "finished": true
         },
@@ -5448,7 +5457,7 @@
           "teId": "3314889",
           "p1": "Nepliy",
           "p2": "Ezzat",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -6520,5 +6529,6 @@
       ]
     }
   ],
+  "time": "2026-09-04T12:29:00Z",
   "ok": true
 }
