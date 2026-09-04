@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "time": "2026-09-04T18:23:28Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -584,22 +584,34 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314733",
-          "p1": "Rapolu",
-          "p2": "Fruhvirtova",
-          "time": "17:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314415",
           "p1": "Werner",
           "p2": "Dodin",
-          "time": "20:35",
+          "time": "20:25",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3314733",
+          "p1": "Fruhvirtova",
+          "p2": "Rapolu",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "17:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "1",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3314485",
@@ -6785,5 +6797,5 @@
       ]
     }
   ],
-  "time": "2026-09-04T18:06:21Z"
+  "ok": true
 }
