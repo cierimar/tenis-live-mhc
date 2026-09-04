@@ -156,7 +156,11 @@ if (-not $tours -or @($tours).Count -eq 0) {
 }
 $total = 0
 foreach ($t in @($tours)) { $total += [int]$t.matches.Count }
-if ($total -eq 0) { Write-Output 'sin partidos en tennistemple - no se commitea'; exit 1 }
+if ($total -eq 0) {
+    Write-Output 'DIAG liveall 0 partidos: tours=' + @($tours).Count;
+    foreach ($t in @($tours)) { Write-Output ('DIAG tour ' + $t.name + ' matches=' + $t.matches.Count) }
+    exit 1
+}
 $json = [ordered]@{
     ok = $true
     time = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
