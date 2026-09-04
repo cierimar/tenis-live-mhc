@@ -584,15 +584,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314485",
-          "p1": "Klugman",
-          "p2": "Fontenel",
-          "time": "15:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314733",
           "p1": "Rapolu",
           "p2": "Fruhvirtova",
@@ -609,6 +600,25 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3314485",
+          "p1": "Klugman",
+          "p2": "Fontenel",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "15:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314461",
@@ -1108,6 +1118,15 @@
           "p2": "Pace",
           "time": "16:40",
           "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314963",
+          "p1": "Burel",
+          "p2": "Urgesi",
+          "time": "11:00",
+          "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
@@ -3959,7 +3978,7 @@
           "p2": "Trevisan",
           "time": "",
           "round": "SF",
-          "h2h": "-",
+          "h2h": "0-1",
           "finished": false
         },
         {
@@ -6686,5 +6705,5 @@
       ]
     }
   ],
-  "time": "2026-09-04T14:45:16Z"
+  "time": "2026-09-04T14:56:48Z"
 }
