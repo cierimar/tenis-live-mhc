@@ -14,7 +14,7 @@ function Get-TennisTempleLive {
             $fi = Get-Item $path
             if ($fi.Length -lt 2000) { return $false }
             $c = [IO.File]::ReadAllText($path)
-            return ($c -match '<section class="site"')
+            return ($c -match '<section class="site"' -and $c -match '<a class="tt-match')
         }
         & $curlCmd -s -L --compressed --connect-timeout 15 --max-time 40 -A $ua -o $tmp 'https://es.tennistemple.com/matches/' 2>$null
         if (-not (Get-DttHtmlValid $tmp)) {
