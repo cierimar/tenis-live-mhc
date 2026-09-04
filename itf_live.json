@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": "2026-09-04T11:27:14Z",
+  "time": "2026-09-04T11:53:05Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1614,9 +1614,18 @@
           "teId": "3314653",
           "p1": "Cakarevic",
           "p2": "Pedone",
-          "time": "13:30",
+          "time": "13:55",
           "round": "QF",
           "h2h": "1-1",
+          "finished": false
+        },
+        {
+          "teId": "3314901",
+          "p1": "Radovanovic",
+          "p2": "Zaytseva",
+          "time": "10:00",
+          "round": "SF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -2163,15 +2172,6 @@
           "finished": false
         },
         {
-          "teId": "3314547",
-          "p1": "Mair",
-          "p2": "Giraldi Requena",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314887",
           "p1": "Roura Llaverias",
           "p2": "Lahey",
@@ -2179,6 +2179,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314547",
+          "p1": "Mair",
+          "p2": "Giraldi Requena",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314477",
@@ -2696,22 +2715,42 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314551",
-          "p1": "Todoni",
-          "p2": "Lopatetska",
+          "teId": "3314385",
+          "p1": "Breaz",
+          "p2": "Paris",
+          "round": "quarterfinal",
+          "date": "04.09.",
           "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
-          "teId": "3314385",
-          "p1": "Paris",
-          "p2": "Breaz",
+          "teId": "3314551",
+          "p1": "Lopatetska",
+          "p2": "Todoni",
+          "round": "quarterfinal",
+          "date": "04.09.",
           "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3314437",
@@ -3238,10 +3277,22 @@
           "teId": "3314425",
           "p1": "Van Zyl",
           "p2": "Longueville",
+          "round": "semifinal",
+          "date": "04.09.",
           "time": "10:30",
-          "round": "SF",
-          "h2h": "1-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "6",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3314479",
@@ -4333,15 +4384,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314439",
-          "p1": "Kadzielska",
-          "p2": "Kolonus",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314617",
           "p1": "Pabisiak",
           "p2": "Adams",
@@ -4349,6 +4391,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314439",
+          "p1": "Kolonus",
+          "p2": "Kadzielska",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314459",
