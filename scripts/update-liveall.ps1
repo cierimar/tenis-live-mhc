@@ -51,13 +51,20 @@ function Get-TennisTempleLive {
                 $f2 = if ($flags.Count -gt 1) { $flags[1].Groups[1].Value } else { '' }
                 $f3 = if ($flags.Count -gt 2) { $flags[2].Groups[1].Value } else { '' }
                 $f4 = if ($flags.Count -gt 3) { $flags[3].Groups[1].Value } else { '' }
+                # estado real por clases del anchor / visibilidad del bloque scores
+                # OJO: el template SIEMPRE incluye los divs ocultos .postponed/.suspended -> no usar -match sobre esas palabras
                 $isPlaying = $m -match 'class="tt-match match playing'
-                $isPostponed = $m -match 'postponed'
-                $isSuspended = $m -match 'suspended'
                 $state = 'pre'
                 if ($isPlaying) { $state = 'in' }
                 $roundM = [regex]::Match($m, 'class="round-label-short[^"]*">([^<]+)<')
                 $round = if ($roundM.Success) { $roundM.Groups[1].Value.Trim() } else { '' }
+                # hora programada ("15:30") -> date local para mostrar en el draw
+                $mDate = $null
+                $stM = [regex]::Match($m, '<div class="schedule-time[^"]*"[^>]*>\s*([^<]+?)\s*<')
+                if ($stM.Success) {
+                    $t = $stM.Groups[1].Value.Trim()
+                    if ($t -match '^\d{1,2}:\d{2}') { $mDate = '2000-01-01T' + $t + ':00' }
+                }
                 $games = [regex]::Matches($m, '<div class="game">\s*([^<]+)\s*</div>')
                 $game1 = if ($games.Count -gt 0) { $games[0].Groups[1].Value.Trim() } else { '' }
                 $game2 = if ($games.Count -gt 1) { $games[1].Groups[1].Value.Trim() } else { '' }
@@ -71,6 +78,8 @@ function Get-TennisTempleLive {
                 foreach ($sm in [regex]::Matches($m, '<div class="player player2">[\s\S]*?</div>\s*</div>', 'Singleline')) {
                     foreach ($sv in [regex]::Matches($sm.Value, 'class="set set\d+[^"]*">\s*([^<]+)\s*</div>')) { if ($sv.Groups[1].Value.Trim() -ne '') { $sets2 += $sv.Groups[1].Value.Trim() } }
                 }
+                # post = scores visibles (sin display:none) + sets no vacios y no en vivo
+                if ($state -eq 'pre' -and ($sets1.Count + $sets2.Count) -gt 0 -and $m -notmatch 'style="display:\s?none"') { $state = 'post' }
                 $isDoubles = $names.Count -ge 4
                 $k = if ($isDoubles) { 'Doubles' } else { 'Singles' }
                 $type = $k
@@ -79,7 +88,7 @@ function Get-TennisTempleLive {
                 else { $type = 'Men ' + $k }
                 $mList.Add([pscustomobject]@{
                     id = 'tt-' + $mid
-                    date = $null
+                    date = $mDate
                     state = $state
                     period = $null
                     type = $type
@@ -91,8 +100,8 @@ function Get-TennisTempleLive {
                     venue = $level
                     notes = ''
                     fortified = $false
-                    postponed = $isPostponed
-                    suspended = $isSuspended
+                    postponed = $false
+                    suspended = $false
                     live = ($state -eq 'in')
                     pts0 = $game1
                     pts1 = $game2
