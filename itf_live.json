@@ -1,6 +1,6 @@
 {
+  "time": "2026-09-04T20:42:48Z",
   "ok": true,
-  "time": "2026-09-04T20:15:37Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -585,15 +585,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314415",
-          "p1": "Werner",
-          "p2": "Dodin",
-          "time": "20:25",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3315007",
           "p1": "Johnson",
           "p2": "Fruhvirtova",
@@ -601,6 +592,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314415",
+          "p1": "Werner",
+          "p2": "Dodin",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "20:25",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314733",
