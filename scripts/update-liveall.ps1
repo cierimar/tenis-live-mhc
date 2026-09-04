@@ -8,13 +8,21 @@ function Get-TennisTempleLive {
     try {
         $curlCmd = @('curl.exe', 'curl') | Where-Object { Get-Command $_ -ErrorAction SilentlyContinue } | Select-Object -First 1
         if (-not $curlCmd) { Write-Output 'sin curl disponible'; return $null }
-        & $curlCmd -s -L --compressed --connect-timeout 15 --max-time 40 -A $ua -o $tmp 'https://es.tennistemple.com/matches/' 2>$null
-        if (-not (Test-Path $tmp) -or ((Get-Item $tmp).Length -lt 2000)) {
-            Write-Output 'tennistemple directo fallo o bloqueado - reintento via r.jina.ai'
-            Start-Sleep 2
-            & $curlCmd -s -L --connect-timeout 20 --max-time 90 -A $ua -H 'X-Return-Format: html' -o $tmp 'https://r.jina.ai/https://es.tennistemple.com/matches/' 2>$null
+        function Get-DttHtmlValid {
+            param([string]$path)
+            if (-not (Test-Path $path)) { return $false }
+            $fi = Get-Item $path
+            if ($fi.Length -lt 2000) { return $false }
+            $c = [IO.File]::ReadAllText($path)
+            return ($c -match '<section class="site"')
         }
-        if (-not (Test-Path $tmp) -or ((Get-Item $tmp).Length -lt 2000)) { Write-Output 'sin html util de tennistemple'; return $null }
+        & $curlCmd -s -L --compressed --connect-timeout 15 --max-time 40 -A $ua -o $tmp 'https://es.tennistemple.com/matches/' 2>$null
+        if (-not (Get-DttHtmlValid $tmp)) {
+            Write-Output 'tennistemple directo sin html valido - reintento via r.jina.ai'
+            Start-Sleep 2
+            & $curlCmd -s -L --connect-timeout 25 --max-time 90 -A $ua -H 'X-Return-Format: html' -o $tmp 'https://r.jina.ai/https://es.tennistemple.com/matches/' 2>$null
+        }
+        if (-not (Get-DttHtmlValid $tmp)) { Write-Output 'sin html util de tennistemple'; return $null }
         $html = [IO.File]::ReadAllText($tmp)
         $tournaments = New-Object System.Collections.Generic.List[object]
         $matchSeq = 0
