@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -596,7 +595,7 @@
           "teId": "3314415",
           "p1": "Werner",
           "p2": "Dodin",
-          "time": "20:25",
+          "time": "20:35",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -1681,21 +1680,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314901",
-          "p1": "Radovanovic",
-          "p2": "Zaytseva",
-          "time": "00:00",
-          "round": "SF",
-          "h2h": "0-3",
-          "finished": false
-        },
-        {
           "teId": "3314975",
           "p1": "Petkovic",
           "p2": "Pedone",
           "time": "10:00",
           "round": "SF",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3314901",
+          "p1": "Radovanovic",
+          "p2": "Zaytseva",
+          "time": "10:00",
+          "round": "SF",
+          "h2h": "0-3",
           "finished": false
         },
         {
@@ -5147,7 +5146,7 @@
           "teId": "3314687",
           "p1": "De Zeeuw",
           "p2": "Horvit",
-          "time": "18:30",
+          "time": "12:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5156,7 +5155,7 @@
           "teId": "3314685",
           "p1": "De Koning",
           "p2": "Tran",
-          "time": "18:30",
+          "time": "12:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5165,7 +5164,7 @@
           "teId": "3314683",
           "p1": "Brand",
           "p2": "Zhenikhova",
-          "time": "18:30",
+          "time": "12:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5174,7 +5173,7 @@
           "teId": "3314525",
           "p1": "Van Zonneveld",
           "p2": "Claeys",
-          "time": "18:30",
+          "time": "12:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -6785,5 +6784,6 @@
       ]
     }
   ],
-  "time": "2026-09-04T17:30:00Z"
+  "ok": true,
+  "time": "2026-09-04T17:52:41Z"
 }
