@@ -1,7 +1,5 @@
 {
   "count": 1,
-  "updated": "2026-09-04T22:41:59Z",
-  "ok": true,
   "matches": [
     {
       "id": "te-3314925",
@@ -14,34 +12,36 @@
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
           "flag": "",
           "flagAlt": "",
-          "homeAway": "home",
           "winner": false,
           "name": "Vasa E. / Vasa I.",
           "linescores": [
             {
-              "winner": false,
               "tiebreak": null,
+              "winner": false,
               "value": 5
             }
           ]
         },
         {
+          "homeAway": "away",
           "flag": "",
           "flagAlt": "",
-          "homeAway": "away",
           "winner": true,
           "name": "Braynin A / Hipfl N.",
           "linescores": [
             {
-              "winner": true,
               "tiebreak": null,
+              "winner": true,
               "value": 5
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "updated": "2026-09-04T22:56:25Z"
 }
