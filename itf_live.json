@@ -6223,15 +6223,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314735",
-          "p1": "Moyano",
-          "p2": "Labrana",
-          "time": "15:30",
-          "round": "QF",
-          "h2h": "2-2",
-          "finished": false
-        },
-        {
           "teId": "3314699",
           "p1": "Bosio",
           "p2": "Romero",
@@ -6275,6 +6266,25 @@
           "sets2": [
             "5",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314735",
+          "p1": "Labrana",
+          "p2": "Moyano",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "15:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1"
           ],
           "finished": true
         },
@@ -6746,5 +6756,5 @@
     }
   ],
   "ok": true,
-  "time": "2026-09-04T15:55:13Z"
+  "time": "2026-09-04T16:10:56Z"
 }
