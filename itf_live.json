@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1102,19 +1103,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314465",
-          "p1": "Urgesi",
-          "p2": "Carle",
-          "time": "13:10",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3314509",
           "p1": "Tubello",
           "p2": "Pace",
-          "time": "16:20",
+          "time": "16:40",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1134,6 +1126,27 @@
           ],
           "sets2": [
             "0",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314465",
+          "p1": "Urgesi",
+          "p2": "Carle",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "13:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "6",
             "3"
           ],
           "finished": true
@@ -2765,7 +2778,7 @@
           "teId": "3314931",
           "p1": "Lopatetska",
           "p2": "Raggi",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2774,7 +2787,7 @@
           "teId": "3314929",
           "p1": "Ogescu",
           "p2": "Breaz",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-1",
           "finished": false
@@ -3941,6 +3954,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3314959",
+          "p1": "Gandolfi",
+          "p2": "Trevisan",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3314935",
           "p1": "Maines",
           "p2": "Gentili",
@@ -4502,7 +4524,7 @@
           "teId": "3314939",
           "p1": "Lazarenko",
           "p2": "Adams",
-          "time": "",
+          "time": "10:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4511,7 +4533,7 @@
           "teId": "3314937",
           "p1": "Appleton",
           "p2": "Kolonus",
-          "time": "",
+          "time": "11:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -6664,6 +6686,5 @@
       ]
     }
   ],
-  "time": "2026-09-04T14:30:48Z",
-  "ok": true
+  "time": "2026-09-04T14:45:16Z"
 }
