@@ -1,6 +1,5 @@
 {
-  "ok": true,
-  "time": "2026-09-04T12:48:56Z",
+  "time": "2026-09-04T13:00:05Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -597,7 +596,7 @@
           "teId": "3314485",
           "p1": "Klugman",
           "p2": "Fontenel",
-          "time": "14:50",
+          "time": "14:55",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1094,15 +1093,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314571",
-          "p1": "Ferro",
-          "p2": "Cherubini",
-          "time": "13:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314465",
           "p1": "Urgesi",
           "p2": "Carle",
@@ -1128,6 +1118,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314571",
+          "p1": "Ferro",
+          "p2": "Cherubini",
+          "round": "quarterfinal",
+          "date": "04.09.",
+          "time": "13:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3313725",
@@ -1614,7 +1623,7 @@
           "teId": "3314653",
           "p1": "Cakarevic",
           "p2": "Pedone",
-          "time": "14:35",
+          "time": "14:55",
           "round": "QF",
           "h2h": "1-1",
           "finished": false
@@ -6506,5 +6515,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
