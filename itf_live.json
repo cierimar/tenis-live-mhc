@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-05T08:11:16Z",
   "tournaments": [
     {
       "id": "itf-leiria2026wta-women",
@@ -1157,7 +1158,7 @@
           "teId": "3314901",
           "p1": "Radovanovic",
           "p2": "Zaytseva",
-          "time": "10:00",
+          "time": "10:10",
           "round": "SF",
           "h2h": "0-3",
           "finished": false
@@ -5134,15 +5135,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314889",
-          "p1": "Nepliy",
-          "p2": "Ezzat",
-          "time": "08:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314885",
           "p1": "Perapekhina",
           "p2": "Hansen",
@@ -5158,6 +5150,25 @@
           "sets2": [
             "3",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314889",
+          "p1": "Ezzat",
+          "p2": "Nepliy",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "5"
           ],
           "finished": true
         },
@@ -6842,6 +6853,5 @@
       ]
     }
   ],
-  "time": "2026-09-05T07:55:41Z",
   "ok": true
 }
