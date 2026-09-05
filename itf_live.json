@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-05T12:39:45Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -613,15 +613,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3315007",
-          "p1": "Johnson",
-          "p2": "Fruhvirtova",
-          "time": "13:20",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3315109",
           "p1": "Werner",
           "p2": "Klugman",
@@ -629,6 +620,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3315007",
+          "p1": "Fruhvirtova",
+          "p2": "Johnson",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "13:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3314415",
@@ -1187,7 +1197,7 @@
           "teId": "3314963",
           "p1": "Burel",
           "p2": "Urgesi",
-          "time": "14:30",
+          "time": "14:40",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1196,7 +1206,7 @@
           "teId": "3315013",
           "p1": "Ferro",
           "p2": "Pace",
-          "time": "15:30",
+          "time": "15:40",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1762,12 +1772,22 @@
       "matches": [
         {
           "teId": "3314975",
-          "p1": "Petkovic",
-          "p2": "Pedone",
+          "p1": "Pedone",
+          "p2": "Petkovic",
+          "round": "semifinal",
+          "date": "05.09.",
           "time": "13:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3314901",
@@ -6959,5 +6979,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-05T12:53:11Z"
 }
