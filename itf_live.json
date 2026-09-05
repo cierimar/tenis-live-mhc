@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-05T18:39:18Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -650,6 +648,15 @@
           "finished": false
         },
         {
+          "teId": "3315537",
+          "p1": "Zhao",
+          "p2": "Sidorova",
+          "time": "05:00",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3315535",
           "p1": "Kuramochi",
           "p2": "Savinykh",
@@ -713,30 +720,12 @@
           "finished": false
         },
         {
-          "teId": "3315537",
-          "p1": "Zhao",
-          "p2": "Sidorova",
-          "time": "06:15",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3315543",
           "p1": "Zhang",
           "p2": "Nugroho",
           "time": "07:00",
           "round": "Q-1R",
           "h2h": "1-2",
-          "finished": false
-        },
-        {
-          "teId": "3315533",
-          "p1": "Kokkinis",
-          "p2": "Chanta",
-          "time": "07:00",
-          "round": "Q-1R",
-          "h2h": "0-0",
           "finished": false
         },
         {
@@ -753,6 +742,15 @@
           "p1": "Kobori",
           "p2": "Ye",
           "time": "07:00",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3315533",
+          "p1": "Kokkinis",
+          "p2": "Chanta",
+          "time": "10:15",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -6770,5 +6768,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-05T18:51:34Z",
+  "ok": true
 }
