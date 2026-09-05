@@ -1,5 +1,6 @@
 {
-  "count": 3,
+  "ok": true,
+  "updated": "2026-09-05T02:47:52Z",
   "matches": [
     {
       "id": "te-3314063",
@@ -12,42 +13,42 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "name": "Foerster M.",
           "winner": true,
-          "flag": "",
+          "name": "Foerster M.",
           "flagAlt": "",
+          "homeAway": "home",
           "linescores": [
             {
-              "value": 6,
+              "winner": true,
               "tiebreak": null,
-              "winner": true
+              "value": 6
             },
             {
-              "value": 6,
+              "winner": true,
               "tiebreak": null,
-              "winner": true
+              "value": 6
             }
-          ]
+          ],
+          "flag": ""
         },
         {
-          "homeAway": "away",
-          "name": "Perelman A.",
           "winner": false,
-          "flag": "",
+          "name": "Perelman A.",
           "flagAlt": "",
+          "homeAway": "away",
           "linescores": [
             {
-              "value": 4,
+              "winner": false,
               "tiebreak": null,
-              "winner": false
+              "value": 4
             },
             {
-              "value": 4,
+              "winner": false,
               "tiebreak": null,
-              "winner": false
+              "value": 4
             }
-          ]
+          ],
+          "flag": ""
         }
       ]
     },
@@ -62,42 +63,42 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "name": "Rocchetti S.",
           "winner": true,
-          "flag": "",
+          "name": "Rocchetti S.",
           "flagAlt": "",
+          "homeAway": "home",
           "linescores": [
             {
-              "value": 6,
+              "winner": true,
               "tiebreak": null,
-              "winner": true
+              "value": 6
             },
             {
-              "value": 6,
+              "winner": true,
               "tiebreak": null,
-              "winner": true
+              "value": 6
             }
-          ]
+          ],
+          "flag": ""
         },
         {
-          "homeAway": "away",
-          "name": "Dema V.",
           "winner": false,
-          "flag": "",
+          "name": "Dema V.",
           "flagAlt": "",
+          "homeAway": "away",
           "linescores": [
             {
-              "value": 1,
+              "winner": false,
               "tiebreak": null,
-              "winner": false
+              "value": 1
             },
             {
-              "value": 3,
+              "winner": false,
               "tiebreak": null,
-              "winner": false
+              "value": 3
             }
-          ]
+          ],
+          "flag": ""
         }
       ]
     },
@@ -112,46 +113,45 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "name": "Felsmann F.",
           "winner": true,
-          "flag": "",
+          "name": "Felsmann F.",
           "flagAlt": "",
+          "homeAway": "home",
           "linescores": [
             {
-              "value": 6,
+              "winner": true,
               "tiebreak": null,
-              "winner": true
+              "value": 6
             },
             {
-              "value": 6,
+              "winner": true,
               "tiebreak": null,
-              "winner": true
+              "value": 6
             }
-          ]
+          ],
+          "flag": ""
         },
         {
-          "homeAway": "away",
-          "name": "Linde Palacios S.",
           "winner": false,
-          "flag": "",
+          "name": "Linde Palacios S.",
           "flagAlt": "",
+          "homeAway": "away",
           "linescores": [
             {
-              "value": 2,
+              "winner": false,
               "tiebreak": null,
-              "winner": false
+              "value": 2
             },
             {
-              "value": 3,
+              "winner": false,
               "tiebreak": null,
-              "winner": false
+              "value": 3
             }
-          ]
+          ],
+          "flag": ""
         }
       ]
     }
   ],
-  "ok": true,
-  "updated": "2026-09-05T02:30:22Z"
+  "count": 3
 }
