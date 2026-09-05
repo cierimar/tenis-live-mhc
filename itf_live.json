@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-05T07:35:13Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -5743,12 +5741,22 @@
         },
         {
           "teId": "3314885",
-          "p1": "Hansen",
-          "p2": "Perapekhina",
+          "p1": "Perapekhina",
+          "p2": "Hansen",
+          "round": "semifinal",
+          "date": "05.09.",
           "time": "08:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3314387",
@@ -6865,5 +6873,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-05T07:45:43Z",
+  "ok": true
 }
