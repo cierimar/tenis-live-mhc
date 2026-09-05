@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-05T08:50:25Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -11,9 +9,9 @@
           "teId": "3315245",
           "p1": "Garland",
           "p2": "Astakhova",
-          "time": "06:00",
+          "time": "04:00",
           "round": "F",
-          "h2h": "-",
+          "h2h": "0-3",
           "finished": false
         },
         {
@@ -5742,6 +5740,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3315237",
+          "p1": "Ezzat",
+          "p2": "Perapekhina",
+          "time": "",
+          "round": "F",
+          "h2h": "1-1",
+          "finished": false
+        },
+        {
           "teId": "3314885",
           "p1": "Perapekhina",
           "p2": "Hansen",
@@ -6894,5 +6901,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-05T09:00:35Z",
+  "ok": true
 }
