@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-05T11:30:06Z",
+  "ok": true,
+  "time": "2026-09-05T11:41:02Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -2344,15 +2345,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314927",
-          "p1": "Mair",
-          "p2": "Argyrokastriti",
-          "time": "10:00",
-          "round": "SF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3314887",
           "p1": "Roura Llaverias",
           "p2": "Lahey",
@@ -2360,6 +2352,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314927",
+          "p1": "Argyrokastriti",
+          "p2": "Mair",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314547",
@@ -6915,6 +6928,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
