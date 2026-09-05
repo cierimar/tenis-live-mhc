@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-05T17:08:04Z",
+  "time": "2026-09-05T17:21:12Z",
   "ok": true,
   "tournaments": [
     {
@@ -686,6 +686,15 @@
           "finished": false
         },
         {
+          "teId": "3315523",
+          "p1": "Adkar",
+          "p2": "Sema",
+          "time": "06:00",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3315537",
           "p1": "Zhao",
           "p2": "Sidorova",
@@ -743,15 +752,6 @@
           "teId": "3315527",
           "p1": "Hosogi",
           "p2": "Kubareva",
-          "time": "08:15",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3315523",
-          "p1": "Adkar",
-          "p2": "Sema",
           "time": "08:15",
           "round": "Q-1R",
           "h2h": "0-0",
@@ -4989,15 +4989,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3315373",
-          "p1": "De Koning",
-          "p2": "Horvit",
-          "time": "16:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3315577",
           "p1": "Van Zonneveld",
           "p2": "Brand",
@@ -5005,6 +4996,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3315373",
+          "p1": "Horvit",
+          "p2": "De Koning",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "16:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3314525",
@@ -6175,7 +6185,7 @@
           "teId": "3315581",
           "p1": "Bosio",
           "p2": "Urrutia",
-          "time": "",
+          "time": "15:00",
           "round": "F",
           "h2h": "1-0",
           "finished": false
