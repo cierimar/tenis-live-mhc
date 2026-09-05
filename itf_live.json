@@ -1,5 +1,6 @@
 {
   "ok": true,
+  "time": "2026-09-05T14:30:30Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -1206,7 +1207,7 @@
           "teId": "3315013",
           "p1": "Ferro",
           "p2": "Pace",
-          "time": "16:15",
+          "time": "16:25",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2374,12 +2375,24 @@
       "matches": [
         {
           "teId": "3314887",
-          "p1": "Roura Llaverias",
-          "p2": "Lahey",
+          "p1": "Lahey",
+          "p2": "Roura Llaverias",
+          "round": "semifinal",
+          "date": "05.09.",
           "time": "11:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3314927",
@@ -2955,6 +2968,15 @@
       "name": "Brasov 3 ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3315367",
+          "p1": "Breaz",
+          "p2": "Lopatetska",
+          "time": "",
+          "round": "F",
+          "h2h": "0-0",
+          "finished": false
+        },
         {
           "teId": "3314931",
           "p1": "Lopatetska",
@@ -4736,15 +4758,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314687",
-          "p1": "De Zeeuw",
-          "p2": "Horvit",
-          "time": "15:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314683",
           "p1": "Brand",
           "p2": "Zhenikhova",
@@ -4780,6 +4793,25 @@
             "4",
             "6",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3314687",
+          "p1": "Horvit",
+          "p2": "De Zeeuw",
+          "round": "quarterfinal",
+          "date": "05.09.",
+          "time": "15:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
           ],
           "finished": true
         },
@@ -7020,6 +7052,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-05T14:18:40Z"
+  ]
 }
