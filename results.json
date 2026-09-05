@@ -1,21 +1,22 @@
 {
-  "updated": "2026-09-05T00:19:48Z",
-  "ok": true,
+  "count": 3,
   "matches": [
     {
-      "id": "te-3314229",
+      "id": "te-3314063",
       "state": "post",
       "tour": "atp",
-      "type": "Men's Doubles",
+      "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3314229",
+      "tournamentId": "te-3314063",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
+          "homeAway": "home",
+          "name": "Foerster M.",
+          "winner": true,
           "flag": "",
-          "name": "Bolelli S / Vavassori",
+          "flagAlt": "",
           "linescores": [
             {
               "value": 6,
@@ -23,75 +24,134 @@
               "winner": true
             },
             {
-              "value": 7,
+              "value": 6,
               "tiebreak": null,
               "winner": true
             }
-          ],
-          "homeAway": "home",
-          "winner": true
+          ]
         },
         {
-          "flagAlt": "",
+          "homeAway": "away",
+          "name": "Perelman A.",
+          "winner": false,
           "flag": "",
-          "name": "Halys Q. / Herbert P",
+          "flagAlt": "",
           "linescores": [
             {
-              "value": 3,
+              "value": 4,
               "tiebreak": null,
               "winner": false
             },
             {
-              "value": 5,
+              "value": 4,
               "tiebreak": null,
               "winner": false
             }
-          ],
-          "homeAway": "away",
-          "winner": false
+          ]
         }
       ]
     },
     {
-      "id": "te-3314925",
+      "id": "te-3314067",
       "state": "post",
       "tour": "atp",
-      "type": "Men's Doubles",
+      "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3314925",
+      "tournamentId": "te-3314067",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "flag": "",
-          "name": "Vasa E. / Vasa I.",
-          "linescores": [
-            {
-              "value": 5,
-              "tiebreak": null,
-              "winner": false
-            }
-          ],
           "homeAway": "home",
-          "winner": false
-        },
-        {
-          "flagAlt": "",
+          "name": "Rocchetti S.",
+          "winner": true,
           "flag": "",
-          "name": "Braynin A / Hipfl N.",
+          "flagAlt": "",
           "linescores": [
             {
-              "value": 5,
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
               "tiebreak": null,
               "winner": true
             }
-          ],
+          ]
+        },
+        {
           "homeAway": "away",
-          "winner": true
+          "name": "Dema V.",
+          "winner": false,
+          "flag": "",
+          "flagAlt": "",
+          "linescores": [
+            {
+              "value": 1,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 3,
+              "tiebreak": null,
+              "winner": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "te-3313995",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3313995",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "homeAway": "home",
+          "name": "Felsmann F.",
+          "winner": true,
+          "flag": "",
+          "flagAlt": "",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            }
+          ]
+        },
+        {
+          "homeAway": "away",
+          "name": "Linde Palacios S.",
+          "winner": false,
+          "flag": "",
+          "flagAlt": "",
+          "linescores": [
+            {
+              "value": 2,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 3,
+              "tiebreak": null,
+              "winner": false
+            }
+          ]
         }
       ]
     }
   ],
-  "count": 2
+  "ok": true,
+  "updated": "2026-09-05T02:30:22Z"
 }
