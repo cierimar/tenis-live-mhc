@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-05T05:22:21Z",
+  "time": "2026-09-05T05:44:31Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -8,12 +8,22 @@
       "matches": [
         {
           "teId": "3314865",
-          "p1": "Bai",
-          "p2": "Garland",
+          "p1": "Garland",
+          "p2": "Bai",
+          "round": "semifinal",
+          "date": "05.09.",
           "time": "06:25",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3314851",
