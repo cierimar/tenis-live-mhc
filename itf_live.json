@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-05T21:30:13Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -622,24 +622,6 @@
           "finished": false
         },
         {
-          "teId": "3316365",
-          "p1": "Lee",
-          "p2": "Vlasselaer",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3316363",
-          "p1": "Glushko",
-          "p2": "Lacasse",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3316361",
           "p1": "Medvedeva",
           "p2": "Kardava",
@@ -721,15 +703,6 @@
           "finished": false
         },
         {
-          "teId": "3316343",
-          "p1": "Arseneault",
-          "p2": "Munk Mortensen",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3316341",
           "p1": "Matias",
           "p2": "Cervino Ruiz",
@@ -752,6 +725,33 @@
           "p1": "Raina",
           "p2": "Chan",
           "time": "10:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3316365",
+          "p1": "Lee",
+          "p2": "Vlasselaer",
+          "time": "11:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3316363",
+          "p1": "Glushko",
+          "p2": "Lacasse",
+          "time": "11:30",
+          "round": "Q-1R",
+          "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3316343",
+          "p1": "Arseneault",
+          "p2": "Munk Mortensen",
+          "time": "11:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -918,7 +918,7 @@
           "teId": "3315579",
           "p1": "Klugman",
           "p2": "Fruhvirtova",
-          "time": "11:00",
+          "time": "16:00",
           "round": "F",
           "h2h": "1-0",
           "finished": false
@@ -1520,7 +1520,7 @@
           "teId": "3315585",
           "p1": "Ferro",
           "p2": "Burel",
-          "time": "11:00",
+          "time": "14:30",
           "round": "F",
           "h2h": "2-1",
           "finished": false
@@ -4985,5 +4985,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-05T22:02:07Z"
 }
