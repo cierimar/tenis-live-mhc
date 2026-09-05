@@ -1,6 +1,6 @@
 {
+  "time": "2026-09-05T12:23:37Z",
   "ok": true,
-  "time": "2026-09-05T12:03:04Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -3515,15 +3515,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314935",
-          "p1": "Maines",
-          "p2": "Gentili",
-          "time": "11:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314959",
           "p1": "Gandolfi",
           "p2": "Trevisan",
@@ -3531,6 +3522,27 @@
           "round": "SF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3314935",
+          "p1": "Maines",
+          "p2": "Gentili",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "5",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3314455",
@@ -4083,12 +4095,22 @@
       "matches": [
         {
           "teId": "3314937",
-          "p1": "Appleton",
-          "p2": "Kolonus",
+          "p1": "Kolonus",
+          "p2": "Appleton",
+          "round": "semifinal",
+          "date": "05.09.",
           "time": "11:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3314939",
