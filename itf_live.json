@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-05T09:52:16Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -9,7 +10,7 @@
           "teId": "3315245",
           "p1": "Garland",
           "p2": "Astakhova",
-          "time": "04:00",
+          "time": "05:00",
           "round": "F",
           "h2h": "0-3",
           "finished": false
@@ -1760,15 +1761,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314901",
-          "p1": "Radovanovic",
-          "p2": "Zaytseva",
-          "time": "10:10",
-          "round": "SF",
-          "h2h": "0-3",
-          "finished": false
-        },
-        {
           "teId": "3314975",
           "p1": "Petkovic",
           "p2": "Pedone",
@@ -1776,6 +1768,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314901",
+          "p1": "Zaytseva",
+          "p2": "Radovanovic",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3314653",
@@ -2904,15 +2915,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314929",
-          "p1": "Ogescu",
-          "p2": "Breaz",
-          "time": "10:00",
-          "round": "SF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3314931",
           "p1": "Lopatetska",
           "p2": "Raggi",
@@ -2920,6 +2922,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314929",
+          "p1": "Breaz",
+          "p2": "Ogescu",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3314385",
@@ -4650,15 +4671,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3314939",
-          "p1": "Lazarenko",
-          "p2": "Adams",
-          "time": "10:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3314937",
           "p1": "Appleton",
           "p2": "Kolonus",
@@ -4666,6 +4678,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3314939",
+          "p1": "Lazarenko",
+          "p2": "Adams",
+          "round": "semifinal",
+          "date": "05.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3314617",
@@ -6902,6 +6933,5 @@
       ]
     }
   ],
-  "time": "2026-09-05T09:00:35Z",
   "ok": true
 }
