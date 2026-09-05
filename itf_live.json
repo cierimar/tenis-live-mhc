@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "time": "2026-09-05T16:05:36Z",
   "tournaments": [
     {
       "id": "itf-tianjin-52026wta-women",
@@ -3747,12 +3747,24 @@
       "matches": [
         {
           "teId": "3314959",
-          "p1": "Gandolfi",
-          "p2": "Trevisan",
+          "p1": "Trevisan",
+          "p2": "Gandolfi",
+          "round": "semifinal",
+          "date": "05.09.",
           "time": "12:30",
-          "round": "SF",
-          "h2h": "0-1",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "4",
+            "7",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3314935",
@@ -6681,5 +6693,5 @@
       ]
     }
   ],
-  "time": "2026-09-05T15:52:55Z"
+  "ok": true
 }
