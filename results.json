@@ -1,4 +1,7 @@
 {
+  "updated": "2026-09-06T03:33:22Z",
+  "count": 4,
+  "ok": true,
   "matches": [
     {
       "id": "te-3314717",
@@ -11,8 +14,8 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "name": "Osaka N.",
+          "winner": true,
+          "flag": "",
           "linescores": [
             {
               "winner": true,
@@ -30,13 +33,13 @@
               "tiebreak": null
             }
           ],
-          "flag": "",
-          "winner": true,
-          "flagAlt": ""
+          "flagAlt": "",
+          "homeAway": "home",
+          "name": "Osaka N."
         },
         {
-          "homeAway": "away",
-          "name": "Mertens E.",
+          "winner": false,
+          "flag": "",
           "linescores": [
             {
               "winner": false,
@@ -54,9 +57,9 @@
               "tiebreak": null
             }
           ],
-          "flag": "",
-          "winner": false,
-          "flagAlt": ""
+          "flagAlt": "",
+          "homeAway": "away",
+          "name": "Mertens E."
         }
       ]
     },
@@ -71,8 +74,8 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "name": "Jovic I.",
+          "winner": true,
+          "flag": "",
           "linescores": [
             {
               "winner": true,
@@ -90,13 +93,13 @@
               "tiebreak": null
             }
           ],
-          "flag": "",
-          "winner": true,
-          "flagAlt": ""
+          "flagAlt": "",
+          "homeAway": "home",
+          "name": "Jovic I."
         },
         {
-          "homeAway": "away",
-          "name": "Eala A.",
+          "winner": false,
+          "flag": "",
           "linescores": [
             {
               "winner": false,
@@ -114,75 +117,25 @@
               "tiebreak": null
             }
           ],
-          "flag": "",
-          "winner": false,
-          "flagAlt": ""
-        }
-      ]
-    },
-    {
-      "id": "te-3314251",
-      "state": "post",
-      "tour": "atp",
-      "type": "Men's Doubles",
-      "round": "",
-      "tournamentId": "te-3314251",
-      "tournamentName": "",
-      "surface": "",
-      "competitors": [
-        {
-          "homeAway": "home",
-          "name": "Cash J. / Glasspool",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
-          "flag": "",
-          "winner": true,
-          "flagAlt": ""
-        },
-        {
+          "flagAlt": "",
           "homeAway": "away",
-          "name": "Darderi L / Kestelboi",
-          "linescores": [
-            {
-              "winner": false,
-              "value": 3,
-              "tiebreak": null
-            },
-            {
-              "winner": false,
-              "value": 4,
-              "tiebreak": null
-            }
-          ],
-          "flag": "",
-          "winner": false,
-          "flagAlt": ""
+          "name": "Eala A."
         }
       ]
     },
     {
-      "id": "te-3314267",
+      "id": "te-3314813",
       "state": "post",
       "tour": "atp",
-      "type": "Men's Doubles",
+      "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3314267",
+      "tournamentId": "te-3314813",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "name": "Arribage / Olivetti",
+          "winner": true,
+          "flag": "",
           "linescores": [
             {
               "winner": true,
@@ -195,13 +148,13 @@
               "tiebreak": null
             }
           ],
-          "flag": "",
-          "winner": true,
-          "flagAlt": ""
+          "flagAlt": "",
+          "homeAway": "home",
+          "name": "Rybakina E."
         },
         {
-          "homeAway": "away",
-          "name": "Bonzi B. / Rinderkne",
+          "winner": false,
+          "flag": "",
           "linescores": [
             {
               "winner": false,
@@ -214,14 +167,61 @@
               "tiebreak": null
             }
           ],
+          "flagAlt": "",
+          "homeAway": "away",
+          "name": "Starodubtseva Y."
+        }
+      ]
+    },
+    {
+      "id": "te-3315239",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3315239",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "winner": true,
           "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            },
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "homeAway": "home",
+          "name": "Sato N."
+        },
+        {
           "winner": false,
-          "flagAlt": ""
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "value": 3,
+              "tiebreak": null
+            },
+            {
+              "winner": false,
+              "value": 2,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "homeAway": "away",
+          "name": "Yodpetch K."
         }
       ]
     }
-  ],
-  "updated": "2026-09-06T02:59:09Z",
-  "ok": true,
-  "count": 4
+  ]
 }
