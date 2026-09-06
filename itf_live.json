@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-06T22:05:41Z",
+  "ok": true,
+  "time": "2026-09-06T22:21:04Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1555,7 +1556,7 @@
           "teId": "3317261",
           "p1": "Lorrimer",
           "p2": "Nesmianovych",
-          "time": "10:15",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1564,7 +1565,7 @@
           "teId": "3317259",
           "p1": "Cehajic",
           "p2": "Collin",
-          "time": "10:15",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1573,16 +1574,7 @@
           "teId": "3317257",
           "p1": "Luescher",
           "p2": "Zurmuehle",
-          "time": "10:15",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317491",
-          "p1": "Gettwart",
-          "p2": "Trklja",
-          "time": "11:00",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1597,18 +1589,9 @@
           "finished": false
         },
         {
-          "teId": "3317497",
-          "p1": "Ramirez",
-          "p2": "Brunet-Brady",
-          "time": "12:00",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317495",
-          "p1": "Bougouffa",
-          "p2": "Ratre",
+          "teId": "3317491",
+          "p1": "Gettwart",
+          "p2": "Trklja",
           "time": "12:00",
           "round": "Q-R16",
           "h2h": "0-0",
@@ -1619,6 +1602,24 @@
           "p1": "Diabate",
           "p2": "Pire",
           "time": "12:15",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317497",
+          "p1": "Ramirez",
+          "p2": "Brunet-Brady",
+          "time": "13:00",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317495",
+          "p1": "Bougouffa",
+          "p2": "Ratre",
+          "time": "13:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -4168,6 +4169,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
