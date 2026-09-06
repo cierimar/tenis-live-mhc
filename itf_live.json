@@ -1,6 +1,5 @@
 {
-  "time": "2026-09-06T11:24:24Z",
-  "ok": true,
+  "time": "2026-09-06T11:36:42Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1955,15 +1954,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3316307",
-          "p1": "Ratre",
-          "p2": "Bednarczyk",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3316329",
           "p1": "Cehajic",
           "p2": "Brandt Schultz",
@@ -2000,15 +1990,6 @@
           "finished": false
         },
         {
-          "teId": "3316335",
-          "p1": "Brandt Schultz",
-          "p2": "Nesmianovych",
-          "time": "11:00",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3316327",
           "p1": "Cheli",
           "p2": "Zurmuehle",
@@ -2036,10 +2017,19 @@
           "finished": false
         },
         {
+          "teId": "3316335",
+          "p1": "Brandt Schultz",
+          "p2": "Nesmianovych",
+          "time": "11:58",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3316315",
           "p1": "Le Runigo",
           "p2": "Trklja",
-          "time": "12:30",
+          "time": "12:05",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2048,7 +2038,7 @@
           "teId": "3316319",
           "p1": "Wittmer",
           "p2": "Erler",
-          "time": "12:52",
+          "time": "12:36",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2057,7 +2047,16 @@
           "teId": "3316317",
           "p1": "Crinebouch",
           "p2": "Gram",
-          "time": "12:52",
+          "time": "13:01",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3316307",
+          "p1": "Ratre",
+          "p2": "Bednarczyk",
+          "time": "13:11",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -4661,5 +4660,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
