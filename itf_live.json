@@ -1654,10 +1654,20 @@
           "teId": "3315365",
           "p1": "Zaytseva",
           "p2": "Pedone",
+          "round": "final",
+          "date": "06.09.",
           "time": "10:10",
-          "round": "F",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3314975",
@@ -5116,5 +5126,5 @@
     }
   ],
   "ok": true,
-  "time": "2026-09-06T09:52:54Z"
+  "time": "2026-09-06T10:05:44Z"
 }
