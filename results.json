@@ -1,5 +1,66 @@
 {
+  "count": 3,
   "matches": [
+    {
+      "id": "te-3314717",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3314717",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "homeAway": "home",
+          "flag": "",
+          "linescores": [
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "winner": true,
+          "name": "Osaka N.",
+          "flagAlt": ""
+        },
+        {
+          "homeAway": "away",
+          "flag": "",
+          "linescores": [
+            {
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 5,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "winner": false,
+          "name": "Mertens E.",
+          "flagAlt": ""
+        }
+      ]
+    },
     {
       "id": "te-3314251",
       "state": "post",
@@ -11,6 +72,8 @@
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
+          "flag": "",
           "linescores": [
             {
               "value": 6,
@@ -25,11 +88,11 @@
           ],
           "winner": true,
           "name": "Cash J. / Glasspool",
-          "flag": "",
-          "flagAlt": "",
-          "homeAway": "home"
+          "flagAlt": ""
         },
         {
+          "homeAway": "away",
+          "flag": "",
           "linescores": [
             {
               "value": 3,
@@ -44,9 +107,7 @@
           ],
           "winner": false,
           "name": "Darderi L / Kestelboi",
-          "flag": "",
-          "flagAlt": "",
-          "homeAway": "away"
+          "flagAlt": ""
         }
       ]
     },
@@ -61,6 +122,8 @@
       "surface": "",
       "competitors": [
         {
+          "homeAway": "home",
+          "flag": "",
           "linescores": [
             {
               "value": 7,
@@ -75,11 +138,11 @@
           ],
           "winner": true,
           "name": "Arribage / Olivetti",
-          "flag": "",
-          "flagAlt": "",
-          "homeAway": "home"
+          "flagAlt": ""
         },
         {
+          "homeAway": "away",
+          "flag": "",
           "linescores": [
             {
               "value": 6,
@@ -94,14 +157,11 @@
           ],
           "winner": false,
           "name": "Bonzi B. / Rinderkne",
-          "flag": "",
-          "flagAlt": "",
-          "homeAway": "away"
+          "flagAlt": ""
         }
       ]
     }
   ],
-  "count": 2,
-  "updated": "2026-09-06T01:00:22Z",
-  "ok": true
+  "ok": true,
+  "updated": "2026-09-06T02:18:30Z"
 }
