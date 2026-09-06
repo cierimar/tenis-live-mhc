@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1857,10 +1856,22 @@
           "teId": "3315581",
           "p1": "Bosio",
           "p2": "Urrutia",
+          "round": "final",
+          "date": "06.09.",
           "time": "15:00",
-          "round": "F",
-          "h2h": "1-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "7"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3314979",
@@ -3934,5 +3945,6 @@
       ]
     }
   ],
-  "time": "2026-09-06T16:52:38Z"
+  "ok": true,
+  "time": "2026-09-06T17:04:26Z"
 }
