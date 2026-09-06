@@ -1,20 +1,10 @@
 {
-  "time": "2026-09-06T09:15:00Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
       "name": "Evora ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3316341",
-          "p1": "Matias",
-          "p2": "Cervino Ruiz",
-          "time": "10:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3316367",
           "p1": "Sasnouskaya",
@@ -28,16 +18,25 @@
           "teId": "3316339",
           "p1": "Collins",
           "p2": "Hinojosa Gomez",
-          "time": "10:38",
+          "time": "10:34",
           "round": "Q-1R",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3316341",
+          "p1": "Matias",
+          "p2": "Cervino Ruiz",
+          "time": "10:35",
+          "round": "Q-1R",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3316337",
           "p1": "Raina",
           "p2": "Chan",
-          "time": "10:38",
+          "time": "10:37",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -46,25 +45,16 @@
           "teId": "3316365",
           "p1": "Lee",
           "p2": "Vlasselaer",
-          "time": "11:38",
+          "time": "11:40",
           "round": "Q-1R",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3316363",
-          "p1": "Glushko",
-          "p2": "Lacasse",
-          "time": "11:38",
-          "round": "Q-1R",
-          "h2h": "1-0",
           "finished": false
         },
         {
           "teId": "3316345",
           "p1": "De Oliveira Pinto",
           "p2": "Bonardi",
-          "time": "11:38",
+          "time": "11:41",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -73,25 +63,25 @@
           "teId": "3316343",
           "p1": "Arseneault",
           "p2": "Munk Mortensen",
-          "time": "11:38",
+          "time": "11:41",
           "round": "Q-1R",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3316363",
+          "p1": "Glushko",
+          "p2": "Lacasse",
+          "time": "11:44",
+          "round": "Q-1R",
+          "h2h": "1-0",
           "finished": false
         },
         {
           "teId": "3316361",
           "p1": "Medvedeva",
           "p2": "Kardava",
-          "time": "12:38",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3316357",
-          "p1": "Toma",
-          "p2": "Vickery",
-          "time": "12:38",
+          "time": "12:41",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -100,7 +90,16 @@
           "teId": "3316349",
           "p1": "Lewis",
           "p2": "Rey Garcia",
-          "time": "12:38",
+          "time": "12:41",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3316357",
+          "p1": "Toma",
+          "p2": "Vickery",
+          "time": "12:44",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -109,7 +108,7 @@
           "teId": "3316359",
           "p1": "Yashina",
           "p2": "Cembranos",
-          "time": "13:35",
+          "time": "13:52",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3748,7 +3747,7 @@
           "teId": "3316329",
           "p1": "Cehajic",
           "p2": "Brandt Schultz",
-          "time": "09:33",
+          "time": "09:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3784,7 +3783,7 @@
           "teId": "3316325",
           "p1": "Luescher",
           "p2": "Ordonez Anduiza",
-          "time": "11:05",
+          "time": "10:56",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3820,7 +3819,7 @@
           "teId": "3316313",
           "p1": "Gettwart",
           "p2": "Kuptsova",
-          "time": "12:00",
+          "time": "12:02",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -5084,5 +5083,6 @@
       ]
     }
   ],
-  "ok": true
+  "ok": true,
+  "time": "2026-09-06T09:29:36Z"
 }
