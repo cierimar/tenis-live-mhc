@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-06T21:19:13Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1596,15 +1598,6 @@
           "finished": false
         },
         {
-          "teId": "3317497",
-          "p1": "Ramirez",
-          "p2": "Brunet-Brady",
-          "time": "12:00",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317495",
           "p1": "Bougouffa",
           "p2": "Ratre",
@@ -1618,6 +1611,15 @@
           "p1": "Diabate",
           "p2": "Pire",
           "time": "12:15",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317497",
+          "p1": "Ramirez",
+          "p2": "Brunet-Brady",
+          "time": "13:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -4167,7 +4169,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-06T21:03:58Z"
+  ]
 }
