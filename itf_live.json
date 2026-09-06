@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -25,19 +24,10 @@
           "finished": false
         },
         {
-          "teId": "3316363",
-          "p1": "Glushko",
-          "p2": "Lacasse",
-          "time": "12:00",
-          "round": "Q-1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3316343",
           "p1": "Arseneault",
           "p2": "Munk Mortensen",
-          "time": "12:00",
+          "time": "12:22",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -52,6 +42,15 @@
           "finished": false
         },
         {
+          "teId": "3316363",
+          "p1": "Glushko",
+          "p2": "Lacasse",
+          "time": "12:38",
+          "round": "Q-1R",
+          "h2h": "1-0",
+          "finished": false
+        },
+        {
           "teId": "3316361",
           "p1": "Medvedeva",
           "p2": "Kardava",
@@ -61,19 +60,10 @@
           "finished": false
         },
         {
-          "teId": "3316349",
-          "p1": "Lewis",
-          "p2": "Rey Garcia",
-          "time": "13:43",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3316357",
           "p1": "Toma",
           "p2": "Vickery",
-          "time": "14:12",
+          "time": "13:30",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -82,7 +72,16 @@
           "teId": "3316359",
           "p1": "Yashina",
           "p2": "Cembranos",
-          "time": "14:23",
+          "time": "14:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3316349",
+          "p1": "Lewis",
+          "p2": "Rey Garcia",
+          "time": "14:34",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -100,7 +99,7 @@
           "teId": "3316351",
           "p1": "Ivanov",
           "p2": "Da Silva Fick",
-          "time": "15:00",
+          "time": "15:34",
           "round": "Q-1R",
           "h2h": "1-0",
           "finished": false
@@ -109,7 +108,7 @@
           "teId": "3316353",
           "p1": "Leon",
           "p2": "Fontenel",
-          "time": "15:01",
+          "time": "15:36",
           "round": "Q-1R",
           "h2h": "0-1",
           "finished": false
@@ -118,7 +117,7 @@
           "teId": "3316347",
           "p1": "Johnson",
           "p2": "Marton",
-          "time": "15:27",
+          "time": "15:39",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -1105,7 +1104,7 @@
           "teId": "3315585",
           "p1": "Ferro",
           "p2": "Burel",
-          "time": "14:30",
+          "time": "14:40",
           "round": "F",
           "h2h": "2-1",
           "finished": false
@@ -2067,7 +2066,7 @@
           "teId": "3316311",
           "p1": "Agbaba",
           "p2": "Brunet-Brady",
-          "time": "14:22",
+          "time": "14:00",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3875,5 +3874,6 @@
       ]
     }
   ],
-  "time": "2026-09-06T12:35:30Z"
+  "time": "2026-09-06T12:50:16Z",
+  "ok": true
 }
