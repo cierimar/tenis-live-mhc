@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-06T11:36:42Z",
+  "time": "2026-09-06T11:46:50Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -73,7 +74,7 @@
           "teId": "3316365",
           "p1": "Lee",
           "p2": "Vlasselaer",
-          "time": "13:01",
+          "time": "13:15",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -82,7 +83,7 @@
           "teId": "3316349",
           "p1": "Lewis",
           "p2": "Rey Garcia",
-          "time": "13:27",
+          "time": "13:43",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -91,7 +92,7 @@
           "teId": "3316361",
           "p1": "Medvedeva",
           "p2": "Kardava",
-          "time": "13:31",
+          "time": "13:47",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -100,7 +101,7 @@
           "teId": "3316357",
           "p1": "Toma",
           "p2": "Vickery",
-          "time": "13:45",
+          "time": "14:12",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -109,7 +110,7 @@
           "teId": "3316359",
           "p1": "Yashina",
           "p2": "Cembranos",
-          "time": "13:52",
+          "time": "14:23",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -145,7 +146,7 @@
           "teId": "3316347",
           "p1": "Johnson",
           "p2": "Marton",
-          "time": "15:09",
+          "time": "15:27",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -176,30 +177,12 @@
           "finished": false
         },
         {
-          "teId": "3315525",
-          "p1": "Kobori",
-          "p2": "Ye",
-          "time": "08:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3315531",
           "p1": "Yang",
           "p2": "Shimizu",
           "time": "09:00",
           "round": "Q-1R",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3315543",
-          "p1": "Zhang",
-          "p2": "Nugroho",
-          "time": "09:12",
-          "round": "Q-1R",
-          "h2h": "1-2",
           "finished": false
         },
         {
@@ -222,6 +205,27 @@
           "finished": true
         },
         {
+          "teId": "3315525",
+          "p1": "Ye",
+          "p2": "Kobori",
+          "round": "Qualification - 1. round",
+          "date": "06.09.",
+          "time": "07:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "1",
+            "0"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3315533",
           "p1": "Kokkinis",
           "p2": "Chanta",
@@ -237,6 +241,27 @@
           "sets2": [
             "2",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3315543",
+          "p1": "Zhang",
+          "p2": "Nugroho",
+          "round": "Qualification - 1. round",
+          "date": "06.09.",
+          "time": "07:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "7",
+            "4"
           ],
           "finished": true
         },
@@ -1954,42 +1979,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3316329",
-          "p1": "Cehajic",
-          "p2": "Brandt Schultz",
-          "time": "09:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3316323",
-          "p1": "Kashaeva",
-          "p2": "Pire",
-          "time": "09:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3316331",
-          "p1": "Collinson",
-          "p2": "Collin",
-          "time": "09:35",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3316333",
-          "p1": "Lorrimer",
-          "p2": "Schaefer",
-          "time": "09:40",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3316327",
           "p1": "Cheli",
           "p2": "Zurmuehle",
@@ -2053,19 +2042,19 @@
           "finished": false
         },
         {
-          "teId": "3316307",
-          "p1": "Ratre",
-          "p2": "Bednarczyk",
-          "time": "13:11",
+          "teId": "3316313",
+          "p1": "Gettwart",
+          "p2": "Kuptsova",
+          "time": "13:12",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3316313",
-          "p1": "Gettwart",
-          "p2": "Kuptsova",
-          "time": "13:12",
+          "teId": "3316307",
+          "p1": "Ratre",
+          "p2": "Bednarczyk",
+          "time": "13:27",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2092,10 +2081,86 @@
           "teId": "3316305",
           "p1": "Bougouffa",
           "p2": "Fuchs",
-          "time": "14:57",
+          "time": "15:12",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3316323",
+          "p1": "Pire",
+          "p2": "Kashaeva",
+          "round": "Qualification - 1. round",
+          "date": "06.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3316329",
+          "p1": "Cehajic",
+          "p2": "Brandt Schultz",
+          "round": "Qualification - 1. round",
+          "date": "06.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3316331",
+          "p1": "Collin",
+          "p2": "Collinson",
+          "round": "Qualification - 1. round",
+          "date": "06.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3316333",
+          "p1": "Lorrimer",
+          "p2": "Schaefer",
+          "round": "Qualification - 1. round",
+          "date": "06.09.",
+          "time": "09:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "2"
+          ],
+          "finished": true
         }
       ]
     },
@@ -4660,6 +4725,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
