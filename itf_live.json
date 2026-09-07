@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-07T09:13:14Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -8,19 +7,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3317271",
-          "p1": "Lacasse",
-          "p2": "Vlasselaer",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3317273",
           "p1": "Chan",
           "p2": "Burrage",
-          "time": "11:00",
+          "time": "11:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -29,7 +19,7 @@
           "teId": "3317267",
           "p1": "Collins",
           "p2": "Cervino Ruiz",
-          "time": "11:00",
+          "time": "11:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -38,7 +28,7 @@
           "teId": "3317263",
           "p1": "Munk Mortensen",
           "p2": "Bonardi",
-          "time": "11:00",
+          "time": "11:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -47,16 +37,25 @@
           "teId": "3317499",
           "p1": "Otzipka",
           "p2": "Dapkute",
-          "time": "12:00",
+          "time": "12:08",
           "round": "Q-R16",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317271",
+          "p1": "Lacasse",
+          "p2": "Vlasselaer",
+          "time": "12:08",
+          "round": "Q-R16",
+          "h2h": "1-0",
           "finished": false
         },
         {
           "teId": "3317269",
           "p1": "Cembranos",
           "p2": "Kardava",
-          "time": "12:00",
+          "time": "12:08",
           "round": "Q-R16",
           "h2h": "0-1",
           "finished": false
@@ -65,7 +64,7 @@
           "teId": "3317667",
           "p1": "Da Silva Fick",
           "p2": "Leon",
-          "time": "13:00",
+          "time": "13:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -74,7 +73,7 @@
           "teId": "3317501",
           "p1": "Johnson",
           "p2": "Lewis",
-          "time": "13:00",
+          "time": "13:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -813,10 +812,19 @@
           "finished": false
         },
         {
+          "teId": "3317323",
+          "p1": "Vladson",
+          "p2": "Romanova",
+          "time": "11:05",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3317597",
           "p1": "Teixido Garcia",
           "p2": "Vila Salles",
-          "time": "11:00",
+          "time": "11:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -825,7 +833,7 @@
           "teId": "3317329",
           "p1": "Reva",
           "p2": "Gomez",
-          "time": "11:00",
+          "time": "11:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -834,16 +842,7 @@
           "teId": "3317325",
           "p1": "Hoedt",
           "p2": "Cherny",
-          "time": "11:00",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317323",
-          "p1": "Vladson",
-          "p2": "Romanova",
-          "time": "11:00",
+          "time": "11:08",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1250,7 +1249,7 @@
           "teId": "3317487",
           "p1": "Iancu",
           "p2": "Marcu",
-          "time": "11:43",
+          "time": "11:54",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -3366,10 +3365,19 @@
           "finished": false
         },
         {
+          "teId": "3317571",
+          "p1": "Faustini",
+          "p2": "Muller",
+          "time": "10:34",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3317575",
           "p1": "Lanciaprima",
           "p2": "Antici",
-          "time": "10:38",
+          "time": "10:37",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3384,19 +3392,10 @@
           "finished": false
         },
         {
-          "teId": "3317571",
-          "p1": "Faustini",
-          "p2": "Muller",
-          "time": "10:38",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317569",
           "p1": "Bilardo",
           "p2": "Bassotti",
-          "time": "10:38",
+          "time": "10:43",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -3491,5 +3490,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-07T09:31:53Z"
 }
