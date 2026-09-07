@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1408,15 +1407,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319091",
-          "p1": "Kolonus",
-          "p2": "Narti",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319089",
           "p1": "Wrobel",
           "p2": "Sucha",
@@ -1462,6 +1452,15 @@
           "finished": false
         },
         {
+          "teId": "3319091",
+          "p1": "Kolonus",
+          "p2": "Narti",
+          "time": "13:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3319071",
           "p1": "Adams",
           "p2": "Gniewkowska",
@@ -1487,15 +1486,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318725",
-          "p1": "Dessolis",
-          "p2": "Voracek",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-2",
-          "finished": false
-        },
-        {
           "teId": "3318721",
           "p1": "Tomase",
           "p2": "Amati",
@@ -1514,27 +1504,9 @@
           "finished": false
         },
         {
-          "teId": "3318715",
-          "p1": "Meliss",
-          "p2": "Gasparini",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318713",
           "p1": "Ferraris",
           "p2": "Raggi",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318709",
-          "p1": "Shapatava",
-          "p2": "Senica",
           "time": "",
           "round": "1R",
           "h2h": "0-0",
@@ -1563,6 +1535,33 @@
           "p1": "Brune Olsen",
           "p2": "Fornasieri",
           "time": "19:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318725",
+          "p1": "Dessolis",
+          "p2": "Voracek",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-2",
+          "finished": false
+        },
+        {
+          "teId": "3318715",
+          "p1": "Meliss",
+          "p2": "Gasparini",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318709",
+          "p1": "Shapatava",
+          "p2": "Senica",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1721,5 +1720,6 @@
       ]
     }
   ],
-  "time": "2026-09-07T20:38:43Z"
+  "time": "2026-09-07T21:01:52Z",
+  "ok": true
 }
