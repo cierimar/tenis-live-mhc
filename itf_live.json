@@ -1,4 +1,6 @@
 {
+  "time": "2026-09-07T13:19:35Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -15,6 +17,24 @@
           "finished": false
         },
         {
+          "teId": "3317499",
+          "p1": "Otzipka",
+          "p2": "Dapkute",
+          "time": "12:30",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317269",
+          "p1": "Cembranos",
+          "p2": "Kardava",
+          "time": "12:30",
+          "round": "Q-R16",
+          "h2h": "0-1",
+          "finished": false
+        },
+        {
           "teId": "3317271",
           "p1": "Lacasse",
           "p2": "Vlasselaer",
@@ -24,28 +44,10 @@
           "finished": false
         },
         {
-          "teId": "3317269",
-          "p1": "Cembranos",
-          "p2": "Kardava",
-          "time": "12:55",
-          "round": "Q-R16",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
-          "teId": "3317499",
-          "p1": "Otzipka",
-          "p2": "Dapkute",
-          "time": "12:57",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317667",
           "p1": "Da Silva Fick",
           "p2": "Leon",
-          "time": "14:21",
+          "time": "15:12",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -54,7 +56,7 @@
           "teId": "3317501",
           "p1": "Johnson",
           "p2": "Lewis",
-          "time": "14:32",
+          "time": "15:15",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -627,7 +629,7 @@
           "teId": "3317331",
           "p1": "Cirpanli",
           "p2": "Liu",
-          "time": "13:18",
+          "time": "13:16",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -974,7 +976,7 @@
           "teId": "3317495",
           "p1": "Bougouffa",
           "p2": "Ratre",
-          "time": "13:43",
+          "time": "13:41",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -983,7 +985,7 @@
           "teId": "3317497",
           "p1": "Ramirez",
           "p2": "Brunet-Brady",
-          "time": "14:14",
+          "time": "14:15",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -2281,6 +2283,15 @@
           "finished": false
         },
         {
+          "teId": "3317583",
+          "p1": "Merku",
+          "p2": "Kovacic",
+          "time": "13:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3317589",
           "p1": "Casari",
           "p2": "Bovara",
@@ -2293,7 +2304,7 @@
           "teId": "3317591",
           "p1": "Valletta",
           "p2": "Fiorani",
-          "time": "13:43",
+          "time": "13:42",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2303,15 +2314,6 @@
           "p1": "Pikkaart",
           "p2": "Alletti",
           "time": "13:50",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317583",
-          "p1": "Merku",
-          "p2": "Kovacic",
-          "time": "14:24",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2329,7 +2331,7 @@
           "teId": "3317579",
           "p1": "Petrillo",
           "p2": "Pieroni",
-          "time": "15:22",
+          "time": "15:36",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2442,7 +2444,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-07T12:58:39Z",
-  "ok": true
+  ]
 }
