@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-07T14:20:21Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -431,33 +430,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318215",
-          "p1": "Tian",
-          "p2": "Shi",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318209",
-          "p1": "Zhang",
-          "p2": "Yang",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318207",
-          "p1": "Saito",
-          "p2": "Yao",
-          "time": "",
-          "round": "1R",
-          "h2h": "1-2",
-          "finished": false
-        },
-        {
           "teId": "3318205",
           "p1": "Wang",
           "p2": "Astakhova",
@@ -476,10 +448,10 @@
           "finished": false
         },
         {
-          "teId": "3318199",
-          "p1": "Garland",
-          "p2": "Wei",
-          "time": "",
+          "teId": "3318209",
+          "p1": "Zhang",
+          "p2": "Yang",
+          "time": "18:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -548,12 +520,39 @@
           "finished": false
         },
         {
+          "teId": "3318215",
+          "p1": "Tian",
+          "p2": "Shi",
+          "time": "04:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318207",
+          "p1": "Saito",
+          "p2": "Yao",
+          "time": "04:00",
+          "round": "1R",
+          "h2h": "1-2",
+          "finished": false
+        },
+        {
           "teId": "3318203",
           "p1": "Back",
           "p2": "Morvayova",
           "time": "04:00",
           "round": "1R",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3318199",
+          "p1": "Garland",
+          "p2": "Wei",
+          "time": "04:00",
+          "round": "1R",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2329,9 +2328,27 @@
           "finished": false
         },
         {
+          "teId": "3317595",
+          "p1": "Tambelli",
+          "p2": "Kulhava",
+          "time": "15:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3317593",
           "p1": "Zocco",
           "p2": "De Angelis",
+          "time": "15:30",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317579",
+          "p1": "Petrillo",
+          "p2": "Pieroni",
           "time": "15:30",
           "round": "Q-1R",
           "h2h": "0-0",
@@ -2342,24 +2359,6 @@
           "p1": "Parentini Vallega Montebruno",
           "p2": "Chablaix",
           "time": "15:30",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317579",
-          "p1": "Petrillo",
-          "p2": "Pieroni",
-          "time": "15:36",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317595",
-          "p1": "Tambelli",
-          "p2": "Kulhava",
-          "time": "16:45",
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
@@ -2393,7 +2392,7 @@
           "teId": "3317887",
           "p1": "Leykina",
           "p2": "Choi",
-          "time": "05:00",
+          "time": "05:20",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2454,5 +2453,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-07T14:35:11Z"
 }
