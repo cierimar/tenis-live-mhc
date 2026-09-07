@@ -1,4 +1,6 @@
 {
+  "time": "2026-09-07T21:56:20Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -779,15 +781,6 @@
           "finished": false
         },
         {
-          "teId": "3318243",
-          "p1": "Kuharenko",
-          "p2": "Perapekhina",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318257",
           "p1": "Breen",
           "p2": "Nepliy",
@@ -833,6 +826,15 @@
           "finished": false
         },
         {
+          "teId": "3318243",
+          "p1": "Kuharenko",
+          "p2": "Perapekhina",
+          "time": "09:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318241",
           "p1": "Bartone",
           "p2": "Atay",
@@ -857,15 +859,6 @@
       "name": "Monastir 49 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3318263",
-          "p1": "Blomqvist",
-          "p2": "Cirotte",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
         {
           "teId": "3318261",
           "p1": "Vagramov",
@@ -927,6 +920,15 @@
           "time": "10:30",
           "round": "1R",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318263",
+          "p1": "Blomqvist",
+          "p2": "Cirotte",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-1",
           "finished": false
         },
         {
@@ -1719,7 +1721,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-07T21:46:16Z",
-  "ok": true
+  ]
 }
