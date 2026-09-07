@@ -1,4 +1,6 @@
 {
+  "time": "2026-09-07T15:47:51Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -18,10 +20,20 @@
           "teId": "3317501",
           "p1": "Johnson",
           "p2": "Lewis",
-          "time": "15:32",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
+          "round": "Qualification - round of 16",
+          "date": "07.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3317499",
@@ -50,7 +62,7 @@
           "p2": "Kardava",
           "round": "Qualification - round of 16",
           "date": "07.09.",
-          "time": "12:30",
+          "time": "12:00",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -632,24 +644,6 @@
           "finished": false
         },
         {
-          "teId": "3317331",
-          "p1": "Cirpanli",
-          "p2": "Liu",
-          "time": "12:30",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317327",
-          "p1": "Paun",
-          "p2": "Hui",
-          "time": "12:30",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317321",
           "p1": "Taraba Wallberg",
           "p2": "Peet",
@@ -666,6 +660,44 @@
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3317327",
+          "p1": "Hui",
+          "p2": "Paun",
+          "round": "Qualification - round of 16",
+          "date": "07.09.",
+          "time": "12:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3317331",
+          "p1": "Liu",
+          "p2": "Cirpanli",
+          "round": "Qualification - round of 16",
+          "date": "07.09.",
+          "time": "12:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3317329",
@@ -2471,7 +2503,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-07T15:34:09Z",
-  "ok": true
+  ]
 }
