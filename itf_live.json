@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-07T20:07:19Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -790,15 +788,6 @@
           "finished": false
         },
         {
-          "teId": "3318239",
-          "p1": "Allen",
-          "p2": "Diatlova",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318257",
           "p1": "Breen",
           "p2": "Nepliy",
@@ -851,6 +840,15 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318239",
+          "p1": "Allen",
+          "p2": "Diatlova",
+          "time": "09:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
         }
       ]
     },
@@ -859,24 +857,6 @@
       "name": "Monastir 49 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3318275",
-          "p1": "Masiianskaia",
-          "p2": "Mansouri",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318269",
-          "p1": "Popovic",
-          "p2": "Dell'edera",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3318263",
           "p1": "Blomqvist",
@@ -914,6 +894,15 @@
           "finished": false
         },
         {
+          "teId": "3318275",
+          "p1": "Masiianskaia",
+          "p2": "Mansouri",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318273",
           "p1": "Urso",
           "p2": "Kashyap",
@@ -926,6 +915,15 @@
           "teId": "3318271",
           "p1": "Myatovic",
           "p2": "Kikawada",
+          "time": "10:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318269",
+          "p1": "Popovic",
+          "p2": "Dell'edera",
           "time": "10:30",
           "round": "1R",
           "h2h": "0-0",
@@ -1721,5 +1719,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-07T20:24:18Z",
+  "ok": true
 }
