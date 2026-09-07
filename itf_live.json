@@ -1,19 +1,11 @@
 {
+  "time": "2026-09-07T01:22:48Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
       "name": "Evora ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3317499",
-          "p1": "Otzipka",
-          "p2": "Dapkute",
-          "time": "",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3317271",
           "p1": "Lacasse",
@@ -51,6 +43,15 @@
           "finished": false
         },
         {
+          "teId": "3317499",
+          "p1": "Otzipka",
+          "p2": "Dapkute",
+          "time": "12:00",
+          "round": "Q-R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3317269",
           "p1": "Cembranos",
           "p2": "Kardava",
@@ -63,7 +64,7 @@
           "teId": "3317501",
           "p1": "Johnson",
           "p2": "Lewis",
-          "time": "13:00",
+          "time": "14:05",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -3725,6 +3726,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-07T01:07:40Z"
+  "ok": true
 }
