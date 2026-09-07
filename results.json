@@ -1,35 +1,57 @@
 {
-  "updated": "2026-09-07T23:16:36Z",
+  "count": 1,
+  "ok": true,
+  "updated": "2026-09-07T23:42:20Z",
   "matches": [
     {
-      "id": "te-3318741",
+      "id": "te-3318383",
       "state": "post",
       "tour": "atp",
-      "type": "Men's Doubles",
+      "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3318741",
+      "tournamentId": "te-3318383",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "linescores": [],
+          "flagAlt": "",
+          "name": "Da Rosa Castro G.",
           "flag": "",
           "homeAway": "home",
-          "name": "Sevcikova / Voracek E",
-          "flagAlt": ""
+          "winner": true,
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            }
+          ]
         },
         {
-          "winner": false,
-          "linescores": [],
+          "flagAlt": "",
+          "name": "Lima Sanches D.",
           "flag": "",
           "homeAway": "away",
-          "name": "Fumagalli / Marino F.",
-          "flagAlt": ""
+          "winner": false,
+          "linescores": [
+            {
+              "value": 3,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 2,
+              "tiebreak": null,
+              "winner": false
+            }
+          ]
         }
       ]
     }
-  ],
-  "ok": true,
-  "count": 1
+  ]
 }
