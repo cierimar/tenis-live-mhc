@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-07T17:14:40Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -12,7 +12,7 @@
           "p2": "Lewis",
           "round": "Qualification - round of 16",
           "date": "07.09.",
-          "time": "14:00",
+          "time": "13:00",
           "res1": 2,
           "res2": 0,
           "sets1": [
@@ -31,7 +31,7 @@
           "p2": "Leon",
           "round": "Qualification - round of 16",
           "date": "07.09.",
-          "time": "14:00",
+          "time": "13:00",
           "res1": 2,
           "res2": 0,
           "sets1": [
@@ -671,25 +671,6 @@
           "finished": false
         },
         {
-          "teId": "3317331",
-          "p1": "Liu",
-          "p2": "Cirpanli",
-          "round": "Qualification - round of 16",
-          "date": "07.09.",
-          "time": "12:30",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "4",
-            "3"
-          ],
-          "finished": true
-        },
-        {
           "teId": "3317327",
           "p1": "Hui",
           "p2": "Paun",
@@ -705,6 +686,25 @@
           "sets2": [
             "6",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3317331",
+          "p1": "Liu",
+          "p2": "Cirpanli",
+          "round": "Qualification - round of 16",
+          "date": "07.09.",
+          "time": "12:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
           ],
           "finished": true
         },
@@ -2513,5 +2513,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-07T17:29:22Z"
 }
