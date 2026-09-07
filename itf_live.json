@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-07T19:29:27Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -761,33 +763,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318255",
-          "p1": "Weckerle",
-          "p2": "Reguer",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318253",
-          "p1": "Ronde",
-          "p2": "Desai",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
-          "teId": "3318251",
-          "p1": "Marinkovic",
-          "p2": "Hrabavets",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318247",
           "p1": "Lizunova",
           "p2": "Ezzat",
@@ -833,6 +808,33 @@
           "finished": false
         },
         {
+          "teId": "3318255",
+          "p1": "Weckerle",
+          "p2": "Reguer",
+          "time": "09:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318253",
+          "p1": "Ronde",
+          "p2": "Desai",
+          "time": "09:00",
+          "round": "1R",
+          "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3318251",
+          "p1": "Marinkovic",
+          "p2": "Hrabavets",
+          "time": "09:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318249",
           "p1": "Mdlulwa",
           "p2": "Herazo Gonzalez",
@@ -861,15 +863,6 @@
           "teId": "3318275",
           "p1": "Masiianskaia",
           "p2": "Mansouri",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318273",
-          "p1": "Urso",
-          "p2": "Kashyap",
           "time": "",
           "round": "1R",
           "h2h": "0-0",
@@ -916,6 +909,15 @@
           "p1": "Oliver Sanchez",
           "p2": "Rojas",
           "time": "13:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318273",
+          "p1": "Urso",
+          "p2": "Kashyap",
+          "time": "10:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1719,7 +1721,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-07T18:58:51Z",
-  "ok": true
+  ]
 }
