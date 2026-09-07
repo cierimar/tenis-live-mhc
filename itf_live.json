@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-07T08:41:30Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1193,15 +1191,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3317251",
-          "p1": "Cucu",
-          "p2": "Mocanu",
-          "time": "08:30",
-          "round": "Q-R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317245",
           "p1": "Nicolae",
           "p2": "Capeti",
@@ -1223,7 +1212,7 @@
           "teId": "3317253",
           "p1": "Cozma",
           "p2": "Paul",
-          "time": "10:22",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1232,7 +1221,7 @@
           "teId": "3317249",
           "p1": "Shibata",
           "p2": "Sanduleasa",
-          "time": "10:22",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1241,7 +1230,7 @@
           "teId": "3317247",
           "p1": "Krznaric",
           "p2": "Jaeger",
-          "time": "10:22",
+          "time": "10:00",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1263,6 +1252,25 @@
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3317251",
+          "p1": "Cucu",
+          "p2": "Mocanu",
+          "round": "Qualification - round of 16",
+          "date": "07.09.",
+          "time": "08:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3317241",
@@ -1620,19 +1628,19 @@
           "finished": false
         },
         {
-          "teId": "3317491",
-          "p1": "Gettwart",
-          "p2": "Trklja",
+          "teId": "3317255",
+          "p1": "Diabate",
+          "p2": "Pire",
           "time": "11:35",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3317255",
-          "p1": "Diabate",
-          "p2": "Pire",
-          "time": "11:35",
+          "teId": "3317491",
+          "p1": "Gettwart",
+          "p2": "Trklja",
+          "time": "11:52",
           "round": "Q-R16",
           "h2h": "0-0",
           "finished": false
@@ -1963,15 +1971,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3316399",
-          "p1": "Atturu",
-          "p2": "Rachapudi",
-          "time": "",
-          "round": "Q-2R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317531",
           "p1": "Mylnikova",
           "p2": "Bretnacher",
@@ -2105,6 +2104,19 @@
           "round": "Q-2R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3316399",
+          "p1": "Atturu",
+          "p2": "Rachapudi",
+          "round": "Qualification - 2. round",
+          "date": "",
+          "time": "",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [],
+          "sets2": [],
+          "finished": true
         },
         {
           "teId": "3316369",
@@ -3093,6 +3105,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3317915",
+          "p1": "Orlova",
+          "p2": "Matysiak",
+          "time": "",
+          "round": "Q-1R",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3317563",
           "p1": "Sikora",
           "p2": "Jankowska",
@@ -3325,42 +3346,6 @@
           "finished": false
         },
         {
-          "teId": "3317575",
-          "p1": "Lanciaprima",
-          "p2": "Antici",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317573",
-          "p1": "Drobysheva",
-          "p2": "Fumagalli",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317571",
-          "p1": "Faustini",
-          "p2": "Muller",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3317569",
-          "p1": "Bilardo",
-          "p2": "Bassotti",
-          "time": "",
-          "round": "Q-1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317567",
           "p1": "Mosi",
           "p2": "De Santis",
@@ -3377,6 +3362,42 @@
           "round": "Q-1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3317575",
+          "p1": "Lanciaprima",
+          "p2": "Antici",
+          "time": "10:38",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317573",
+          "p1": "Drobysheva",
+          "p2": "Fumagalli",
+          "time": "10:38",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317571",
+          "p1": "Faustini",
+          "p2": "Muller",
+          "time": "10:38",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317569",
+          "p1": "Bilardo",
+          "p2": "Bassotti",
+          "time": "10:38",
+          "round": "Q-1R",
+          "h2h": "0-0",
+          "finished": false
         }
       ]
     },
@@ -3385,15 +3406,6 @@
       "name": "Yeongwol 2 ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3317887",
-          "p1": "Leykina",
-          "p2": "Choi",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3317875",
           "p1": "Sawashiro",
@@ -3408,6 +3420,15 @@
           "p1": "Yodpetch",
           "p2": "Kim",
           "time": "",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3317887",
+          "p1": "Leykina",
+          "p2": "Choi",
+          "time": "04:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -3468,5 +3489,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-07T08:55:50Z",
+  "ok": true
 }
