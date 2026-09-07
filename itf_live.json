@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-07T21:19:41Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1408,15 +1407,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319089",
-          "p1": "Wrobel",
-          "p2": "Sucha",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319087",
           "p1": "Veleva",
           "p2": "Kulbiej",
@@ -1456,6 +1446,15 @@
           "teId": "3319091",
           "p1": "Kolonus",
           "p2": "Narti",
+          "time": "13:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319089",
+          "p1": "Wrobel",
+          "p2": "Sucha",
           "time": "13:00",
           "round": "1R",
           "h2h": "0-0",
@@ -1721,5 +1720,6 @@
       ]
     }
   ],
+  "time": "2026-09-07T21:46:16Z",
   "ok": true
 }
