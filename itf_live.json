@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-07T23:18:17Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -159,15 +157,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318209",
-          "p1": "Zhang",
-          "p2": "Yang",
-          "time": "18:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318219",
           "p1": "Kokkinis",
           "p2": "Yamaguchi",
@@ -234,6 +223,15 @@
           "teId": "3318215",
           "p1": "Tian",
           "p2": "Shi",
+          "time": "04:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318209",
+          "p1": "Zhang",
+          "p2": "Yang",
           "time": "04:00",
           "round": "1R",
           "h2h": "0-0",
@@ -905,15 +903,6 @@
           "finished": false
         },
         {
-          "teId": "3318271",
-          "p1": "Myatovic",
-          "p2": "Kikawada",
-          "time": "10:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318269",
           "p1": "Popovic",
           "p2": "Dell'edera",
@@ -923,10 +912,19 @@
           "finished": false
         },
         {
+          "teId": "3318271",
+          "p1": "Myatovic",
+          "p2": "Kikawada",
+          "time": "11:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318263",
           "p1": "Blomqvist",
           "p2": "Cirotte",
-          "time": "10:30",
+          "time": "11:00",
           "round": "1R",
           "h2h": "0-1",
           "finished": false
@@ -935,7 +933,7 @@
           "teId": "3318259",
           "p1": "Ansari",
           "p2": "Dmitrichenko",
-          "time": "10:30",
+          "time": "11:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1436,24 +1434,6 @@
           "finished": false
         },
         {
-          "teId": "3319091",
-          "p1": "Kolonus",
-          "p2": "Narti",
-          "time": "13:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319089",
-          "p1": "Wrobel",
-          "p2": "Sucha",
-          "time": "13:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319071",
           "p1": "Adams",
           "p2": "Gniewkowska",
@@ -1467,6 +1447,24 @@
           "p1": "Chmielewska",
           "p2": "Kmiecik",
           "time": "15:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319091",
+          "p1": "Kolonus",
+          "p2": "Narti",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319089",
+          "p1": "Wrobel",
+          "p2": "Sucha",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1576,15 +1574,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3317875",
-          "p1": "Sawashiro",
-          "p2": "Jang",
-          "time": "17:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3317873",
           "p1": "Yodpetch",
           "p2": "Kim",
@@ -1657,6 +1646,15 @@
           "finished": false
         },
         {
+          "teId": "3317875",
+          "p1": "Sawashiro",
+          "p2": "Jang",
+          "time": "02:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318755",
           "p1": "Matsumoto",
           "p2": "Mushika",
@@ -1721,5 +1719,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-07T23:30:23Z"
 }
