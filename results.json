@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-07T22:18:24Z",
+  "updated": "2026-09-07T22:32:13Z",
   "matches": [
     {
       "id": "te-3318383",
@@ -13,41 +13,41 @@
       "competitors": [
         {
           "flagAlt": "",
-          "homeAway": "home",
-          "name": "Da Rosa Castro G.",
           "winner": true,
-          "flag": "",
           "linescores": [
             {
-              "tiebreak": null,
               "value": 6,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "value": 6,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             }
-          ]
+          ],
+          "flag": "",
+          "name": "Da Rosa Castro G.",
+          "homeAway": "home"
         },
         {
           "flagAlt": "",
-          "homeAway": "away",
-          "name": "Lima Sanches D.",
           "winner": false,
-          "flag": "",
           "linescores": [
             {
-              "tiebreak": null,
               "value": 3,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "value": 2,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             }
-          ]
+          ],
+          "flag": "",
+          "name": "Lima Sanches D.",
+          "homeAway": "away"
         }
       ]
     }
