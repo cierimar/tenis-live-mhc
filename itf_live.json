@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-07T16:18:02Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1218,28 +1216,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318673",
-          "p1": "Cora-Bruneton",
-          "p2": "Tran",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318671",
-          "p1": "Mattel",
-          "p2": "Biolay",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318669",
           "p1": "Pohle",
           "p2": "Soriano Santiago",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1248,16 +1228,7 @@
           "teId": "3318667",
           "p1": "Carpentier",
           "p2": "Rennert",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318665",
-          "p1": "Baslilar",
-          "p2": "Marcinkevica",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1266,7 +1237,16 @@
           "teId": "3318663",
           "p1": "Szostak",
           "p2": "Ait El Bachir",
-          "time": "",
+          "time": "11:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318665",
+          "p1": "Baslilar",
+          "p2": "Marcinkevica",
+          "time": "11:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1275,7 +1255,25 @@
           "teId": "3318661",
           "p1": "Chlpac",
           "p2": "Iliev",
-          "time": "",
+          "time": "11:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318671",
+          "p1": "Mattel",
+          "p2": "Biolay",
+          "time": "12:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318673",
+          "p1": "Cora-Bruneton",
+          "p2": "Tran",
+          "time": "14:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1284,7 +1282,7 @@
           "teId": "3318659",
           "p1": "Easwaramurthi",
           "p2": "Van De Peer",
-          "time": "",
+          "time": "14:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1430,24 +1428,6 @@
           "finished": false
         },
         {
-          "teId": "3318267",
-          "p1": "Gergec",
-          "p2": "Lukosiute",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318265",
-          "p1": "Oliver Sanchez",
-          "p2": "Rojas",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318263",
           "p1": "Blomqvist",
           "p2": "Cirotte",
@@ -1457,19 +1437,37 @@
           "finished": false
         },
         {
+          "teId": "3318259",
+          "p1": "Ansari",
+          "p2": "Dmitrichenko",
+          "time": "",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318261",
           "p1": "Vagramov",
           "p2": "Pulchartova",
-          "time": "",
+          "time": "10:00",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
         },
         {
-          "teId": "3318259",
-          "p1": "Ansari",
-          "p2": "Dmitrichenko",
-          "time": "",
+          "teId": "3318267",
+          "p1": "Gergec",
+          "p2": "Lukosiute",
+          "time": "13:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318265",
+          "p1": "Oliver Sanchez",
+          "p2": "Rojas",
+          "time": "13:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2513,5 +2511,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-07T16:33:47Z"
 }
