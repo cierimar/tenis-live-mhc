@@ -960,6 +960,19 @@ a { color: var(--blue); }
 .cal-month-select:hover { background: var(--paper-2); }
 .cal-month-select option { background: var(--paper); color: var(--ink); }
 
+/* ---------- ESTADÍSTICAS ATP/WTA ---------- */
+.stats-board { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.stats-board-title {
+  display: flex; align-items: baseline; gap: 8px;
+  font-family: var(--serif); font-size: 16px; font-weight: 700;
+  color: var(--ink); margin: 2px 0 0;
+}
+.stats-board-title small { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+#view-stats .rank-table th { text-align: right; }
+#view-stats .rank-table th:nth-child(2) { text-align: left; }
+#view-stats .rank-table .r-pts { text-align: right; font-variant-numeric: tabular-nums; }
+#view-stats .rank-table .r-name .flag { vertical-align: -2px; }
+
 .btn-refresh {
   border: 1px solid var(--hairline-dark); background: var(--paper);
   padding: 7px 15px;
@@ -982,9 +995,11 @@ body.tab-argentina #segMode,
 body.tab-wheelchair #segTour,
 body.tab-wheelchair #segMode,
 body.tab-news #segTour,
-body.tab-news #segMode,
-body.tab-videos #segTour,
-body.tab-videos #segMode { display: none; }
+  body.tab-news #segMode,
+  body.tab-videos #segTour,
+  body.tab-videos #segMode,
+  body.tab-stats #segTour,
+  body.tab-stats #segMode { display: none; }
 
 /* ---------------- layout contenido ---------------- */
 
