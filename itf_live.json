@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-08T06:03:03Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -412,7 +411,7 @@
           "teId": "3319039",
           "p1": "Teixido Garcia",
           "p2": "Vladson",
-          "time": "11:30",
+          "time": "11:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -421,7 +420,7 @@
           "teId": "3319035",
           "p1": "Greiner",
           "p2": "Paoletti",
-          "time": "11:30",
+          "time": "11:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1293,19 +1292,10 @@
           "finished": false
         },
         {
-          "teId": "3317871",
-          "p1": "Abe",
-          "p2": "Desvignes",
-          "time": "12:00",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3318755",
           "p1": "Matsumoto",
           "p2": "Mushika",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-1",
           "finished": false
@@ -1314,7 +1304,7 @@
           "teId": "3318753",
           "p1": "Choi",
           "p2": "Oh",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
@@ -1323,7 +1313,7 @@
           "teId": "3318751",
           "p1": "Muramatsu",
           "p2": "Kim",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-2",
           "finished": false
@@ -1332,7 +1322,7 @@
           "teId": "3318749",
           "p1": "Kosaka",
           "p2": "Ju",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1341,7 +1331,7 @@
           "teId": "3318747",
           "p1": "Son",
           "p2": "Lin",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-1",
           "finished": false
@@ -1350,7 +1340,7 @@
           "teId": "3318745",
           "p1": "Naklo",
           "p2": "Ahn",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "1-1",
           "finished": false
@@ -1359,7 +1349,7 @@
           "teId": "3318743",
           "p1": "Kim",
           "p2": "Park",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1368,7 +1358,7 @@
           "teId": "3317875",
           "p1": "Sawashiro",
           "p2": "Jang",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1377,10 +1367,31 @@
           "teId": "3317873",
           "p1": "Yodpetch",
           "p2": "Kim",
-          "time": "04:00",
+          "time": "03:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3317871",
+          "p1": "Abe",
+          "p2": "Desvignes",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "1",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3317885",
@@ -1481,5 +1492,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-08T06:26:35Z"
 }
