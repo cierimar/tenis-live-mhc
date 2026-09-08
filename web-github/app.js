@@ -193,9 +193,26 @@
     return t === 'atp' ? 'ATP' : 'WTA';
   }
   function flagUrl(code) {
-    return code ? 'https://a.espncdn.com/i/teamlogos/countries/500/' + code.toLowerCase() + '.png' : '';
+    if (!code) return '';
+    if (/^https?:\/\//i.test(code)) return code;
+    let c = String(code).toLowerCase();
+    if (c.length === 2) c = ISO2_TO_3[c] || c;
+    return 'https://a.espncdn.com/i/teamlogos/countries/500/' + c + '.png';
   }
+  const ISO2_TO_3 = {
+    ar: 'arg', at: 'aut', au: 'aus', ba: 'bih', be: 'bel', bg: 'bul', by: 'blr',
+    br: 'bra', ca: 'can', ch: 'sui', cl: 'chi', cn: 'chn', co: 'col', cz: 'cze',
+    de: 'ger', dk: 'den', do: 'dom', ec: 'ecu', ee: 'est', eg: 'egy', es: 'esp',
+    fi: 'fin', fr: 'fra', gb: 'gbr', ge: 'geo', gr: 'gre', hr: 'cro', hu: 'hun',
+    id: 'ina', ie: 'irl', il: 'isr', in: 'ind', ir: 'iri', it: 'ita', jp: 'jpn',
+    kr: 'kor', kz: 'kaz', lt: 'ltu', lu: 'lux', lv: 'lat', ma: 'mar', md: 'mda',
+    me: 'mne', mk: 'mkd', mt: 'mlt', mx: 'mex', my: 'mas', nc: 'ncl', nl: 'ned',
+    no: 'nor', nz: 'nzl', pe: 'per', pl: 'pol', pt: 'por', ro: 'rou', rs: 'srb',
+    ru: 'rus', se: 'swe', si: 'slo', sk: 'svk', th: 'tha', tr: 'tur', tw: 'tpe',
+    ua: 'ukr', us: 'usa', uy: 'uru', uz: 'uzb', ve: 'ven', xk: 'kos', za: 'rsa'
+  };
   function flagImg(url, alt, size) {
+    if (!url && alt) url = flagUrl(alt);
     if (!url) return '<span class="noflag"></span>';
     return '<img class="flag" src="' + esc(url) + '" alt="' + esc(alt || '') + '" loading="lazy" onerror="this.outerHTML=\'<span class=&quot;noflag&quot;></span>\'">';
   }
@@ -3325,10 +3342,10 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'claro'];
-      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', claro: '&#9788;' };
-      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', claro: 'Modo claro' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', claro: '#faf7f2' };
+      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'claro'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', claro: '&#9788;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', claro: 'Modo claro' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', claro: '#faf7f2' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
