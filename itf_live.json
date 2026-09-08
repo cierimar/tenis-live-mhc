@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-08T18:54:24Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1695,15 +1696,6 @@
           "finished": false
         },
         {
-          "teId": "3319339",
-          "p1": "Romero",
-          "p2": "Zornada",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3319349",
           "p1": "Navarro Oliva",
           "p2": "Britez Risso",
@@ -1756,6 +1748,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3319339",
+          "p1": "Romero",
+          "p2": "Zornada",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3319343",
@@ -1886,7 +1897,7 @@
           "teId": "3319367",
           "p1": "Nuudi",
           "p2": "Koltun",
-          "time": "14:15",
+          "time": "13:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2013,15 +2024,6 @@
           "finished": false
         },
         {
-          "teId": "3319749",
-          "p1": "Fumagalli",
-          "p2": "De Angelis",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319747",
           "p1": "Alvisi",
           "p2": "Novak",
@@ -2044,6 +2046,15 @@
           "p1": "Shapatava",
           "p2": "Senica",
           "time": "12:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319749",
+          "p1": "Fumagalli",
+          "p2": "De Angelis",
+          "time": "12:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2287,6 +2298,25 @@
           "finished": true
         },
         {
+          "teId": "3317887",
+          "p1": "Leykina",
+          "p2": "Choi",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "0"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3317877",
           "p1": "Tsao",
           "p2": "Choi",
@@ -2363,29 +2393,9 @@
             "1"
           ],
           "finished": true
-        },
-        {
-          "teId": "3317887",
-          "p1": "Leykina",
-          "p2": "Choi",
-          "round": "1. round",
-          "date": "08.09.",
-          "time": "05:20",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "6"
-          ],
-          "sets2": [
-            "2",
-            "0"
-          ],
-          "finished": true
         }
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-08T18:38:12Z"
+  "ok": true
 }
