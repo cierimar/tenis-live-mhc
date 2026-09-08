@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": "2026-09-08T10:17:13Z",
+  "time": "2026-09-08T10:33:45Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -26,15 +26,6 @@
           "finished": false
         },
         {
-          "teId": "3318997",
-          "p1": "Reasco Gonzalez",
-          "p2": "Swan",
-          "time": "12:10",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318993",
           "p1": "Rouvroy",
           "p2": "Jorge",
@@ -44,10 +35,19 @@
           "finished": false
         },
         {
+          "teId": "3318997",
+          "p1": "Reasco Gonzalez",
+          "p2": "Swan",
+          "time": "12:35",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3318987",
           "p1": "Dodin",
           "p2": "Johnson",
-          "time": "12:20",
+          "time": "12:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -56,7 +56,7 @@
           "teId": "3318983",
           "p1": "Cross",
           "p2": "Pereira De Aguiar",
-          "time": "13:10",
+          "time": "13:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -440,15 +440,6 @@
           "finished": false
         },
         {
-          "teId": "3319033",
-          "p1": "Pieri",
-          "p2": "Steiner",
-          "time": "12:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319059",
           "p1": "Kazionova",
           "p2": "Roura Llaverias",
@@ -546,6 +537,25 @@
           "round": "1R",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3319033",
+          "p1": "Pieri",
+          "p2": "Steiner",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3319031",
@@ -809,19 +819,19 @@
           "finished": false
         },
         {
-          "teId": "3318663",
-          "p1": "Szostak",
-          "p2": "Ait El Bachir",
+          "teId": "3318661",
+          "p1": "Chlpac",
+          "p2": "Iliev",
           "time": "11:30",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3318661",
-          "p1": "Chlpac",
-          "p2": "Iliev",
-          "time": "11:30",
+          "teId": "3318663",
+          "p1": "Szostak",
+          "p2": "Ait El Bachir",
+          "time": "12:16",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
