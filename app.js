@@ -17,7 +17,7 @@
     itfLive: { tournaments: [], matches: [] },
     mixedLive: { matches: [], loaded: false },
     ttLive: { matches: [], tournaments: [], loaded: false },
-    cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos' },
+    cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos', month: 'todos' },
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
     rankLive: { atp: [], wta: [], atpRace: [], wtaRace: [], loaded: false },
@@ -1698,10 +1698,10 @@
         ? ['api/calendar/atp', 'api/calendar/wta', 'api/calendar/chall', 'api/calendar/itf']
         : ['calendar_atp.json', 'calendar_wta.json', 'calendar_chall.json', 'calendar_itf.json'];
       const [a, w, c, i] = await Promise.all([
-        fetchJson(urls[0]).catch(() => ({ tournaments: [] })),
-        fetchJson(urls[1]).catch(() => ({ tournaments: [] })),
-        fetchJson(urls[2]).catch(() => ({ tournaments: [] })),
-        fetchJson(urls[3]).catch(() => ({ tournaments: [] }))
+        fetchJsonWithTimeout(urls[0], 40000).then(r => r.ok ? r.json() : { tournaments: [] }).catch(() => ({ tournaments: [] })),
+        fetchJsonWithTimeout(urls[1], 40000).then(r => r.ok ? r.json() : { tournaments: [] }).catch(() => ({ tournaments: [] })),
+        fetchJsonWithTimeout(urls[2], 40000).then(r => r.ok ? r.json() : { tournaments: [] }).catch(() => ({ tournaments: [] })),
+        fetchJsonWithTimeout(urls[3], 40000).then(r => r.ok ? r.json() : { tournaments: [] }).catch(() => ({ tournaments: [] }))
       ]);
       state.cal.atp = a.tournaments || [];
       state.cal.wta = w.tournaments || [];
@@ -1746,10 +1746,19 @@
       }
     }
     if (!list.length) { el.innerHTML = '<div class="error-box">Sin torneos para este circuito.</div>'; $('calMeta').textContent = ''; return; }
-    list.sort((a, b) => a.date.localeCompare(b.date));
+    let listF = list;
+    if (state.cal.month !== 'todos') {
+      listF = list.filter(t => t.date && t.date.slice(5, 7) === state.cal.month);
+      if (!listF.length) {
+        el.innerHTML = '<div class="error-box">Sin torneos para este mes.</div>';
+        $('calMeta').textContent = '0 torneo(s) en ' + new Date(2026, +state.cal.month - 1, 1).toLocaleDateString('es', { month: 'long' });
+        return;
+      }
+    }
+    const listSorted = listF.slice().sort((a, b) => a.date.localeCompare(b.date));
     const months = [];
     const byMonth = new Map();
-    for (const t of list) {
+    for (const t of listSorted) {
       const key = (t.date || '').slice(0, 7);
       if (!byMonth.has(key)) byMonth.set(key, []);
       byMonth.get(key).push(t);
@@ -1780,7 +1789,7 @@
       return '<div class="cal-month"><h3>' + esc(mo.label) + '</h3>' + rows + '</div>';
     }).join('');
     el.innerHTML = html;
-    $('calMeta').textContent = list.length + ' torneo(s)';
+    $('calMeta').textContent = listF.length + ' torneo(s)' + (state.cal.month !== 'todos' ? ' · ' + new Date(2026, +state.cal.month - 1, 1).toLocaleDateString('es', { month: 'long' }) : '');
   }
 
   /* ---------------- filters ---------------- */
@@ -3202,7 +3211,18 @@
         const b = e.target.closest('.seg-btn');
         if (!b) return;
         state.cal.tab = b.dataset.cal;
+        state.cal.month = 'todos';
+        const sel = document.getElementById('calMonth');
+        if (sel) sel.value = 'todos';
         document.querySelectorAll('#segCal .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+        renderCalendar();
+      });
+    }
+
+    const calMonthSel = document.getElementById('calMonth');
+    if (calMonthSel) {
+      calMonthSel.addEventListener('change', e => {
+        state.cal.month = e.target.value;
         renderCalendar();
       });
     }
