@@ -1,4 +1,6 @@
 {
+  "updated": "2026-09-08T01:22:51Z",
+  "ok": true,
   "matches": [
     {
       "id": "te-3316567",
@@ -11,42 +13,142 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "winner": true,
-          "flag": "",
+          "homeAway": "home",
+          "name": "Gauff C.",
           "linescores": [
             {
               "value": 6,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             },
             {
               "value": 6,
-              "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "tiebreak": null
             }
           ],
-          "homeAway": "home",
-          "name": "Gauff C."
+          "flagAlt": "",
+          "flag": "",
+          "winner": true
         },
         {
-          "flagAlt": "",
-          "winner": false,
-          "flag": "",
+          "homeAway": "away",
+          "name": "Jovic I.",
           "linescores": [
             {
               "value": 1,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             },
             {
               "value": 4,
-              "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "tiebreak": null
             }
           ],
+          "flagAlt": "",
+          "flag": "",
+          "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3317851",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3317851",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "homeAway": "home",
+          "name": "Lee C.",
+          "linescores": [
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "winner": true
+        },
+        {
           "homeAway": "away",
-          "name": "Jovic I."
+          "name": "Valdmannova V.",
+          "linescores": [
+            {
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3317855",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3317855",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "homeAway": "home",
+          "name": "Hibino N.",
+          "linescores": [
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "winner": true
+        },
+        {
+          "homeAway": "away",
+          "name": "Torres Murcia M.",
+          "linescores": [
+            {
+              "value": 4,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 1,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "winner": false
         }
       ]
     },
@@ -61,25 +163,23 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "winner": true,
-          "flag": "",
-          "linescores": [],
           "homeAway": "home",
-          "name": "Sevcikova / Voracek E"
+          "name": "Sevcikova / Voracek E",
+          "linescores": [],
+          "flagAlt": "",
+          "flag": "",
+          "winner": true
         },
         {
-          "flagAlt": "",
-          "winner": false,
-          "flag": "",
-          "linescores": [],
           "homeAway": "away",
-          "name": "Fumagalli / Marino F."
+          "name": "Fumagalli / Marino F.",
+          "linescores": [],
+          "flagAlt": "",
+          "flag": "",
+          "winner": false
         }
       ]
     }
   ],
-  "ok": true,
-  "updated": "2026-09-08T01:01:16Z",
-  "count": 2
+  "count": 4
 }
