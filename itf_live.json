@@ -1,21 +1,12 @@
 {
+  "time": "2026-09-08T13:20:17Z",
   "ok": true,
-  "time": "2026-09-08T12:59:22Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
       "name": "Evora ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3318983",
-          "p1": "Cross",
-          "p2": "Pereira De Aguiar",
-          "time": "14:05",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3319013",
           "p1": "Ito",
@@ -114,6 +105,25 @@
           "round": "R16",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3318983",
+          "p1": "Cross",
+          "p2": "Pereira De Aguiar",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "14:05",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3318987",
@@ -483,19 +493,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319039",
-          "p1": "Teixido Garcia",
-          "p2": "Vladson",
-          "time": "11:55",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319057",
           "p1": "Gomez",
           "p2": "Cortez Llorca",
-          "time": "14:55",
+          "time": "15:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -504,7 +505,7 @@
           "teId": "3319059",
           "p1": "Kazionova",
           "p2": "Roura Llaverias",
-          "time": "15:00",
+          "time": "15:20",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -648,6 +649,27 @@
             "7",
             "3",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319039",
+          "p1": "Teixido Garcia",
+          "p2": "Vladson",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "11:55",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "7",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
+            "4"
           ],
           "finished": true
         },
@@ -898,42 +920,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318969",
-          "p1": "Lorrimer",
-          "p2": "Eto",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318665",
-          "p1": "Baslilar",
-          "p2": "Marcinkevica",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318663",
-          "p1": "Szostak",
-          "p2": "Ait El Bachir",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318661",
-          "p1": "Chlpac",
-          "p2": "Iliev",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318981",
           "p1": "Mpetshi Perricard",
           "p2": "Brunet-Brady",
@@ -1022,6 +1008,84 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318661",
+          "p1": "Iliev",
+          "p2": "Chlpac",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318663",
+          "p1": "Ait El Bachir",
+          "p2": "Szostak",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318665",
+          "p1": "Marcinkevica",
+          "p2": "Baslilar",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "6",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318969",
+          "p1": "Lorrimer",
+          "p2": "Eto",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "1",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3318667",
