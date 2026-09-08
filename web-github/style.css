@@ -607,6 +607,113 @@ body[data-mode='fuego'] .sb-logo-sub {
   color: #ff8c1a;
 }
 
+/* ============================================================
+   MODO OLIVA - fondo verde oliva + tinta blanca/amarillo fluo
+   + bordes de lineas MAS GRUESOS
+   ============================================================ */
+
+body[data-mode='oliva'] {
+  --paper: #3e4a16;
+  --paper-2: #46521a;
+  --paper-3: #525f1f;
+  --ink: #ffffff;
+  --ink-2: #f2f2e0;
+  --muted: #d4daa2;
+  --hairline: #6b7a2a;
+  --hairline-dark: #8a9a3a;
+  --red: #eaff00;
+  --red-dark: #ccd400;
+  --red-vivo: #ffffff;
+  --red-soft: rgba(234, 255, 0, 0.14);
+  --green: #ffffff;
+  --amber: #eaff00;
+  --blue: #ffffff;
+  --shadow: none;
+  --bg: #333c12;
+}
+body[data-mode='oliva'] ::selection { background: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] a { color: #eaff00; }
+body[data-mode='oliva'] .section-head h2 { color: #eaff00; }
+body[data-mode='oliva'] .section-head h2::before { background: #ffffff; }
+body[data-mode='oliva'] .nav-item.active { border-left-color: #ffffff; border-top: 1px solid #8a9a3a; border-bottom: 1px solid #8a9a3a; background: rgba(255, 255, 255, 0.08); }
+body[data-mode='oliva'] .nav-item[data-tab='live'] .ic, body[data-mode='oliva'] .nav-item[data-tab='live'] .lb { color: #ffffff; }
+body[data-mode='oliva'] .nav-item[data-tab='draws'] .ic, body[data-mode='oliva'] .nav-item[data-tab='draws'] .lb { color: #eaff00; }
+body[data-mode='oliva'] .nav-item[data-tab='tournaments'] .ic, body[data-mode='oliva'] .nav-item[data-tab='tournaments'] .lb { color: #ffffff; }
+body[data-mode='oliva'] .nav-item[data-tab='calendar'] .ic, body[data-mode='oliva'] .nav-item[data-tab='calendar'] .lb { color: #eaff00; }
+body[data-mode='oliva'] .nav-item[data-tab='rankings'] .ic, body[data-mode='oliva'] .nav-item[data-tab='rankings'] .lb { color: #ffffff; }
+body[data-mode='oliva'] .nav-item[data-tab='argentina'] .ic, body[data-mode='oliva'] .nav-item[data-tab='argentina'] .lb { color: #eaff00; }
+body[data-mode='oliva'] .nav-item[data-tab='players'] .ic, body[data-mode='oliva'] .nav-item[data-tab='players'] .lb { color: #ffffff; }
+body[data-mode='oliva'] .nav-item[data-tab='h2hsearch'] .ic, body[data-mode='oliva'] .nav-item[data-tab='h2hsearch'] .lb { color: #eaff00; }
+body[data-mode='oliva'] .nav-item[data-tab='news'] .ic, body[data-mode='oliva'] .nav-item[data-tab='news'] .lb { color: #ffffff; }
+body[data-mode='oliva'] .nav-item[data-tab='videos'] .ic, body[data-mode='oliva'] .nav-item[data-tab='videos'] .lb { color: #eaff00; }
+body[data-mode='oliva'] .nav-item[data-tab='wheelchair'] .ic, body[data-mode='oliva'] .nav-item[data-tab='wheelchair'] .lb { color: #ffffff; }
+body[data-mode='oliva'] .nav-item:hover .ic, body[data-mode='oliva'] .nav-item:hover .lb { color: #eaff00; }
+body[data-mode='oliva'] .rank-section-title { color: #eaff00; }
+body[data-mode='oliva'] .th-tier { border-color: #ffffff; color: #ffffff; }
+body[data-mode='oliva'] .th-surf { color: #eaff00; }
+body[data-mode='oliva'] .seed-badge { border-color: #ffffff; color: #ffffff; }
+body[data-mode='oliva'] .set.win { color: #eaff00; }
+body[data-mode='oliva'] .set.live-set { background: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] .match.live { border-left-color: #eaff00; }
+body[data-mode='oliva'] .match:hover { border-color: #ffffff; }
+body[data-mode='oliva'] .pname.winner::after { color: #eaff00; }
+body[data-mode='oliva'] .badge.live { background: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] .badge.final { background: #ffffff; color: #1f290a; }
+body[data-mode='oliva'] .seg-btn.active { background: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] .btn-refresh:hover { background: #ffffff; border-color: #ffffff; color: #1f290a; }
+body[data-mode='oliva'] .h2h-go { background: #eaff00; border-color: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] .h2h-go:hover { background: #ffffff; border-color: #ffffff; }
+body[data-mode='oliva'] .rank-search:focus { border-bottom-color: #ffffff; }
+body[data-mode='oliva'] .round-chip.active { background: #eaff00; border-color: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] .cal-month { color: #eaff00; }
+body[data-mode='oliva'] .cal-now .cal-name::after { color: #ffffff; }
+body[data-mode='oliva'] .mode-label { color: #eaff00; }
+body[data-mode='oliva'] .news-title a:hover { color: #ffffff; }
+body[data-mode='oliva'] .lv-btn.active { background: #eaff00; border-color: #eaff00; color: #1f290a; }
+body[data-mode='oliva'] .draw-match.live { border-color: #eaff00; box-shadow: inset 4px 0 0 #eaff00; }
+body[data-mode='oliva'] .stk-red { color: #eaff00; }
+body[data-mode='oliva'] .lp-score { background: rgba(234, 255, 0, 0.20); }
+body[data-mode='oliva'] .r-move.up { color: #eaff00; }
+body[data-mode='oliva'] .r-move.down { color: #ffffff; }
+body[data-mode='oliva'] .gender-badge.gender-m { border-color: #ffffff; color: #ffffff; }
+
+/* ---- recuadros: bordes MAS GRUESOS (2-3px + top 4px) ---- */
+body[data-mode='oliva'] .tour-block { border: 2px solid #ffffff; }
+body[data-mode='oliva'] .tour-block .tour-head { border-bottom: 3px solid #eaff00; }
+body[data-mode='oliva'] .tour-block .match { border: 2px solid #8a9a3a; }
+body[data-mode='oliva'] .news-card { border: 2px solid #ffffff; border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .video-card { border: 2px solid #ffffff; border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .col-card { border: 2px solid #ffffff; border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .wc-res-card { border: 2px solid #ffffff; border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .calendar, body[data-mode='oliva'] .cal-block { border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .draw-board { border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .h2h-block { border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .rank-table-wrap { border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .ct-card { border-top: 4px solid #eaff00; }
+body[data-mode='oliva'] .th-logo { border: 2px solid #ffffff; }
+
+/* ---- tarjetas de partido: borde izq rotativo grueso blanco/amarillo ---- */
+body[data-mode='oliva'] .tour-block .match:nth-of-type(3n+1) { border-left: 5px solid #ffffff; }
+body[data-mode='oliva'] .tour-block .match:nth-of-type(3n+2) { border-left: 5px solid #eaff00; }
+body[data-mode='oliva'] .tour-block .match:nth-of-type(3n+3) { border-left: 5px solid #ffffff; }
+body[data-mode='oliva'] .tour-block .match.live { border-left: 6px solid #eaff00 !important; }
+
+/* ---- nameplate: gradiente blanco->amarillo fluo animado ---- */
+body[data-mode='oliva'] .sb-logo {
+  color: transparent;
+  background: linear-gradient(90deg, #ffffff, #eaff00, #ffffff, #eaff00);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: uso-shift 8s ease infinite;
+  font-weight: 800;
+}
+body[data-mode='oliva'] .sb-logo-sub {
+  color: #eaff00;
+}
+
+/* ============================================================ */
+
 ::selection { background: var(--red); color: #fff; }
 
 a { color: var(--blue); }
