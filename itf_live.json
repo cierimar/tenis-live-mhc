@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-08T07:20:36Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -371,15 +373,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319053",
-          "p1": "Gavalda Cruz",
-          "p2": "Primorac",
-          "time": "",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319037",
           "p1": "Torner Sensano",
           "p2": "Cherubini",
@@ -455,6 +448,15 @@
           "teId": "3319055",
           "p1": "Berecoechea",
           "p2": "Pace",
+          "time": "10:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319053",
+          "p1": "Gavalda Cruz",
+          "p2": "Primorac",
           "time": "10:00",
           "round": "1R",
           "h2h": "0-0",
@@ -1491,7 +1493,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-08T07:00:36Z"
+  ]
 }
