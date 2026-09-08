@@ -1,8 +1,55 @@
 {
-  "ok": true,
-  "count": 1,
-  "updated": "2026-09-08T00:47:57Z",
   "matches": [
+    {
+      "id": "te-3316567",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3316567",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "homeAway": "home",
+          "name": "Gauff C."
+        },
+        {
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
+          "linescores": [
+            {
+              "value": 1,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "homeAway": "away",
+          "name": "Jovic I."
+        }
+      ]
+    },
     {
       "id": "te-3318741",
       "state": "post",
@@ -14,22 +61,25 @@
       "surface": "",
       "competitors": [
         {
-          "homeAway": "home",
-          "linescores": [],
           "flagAlt": "",
           "winner": true,
           "flag": "",
+          "linescores": [],
+          "homeAway": "home",
           "name": "Sevcikova / Voracek E"
         },
         {
-          "homeAway": "away",
-          "linescores": [],
           "flagAlt": "",
           "winner": false,
           "flag": "",
+          "linescores": [],
+          "homeAway": "away",
           "name": "Fumagalli / Marino F."
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "updated": "2026-09-08T01:01:16Z",
+  "count": 2
 }
