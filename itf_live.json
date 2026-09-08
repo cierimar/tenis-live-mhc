@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-08T20:32:34Z",
+  "time": "2026-09-08T20:46:36Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -842,7 +843,7 @@
           "teId": "3319533",
           "p1": "Popescu",
           "p2": "Bojica",
-          "time": "08:30",
+          "time": "23:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1690,15 +1691,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319349",
-          "p1": "Navarro Oliva",
-          "p2": "Britez Risso",
-          "time": "19:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319347",
           "p1": "Bulbarella",
           "p2": "Barrera Aguirre",
@@ -1742,6 +1734,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3319349",
+          "p1": "Britez Risso",
+          "p2": "Navarro Oliva",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "19:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3319339",
@@ -1929,7 +1940,7 @@
           "teId": "3319367",
           "p1": "Nuudi",
           "p2": "Koltun",
-          "time": "14:15",
+          "time": "13:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2438,6 +2449,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
