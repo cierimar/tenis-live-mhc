@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1883,15 +1882,6 @@
           "finished": false
         },
         {
-          "teId": "3319731",
-          "p1": "Zhenikhova",
-          "p2": "Cinkanicova",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319733",
           "p1": "Svatikova",
           "p2": "Chytilova",
@@ -1914,6 +1904,15 @@
           "p1": "Veleva",
           "p2": "Kulbiej",
           "time": "11:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319731",
+          "p1": "Zhenikhova",
+          "p2": "Cinkanicova",
+          "time": "11:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2459,5 +2458,6 @@
       ]
     }
   ],
-  "time": "2026-09-08T22:03:40Z"
+  "time": "2026-09-08T22:20:45Z",
+  "ok": true
 }
