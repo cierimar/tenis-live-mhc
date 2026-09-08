@@ -872,47 +872,119 @@ function Get-TennisNews {
 
 function Get-TournamentCalendar {
     param([ValidateSet('atp', 'wta')][string]$Circuit)
-    $slug = if ($Circuit -eq 'atp') { 'atp-men' } else { 'wta-women' }
-    $url = "https://www.tennisexplorer.com/calendar/$slug/"
+    if ($Circuit -eq 'atp') { return Get-AtpCalendar }
+    return Get-WtaCalendar
+}
+
+function Get-AtpCalendar {
+    $url = 'https://www.atptour.com/en/-/tournaments/calendar/home'
     $tmp = [System.IO.Path]::GetTempFileName()
     try {
-        Invoke-WebRequest -Uri $url -Headers @{ 'User-Agent' = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36' } -UseBasicParsing -TimeoutSec 20 -OutFile $tmp
-        $html = [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8)
+        curl.exe -s -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36' -H 'Referer: https://www.atptour.com/en/tournaments' -o $tmp --max-time 30 $url | Out-Null
+        $json = [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8)
     } finally {
         Remove-Item -LiteralPath $tmp -ErrorAction SilentlyContinue
     }
-    $rx = [regex]'<tr[^>]*class="one([^"]*)" data-type="(main|lower)"[^>]*>([\s\S]*?)</tr>'
-    $out = New-Object System.Collections.ArrayList
-    foreach ($m in $rx.Matches($html)) {
-        $row = $m.Groups[3].Value
-        $dateM = [regex]::Match($row, 'class="first shortdate[^"]*"[^>]*>\s*(\d{2})\.(\d{2})\.\s*<br>\s*(\d{4})')
-        if (-not $dateM.Success) { continue }
-        $date = $dateM.Groups[3].Value + '-' + $dateM.Groups[2].Value + '-' + $dateM.Groups[1].Value
-        $nameM = [regex]::Match($row, '<th class="t-name"[^>]*>[\s\S]*?<a href="[^"]+"[^>]*>\s*<strong>\s*(?:<span title="([^"]+)">)?([^<]+)')
-        if (-not $nameM.Success) { continue }
-        $name = if ($nameM.Groups[1].Value) { $nameM.Groups[1].Value } else { $nameM.Groups[2].Value }
-        $name = (($name -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
-        $surfM = [regex]::Match($row, '<td class="s-color"[^>]*>[\s\S]*?<span title="([^"]+)"')
-        $prizeM = [regex]::Match($row, '<td class="tr"[^>]*>([^<]*)')
-        $drawM = [regex]::Match($row, '<td class="draw"[^>]*>(\d+)')
-        $winnerM = [regex]::Match($row, '<td class="winner"[^>]*>\s*(.*?)\s*</td>')
-        $winner = ''
-        if ($winnerM.Success) {
-            $winner = (($winnerM.Groups[1].Value -replace '<[^>]+>', '') -replace '&nbsp;', ' ').Trim()
+    if (-not $json -or $json.Length -lt 80) { return @{ ok = $false; circuit = 'atp'; tournaments = @() } }
+    $parsed = $null
+    try { $parsed = $json | ConvertFrom-Json } catch {}
+    if (-not $parsed -or -not $parsed.TournamentDates) { return @{ ok = $false; circuit = 'atp'; tournaments = @() } }
+    $inv = [Globalization.CultureInfo]::InvariantCulture
+    function ConvertTo-Date([string]$fd, [string]$fallbackMonth) {
+        if (-not $fd) { return '' }
+        $m = [regex]::Match($fd, '^(\d{1,2})\s*(?:([A-Za-z]+)\s*)?-\s*\d{1,2}\s+([A-Za-z]+),\s*(\d{4})$')
+        if (-not $m.Success) { return '' }
+        $day = $m.Groups[1].Value
+        $monName = if ($m.Groups[2].Value) { $m.Groups[2].Value } else { $m.Groups[3].Value }
+        try {
+            $mon = [datetime]::ParseExact($monName, 'MMMM', $inv).Month.ToString('00')
+            return "$($m.Groups[4].Value)-$mon-$($day.PadLeft(2, '0'))"
+        } catch {
+            try {
+                $mon = [datetime]::ParseExact($fallbackMonth, 'MMMM', $inv).Month.ToString('00')
+                return "$($m.Groups[4].Value)-$mon-$($day.PadLeft(2, '0'))"
+            } catch { return '' }
         }
-        [void]$out.Add([pscustomobject]@{
-            date    = $date
-            name    = $name
-            circuit = $Circuit
-            surface = if ($surfM.Success) { $surfM.Groups[1].Value } else { '' }
-            prize   = if ($prizeM.Success) { (($prizeM.Groups[1].Value -replace '&nbsp;', ' ').Trim()) } else { '' }
-            draw    = if ($drawM.Success) { [int]$drawM.Groups[1].Value } else { 0 }
-            level   = $m.Groups[2].Value
-            current = ($m.Groups[1].Value -match 'actual')
-            winner  = $winner
-        })
     }
-    return @{ ok = $true; circuit = $Circuit; tournaments = $out }
+    $out = New-Object System.Collections.ArrayList
+    foreach ($month in $parsed.TournamentDates) {
+        $fbMon = ''
+        if ($month.DisplayDate -match '^([A-Za-z]+)') { $fbMon = $Matches[1] }
+        foreach ($t in $month.Tournaments) {
+            $level = if ($t.Type -eq 'CH') { 'lower' } else { 'main' }
+            [void]$out.Add([pscustomobject]@{
+                date     = ConvertTo-Date $t.FormattedDate $fbMon
+                name     = (($t.Name -replace '&nbsp;', ' ') -replace '\s+', ' ').Trim()
+                circuit  = 'atp'
+                surface  = if ($t.Surface) { $t.Surface } else { '' }
+                prize    = if ($t.TotalFinancialCommitment) { $t.TotalFinancialCommitment } else { '' }
+                draw     = if ($t.SglDrawSize) { [int]$t.SglDrawSize } else { 0 }
+                level    = $level
+                current  = [bool]$t.IsLive
+                winner   = ''
+                location = if ($t.Location) { $t.Location } else { '' }
+            })
+        }
+    }
+    return @{ ok = $true; circuit = 'atp'; tournaments = $out }
+}
+
+function Get-WtaCalendar {
+    $include = @('Grand Slam', 'WTA 1000', 'WTA 500', 'WTA 250', 'Finals')
+    $out = New-Object System.Collections.ArrayList
+    $inv = [Globalization.CultureInfo]::InvariantCulture
+    # La API pagina todos los torneos historicos por fecha de inicio (1960 -> 2026).
+    # El ano 2026 cae en pages ~182-187; barremos 172..188 (saltamos 1960-2025 rapidos
+    # y paramos al pasarlas). Guars por ano: continue si la page es toda anterior,
+    # break si toda posterior. Malano unico = cache de 6h lo cubre.
+    foreach ($page in 172..188) {
+        $url = "https://api.wtatennis.com/tennis/tournaments?year=2026&page=$page&pageSize=100"
+        $tmp = [System.IO.Path]::GetTempFileName()
+        try {
+            curl.exe -s -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36' -H 'Content-Type: application/json' --max-time 25 -o $tmp $url | Out-Null
+            $raw = [System.IO.File]::ReadAllText($tmp, [System.Text.Encoding]::UTF8)
+        } finally {
+            Remove-Item -LiteralPath $tmp -ErrorAction SilentlyContinue
+        }
+        if (-not $raw -or $raw.Length -lt 20) { break }
+        $parsed = $null
+        try { $parsed = $raw | ConvertFrom-Json } catch {}
+        if (-not $parsed -or -not $parsed.content -or $parsed.content.Count -eq 0) { break }
+        $firstYear = $null; $lastYear = $null
+        try { $firstYear = [int]$parsed.content[0].year } catch {}
+        try { $lastYear = [int]$parsed.content[$parsed.content.Count - 1].year } catch {}
+        # Aun no llegamos a 2026
+        if ($lastYear -and $lastYear -lt 2026) { continue }
+        # Ya pasamos 2026
+        if ($firstYear -and $firstYear -gt 2026) { break }
+        foreach ($t in $parsed.content) {
+            if (-not $t.tournamentGroup -or -not $t.tournamentGroup.level) { continue }
+            $lvl = [string]$t.tournamentGroup.level
+            if ($lvl -notin $include) { continue }
+            # dedup: mismo nombre + misma fecha de inicio
+            $dup = $false
+            foreach ($e in $out) {
+                if ($e.name -eq [string]$t.tournamentGroup.name -and $e.date -eq [string]$t.startDate) { $dup = $true; break }
+            }
+            if ($dup) { continue }
+            $loc = @()
+            if ($t.city) { $loc += [string]$t.city }
+            if ($t.country) { $loc += [string]$t.country }
+            [void]$out.Add([pscustomobject]@{
+                date     = [string]$t.startDate
+                name     = ([string]$t.tournamentGroup.name | ForEach-Object { ($_ -replace '_', ' ').Trim() })
+                circuit  = 'wta'
+                surface  = if ($t.surface) { [string]$t.surface } else { '' }
+                prize    = if ($t.prizeMoney) { [string]$t.prizeMoney + ' USD' } else { '' }
+                draw     = if ($t.singlesDrawSize) { [int]$t.singlesDrawSize } else { 0 }
+                level    = 'main'
+                current  = ([string]$t.status -match 'live|inProgress')
+                winner   = ''
+                location = ($loc -join ', ')
+            })
+        }
+    }
+    return @{ ok = $true; circuit = 'wta'; tournaments = $out }
 }
 
 function Get-ChallengerCalendar {
