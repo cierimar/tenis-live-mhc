@@ -712,6 +712,85 @@ body[data-mode='oliva'] .sb-logo-sub {
   color: #eaff00;
 }
 
+/* ============================================================
+   MODO TENNIS - blanco titanio + tinta negra + SIN bordes
+   banderas de paises es.com (img 16x10 sin borde)
+   ============================================================ */
+
+body[data-mode='tennis'] {
+  --paper: #f2efe9;
+  --paper-2: #ece7de;
+  --paper-3: #e5e0d5;
+  --ink: #000000;
+  --ink-2: #1a1a1a;
+  --muted: #5f5a50;
+  --hairline: #e8e4da;
+  --hairline-dark: #d8d3c5;
+  --red: #000000;
+  --red-dark: #000000;
+  --red-vivo: #000000;
+  --red-soft: rgba(0, 0, 0, 0.06);
+  --green: #1e7a34;
+  --amber: #000000;
+  --blue: #000000;
+  --shadow: none;
+  --bg: #f2efe9;
+}
+body[data-mode='tennis'] ::selection { background: #000000; color: #f2efe9; }
+body[data-mode='tennis'] a { color: #000000; }
+body[data-mode='tennis'] .mode-label { color: #000000; }
+body[data-mode='tennis'] .sb-logo { color: #000000 !important; background: none; -webkit-background-clip: initial; background-clip: initial; }
+body[data-mode='tennis'] .sb-logo-sub { color: #000000; }
+body[data-mode='tennis'] .pname.winner { color: #000000; font-weight: 800; }
+body[data-mode='tennis'] .pname.winner::after { color: #000000; }
+
+/* banderas: 16x10 sin borde al estilo tennis.com */
+body[data-mode='tennis'] .flag {
+  width: 16px; height: 10px;
+  border: 0; border-radius: 0; margin-right: 4px;
+}
+
+/* ---- sin bordes: recuadros, tarjetas y modulos ---- */
+body[data-mode='tennis'] .tour-block { border: 0; }
+body[data-mode='tennis'] .tour-block .tour-head { border: 0; }
+body[data-mode='tennis'] .tour-block .match { border: 0; border-left: 0; }
+body[data-mode='tennis'] .tour-block .match:nth-of-type(3n+1),
+body[data-mode='tennis'] .tour-block .match:nth-of-type(3n+2),
+body[data-mode='tennis'] .tour-block .match:nth-of-type(3n+3) { border-left: 0; }
+body[data-mode='tennis'] .tour-block .match.live { border: 0; border-left: 0; background: rgba(0, 0, 0, 0.04); }
+body[data-mode='tennis'] .tour-block .match:hover { border: 0; border-left: 0; }
+body[data-mode='tennis'] .news-card { border: 0; border-top: 0; }
+body[data-mode='tennis'] .video-card { border: 0; border-top: 0; }
+body[data-mode='tennis'] .col-card { border: 0; border-top: 0; }
+body[data-mode='tennis'] .wc-res-card { border: 0; border-top: 0; }
+body[data-mode='tennis'] .calendar, body[data-mode='tennis'] .cal-block { border-top: 0; }
+body[data-mode='tennis'] .draw-board { border-top: 0; }
+body[data-mode='tennis'] .h2h-block { border-top: 0; }
+body[data-mode='tennis'] .rank-table-wrap { border-top: 0; }
+body[data-mode='tennis'] .ct-card { border-top: 0; }
+body[data-mode='tennis'] .th-logo { border: 0; }
+body[data-mode='tennis'] .th-logo-txt { border: 0; }
+body[data-mode='tennis'] .th-tier { border: 0; }
+body[data-mode='tennis'] .type-chip { border: 0; }
+body[data-mode='tennis'] .lv-btn { border: 0; background: transparent; color: #000000; }
+body[data-mode='tennis'] .lv-btn.active { border: 0; background: rgba(0, 0, 0, 0.10); color: #000000; }
+body[data-mode='tennis'] .seg-btn { border: 0; }
+body[data-mode='tennis'] .seg-btn.active { border: 0; background: #000000; color: #f2efe9; }
+body[data-mode='tennis'] .h2h-go { border: 0; background: #000000; color: #f2efe9; }
+body[data-mode='tennis'] .h2h-go:hover { border: 0; }
+body[data-mode='tennis'] .round-chip { border: 0; background: transparent; }
+body[data-mode='tennis'] .round-chip.active { border: 0; background: #000000; color: #f2efe9; }
+body[data-mode='tennis'] .seed-badge { border: 0; background: transparent; color: #000000; }
+body[data-mode='tennis'] .badge.upcoming { border: 0; color: #5f5a50; }
+body[data-mode='tennis'] .badge.live { border: 0; background: #000000; color: #f2efe9; }
+body[data-mode='tennis'] .badge.final { border: 0; background: #ece7de; color: #000000; }
+body[data-mode='tennis'] .rank-search { border-bottom: 0; }
+body[data-mode='tennis'] .nav-item { border-left: 0; }
+body[data-mode='tennis'] .nav-item.active { border-left: 0; background: rgba(0, 0, 0, 0.08); color: #000000; font-weight: 800; }
+body[data-mode='tennis'] .nav-item.active .ic { color: #000000; }
+body[data-mode='tennis'] .theme-toggle { border: 0; }
+body[data-mode='tennis'] .cal-month-select { border: 0; background: transparent; color: #000000; }
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
