@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-08T18:54:24Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -329,18 +328,18 @@
           "finished": false
         },
         {
-          "teId": "3318217",
-          "p1": "Wang",
-          "p2": "Huang",
-          "time": "07:00",
+          "teId": "3318215",
+          "p1": "Tian",
+          "p2": "Shi",
+          "time": "06:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3318215",
-          "p1": "Tian",
-          "p2": "Shi",
+          "teId": "3318217",
+          "p1": "Wang",
+          "p2": "Huang",
           "time": "07:00",
           "round": "1R",
           "h2h": "0-0",
@@ -501,15 +500,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319061",
-          "p1": "Geerlings",
-          "p2": "Steur",
-          "time": "17:55",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3319053",
           "p1": "Gavalda Cruz",
           "p2": "Primorac",
@@ -589,6 +579,27 @@
           "round": "R16",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3319061",
+          "p1": "Geerlings",
+          "p2": "Steur",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "17:55",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3319059",
@@ -1687,15 +1698,6 @@
           "finished": false
         },
         {
-          "teId": "3319341",
-          "p1": "Pajello",
-          "p2": "Estevez",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319349",
           "p1": "Navarro Oliva",
           "p2": "Britez Risso",
@@ -1765,6 +1767,25 @@
           "sets2": [
             "5",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319341",
+          "p1": "Estevez",
+          "p2": "Pajello",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
           ],
           "finished": true
         },
@@ -1997,15 +2018,6 @@
           "finished": false
         },
         {
-          "teId": "3318711",
-          "p1": "Brune Olsen",
-          "p2": "Fornasieri",
-          "time": "19:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319745",
           "p1": "Valletta",
           "p2": "Vismane",
@@ -2112,6 +2124,25 @@
           "round": "1R",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318711",
+          "p1": "Fornasieri",
+          "p2": "Brune Olsen",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "19:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3318719",
@@ -2397,5 +2428,6 @@
       ]
     }
   ],
-  "ok": true
+  "ok": true,
+  "time": "2026-09-08T19:08:15Z"
 }
