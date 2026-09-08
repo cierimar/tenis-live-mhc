@@ -1,64 +1,12 @@
 {
+  "ok": true,
+  "time": "2026-09-08T14:41:47Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
       "name": "Evora ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3319013",
-          "p1": "Ito",
-          "p2": "Fruhvirtova",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319011",
-          "p1": "Brantmeier",
-          "p2": "Munk Mortensen",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319009",
-          "p1": "Klugman",
-          "p2": "Voloshchuk",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319007",
-          "p1": "Koevermans",
-          "p2": "Visscher",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-2",
-          "finished": false
-        },
-        {
-          "teId": "3319005",
-          "p1": "Martinez Vaquero",
-          "p2": "Gasanova",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319003",
-          "p1": "Dapkute",
-          "p2": "Collins",
-          "time": "11:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3319001",
           "p1": "Kuzmova",
@@ -82,6 +30,60 @@
           "p1": "Micic",
           "p2": "Gao",
           "time": "11:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319007",
+          "p1": "Koevermans",
+          "p2": "Visscher",
+          "time": "12:30",
+          "round": "1R",
+          "h2h": "0-2",
+          "finished": false
+        },
+        {
+          "teId": "3319005",
+          "p1": "Martinez Vaquero",
+          "p2": "Gasanova",
+          "time": "12:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319003",
+          "p1": "Dapkute",
+          "p2": "Collins",
+          "time": "12:30",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319013",
+          "p1": "Ito",
+          "p2": "Fruhvirtova",
+          "time": "14:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319011",
+          "p1": "Brantmeier",
+          "p2": "Munk Mortensen",
+          "time": "14:00",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3319009",
+          "p1": "Klugman",
+          "p2": "Voloshchuk",
+          "time": "14:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -918,24 +920,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318971",
-          "p1": "Tran",
-          "p2": "Gettwart",
-          "time": "12:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318671",
-          "p1": "Mattel",
-          "p2": "Biolay",
-          "time": "12:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318975",
           "p1": "Diabate",
           "p2": "Parcelli",
@@ -988,6 +972,44 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318671",
+          "p1": "Mattel",
+          "p2": "Biolay",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "12:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318971",
+          "p1": "Tran",
+          "p2": "Gettwart",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "12:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3318973",
@@ -1521,15 +1543,6 @@
           "finished": false
         },
         {
-          "teId": "3319095",
-          "p1": "Michalkova",
-          "p2": "Petruzelova",
-          "time": "13:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319071",
           "p1": "Adams",
           "p2": "Gniewkowska",
@@ -1590,6 +1603,25 @@
           "sets2": [
             "3",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319095",
+          "p1": "Petruzelova",
+          "p2": "Michalkova",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4"
           ],
           "finished": true
         }
@@ -1946,7 +1978,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-08T14:24:41Z"
+  ]
 }
