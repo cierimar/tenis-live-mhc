@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-08T20:16:52Z",
   "ok": true,
   "tournaments": [
     {
@@ -1690,15 +1691,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319345",
-          "p1": "Gobbi Monllau",
-          "p2": "Arabarco",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319349",
           "p1": "Navarro Oliva",
           "p2": "Britez Risso",
@@ -1794,6 +1786,25 @@
           "teId": "3319343",
           "p1": "Cabezas Dominguez",
           "p2": "Maruca",
+          "round": "1. round",
+          "date": "08.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319345",
+          "p1": "Gobbi Monllau",
+          "p2": "Arabarco",
           "round": "1. round",
           "date": "08.09.",
           "time": "17:30",
@@ -1919,7 +1930,7 @@
           "teId": "3319367",
           "p1": "Nuudi",
           "p2": "Koltun",
-          "time": "13:00",
+          "time": "14:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2428,6 +2439,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-08T19:58:24Z"
+  ]
 }
