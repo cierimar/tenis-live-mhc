@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0b0e14">
 <title>TENIS LIVE MHC</title>
 <link rel="icon" id="faviconLink" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><radialGradient id='g' cx='35%25' cy='28%25' r='85%25'><stop offset='0%25' stop-color='%23f7ff72'/><stop offset='45%25' stop-color='%23d8f63c'/><stop offset='100%25' stop-color='%239dbd20'/></radialGradient></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><path d='M50 4 C 76 34, 76 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><path d='M50 4 C 24 34, 24 66, 50 96' fill='none' stroke='%23ffffff' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='50' r='46' fill='none' stroke='rgba(0,0,0,0.25)' stroke-width='1.5'/></svg>">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=84">
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -40,6 +40,8 @@
         <li><button class="tab nav-item" data-tab="rankings" title="RANKINGS"><span class="ic">&#8599;</span><span class="lb">RANKINGS</span></button></li>
         <li><button class="tab nav-item" data-tab="argentina" title="ARGENTINA"><span class="ic">&#9737;</span><span class="lb">ARGENTINA</span></button></li>
         <li><button class="tab nav-item" data-tab="players" title="PLAYERS"><span class="ic">&#9786;</span><span class="lb">PLAYERS</span></button></li>
+        <li class="nav-section">Stats</li>
+        <li><button class="tab nav-item" data-tab="stats" title="ESTADISTICAS"><span class="ic">&#128200;</span><span class="lb">ESTAD&#205;STICAS</span></button></li>
         <li class="nav-section">An&aacute;lisis</li>
         <li><button class="tab nav-item" data-tab="h2hsearch" title="H2H SEARCH"><span class="ic">&#8646;</span><span class="lb">H2H SEARCH</span></button></li>
         <li class="nav-section">M&aacute;s</li>
@@ -152,6 +154,35 @@
         <div id="h2hSearchContent" class="content"><div class="loading">Escrib&iacute; dos jugadores y presion&aacute; BUSCAR.</div></div>
       </div>
 
+      <div id="view-stats" class="view">
+        <div class="section-head">
+          <h2>Estad&iacute;sticas ATP / WTA</h2>
+          <div class="seg" id="segStats">
+            <button class="seg-btn active" data-st="wta">WTA</button>
+            <button class="seg-btn" data-st="atp">ATP</button>
+          </div>
+          <select id="statsYear" class="cal-month-select" title="A&ntilde;o"></select>
+        </div>
+        <div class="seg" id="segStatsCat">
+          <button class="seg-btn active" data-scat="Aces">Aces</button>
+          <button class="seg-btn" data-scat="Double_Faults">Dobles faltas</button>
+          <button class="seg-btn" data-scat="first_serve_percent">% 1er servicio</button>
+          <button class="seg-btn" data-scat="first_serve_won_percent">Puntos con 1er serv.</button>
+          <button class="seg-btn" data-scat="second_serve_won_percent">Puntos con 2.º serv.</button>
+          <button class="seg-btn" data-scat="service_games_won_percent">Games de servicio</button>
+          <button class="seg-btn" data-scat="first_return_percent">Puntos en 1er resto</button>
+          <button class="seg-btn" data-scat="second_return_percent">Puntos en 2.º resto</button>
+          <button class="seg-btn" data-scat="return_games_won_percent">Games de resto</button>
+          <button class="seg-btn" data-scat="breakpoint_converted_percent">Breaks convertidos</button>
+          <button class="seg-btn" data-scat="breakpoint_saved_percent">Breaks salvados</button>
+          <button class="seg-btn" data-scat="service_points_won_percent">Puntos de servicio</button>
+          <button class="seg-btn" data-scat="return_points_won_percent">Puntos de resto</button>
+          <button class="seg-btn" data-scat="total_points_won_percent">Puntos totales</button>
+        </div>
+        <span class="section-meta" id="statsMeta"></span>
+        <div id="statsContent" class="content"><div class="loading">Cargando estad&iacute;sticas...</div></div>
+      </div>
+
       <div id="view-calendar" class="view">
         <div class="section-head"><h2>Calendario</h2><span class="section-meta" id="calMeta"></span></div>
         <div class="seg" id="segCal">
@@ -221,7 +252,7 @@
   </div>
 </div>
 
-<script src="app.js?v=107"></script>
+<script src="app.js?v=108"></script>
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
