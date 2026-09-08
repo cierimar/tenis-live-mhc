@@ -1,4 +1,7 @@
 {
+  "ok": true,
+  "count": 1,
+  "updated": "2026-09-08T00:47:57Z",
   "matches": [
     {
       "id": "te-3318741",
@@ -11,25 +14,22 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "name": "Sevcikova / Voracek E",
-          "winner": true,
+          "homeAway": "home",
           "linescores": [],
+          "flagAlt": "",
+          "winner": true,
           "flag": "",
-          "homeAway": "home"
+          "name": "Sevcikova / Voracek E"
         },
         {
-          "flagAlt": "",
-          "name": "Fumagalli / Marino F.",
-          "winner": false,
+          "homeAway": "away",
           "linescores": [],
+          "flagAlt": "",
+          "winner": false,
           "flag": "",
-          "homeAway": "away"
+          "name": "Fumagalli / Marino F."
         }
       ]
     }
-  ],
-  "ok": true,
-  "updated": "2026-09-08T00:25:18Z",
-  "count": 1
+  ]
 }
