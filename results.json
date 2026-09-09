@@ -1,125 +1,35 @@
 {
-  "ok": true,
-  "updated": "2026-09-09T22:18:06Z",
-  "count": 3,
+  "updated": "2026-09-09T22:32:07Z",
   "matches": [
     {
-      "id": "te-3319411",
-      "state": "post",
-      "tour": "atp",
-      "type": "Men's Singles",
-      "round": "",
-      "tournamentId": "te-3319411",
-      "tournamentName": "",
-      "surface": "",
-      "competitors": [
-        {
-          "name": "Ellis B.",
-          "homeAway": "home",
-          "flag": "",
-          "linescores": [
-            {
-              "winner": false,
-              "tiebreak": null,
-              "value": 4
-            },
-            {
-              "winner": false,
-              "tiebreak": null,
-              "value": 0
-            }
-          ],
-          "flagAlt": "",
-          "winner": false
-        },
-        {
-          "name": "Purcell M.",
-          "homeAway": "away",
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "tiebreak": null,
-              "value": 6
-            },
-            {
-              "winner": true,
-              "tiebreak": null,
-              "value": 4
-            }
-          ],
-          "flagAlt": "",
-          "winner": true
-        }
-      ]
-    },
-    {
-      "id": "te-3316869",
+      "id": "te-3319799",
       "state": "post",
       "tour": "atp",
       "type": "Men's Doubles",
       "round": "",
-      "tournamentId": "te-3316869",
+      "tournamentId": "te-3319799",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "name": "Rosenkran / Ujvary M.",
-          "homeAway": "home",
+          "winner": true,
           "flag": "",
           "linescores": [],
+          "homeAway": "home",
           "flagAlt": "",
-          "winner": true
+          "name": "Atturu S. / Kartseva"
         },
         {
-          "name": "Hipfl N. / Kopp S.",
-          "homeAway": "away",
+          "winner": false,
           "flag": "",
           "linescores": [],
-          "flagAlt": "",
-          "winner": false
-        }
-      ]
-    },
-    {
-      "id": "te-3316881",
-      "state": "post",
-      "tour": "atp",
-      "type": "Men's Doubles",
-      "round": "",
-      "tournamentId": "te-3316881",
-      "tournamentName": "",
-      "surface": "",
-      "competitors": [
-        {
-          "name": "Fancutt T / Watanabe",
-          "homeAway": "home",
-          "flag": "",
-          "linescores": [
-            {
-              "winner": false,
-              "tiebreak": null,
-              "value": 0
-            }
-          ],
-          "flagAlt": "",
-          "winner": false
-        },
-        {
-          "name": "Covato M. / Voelzke G",
           "homeAway": "away",
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "tiebreak": null,
-              "value": 1
-            }
-          ],
           "flagAlt": "",
-          "winner": true
+          "name": "Allen V. / Desai Z."
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "count": 1
 }
