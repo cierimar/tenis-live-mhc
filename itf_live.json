@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "time": "2026-09-09T07:46:47Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -257,15 +257,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318217",
-          "p1": "Wang",
-          "p2": "Huang",
-          "time": "08:25",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320177",
           "p1": "Yao",
           "p2": "Yang",
@@ -318,6 +309,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318217",
+          "p1": "Huang",
+          "p2": "Wang",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "08:25",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3318215",
@@ -1565,6 +1575,15 @@
           "finished": false
         },
         {
+          "teId": "3319707",
+          "p1": "Kochta",
+          "p2": "Martianova",
+          "time": "11:40",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3319705",
           "p1": "Petretic",
           "p2": "Roots",
@@ -1577,15 +1596,6 @@
           "teId": "3319709",
           "p1": "Neporent",
           "p2": "Wagner",
-          "time": "12:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319707",
-          "p1": "Kochta",
-          "p2": "Martianova",
           "time": "12:30",
           "round": "1R",
           "h2h": "0-0",
@@ -2761,5 +2771,5 @@
       ]
     }
   ],
-  "time": "2026-09-09T07:30:54Z"
+  "ok": true
 }
