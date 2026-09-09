@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-09T03:18:02Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -284,15 +283,6 @@
           "finished": false
         },
         {
-          "teId": "3318197",
-          "p1": "Ren",
-          "p2": "Bai",
-          "time": "04:20",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3318209",
           "p1": "Zhang",
           "p2": "Yang",
@@ -314,7 +304,7 @@
           "teId": "3318207",
           "p1": "Saito",
           "p2": "Yao",
-          "time": "05:20",
+          "time": "05:35",
           "round": "1R",
           "h2h": "1-2",
           "finished": false
@@ -323,7 +313,7 @@
           "teId": "3318203",
           "p1": "Back",
           "p2": "Morvayova",
-          "time": "05:20",
+          "time": "05:40",
           "round": "1R",
           "h2h": "1-0",
           "finished": false
@@ -332,7 +322,7 @@
           "teId": "3318217",
           "p1": "Wang",
           "p2": "Huang",
-          "time": "06:10",
+          "time": "06:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -341,7 +331,7 @@
           "teId": "3318215",
           "p1": "Tian",
           "p2": "Shi",
-          "time": "06:10",
+          "time": "06:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -372,6 +362,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318197",
+          "p1": "Ren",
+          "p2": "Bai",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "04:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3318193",
@@ -2459,5 +2468,6 @@
       ]
     }
   ],
-  "ok": true
+  "ok": true,
+  "time": "2026-09-09T03:34:05Z"
 }
