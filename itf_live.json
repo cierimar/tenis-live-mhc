@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-09T14:36:43Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -36,7 +38,7 @@
           "teId": "3319011",
           "p1": "Brantmeier",
           "p2": "Munk Mortensen",
-          "time": "16:20",
+          "time": "16:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2251,15 +2253,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318271",
-          "p1": "Myatovic",
-          "p2": "Kikawada",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319723",
           "p1": "Ben Ezzedine",
           "p2": "Safi",
@@ -2341,6 +2334,27 @@
           "sets2": [
             "2",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318271",
+          "p1": "Kikawada",
+          "p2": "Myatovic",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
+            "3"
           ],
           "finished": true
         },
@@ -2555,27 +2569,9 @@
           "finished": false
         },
         {
-          "teId": "3320143",
-          "p1": "Morini",
-          "p2": "Markus",
-          "time": "15:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320141",
           "p1": "Kawano Cho",
           "p2": "Madrid Rocca",
-          "time": "15:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320139",
-          "p1": "Soto Neira",
-          "p2": "Moyano",
           "time": "15:00",
           "round": "1R",
           "h2h": "0-0",
@@ -2643,6 +2639,44 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320139",
+          "p1": "Moyano",
+          "p2": "Soto Neira",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "15:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320143",
+          "p1": "Morini",
+          "p2": "Markus",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "15:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3319347",
@@ -2766,15 +2800,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319091",
-          "p1": "Kolonus",
-          "p2": "Narti",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319087",
           "p1": "Veleva",
           "p2": "Kulbiej",
@@ -2853,6 +2878,27 @@
           "sets2": [
             "5",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319091",
+          "p1": "Kolonus",
+          "p2": "Narti",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "3",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "6",
+            "2"
           ],
           "finished": true
         },
@@ -3082,24 +3128,6 @@
           "finished": false
         },
         {
-          "teId": "3318725",
-          "p1": "Dessolis",
-          "p2": "Voracek",
-          "time": "13:30",
-          "round": "1R",
-          "h2h": "0-2",
-          "finished": false
-        },
-        {
-          "teId": "3318713",
-          "p1": "Ferraris",
-          "p2": "Raggi",
-          "time": "13:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319751",
           "p1": "Gandolfi",
           "p2": "Faustini",
@@ -3134,6 +3162,44 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318713",
+          "p1": "Raggi",
+          "p2": "Ferraris",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318725",
+          "p1": "Voracek",
+          "p2": "Dessolis",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3319755",
@@ -3726,7 +3792,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-09T14:19:47Z",
-  "ok": true
+  ]
 }
