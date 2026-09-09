@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-09T23:18:04Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -2174,12 +2176,31 @@
           "finished": true
         },
         {
+          "teId": "3319707",
+          "p1": "Kochta",
+          "p2": "Martianova",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "12:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "5"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3319709",
           "p1": "Wagner",
           "p2": "Neporent",
           "round": "1. round",
           "date": "09.09.",
-          "time": "12:30",
+          "time": "12:20",
           "res1": 2,
           "res2": 1,
           "sets1": [
@@ -2210,25 +2231,6 @@
           "sets2": [
             "1",
             "2"
-          ],
-          "finished": true
-        },
-        {
-          "teId": "3319707",
-          "p1": "Kochta",
-          "p2": "Martianova",
-          "round": "1. round",
-          "date": "09.09.",
-          "time": "11:40",
-          "res1": 2,
-          "res2": 0,
-          "sets1": [
-            "6",
-            "7"
-          ],
-          "sets2": [
-            "2",
-            "5"
           ],
           "finished": true
         },
@@ -4429,7 +4431,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-09T23:01:33Z"
+  ]
 }
