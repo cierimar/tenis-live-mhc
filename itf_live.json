@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-09T12:58:36Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -38,7 +36,7 @@
           "teId": "3319013",
           "p1": "Ito",
           "p2": "Fruhvirtova",
-          "time": "15:00",
+          "time": "15:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -47,7 +45,7 @@
           "teId": "3319011",
           "p1": "Brantmeier",
           "p2": "Munk Mortensen",
-          "time": "15:00",
+          "time": "15:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -699,15 +697,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319053",
-          "p1": "Gavalda Cruz",
-          "p2": "Primorac",
-          "time": "13:50",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319055",
           "p1": "Berecoechea",
           "p2": "Pace",
@@ -778,6 +767,25 @@
           "round": "R16",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3319053",
+          "p1": "Primorac",
+          "p2": "Gavalda Cruz",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "13:50",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3319049",
@@ -2159,15 +2167,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319719",
-          "p1": "Chen",
-          "p2": "Turkmen",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318275",
           "p1": "Masiianskaia",
           "p2": "Mansouri",
@@ -2222,6 +2221,15 @@
           "finished": false
         },
         {
+          "teId": "3320391",
+          "p1": "Oliver Sanchez",
+          "p2": "Turkmen",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3320357",
           "p1": "Ansari",
           "p2": "Pahwa",
@@ -2246,6 +2254,25 @@
           "sets2": [
             "2",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319719",
+          "p1": "Turkmen",
+          "p2": "Chen",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
           ],
           "finished": true
         },
@@ -2633,15 +2660,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319731",
-          "p1": "Zhenikhova",
-          "p2": "Cinkanicova",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319091",
           "p1": "Kolonus",
           "p2": "Narti",
@@ -2655,15 +2673,6 @@
           "p1": "Veleva",
           "p2": "Kulbiej",
           "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319739",
-          "p1": "Heinzova",
-          "p2": "Gorska",
-          "time": "13:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -2696,6 +2705,15 @@
           "finished": false
         },
         {
+          "teId": "3320393",
+          "p1": "Zhenikhova",
+          "p2": "Petruzelova",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3320301",
           "p1": "Adams",
           "p2": "Nemcsek",
@@ -2703,6 +2721,46 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3319739",
+          "p1": "Gorska",
+          "p2": "Heinzova",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319731",
+          "p1": "Zhenikhova",
+          "p2": "Cinkanicova",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "3",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "6",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3319733",
@@ -2891,15 +2949,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319749",
-          "p1": "Fumagalli",
-          "p2": "De Angelis",
-          "time": "12:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318715",
           "p1": "Meliss",
           "p2": "Gasparini",
@@ -2963,6 +3012,15 @@
           "finished": false
         },
         {
+          "teId": "3320395",
+          "p1": "Shapatava",
+          "p2": "Fornasieri",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3320303",
           "p1": "Vismane",
           "p2": "Schaefer",
@@ -3008,6 +3066,25 @@
           "sets2": [
             "1",
             "6"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319749",
+          "p1": "Fumagalli",
+          "p2": "De Angelis",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "0"
           ],
           "finished": true
         },
@@ -3524,5 +3601,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-09T13:18:25Z"
 }
