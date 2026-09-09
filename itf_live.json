@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-09T17:52:54Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -440,7 +441,7 @@
           "teId": "3320231",
           "p1": "Morvayova",
           "p2": "Astakhova",
-          "time": "05:30",
+          "time": "05:00",
           "round": "R16",
           "h2h": "1-1",
           "finished": false
@@ -449,7 +450,7 @@
           "teId": "3320087",
           "p1": "Wei",
           "p2": "Khomutsianskaya",
-          "time": "05:30",
+          "time": "05:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -458,7 +459,7 @@
           "teId": "3320085",
           "p1": "Wang",
           "p2": "Ren",
-          "time": "05:30",
+          "time": "05:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -467,7 +468,7 @@
           "teId": "3319427",
           "p1": "Inoue",
           "p2": "Adkar",
-          "time": "05:30",
+          "time": "05:00",
           "round": "R16",
           "h2h": "1-0",
           "finished": false
@@ -790,15 +791,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319055",
-          "p1": "Berecoechea",
-          "p2": "Pace",
-          "time": "17:45",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320299",
           "p1": "Martinez Cirez",
           "p2": "Roura Llaverias",
@@ -860,6 +852,25 @@
           "round": "R16",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3319055",
+          "p1": "Pace",
+          "p2": "Berecoechea",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "17:45",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3319053",
@@ -2482,15 +2493,6 @@
           "finished": false
         },
         {
-          "teId": "3320477",
-          "p1": "Popovic",
-          "p2": "Kikawada",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320437",
           "p1": "Urso",
           "p2": "Mansouri",
@@ -2500,10 +2502,28 @@
           "finished": false
         },
         {
+          "teId": "3320357",
+          "p1": "Ansari",
+          "p2": "Pahwa",
+          "time": "",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320477",
+          "p1": "Popovic",
+          "p2": "Kikawada",
+          "time": "10:00",
+          "round": "R16",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3320435",
           "p1": "Vagramov",
           "p2": "Belkova",
-          "time": "",
+          "time": "10:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -2512,16 +2532,7 @@
           "teId": "3320391",
           "p1": "Oliver Sanchez",
           "p2": "Turkmen",
-          "time": "",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320357",
-          "p1": "Ansari",
-          "p2": "Pahwa",
-          "time": "",
+          "time": "10:00",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -2864,12 +2875,12 @@
           "finished": false
         },
         {
-          "teId": "3319337",
-          "p1": "Ayala",
-          "p2": "Labrana",
-          "time": "17:30",
-          "round": "1R",
-          "h2h": "0-2",
+          "teId": "3320595",
+          "p1": "Cinalli",
+          "p2": "Morini",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -2916,6 +2927,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3319337",
+          "p1": "Ayala",
+          "p2": "Labrana",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3319331",
@@ -3174,12 +3204,12 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319735",
-          "p1": "Vojcinakova",
+          "teId": "3320597",
+          "p1": "Husar",
           "p2": "Hertel",
-          "time": "13:00",
-          "round": "1R",
-          "h2h": "0-0",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -3261,6 +3291,27 @@
           "sets2": [
             "0",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319735",
+          "p1": "Hertel",
+          "p2": "Vojcinakova",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "13:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "3",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "4"
           ],
           "finished": true
         },
@@ -3569,6 +3620,15 @@
           "time": "19:00",
           "round": "1R",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320599",
+          "p1": "Sevcikova",
+          "p2": "Raggi",
+          "time": "",
+          "round": "R16",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -4286,6 +4346,5 @@
       ]
     }
   ],
-  "time": "2026-09-09T17:39:21Z",
   "ok": true
 }
