@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-09T07:12:55Z",
   "ok": true,
   "tournaments": [
     {
@@ -1494,21 +1493,21 @@
           "finished": false
         },
         {
-          "teId": "3318241",
-          "p1": "Bartone",
-          "p2": "Atay",
-          "time": "08:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318253",
           "p1": "Ronde",
           "p2": "Desai",
-          "time": "09:30",
+          "time": "08:40",
           "round": "1R",
           "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3318249",
+          "p1": "Mdlulwa",
+          "p2": "Herazo Gonzalez",
+          "time": "09:15",
+          "round": "1R",
+          "h2h": "1-1",
           "finished": false
         },
         {
@@ -1518,15 +1517,6 @@
           "time": "09:30",
           "round": "1R",
           "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318249",
-          "p1": "Mdlulwa",
-          "p2": "Herazo Gonzalez",
-          "time": "09:30",
-          "round": "1R",
-          "h2h": "1-1",
           "finished": false
         },
         {
@@ -1542,7 +1532,16 @@
           "teId": "3319703",
           "p1": "Bhatia",
           "p2": "Vlajic",
-          "time": "11:00",
+          "time": "10:10",
+          "round": "1R",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3318255",
+          "p1": "Weckerle",
+          "p2": "Reguer",
+          "time": "10:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1566,10 +1565,10 @@
           "finished": false
         },
         {
-          "teId": "3318255",
-          "p1": "Weckerle",
-          "p2": "Reguer",
-          "time": "11:00",
+          "teId": "3319705",
+          "p1": "Petretic",
+          "p2": "Roots",
+          "time": "12:15",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1587,15 +1586,6 @@
           "teId": "3319707",
           "p1": "Kochta",
           "p2": "Martianova",
-          "time": "12:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3319705",
-          "p1": "Petretic",
-          "p2": "Roots",
           "time": "12:30",
           "round": "1R",
           "h2h": "0-0",
@@ -1623,6 +1613,25 @@
             "1"
           ],
           "sets2": [
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318241",
+          "p1": "Atay",
+          "p2": "Bartone",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "08:00",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "3"
+          ],
+          "sets2": [
+            "3",
             "0"
           ],
           "finished": true
@@ -1909,7 +1918,7 @@
           "teId": "3320151",
           "p1": "Gobbi Monllau",
           "p2": "Barrera Aguirre",
-          "time": "15:00",
+          "time": "18:05",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -2751,5 +2760,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-09T07:30:54Z"
 }
