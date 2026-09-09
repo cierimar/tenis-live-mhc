@@ -2453,12 +2453,18 @@
     s.error = '';
     try {
       if (s.circuit === 'wta') {
-        const url = 'https://api.wtatennis.com/tennis/stats/' + s.year + '/' + s.cat + '?page=0&pageSize=100&sort=desc';
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        const arr = await resp.json();
-        if (!Array.isArray(arr)) throw new Error('Formato inesperado');
-        s.wta = { cat: s.cat, year: s.year, rows: arr };
+        if (useLocalBackend()) {
+          const resp = await fetch('api/stats/wta?year=' + s.year + '&cat=' + encodeURIComponent(s.cat));
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          const j = await resp.json();
+          if (!j || !j.ok || !Array.isArray(j.rows)) throw new Error('Formato inesperado');
+          s.wta = { cat: s.cat, year: s.year, rows: j.rows };
+        } else {
+          const j = await fetchJson('wta_stats.json').catch(() => null);
+          const rows = j && j.years && j.years[s.year] && j.years[s.year][s.cat];
+          if (!j || !rows || !rows.length) throw new Error('Sin datos WTA');
+          s.wta = { cat: s.cat, year: s.year, rows: rows };
+        }
       } else {
         const j = await fetchJson(useLocalBackend() ? 'api/stats/atp' : 'atp_stats.json').catch(() => null);
         if (j && j.ok && j.boards) s.atp = j;
