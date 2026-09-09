@@ -1,7 +1,4 @@
 {
-  "ok": true,
-  "count": 3,
-  "updated": "2026-09-09T23:16:17Z",
   "matches": [
     {
       "id": "te-3319411",
@@ -14,42 +11,42 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Ellis B.",
-          "winner": false,
-          "flag": "",
           "homeAway": "home",
           "flagAlt": "",
+          "flag": "",
           "linescores": [
             {
-              "tiebreak": null,
               "winner": false,
-              "value": 4
+              "value": 4,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "winner": false,
-              "value": 0
+              "value": 0,
+              "tiebreak": null
             }
-          ]
+          ],
+          "winner": false,
+          "name": "Ellis B."
         },
         {
-          "name": "Purcell M.",
-          "winner": true,
-          "flag": "",
           "homeAway": "away",
           "flagAlt": "",
+          "flag": "",
           "linescores": [
             {
-              "tiebreak": null,
               "winner": true,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
               "winner": true,
-              "value": 4
+              "value": 4,
+              "tiebreak": null
             }
-          ]
+          ],
+          "winner": true,
+          "name": "Purcell M."
         }
       ]
     },
@@ -64,20 +61,20 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Rosenkran / Ujvary M.",
-          "winner": true,
-          "flag": "",
           "homeAway": "home",
           "flagAlt": "",
-          "linescores": []
+          "flag": "",
+          "linescores": [],
+          "winner": true,
+          "name": "Rosenkran / Ujvary M."
         },
         {
-          "name": "Hipfl N. / Kopp S.",
-          "winner": false,
-          "flag": "",
           "homeAway": "away",
           "flagAlt": "",
-          "linescores": []
+          "flag": "",
+          "linescores": [],
+          "winner": false,
+          "name": "Hipfl N. / Kopp S."
         }
       ]
     },
@@ -92,34 +89,37 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Fancutt T / Watanabe",
-          "winner": false,
-          "flag": "",
           "homeAway": "home",
           "flagAlt": "",
+          "flag": "",
           "linescores": [
             {
-              "tiebreak": null,
               "winner": false,
-              "value": 0
+              "value": 0,
+              "tiebreak": null
             }
-          ]
+          ],
+          "winner": false,
+          "name": "Fancutt T / Watanabe"
         },
         {
-          "name": "Covato M. / Voelzke G",
-          "winner": true,
-          "flag": "",
           "homeAway": "away",
           "flagAlt": "",
+          "flag": "",
           "linescores": [
             {
-              "tiebreak": null,
               "winner": true,
-              "value": 1
+              "value": 1,
+              "tiebreak": null
             }
-          ]
+          ],
+          "winner": true,
+          "name": "Covato M. / Voelzke G"
         }
       ]
     }
-  ]
+  ],
+  "updated": "2026-09-09T23:30:18Z",
+  "ok": true,
+  "count": 3
 }
