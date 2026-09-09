@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "time": "2026-09-09T09:49:45Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -637,19 +637,19 @@
           "finished": false
         },
         {
-          "teId": "3319041",
-          "p1": "Hennemann",
-          "p2": "Serban",
-          "time": "10:20",
+          "teId": "3319043",
+          "p1": "Lahey",
+          "p2": "Hoedt",
+          "time": "11:35",
           "round": "1R",
-          "h2h": "1-0",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3319049",
           "p1": "Hui",
           "p2": "Peet",
-          "time": "11:35",
+          "time": "11:45",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -658,18 +658,9 @@
           "teId": "3319045",
           "p1": "Lopez Alcaraz",
           "p2": "Argyrokastriti",
-          "time": "11:35",
+          "time": "11:45",
           "round": "1R",
           "h2h": "0-1",
-          "finished": false
-        },
-        {
-          "teId": "3319043",
-          "p1": "Lahey",
-          "p2": "Hoedt",
-          "time": "11:35",
-          "round": "1R",
-          "h2h": "0-0",
           "finished": false
         },
         {
@@ -698,6 +689,25 @@
           "round": "R16",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3319041",
+          "p1": "Hennemann",
+          "p2": "Serban",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "10:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3319051",
@@ -2865,5 +2875,5 @@
       ]
     }
   ],
-  "time": "2026-09-09T09:35:23Z"
+  "ok": true
 }
