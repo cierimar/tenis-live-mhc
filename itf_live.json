@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-09T08:17:16Z",
+  "time": "2026-09-09T08:33:36Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -37,7 +38,7 @@
           "teId": "3319007",
           "p1": "Koevermans",
           "p2": "Visscher",
-          "time": "12:30",
+          "time": "12:00",
           "round": "1R",
           "h2h": "0-2",
           "finished": false
@@ -46,7 +47,7 @@
           "teId": "3319005",
           "p1": "Martinez Vaquero",
           "p2": "Gasanova",
-          "time": "12:30",
+          "time": "12:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -55,7 +56,7 @@
           "teId": "3319003",
           "p1": "Dapkute",
           "p2": "Collins",
-          "time": "12:30",
+          "time": "12:00",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -1504,24 +1505,6 @@
           "finished": false
         },
         {
-          "teId": "3318243",
-          "p1": "Kuharenko",
-          "p2": "Perapekhina",
-          "time": "08:00",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3318253",
-          "p1": "Ronde",
-          "p2": "Desai",
-          "time": "08:40",
-          "round": "1R",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3318249",
           "p1": "Mdlulwa",
           "p2": "Herazo Gonzalez",
@@ -1621,6 +1604,25 @@
           "finished": false
         },
         {
+          "teId": "3318253",
+          "p1": "Desai",
+          "p2": "Ronde",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "08:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "3"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3318239",
           "p1": "Diatlova",
           "p2": "Allen",
@@ -1653,6 +1655,25 @@
           "sets2": [
             "3",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318243",
+          "p1": "Perapekhina",
+          "p2": "Kuharenko",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
           ],
           "finished": true
         }
@@ -2780,6 +2801,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
