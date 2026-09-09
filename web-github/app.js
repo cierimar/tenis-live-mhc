@@ -29,12 +29,8 @@
     news: { items: [], loaded: false, error: '' },
     videos: { items: [], loaded: false, error: '' },
     elo: { atp: null, wta: null, loaded: false },
-    playerTab: 'todos',
-    playerSearch: '',
-    playerCountry: '',
     wheelchair: { data: null, loaded: false, tab: 'menSingles' },
     wcSearch: '',
-    stats: { circuit: 'wta', cat: 'Aces', year: String(new Date().getFullYear()), wta: null, atp: null, loaded: false, error: '' },
     wcLive: { events: [], loaded: false, error: '' },
     wcVideos: { items: [], loaded: false },
     seeds: { singles: {}, doubles: {}, loaded: false },
@@ -1170,7 +1166,6 @@
     } catch (_) {
       state.elo = { atp: null, wta: null, loaded: true };
     }
-    if (state.tab === 'players') render();
   }
 
   function matchLiveName(espnName, liveName) {
@@ -1672,7 +1667,6 @@
       snapshotLiveMatches();
       await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed(), refreshLiveAll()]);
       await refreshSofaPoints();
-      if (state.tab === 'stats' && state.stats.loaded) refreshStats();
       refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
@@ -2430,134 +2424,6 @@
 
   /* ---------------- ESTADÍSTICAS ATP/WTA ---------------- */
 
-  const STATS_CATS = [
-    { k: 'Aces', lbl: 'Aces' },
-    { k: 'Double_Faults', lbl: 'Dobles faltas' },
-    { k: 'first_serve_percent', lbl: '% 1er servicio' },
-    { k: 'first_serve_won_percent', lbl: '% puntos con 1er serv.' },
-    { k: 'second_serve_won_percent', lbl: '% puntos con 2.º serv.' },
-    { k: 'service_games_won_percent', lbl: '% games de servicio' },
-    { k: 'first_return_percent', lbl: '% puntos de 1er resto' },
-    { k: 'second_return_percent', lbl: '% puntos de 2.º resto' },
-    { k: 'return_games_won_percent', lbl: '% games de resto' },
-    { k: 'breakpoint_converted_percent', lbl: '% breaks convertidos' },
-    { k: 'breakpoint_saved_percent', lbl: '% breaks salvados' },
-    { k: 'service_points_won_percent', lbl: '% puntos de servicio' },
-    { k: 'return_points_won_percent', lbl: '% puntos de resto' },
-    { k: 'total_points_won_percent', lbl: '% puntos totales' }
-  ];
-
-  async function refreshStats() {
-    const s = state.stats;
-    s.loaded = false;
-    s.error = '';
-    try {
-      if (s.circuit === 'wta') {
-        if (useLocalBackend()) {
-          const resp = await fetch('api/stats/wta?year=' + s.year + '&cat=' + encodeURIComponent(s.cat));
-          if (!resp.ok) throw new Error('HTTP ' + resp.status);
-          const j = await resp.json();
-          if (!j || !j.ok || !Array.isArray(j.rows)) throw new Error('Formato inesperado');
-          s.wta = { cat: s.cat, year: s.year, rows: j.rows };
-        } else {
-          const j = await fetchJson('wta_stats.json').catch(() => null);
-          const rows = j && j.years && j.years[s.year] && j.years[s.year][s.cat];
-          if (!j || !rows || !rows.length) throw new Error('Sin datos WTA');
-          s.wta = { cat: s.cat, year: s.year, rows: rows };
-        }
-      } else {
-        const j = await fetchJson(useLocalBackend() ? 'api/stats/atp' : 'atp_stats.json').catch(() => null);
-        if (j && j.ok && j.boards) s.atp = j;
-        else throw new Error('Sin datos ATP');
-      }
-    } catch (e) {
-      s.error = e.message || 'Error';
-    }
-    s.loaded = true;
-    if (state.tab === 'stats') renderStatsTab();
-  }
-
-  function statsFlag(nat) {
-    if (!nat) return '';
-    const src = flagUrl(String(nat).toLowerCase());
-    return '<img class="flag" src="' + src + '" alt="' + esc(nat) + '" loading="lazy">';
-  }
-
-  function renderStatsTab() {
-    const el = $('statsContent');
-    const meta = $('statsMeta');
-    if (!el) return;
-    const s = state.stats;
-    const catSeg = document.getElementById('segStatsCat');
-    const yearSel = document.getElementById('statsYear');
-    if (catSeg) catSeg.style.display = s.circuit === 'atp' ? 'none' : '';
-    if (yearSel) yearSel.style.display = s.circuit === 'atp' ? 'none' : '';
-    if (!s.loaded) { el.innerHTML = '<div class="loading">Cargando estad&iacute;sticas...</div>'; return; }
-    if (s.error) { el.innerHTML = '<div class="error-box">No se pudieron cargar las estad&iacute;sticas: <small>' + esc(s.error) + '</small></div>'; return; }
-
-    if (s.circuit === 'wta') {
-      const d = s.wta;
-      const catInfo = STATS_CATS.find(c => c.k === d.cat) || { lbl: d.cat };
-      if (!d || !d.rows || !d.rows.length) { el.innerHTML = '<div class="error-box">Estad&iacute;sticas de ' + esc(s.year) + ' sin datos para esta categor&iacute;a.</div>'; return; }
-      const rows = d.rows.map((r, i) => {
-        const val = r[d.cat];
-        const nm = (r.First_Name || '') + ' ' + (r.Last_Name || '');
-        return '<tr>' +
-          '<td class="' + (i === 0 ? 'r-rank top1' : 'r-rank') + '">' + esc(r.Current_Rank != null ? r.Current_Rank : (i + 1)) + '</td>' +
-          '<td class="r-name">' + statsFlag(r.Nationality) + ' ' + esc(nm.trim()) + '</td>' +
-          '<td class="r-pts">' + esc(val != null ? val : '—') + '</td>' +
-          '</tr>';
-      }).join('');
-      el.innerHTML = '<div class="rank-section-title">' + esc(s.year) + ' ' + esc(catInfo.lbl) + ' — WTA</div>' +
-        '<div class="rank-table-wrap"><table class="rank-table">' +
-        '<thead><tr><th>#</th><th>Jugadora</th><th style="text-align:right">' + esc(catInfo.lbl) + '</th></tr></thead>' +
-        '<tbody>' + rows + '</tbody></table></div>';
-      if (meta) meta.textContent = 'Fuente: WTA oficial · ' + esc(s.year) + ' · ' + esc(catInfo.lbl) + (s.wta && (s.wta.updated || s.wta.updatedAt) ? ' · actualizado ' + esc(s.wta.updated || s.wta.updatedAt) : '');
-    } else {
-      const j = s.atp;
-      if (!j || !j.boards) { el.innerHTML = '<div class="error-box">Sin datos ATP.</div>'; return; }
-      const boards = [
-        { key: 'serve', title: 'Serve — Saque' },
-        { key: 'return', title: 'Return — Resto' },
-        { key: 'underPressure', title: 'Under Pressure' }
-      ];
-      let html = '';
-      boards.forEach(b => {
-        const rows = j.boards[b.key] || [];
-        if (!rows.length) return;
-        const first = rows[0];
-        const keys = Object.keys(first.stats || {}).filter(k => k.indexOf('SortField') === -1);
-        if (b.key === 'serve' || b.key === 'underPressure') {
-          const keep = ['ServeRating', 'FirstServePct', 'FirstServePointsWonPct', 'SecondServePointsWonPct', 'ServiceGamesWonPct', 'AvgAcesPerMatch', 'AvgDblFaultsPerMatch'];
-          const labels = { ServeRating: 'Rating', FirstServePct: '%1S', FirstServePointsWonPct: '%1S pts', SecondServePointsWonPct: '%2S pts', ServiceGamesWonPct: '%SG gan', AvgAcesPerMatch: 'Aces/M', AvgDblFaultsPerMatch: 'DF/M' };
-          const cols = keep.filter(k => k in first.stats);
-          html += '<div class="stats-board"><h3 class="stats-board-title">' + esc(b.title) + ' <small>52 weeks</small></h3>' +
-            '<div class="rank-table-wrap"><table class="rank-table"><thead><tr><th>#</th><th>Jugador</th>' + cols.map(c => '<th style="text-align:right">' + esc(labels[c] || c) + '</th>').join('') + '</tr></thead><tbody>';
-          rows.forEach((r, i) => {
-            html += '<tr><td class="' + (i === 0 ? 'r-rank top1' : 'r-rank') + '">' + esc(r.rank) + '</td>' +
-              '<td class="r-name">' + statsFlag(r.country) + ' ' + esc(r.name) + '</td>' +
-              cols.map(c => '<td class="r-pts">' + esc(r.stats[c] != null ? r.stats[c] : '—') + '</td>').join('') + '</tr>';
-          });
-          html += '</tbody></table></div></div>';
-        } else {
-          const keep = ['ReturnRating', 'FirstServeReturnPointsWonPct', 'SecondServeReturnPointsWonPct', 'ReturnGamesWonPct', 'BrkPointsConvertedPct'];
-          const labels = { ReturnRating: 'Rating', FirstServeReturnPointsWonPct: '%1ºR pts', SecondServeReturnPointsWonPct: '%2.ºR pts', ReturnGamesWonPct: '%RG gan', BrkPointsConvertedPct: '%BP conv' };
-          const cols = keep.filter(k => k in first.stats);
-          html += '<div class="stats-board"><h3 class="stats-board-title">' + esc(b.title) + ' <small>52 weeks</small></h3>' +
-            '<div class="rank-table-wrap"><table class="rank-table"><thead><tr><th>#</th><th>Jugador</th>' + cols.map(c => '<th style="text-align:right">' + esc(labels[c] || c) + '</th>').join('') + '</tr></thead><tbody>';
-          rows.forEach((r, i) => {
-            html += '<tr><td class="' + (i === 0 ? 'r-rank top1' : 'r-rank') + '">' + esc(r.rank) + '</td>' +
-              '<td class="r-name">' + statsFlag(r.country) + ' ' + esc(r.name) + '</td>' +
-              cols.map(c => '<td class="r-pts">' + esc(r.stats[c] != null ? r.stats[c] : '—') + '</td>').join('') + '</tr>';
-          });
-          html += '</tbody></table></div></div>';
-        }
-      });
-      el.innerHTML = html || '<div class="error-box">Sin datos ATP.</div>';
-      if (meta) meta.textContent = 'Fuente: ATP Tour oficial · 52 semanas · actualizado ' + (j.updated ? j.updated.slice(0, 16).replace('T', ' ') : '--');
-    }
-  }
-
   async function refreshWheelchair() {
     try {
       const url = useLocalBackend() ? 'api/wheelchair' : 'wheelchair.json';
@@ -2782,49 +2648,6 @@
     if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--') + (wq ? ' · buscando "' + esc(wq) + '"' : '');
   }
 
-  function renderPlayers() {
-    const el = $('playersContent');
-    if (!state.elo.loaded) { el.innerHTML = '<div class="loading">Cargando jugadores...</div>'; return; }
-    const q = state.playerSearch;
-    const filterData = (data) => {
-      if (!data || !data.length) return [];
-      if (q) return data.filter(r => (r.player || '').toLowerCase().indexOf(q) > -1);
-      return data;
-    };
-    const sec = (title, data, circuit) => {
-      const filtered = filterData(data);
-      const header = '<div class="rank-section-title">' + title + '</div>';
-      if (!data || !data.length) return header + '<div class="error-box">No hay datos disponibles.</div>';
-      if (q && !filtered.length) return header + '<div class="error-box">No se encontraron jugadores que coincidan con "' + esc(q) + '" en ' + title + '.</div>';
-      const rows = filtered.map(r => {
-        const slug = taSlug(r.player);
-        const href = 'https://www.tennisabstract.com/cgi-bin/player-classic.cgi?p=' + slug;
-        return '<tr class="player-row-click" data-href="' + esc(href) + '">' +
-          '<td class="r-r">' + esc(r.rank) + '</td>' +
-          '<td class="r-name"><a href="' + esc(href) + '" target="_blank" rel="noopener">' + esc(r.player) + '</a></td>' +
-          '<td class="r-r">' + esc(r.age) + '</td>' +
-          '<td class="r-r elo-main">' + esc(r.elo) + '</td>' +
-          '</tr>';
-      }).join('');
-      return header +
-        '<div class="rank-table-wrap"><table class="rank-table elo-table">' +
-        '<thead><tr><th>#</th><th>Jugador</th><th>Edad</th><th>Puntos</th></tr></thead>' +
-        '<tbody>' + rows + '</tbody></table></div>';
-    };
-    const showAtp = state.playerTab === 'todos' || state.playerTab === 'atp';
-    const showWta = state.playerTab === 'todos' || state.playerTab === 'wta';
-    let html = '';
-    if (showAtp) html += sec('ATP', state.elo.atp, 'atp');
-    if (showWta) html += sec('WTA', state.elo.wta, 'wta');
-    el.innerHTML = html || '<div class="error-box">Sin datos.</div>';
-    const atpCount = showAtp ? filterData(state.elo.atp).length : 0;
-    const wtaCount = showWta ? filterData(state.elo.wta).length : 0;
-    const parts = [];
-    if (showAtp) parts.push(atpCount + ' ATP');
-    if (showWta) parts.push(wtaCount + ' WTA');
-    $('playersMeta').textContent = parts.join(' · ') + (q ? ' · buscando "' + q + '"' : '');
-  }
-
   /* ---------------- render dispatcher ---------------- */
 
   function render() {
@@ -2837,11 +2660,9 @@
     else if (state.tab === 'draws') renderDraws();
     else if (state.tab === 'rankings') renderRankings();
     else if (state.tab === 'argentina') renderArgentina();
-    else if (state.tab === 'players') renderPlayers();
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
     else if (state.tab === 'wheelchair') renderWheelchair();
-    else if (state.tab === 'stats') renderStatsTab();
   }
 
   function setTab(tab) {
@@ -2853,7 +2674,6 @@
   document.body.classList.toggle('tab-news', tab === 'news');
   document.body.classList.toggle('tab-videos', tab === 'videos');
     document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
-    document.body.classList.toggle('tab-stats', tab === 'stats');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
@@ -2862,21 +2682,6 @@
     if (tab === 'videos' && !state.videos.loaded) {
       render();
       refreshVideos();
-      return;
-    }
-    if (tab === 'stats') {
-      if (!state.stats.loaded) {
-        render();
-        refreshStats();
-        return;
-      }
-      render();
-      return;
-    }
-    if (tab === 'players' && !state.elo.loaded) {
-      render();
-      refreshElo();
-      if (!state.seeds.loaded) refreshSeeds();
       return;
     }
     if (tab === 'h2hsearch' && !state.elo.loaded) {
@@ -3387,16 +3192,6 @@
       });
     }
 
-    const segPlayerTab = document.getElementById('segPlayerTab');
-    if (segPlayerTab) {
-      segPlayerTab.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.playerTab = b.dataset.playertab;
-        document.querySelectorAll('#segPlayerTab .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        renderPlayers();
-      });
-    }
     const segWC = document.getElementById('segWC');
     if (segWC) {
       segWC.addEventListener('click', e => {
@@ -3426,44 +3221,6 @@
     const h2hGo = $('h2hSearchBtn');
     if (h2hGo) h2hGo.addEventListener('click', runH2HSearch);
 
-    const segStats = document.getElementById('segStats');
-    if (segStats) {
-      segStats.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b || !b.dataset.st) return;
-        state.stats.circuit = b.dataset.st;
-        document.querySelectorAll('#segStats .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        refreshStats();
-      });
-    }
-    const segStatsCat = document.getElementById('segStatsCat');
-    if (segStatsCat) {
-      segStatsCat.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b || !b.dataset.scat) return;
-        state.stats.cat = b.dataset.scat;
-        const sel = document.getElementById('statsYear');
-        if (sel && state.stats.circuit === 'wta' && state.stats.wta && state.stats.year !== sel.value) state.stats.year = sel.value;
-        document.querySelectorAll('#segStatsCat .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        refreshStats();
-      });
-    }
-    const statsYear = document.getElementById('statsYear');
-    if (statsYear) {
-      const cy = new Date().getFullYear();
-      for (let y = cy; y >= cy - 5; y--) {
-        const op = document.createElement('option');
-        op.value = String(y);
-        op.textContent = String(y);
-        statsYear.appendChild(op);
-      }
-      statsYear.value = state.stats.year;
-      statsYear.addEventListener('change', e => {
-        state.stats.year = e.target.value;
-        refreshStats();
-      });
-    }
-
 
 
 
@@ -3477,21 +3234,6 @@
       const el = $(id);
       if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') runH2HSearch(); });
     });
-    const playerSearch = $('playerSearch');
-    if (playerSearch) {
-      playerSearch.addEventListener('input', () => {
-        state.playerSearch = playerSearch.value.toLowerCase().trim();
-        renderPlayers();
-      });
-      const playerClear = $('playerSearchClear');
-      if (playerClear) playerClear.addEventListener('click', () => {
-        playerSearch.value = '';
-        state.playerSearch = '';
-        renderPlayers();
-        playerSearch.focus();
-      });
-    }
-
     const h2hOverlay = document.getElementById('h2hOverlay');
     if (h2hOverlay) {
       h2hOverlay.addEventListener('click', e => {
