@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-09T07:46:47Z",
+  "time": "2026-09-09T07:57:52Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -885,15 +886,6 @@
           "finished": false
         },
         {
-          "teId": "3318623",
-          "p1": "Pastoric",
-          "p2": "Goina",
-          "time": "08:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318617",
           "p1": "Cucu",
           "p2": "Breaz",
@@ -973,6 +965,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3318623",
+          "p1": "Goina",
+          "p2": "Pastoric",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "08:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3318629",
@@ -2770,6 +2781,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
