@@ -1,19 +1,11 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
       "name": "Evora ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3320229",
-          "p1": "Chan",
-          "p2": "Visscher",
-          "time": "12:50",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3319003",
           "p1": "Dapkute",
@@ -36,7 +28,7 @@
           "teId": "3319013",
           "p1": "Ito",
           "p2": "Fruhvirtova",
-          "time": "15:15",
+          "time": "15:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -45,7 +37,7 @@
           "teId": "3319011",
           "p1": "Brantmeier",
           "p2": "Munk Mortensen",
-          "time": "15:15",
+          "time": "15:35",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -54,7 +46,7 @@
           "teId": "3319009",
           "p1": "Klugman",
           "p2": "Voloshchuk",
-          "time": "15:15",
+          "time": "15:40",
           "round": "1R",
           "h2h": "0-0",
           "finished": false
@@ -103,6 +95,27 @@
           "round": "R16",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3320229",
+          "p1": "Chan",
+          "p2": "Visscher",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "12:50",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "7",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3318989",
@@ -1082,15 +1095,6 @@
           "finished": false
         },
         {
-          "teId": "3318637",
-          "p1": "Popa",
-          "p2": "Buculei",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3318627",
           "p1": "Sandru",
           "p2": "Miron",
@@ -1169,6 +1173,25 @@
           "sets2": [
             "1",
             "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318637",
+          "p1": "Popa",
+          "p2": "Buculei",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "5"
           ],
           "finished": true
         },
@@ -1424,18 +1447,9 @@
           "teId": "3319797",
           "p1": "Dittmann",
           "p2": "Van De Peer",
-          "time": "12:30",
+          "time": "14:30",
           "round": "R16",
           "h2h": "1-1",
-          "finished": false
-        },
-        {
-          "teId": "3319537",
-          "p1": "Luescher",
-          "p2": "Lataste",
-          "time": "12:30",
-          "round": "R16",
-          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1446,6 +1460,25 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3319537",
+          "p1": "Luescher",
+          "p2": "Lataste",
+          "round": "round of 16",
+          "date": "09.09.",
+          "time": "12:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3319617",
@@ -1875,15 +1908,6 @@
           "finished": false
         },
         {
-          "teId": "3318255",
-          "p1": "Weckerle",
-          "p2": "Reguer",
-          "time": "10:45",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318257",
           "p1": "Breen",
           "p2": "Nepliy",
@@ -1981,6 +2005,25 @@
           "sets2": [
             "3",
             "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318255",
+          "p1": "Reguer",
+          "p2": "Weckerle",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "10:45",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "3"
+          ],
+          "sets2": [
+            "3",
+            "1"
           ],
           "finished": true
         },
@@ -2167,15 +2210,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3318275",
-          "p1": "Masiianskaia",
-          "p2": "Mansouri",
-          "time": "11:30",
-          "round": "1R",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3318271",
           "p1": "Myatovic",
           "p2": "Kikawada",
@@ -2226,7 +2260,7 @@
           "p2": "Turkmen",
           "time": "",
           "round": "R16",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2253,6 +2287,25 @@
           ],
           "sets2": [
             "2",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3318275",
+          "p1": "Mansouri",
+          "p2": "Masiianskaia",
+          "round": "1. round",
+          "date": "09.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
             "2"
           ],
           "finished": true
@@ -2710,7 +2763,7 @@
           "p2": "Petruzelova",
           "time": "",
           "round": "R16",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -3017,7 +3070,7 @@
           "p2": "Fornasieri",
           "time": "",
           "round": "R16",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -3602,6 +3655,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-09T13:18:25Z"
+  "time": "2026-09-09T13:35:33Z"
 }
