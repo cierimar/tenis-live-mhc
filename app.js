@@ -329,8 +329,8 @@
     if (m500.test(n)) return isW ? 'WTA 500' : 'ATP 500';
     if (/challeng/.test(n) || circuit === 'chall') return 'CHALLENGER';
     if (/itf/.test(n) || circuit === 'itf') return 'ITF';
-    if (/\b250\b|open/.test(n)) return isW ? 'WTA 250' : 'ATP 250';
-    return isW ? 'WTA 250' : 'ATP 250';
+    if (/\b250\b|open/.test(n)) return isW ? 'WTA' : 'ATP';
+    return isW ? 'WTA' : 'ATP';
   }
 
   function surfClassOf(txt) {
@@ -3268,7 +3268,7 @@
       const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'claro'];
       const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', claro: '&#9788;' };
       const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', claro: 'Modo claro' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#08182e', claro: '#faf7f2' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', claro: '#faf7f2' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
