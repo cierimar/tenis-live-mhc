@@ -6,24 +6,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3319561",
-          "p1": "Rapolu",
-          "p2": "Swan",
-          "time": "13:10",
-          "round": "R16",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3320541",
-          "p1": "Brantmeier",
-          "p2": "Ito",
-          "time": "14:25",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320353",
           "p1": "Jorge",
           "p2": "Kuzmova",
@@ -36,7 +18,7 @@
           "teId": "3320539",
           "p1": "Chan",
           "p2": "Voloshchuk",
-          "time": "15:55",
+          "time": "16:20",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -49,6 +31,27 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320541",
+          "p1": "Ito",
+          "p2": "Brantmeier",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "14:25",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "1",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "6",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320473",
@@ -66,6 +69,27 @@
           "sets2": [
             "1",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3319561",
+          "p1": "Swan",
+          "p2": "Rapolu",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "13:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "3",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "1"
           ],
           "finished": true
         },
@@ -3851,15 +3875,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320597",
-          "p1": "Husar",
-          "p2": "Hertel",
-          "time": "13:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320907",
           "p1": "Svatikova",
           "p2": "Sucha",
@@ -3893,6 +3908,25 @@
           "sets2": [
             "1",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320597",
+          "p1": "Husar",
+          "p2": "Hertel",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "3"
           ],
           "finished": true
         },
@@ -5296,6 +5330,6 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-10T13:57:13Z"
+  "time": "2026-09-10T14:14:32Z",
+  "ok": true
 }
