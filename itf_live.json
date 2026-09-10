@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-10T13:14:24Z",
+  "time": "2026-09-10T13:29:44Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1432,15 +1432,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320287",
-          "p1": "Sakellaridi",
-          "p2": "Breaz",
-          "time": "12:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320873",
           "p1": "Craciun",
           "p2": "Todoni",
@@ -1457,6 +1448,27 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320287",
+          "p1": "Sakellaridi",
+          "p2": "Breaz",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "5",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "3",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320509",
@@ -3830,27 +3842,9 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320393",
-          "p1": "Zhenikhova",
-          "p2": "Petruzelova",
-          "time": "11:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320597",
           "p1": "Husar",
           "p2": "Hertel",
-          "time": "13:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320301",
-          "p1": "Adams",
-          "p2": "Nemcsek",
           "time": "13:30",
           "round": "R16",
           "h2h": "0-0",
@@ -3873,6 +3867,46 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320301",
+          "p1": "Adams",
+          "p2": "Nemcsek",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320393",
+          "p1": "Petruzelova",
+          "p2": "Zhenikhova",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "7",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320405",
