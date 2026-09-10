@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-10T19:09:10Z",
   "ok": true,
   "tournaments": [
     {
@@ -3642,22 +3643,23 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320521",
-          "p1": "Britez Risso",
-          "p2": "Castro Zunino",
-          "time": "17:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320595",
           "p1": "Cinalli",
           "p2": "Morini",
+          "round": "round of 16",
+          "date": "10.09.",
           "time": "18:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320665",
@@ -3675,6 +3677,25 @@
           "sets2": [
             "1",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320521",
+          "p1": "Britez Risso",
+          "p2": "Castro Zunino",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
           ],
           "finished": true
         },
@@ -5557,6 +5578,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-10T18:55:30Z"
+  ]
 }
