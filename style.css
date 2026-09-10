@@ -860,6 +860,111 @@ body[data-mode='argentina'] .sb-logo::after {
   vertical-align: 2px;
 }
 
+/* ============================================================
+   MODO CYBER - estetica "cyber-clean" neo-brutalista
+   Referencia: particulardeexcel.com
+   Fondo #030712 + grilla sutil + radiales, bordes negros
+   gruesos con sombras offset duras, acentos esmeralda /
+   azul cielo / amarillo
+   ============================================================ */
+
+body[data-mode='cyber'] {
+  --paper: #0b0f19;           /* superficie */
+  --paper-2: #111827;         /* cards */
+  --paper-3: #1e293b;
+  --ink: #f8fafc;
+  --ink-2: #cbd5e1;
+  --muted: #94a3b8;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-dark: rgba(255, 255, 255, 0.2);
+  --red: #10b981;             /* esmeralda - boton principal */
+  --red-dark: #059669;
+  --red-vivo: #38bdf8;        /* azul cielo vivo */
+  --red-soft: rgba(56, 189, 248, 0.14);
+  --green: #38bdf8;           /* victorias / subidas */
+  --amber: #fbbf24;           /* amarillo - siembras / estrellas */
+  --blue: #38bdf8;            /* links */
+  --shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
+  --live: #38bdf8;            /* re-define compuesta :root -> azul cielo */
+  --warn: #fbbf24;            /* re-define compuesta :root -> amarillo */
+  --bg: #030712;              /* base oscura cyber */
+}
+/* fondo con grilla 40px + radiales azul/esmeralda (look de la pagina) */
+body[data-mode='cyber'] {
+  background-image:
+    radial-gradient(at 8% 6%, rgba(56, 189, 248, 0.07) 0, transparent 50%),
+    radial-gradient(at 92% 12%, rgba(16, 185, 129, 0.07) 0, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+body[data-mode='cyber'] ::selection { background: #38bdf8; color: #000; }
+body[data-mode='cyber'] a { color: #38bdf8; }
+body[data-mode='cyber'] .sb-logo {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='cyber'] .sb-logo-sub { color: #38bdf8; }
+body[data-mode='cyber'] .mode-label { color: #38bdf8; }
+body[data-mode='cyber'] .rank-section-title { color: #fbbf24; }
+body[data-mode='cyber'] .th-tier { border-color: #38bdf8; color: #38bdf8; }
+body[data-mode='cyber'] .seed-badge { border-color: #fbbf24; color: #fbbf24; }
+body[data-mode='cyber'] .set.win { color: #fbbf24; }
+body[data-mode='cyber'] .pname.winner::after { color: #fbbf24; }
+
+/* tarjetas: borde negro grueso + sombra offset dura (neo-brutalismo) */
+body[data-mode='cyber'] .appbar { border-bottom: 2px solid #000; }
+body[data-mode='cyber'] .tabbar { border-top: 2px solid #000; }
+body[data-mode='cyber'] .match,
+body[data-mode='cyber'] .news-card,
+body[data-mode='cyber'] .video-card,
+body[data-mode='cyber'] .wc-res-card,
+body[data-mode='cyber'] .col-card,
+body[data-mode='cyber'] .ct-card,
+body[data-mode='cyber'] .stats-board {
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+}
+body[data-mode='cyber'] .rank-table-wrap,
+body[data-mode='cyber'] .draw-board,
+body[data-mode='cyber'] .h2h-block,
+body[data-mode='cyber'] .cal-block,
+body[data-mode='cyber'] .controls .seg {
+  box-shadow: 4px 4px 0 #000;
+}
+/* pills y botones: borde + sombra + "se hunden" al clickear (fiel a la pagina) */
+body[data-mode='cyber'] .seg-btn,
+body[data-mode='cyber'] .lv-btn,
+body[data-mode='cyber'] .round-chip,
+body[data-mode='cyber'] .h2h-go,
+body[data-mode='cyber'] .btn-refresh {
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+}
+body[data-mode='cyber'] .seg-btn:active,
+body[data-mode='cyber'] .lv-btn:active,
+body[data-mode='cyber'] .round-chip:active,
+body[data-mode='cyber'] .h2h-go:active,
+body[data-mode='cyber'] .btn-refresh:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 #000;
+}
+/* boton principal esmeralda con texto negro (CTA "Ir al Juego") */
+body[data-mode='cyber'] .btn-refresh {
+  background: #10b981;
+  color: #000;
+  font-weight: 800;
+}
+body[data-mode='cyber'] .btn-refresh:hover {
+  background: #059669;
+  border-color: #000;
+  color: #000;
+}
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
