@@ -1,6 +1,5 @@
 {
-  "time": "2026-09-10T18:06:29Z",
-  "ok": true,
+  "time": "2026-09-10T18:24:54Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -8,28 +7,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321027",
-          "p1": "Voloshchuk",
-          "p2": "Ito",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320973",
-          "p1": "Jorge",
-          "p2": "Gasanova",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320971",
           "p1": "Jorge",
           "p2": "Swan",
-          "time": "11:00",
+          "time": "11:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -38,7 +19,25 @@
           "teId": "3320883",
           "p1": "Cross",
           "p2": "Johnson",
-          "time": "11:00",
+          "time": "11:30",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3321027",
+          "p1": "Voloshchuk",
+          "p2": "Ito",
+          "time": "13:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320973",
+          "p1": "Jorge",
+          "p2": "Gasanova",
+          "time": "13:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1038,15 +1037,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321043",
-          "p1": "Martinez Cirez",
-          "p2": "Pace",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320985",
           "p1": "Hesse",
           "p2": "Geerlings",
@@ -1069,6 +1059,15 @@
           "p1": "Cortez Llorca",
           "p2": "Yesypchuk",
           "time": "10:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3321043",
+          "p1": "Martinez Cirez",
+          "p2": "Pace",
+          "time": "11:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3652,15 +3651,6 @@
           "finished": false
         },
         {
-          "teId": "3320665",
-          "p1": "Lopez Ocampos",
-          "p2": "Urrutia",
-          "time": "18:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320595",
           "p1": "Cinalli",
           "p2": "Morini",
@@ -3668,6 +3658,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320665",
+          "p1": "Urrutia",
+          "p2": "Lopez Ocampos",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "18:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3320667",
@@ -5548,5 +5557,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
