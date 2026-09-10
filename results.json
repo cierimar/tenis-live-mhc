@@ -1,35 +1,355 @@
 {
-  "updated": "2026-09-10T01:17:54Z",
-  "count": 1,
+  "ok": true,
   "matches": [
     {
-      "id": "te-3319799",
+      "id": "te-3320067",
       "state": "post",
       "tour": "atp",
       "type": "Men's Doubles",
       "round": "",
-      "tournamentId": "te-3319799",
+      "tournamentId": "te-3320067",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "name": "Atturu S. / Kartseva",
-          "flag": "",
-          "homeAway": "home",
           "flagAlt": "",
-          "linescores": [],
+          "name": "Krueger A / Montgomer",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 7,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "flag": "",
           "winner": true
         },
         {
-          "name": "Allen V. / Desai Z.",
-          "flag": "",
-          "homeAway": "away",
           "flagAlt": "",
-          "linescores": [],
+          "name": "Dabrowski / Stefani L",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "flag": "",
           "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3319411",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3319411",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Ellis B.",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 0,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "flag": "",
+          "winner": false
+        },
+        {
+          "flagAlt": "",
+          "name": "Purcell M.",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "flag": "",
+          "winner": true
+        }
+      ]
+    },
+    {
+      "id": "te-3320069",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3320069",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Krawietz / Puetz T.",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 7,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "flag": "",
+          "winner": true
+        },
+        {
+          "flagAlt": "",
+          "name": "Arevalo M / Pavic M.",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 7,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "flag": "",
+          "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3320063",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3320063",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Ram R. / Salisbury",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "flag": "",
+          "winner": true
+        },
+        {
+          "flagAlt": "",
+          "name": "Granoller / Zeballos",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 4,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "flag": "",
+          "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3320075",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3320075",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Heliövaar / Patten H.",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 7,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "flag": "",
+          "winner": true
+        },
+        {
+          "flagAlt": "",
+          "name": "Andreozzi / Guinard M",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 7,
+              "tiebreak": null,
+              "winner": true
+            },
+            {
+              "value": 6,
+              "tiebreak": null,
+              "winner": false
+            },
+            {
+              "value": 2,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "flag": "",
+          "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3316869",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3316869",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Rosenkran / Ujvary M.",
+          "homeAway": "home",
+          "linescores": [],
+          "flag": "",
+          "winner": true
+        },
+        {
+          "flagAlt": "",
+          "name": "Hipfl N. / Kopp S.",
+          "homeAway": "away",
+          "linescores": [],
+          "flag": "",
+          "winner": false
+        }
+      ]
+    },
+    {
+      "id": "te-3316881",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3316881",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Fancutt T / Watanabe",
+          "homeAway": "home",
+          "linescores": [
+            {
+              "value": 0,
+              "tiebreak": null,
+              "winner": false
+            }
+          ],
+          "flag": "",
+          "winner": false
+        },
+        {
+          "flagAlt": "",
+          "name": "Covato M. / Voelzke G",
+          "homeAway": "away",
+          "linescores": [
+            {
+              "value": 1,
+              "tiebreak": null,
+              "winner": true
+            }
+          ],
+          "flag": "",
+          "winner": true
         }
       ]
     }
   ],
-  "ok": true
+  "count": 7,
+  "updated": "2026-09-10T02:01:20Z"
 }
