@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-10T03:59:12Z",
   "ok": true,
   "tournaments": [
     {
@@ -429,15 +430,6 @@
           "finished": false
         },
         {
-          "teId": "3319217",
-          "p1": "Kaji",
-          "p2": "Shubladze",
-          "time": "04:10",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3319427",
           "p1": "Inoue",
           "p2": "Adkar",
@@ -450,7 +442,7 @@
           "teId": "3320231",
           "p1": "Morvayova",
           "p2": "Astakhova",
-          "time": "05:45",
+          "time": "05:55",
           "round": "R16",
           "h2h": "1-1",
           "finished": false
@@ -459,7 +451,7 @@
           "teId": "3320087",
           "p1": "Wei",
           "p2": "Khomutsianskaya",
-          "time": "05:45",
+          "time": "05:55",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -468,10 +460,29 @@
           "teId": "3320085",
           "p1": "Wang",
           "p2": "Ren",
-          "time": "05:45",
+          "time": "05:55",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3319217",
+          "p1": "Shubladze",
+          "p2": "Kaji",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "04:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3318217",
@@ -4450,6 +4461,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-10T03:48:36Z"
+  ]
 }
