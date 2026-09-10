@@ -2438,34 +2438,40 @@
     }
   }
 
-  async function refreshWcLive() {
+async function refreshWcLive() {
     try {
-    const now = new Date(); const today = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-      const url = 'https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + today + '/page/1';
+      const url = 'https://api.tnnslive.com/v1/matches';
       const resp = await fetch(url);
       if (!resp.ok) throw new Error(resp.status);
       const j = await resp.json();
       const events = [];
-      const tours = j.tournaments || [];
-      tours.forEach(t => {
-        const tName = ((t.tournament || {}).name || '').toLowerCase();
-        const catName = ((t.tournament || {}).category || {}).name || '';
-        const isWC = tName.indexOf('wheelchair') > -1 || catName.toLowerCase().indexOf('wheelchair') > -1 || tName.indexOf('uniqlo wheel') > -1;
-        if (!isWC) return;
-        const matches = t.events || [];
-        matches.forEach(ev => {
-          events.push({
-            id: ev.id,
-            tournament: (t.tournament || {}).name || '',
-            category: catName,
-            home: (ev.homeTeam || {}).name || '',
-            away: (ev.awayTeam || {}).name || '',
-            status: ev.status ? ev.status.type : '',
-            statusDesc: ev.status ? ev.status.description : '',
-            homeScore: ev.homeScore ? ev.homeScore.current : '',
-            awayScore: ev.awayScore ? ev.awayScore.current : '',
-            startTimestamp: ev.startTimestamp || 0
-          });
+      const sids = j.sids || {};
+      const wcSids = {};
+      Object.keys(sids).forEach(sid => {
+        const d = sids[sid].d || {};
+        const cat = String(d.category || '').toLowerCase();
+        const tn = String(sids[sid].t || '').toLowerCase();
+        if (cat.indexOf('wheel') > -1 || tn.indexOf('wheel') > -1) wcSids[sid] = sids[sid];
+      });
+      (j.all_matches || []).forEach(m => {
+        const tr = wcSids[String(m.sid)];
+        if (!tr) return;
+        const p = m.p || [];
+        const p0 = p[0] || {}, p1 = p[1] || {};
+        const fs = m.fs || [];
+        const isLive = fs.indexOf('l') > -1;
+        const isFinished = fs.indexOf('c') > -1;
+        events.push({
+          id: String(m.k),
+          tournament: tr.t || '',
+          category: (tr.d || {}).category || '',
+          home: p0.n || '',
+          away: p1.n || '',
+          status: isLive ? 1 : (isFinished ? 2 : 0),
+          statusDesc: (m.d_st || {}).t || '',
+          homeScore: typeof p0.s === 'number' ? p0.s : '',
+          awayScore: typeof p1.s === 'number' ? p1.s : '',
+          startTimestamp: parseInt(m.start_time_timestamp || 0, 10) || 0
         });
       });
       events.sort((a, b) => b.startTimestamp - a.startTimestamp);
@@ -2496,13 +2502,13 @@
       const wcLive = state.wcLive;
       if (!wcLive.loaded) { el.innerHTML = '<div class="loading">Cargando partidos en vivo...</div>'; return; }
       if (wcLive.error) {
-        el.innerHTML = '<div class="error-box">No se pudieron cargar los partidos en vivo de Sofascore.<br><small>' + esc(wcLive.error) + '</small></div>' +
-          '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver en Sofascore &rarr;</a></div>';
+        el.innerHTML = '<div class="error-box">No se pudieron cargar los partidos en vivo de TNNS.<br><small>' + esc(wcLive.error) + '</small></div>' +
+          '<div style="margin-top:12px"><a href="https://tnnslive.com/" target="_blank" class="ta-link">Ver en TNNS &rarr;</a></div>';
         return;
       }
       if (!wcLive.events.length) {
         el.innerHTML = '<div class="loading">No hay partidos de wheelchair tennis en vivo ahora.</div>' +
-          '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver calendario completo en Sofascore &rarr;</a></div>';
+          '<div style="margin-top:12px"><a href="https://tnnslive.com/" target="_blank" class="ta-link">Ver calendario completo en TNNS &rarr;</a></div>';
         return;
       }
       const liveRows = wcLive.events.map(ev => {
@@ -2521,8 +2527,8 @@
       el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
         '<thead><tr><th>Torneo</th><th>Jugador 1</th><th>Jugador 2</th><th>Marcador</th><th>Estado</th></tr></thead>' +
         '<tbody>' + liveRows + '</tbody></table></div>' +
-        '<div style="margin-top:12px"><a href="https://www.sofascore.com/es/tennis/wheelchairs" target="_blank" class="ta-link">Ver todos los partidos en Sofascore &rarr;</a></div>';
-      if (meta) meta.textContent = 'Partidos en vivo de wheelchair tennis (Sofascore)';
+        '<div style="margin-top:12px"><a href="https://tnnslive.com/" target="_blank" class="ta-link">Ver todos los partidos en TNNS &rarr;</a></div>';
+      if (meta) meta.textContent = 'Partidos en vivo de wheelchair tennis (TNNS)';
       return;
     }
 
@@ -3265,10 +3271,10 @@
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'claro'];
-      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', claro: '&#9788;' };
-      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', claro: 'Modo claro' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', claro: '#faf7f2' };
+      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'atp', 'wta', 'tnns', 'claro'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', claro: '&#9788;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', claro: 'Modo claro' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', claro: '#faf7f2' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
