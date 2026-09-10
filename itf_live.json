@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -3651,15 +3650,6 @@
           "finished": false
         },
         {
-          "teId": "3321109",
-          "p1": "Cinalli",
-          "p2": "Urrutia",
-          "time": "15:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321089",
           "p1": "Cabezas Dominguez",
           "p2": "Gobbi Monllau",
@@ -3673,6 +3663,15 @@
           "p1": "Romero",
           "p2": "Estevez",
           "time": "16:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3321109",
+          "p1": "Cinalli",
+          "p2": "Urrutia",
+          "time": "17:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5614,5 +5613,6 @@
       ]
     }
   ],
-  "time": "2026-09-10T23:10:43Z"
+  "ok": true,
+  "time": "2026-09-10T23:23:34Z"
 }
