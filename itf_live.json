@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-10T19:09:10Z",
   "ok": true,
   "tournaments": [
     {
@@ -4625,15 +4624,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320915",
-          "p1": "Tomase",
-          "p2": "Schaefer",
-          "time": "00:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320677",
           "p1": "Gandolfi",
           "p2": "Alvisi",
@@ -4667,6 +4657,15 @@
           "time": "11:30",
           "round": "R16",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3320915",
+          "p1": "Tomase",
+          "p2": "Schaefer",
+          "time": "10:30",
+          "round": "QF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5578,5 +5577,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-10T19:21:51Z"
 }
