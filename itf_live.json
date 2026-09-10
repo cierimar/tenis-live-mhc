@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "time": "2026-09-10T14:47:38Z",
+  "time": "2026-09-10T15:18:44Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -20,18 +20,18 @@
           "teId": "3320973",
           "p1": "Jorge",
           "p2": "Gasanova",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3320971",
           "p1": "Jorge",
           "p2": "Swan",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1022,7 +1022,7 @@
           "teId": "3320299",
           "p1": "Martinez Cirez",
           "p2": "Roura Llaverias",
-          "time": "17:00",
+          "time": "17:10",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1031,18 +1031,18 @@
           "teId": "3320985",
           "p1": "Hesse",
           "p2": "Geerlings",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3320983",
           "p1": "Argyrokastriti",
           "p2": "Paoletti",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -1515,21 +1515,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320967",
-          "p1": "Sakellaridi",
-          "p2": "Bojica",
-          "time": "",
-          "round": "QF",
-          "h2h": "-",
-          "finished": false
-        },
-        {
           "teId": "3320873",
           "p1": "Craciun",
           "p2": "Todoni",
           "time": "09:00",
           "round": "QF",
           "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3320967",
+          "p1": "Sakellaridi",
+          "p2": "Bojica",
+          "time": "09:15",
+          "round": "QF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -2009,19 +2009,19 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320969",
-          "p1": "Tran",
-          "p2": "Mpetshi Perricard",
-          "time": "",
-          "round": "SF",
-          "h2h": "-",
-          "finished": false
-        },
-        {
           "teId": "3320899",
           "p1": "Iliev",
           "p2": "Soriano Santiago",
-          "time": "",
+          "time": "13:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320969",
+          "p1": "Tran",
+          "p2": "Mpetshi Perricard",
+          "time": "14:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -3094,7 +3094,7 @@
           "p2": "Lukosiute",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-1",
           "finished": false
         },
         {
@@ -3103,7 +3103,7 @@
           "p2": "Haddad",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -3981,28 +3981,19 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320989",
-          "p1": "Kolonus",
-          "p2": "Petruzelova",
-          "time": "",
-          "round": "QF",
-          "h2h": "-",
-          "finished": false
-        },
-        {
           "teId": "3320987",
           "p1": "Adams",
           "p2": "Husar",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3320877",
           "p1": "Chiesa",
           "p2": "Kmiecik",
-          "time": "10:00",
+          "time": "11:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4011,9 +4002,18 @@
           "teId": "3320907",
           "p1": "Svatikova",
           "p2": "Sucha",
-          "time": "12:00",
+          "time": "13:00",
           "round": "QF",
           "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320989",
+          "p1": "Kolonus",
+          "p2": "Petruzelova",
+          "time": "13:30",
+          "round": "QF",
+          "h2h": "1-1",
           "finished": false
         },
         {
