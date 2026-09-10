@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-10T11:17:58Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -26,15 +25,6 @@
           "finished": false
         },
         {
-          "teId": "3320353",
-          "p1": "Jorge",
-          "p2": "Kuzmova",
-          "time": "13:15",
-          "round": "R16",
-          "h2h": "2-0",
-          "finished": false
-        },
-        {
           "teId": "3320473",
           "p1": "Dapkute",
           "p2": "Gasanova",
@@ -44,10 +34,19 @@
           "finished": false
         },
         {
+          "teId": "3320353",
+          "p1": "Jorge",
+          "p2": "Kuzmova",
+          "time": "13:35",
+          "round": "R16",
+          "h2h": "2-0",
+          "finished": false
+        },
+        {
           "teId": "3320541",
           "p1": "Brantmeier",
           "p2": "Ito",
-          "time": "14:10",
+          "time": "14:15",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -56,7 +55,7 @@
           "teId": "3320539",
           "p1": "Chan",
           "p2": "Voloshchuk",
-          "time": "14:10",
+          "time": "14:35",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -65,9 +64,9 @@
           "teId": "3320883",
           "p1": "Cross",
           "p2": "Johnson",
-          "time": "",
+          "time": "11:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -943,24 +942,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320297",
-          "p1": "Hesse",
-          "p2": "Teixido Garcia",
-          "time": "10:10",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320295",
-          "p1": "Hennemann",
-          "p2": "Cortez Llorca",
-          "time": "10:10",
-          "round": "R16",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3320609",
           "p1": "Primorac",
           "p2": "Pace",
@@ -970,19 +951,19 @@
           "finished": false
         },
         {
-          "teId": "3320375",
-          "p1": "Pieri",
-          "p2": "Argyrokastriti",
-          "time": "13:20",
+          "teId": "3320373",
+          "p1": "Peet",
+          "p2": "Geerlings",
+          "time": "13:30",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3320373",
-          "p1": "Peet",
-          "p2": "Geerlings",
-          "time": "13:20",
+          "teId": "3320375",
+          "p1": "Pieri",
+          "p2": "Argyrokastriti",
+          "time": "13:35",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -1011,6 +992,48 @@
           ],
           "sets2": [
             "1",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320295",
+          "p1": "Cortez Llorca",
+          "p2": "Hennemann",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "4",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "6",
+            "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320297",
+          "p1": "Hesse",
+          "p2": "Teixido Garcia",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "6",
             "0"
           ],
           "finished": true
@@ -2354,7 +2377,7 @@
           "p2": "Marinkovic",
           "time": "",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -4998,5 +5021,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-10T11:33:40Z"
 }
