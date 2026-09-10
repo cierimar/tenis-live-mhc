@@ -1,6 +1,6 @@
 {
-  "time": "2026-09-10T08:17:24Z",
   "ok": true,
+  "time": "2026-09-10T08:35:06Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -406,18 +406,18 @@
           "teId": "3320809",
           "p1": "Khomutsianskaya",
           "p2": "Astakhova",
-          "time": "",
+          "time": "04:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3320807",
           "p1": "Inoue",
           "p2": "Ren",
-          "time": "",
+          "time": "04:00",
           "round": "QF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -944,7 +944,7 @@
           "teId": "3320375",
           "p1": "Pieri",
           "p2": "Argyrokastriti",
-          "time": "11:10",
+          "time": "11:20",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -953,7 +953,7 @@
           "teId": "3320373",
           "p1": "Peet",
           "p2": "Geerlings",
-          "time": "11:10",
+          "time": "11:20",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -962,7 +962,7 @@
           "teId": "3319621",
           "p1": "Paoletti",
           "p2": "Cherubini",
-          "time": "11:10",
+          "time": "11:20",
           "round": "R16",
           "h2h": "0-1",
           "finished": false
@@ -1318,15 +1318,6 @@
           "finished": false
         },
         {
-          "teId": "3320331",
-          "p1": "Garnevska",
-          "p2": "Prisacariu",
-          "time": "09:00",
-          "round": "R16",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3320289",
           "p1": "Simionescu",
           "p2": "Goina",
@@ -1379,6 +1370,25 @@
           "round": "R16",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320331",
+          "p1": "Garnevska",
+          "p2": "Prisacariu",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "09:00",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "1"
+          ],
+          "sets2": [
+            "3",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3318627",
@@ -4173,6 +4183,42 @@
       "name": "Yeongwol 2 ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3320829",
+          "p1": "Kim",
+          "p2": "Choi",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320827",
+          "p1": "Yoshioka",
+          "p2": "Lee",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320825",
+          "p1": "Naklo",
+          "p2": "Tsao",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3320823",
+          "p1": "Kim",
+          "p2": "Sawashiro",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-1",
+          "finished": false
+        },
         {
           "teId": "3319441",
           "p1": "Lee",
