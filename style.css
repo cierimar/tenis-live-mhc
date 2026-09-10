@@ -797,9 +797,9 @@ body[data-mode='tennis'] .cal-month-select { border: 0; background: transparent;
    ============================================================ */
 
 body[data-mode='argentina'] {
-  --paper: #0e2544;
-  --paper-2: #14305a;
-  --paper-3: #1b3c6e;
+  --paper: #000000;
+  --paper-2: #000000;
+  --paper-3: #0a0f16;
   --ink: #ffffff;
   --ink-2: #c9d8ec;
   --muted: #8fa6c4;
@@ -815,7 +815,7 @@ body[data-mode='argentina'] {
   --shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
   --live: #6CACE4;            /* re-define compuesta :root -> celeste */
   --warn: #f6b40e;            /* re-define compuesta :root -> oro */
-  --bg: #08182e;              /* noche de la seleccion */
+  --bg: #000000;              /* negro absoluto */
 }
 body[data-mode='argentina'] ::selection { background: #f6b40e; color: #08182e; }
 body[data-mode='argentina'] a { color: #8fc4f0; }
@@ -826,6 +826,11 @@ body[data-mode='argentina'] .th-tier { border-color: #6CACE4; color: #8fc4f0; }
 body[data-mode='argentina'] .seed-badge { border-color: #f6b40e; color: #f6b40e; }
 body[data-mode='argentina'] .set.win { color: #f6b40e; }
 body[data-mode='argentina'] .pname.winner::after { color: #f6b40e; }
+body[data-mode='argentina'] .match { background: #102f5c; }
+body[data-mode='argentina'] .match.live {
+  border-left-color: #6CACE4;
+  background: linear-gradient(90deg, rgba(108, 172, 228, 0.16), #123266 38%);
+}
 
 /* nameplate albiceleste con las 3 estrellas de oro */
 @keyframes arg-shift {
