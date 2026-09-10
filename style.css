@@ -791,6 +791,70 @@ body[data-mode='tennis'] .nav-item.active .ic { color: #000000; }
 body[data-mode='tennis'] .theme-toggle { border: 0; }
 body[data-mode='tennis'] .cal-month-select { border: 0; background: transparent; color: #000000; }
 
+/* ============================================================
+   MODO ARGENTINA - albiceleste (colores seleccion de futbol)
+   Celeste + blanco + oro (sol de Mayo) + las 3 estrellas
+   ============================================================ */
+
+body[data-mode='argentina'] {
+  --paper: #0e2544;
+  --paper-2: #14305a;
+  --paper-3: #1b3c6e;
+  --ink: #ffffff;
+  --ink-2: #c9d8ec;
+  --muted: #8fa6c4;
+  --hairline: #1b3a63;
+  --hairline-dark: #2d537f;
+  --red: #6CACE4;             /* celeste - acento principal */
+  --red-dark: #5d9ed4;
+  --red-vivo: #6CACE4;        /* celeste vivo */
+  --red-soft: rgba(108, 172, 228, 0.14);
+  --green: #f6b40e;           /* oro - victorias / subidas */
+  --amber: #f6b40e;           /* oro - siembras */
+  --blue: #8fc4f0;            /* celeste claro - links */
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  --live: #6CACE4;            /* re-define compuesta :root -> celeste */
+  --warn: #f6b40e;            /* re-define compuesta :root -> oro */
+  --bg: #08182e;              /* noche de la seleccion */
+}
+body[data-mode='argentina'] ::selection { background: #f6b40e; color: #08182e; }
+body[data-mode='argentina'] a { color: #8fc4f0; }
+body[data-mode='argentina'] .mode-label { color: #8fc4f0; }
+body[data-mode='argentina'] .sb-logo-sub { color: #f6b40e; }
+body[data-mode='argentina'] .rank-section-title { color: #f6b40e; }
+body[data-mode='argentina'] .th-tier { border-color: #6CACE4; color: #8fc4f0; }
+body[data-mode='argentina'] .seed-badge { border-color: #f6b40e; color: #f6b40e; }
+body[data-mode='argentina'] .set.win { color: #f6b40e; }
+body[data-mode='argentina'] .pname.winner::after { color: #f6b40e; }
+
+/* nameplate albiceleste con las 3 estrellas de oro */
+@keyframes arg-shift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+body[data-mode='argentina'] .sb-logo {
+  color: transparent;
+  background: linear-gradient(90deg, #ffffff, #8fc4f0, #6CACE4, #ffffff, #f6b40e, #ffffff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: arg-shift 8s ease infinite;
+  font-weight: 800;
+}
+body[data-mode='argentina'] .sb-logo::after {
+  content: '\2605\2605\2605';
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-left: 6px;
+  color: #f6b40e;
+  -webkit-text-fill-color: #f6b40e;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  vertical-align: 2px;
+}
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
