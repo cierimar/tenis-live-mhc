@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-10T15:18:44Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1515,6 +1513,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3320967",
+          "p1": "Sakellaridi",
+          "p2": "Bojica",
+          "time": "09:00",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3320873",
           "p1": "Craciun",
           "p2": "Todoni",
@@ -1524,19 +1531,10 @@
           "finished": false
         },
         {
-          "teId": "3320967",
-          "p1": "Sakellaridi",
-          "p2": "Bojica",
-          "time": "09:15",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320841",
           "p1": "Popa",
           "p2": "Garnevska",
-          "time": "10:00",
+          "time": "10:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3981,19 +3979,19 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320987",
-          "p1": "Adams",
-          "p2": "Husar",
-          "time": "",
+          "teId": "3320877",
+          "p1": "Chiesa",
+          "p2": "Kmiecik",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3320877",
-          "p1": "Chiesa",
-          "p2": "Kmiecik",
-          "time": "11:00",
+          "teId": "3320987",
+          "p1": "Adams",
+          "p2": "Husar",
+          "time": "11:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4002,7 +4000,7 @@
           "teId": "3320907",
           "p1": "Svatikova",
           "p2": "Sucha",
-          "time": "13:00",
+          "time": "12:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5453,5 +5451,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-10T15:34:05Z"
 }
