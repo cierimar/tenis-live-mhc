@@ -1,6 +1,5 @@
 {
-  "time": "2026-09-10T12:57:12Z",
-  "ok": true,
+  "time": "2026-09-10T13:14:24Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -965,15 +964,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320373",
-          "p1": "Peet",
-          "p2": "Geerlings",
-          "time": "13:30",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320375",
           "p1": "Pieri",
           "p2": "Argyrokastriti",
@@ -999,6 +989,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320373",
+          "p1": "Geerlings",
+          "p2": "Peet",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320609",
@@ -5243,5 +5252,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
