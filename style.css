@@ -1122,6 +1122,97 @@ body[data-mode='wta'] .match.live {
   background: linear-gradient(90deg, rgba(255, 45, 45, 0.14), var(--paper) 38%);
 }
 
+/* ============================================================
+   TEMA TNNS (diseño apagado limpio de tnnslive.com)
+   Fondo oscuro azulado #0D0D10/#0F1115, tarjetas navy #0F1826,
+   texto blanco puro, acento LIVE rosa #FA0A6C, acento UI azul
+   pastel #93C5FD. Estética flat, hairlines sutiles, sin sombras.
+   ============================================================ */
+body[data-mode='tnns'] {
+  --bg: #0D0D10;
+  --paper: #0F1115;
+  --paper-2: #161A22;
+  --paper-3: #1E242E;
+  --ink: #FFFFFF;
+  --ink-2: #E7EDF4;
+  --muted: #9AA7BA;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-dark: rgba(255, 255, 255, 0.16);
+  --red: #FA0A6C;
+  --red-dark: #C80757;
+  --red-vivo: #93C5FD;
+  --red-soft: rgba(250, 10, 108, 0.12);
+  --green: #4ADE80;
+  --amber: #E7EDF4;
+  --blue: #93C5FD;
+  --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  --live: #FA0A6C;
+  --warn: #93C5FD;
+}
+body[data-mode='tnns'] ::selection { background: #FA0A6C; color: #fff; }
+body[data-mode='tnns'] a { color: #93C5FD; }
+body[data-mode='tnns'] .sb-logo {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='tnns'] .sb-logo-sub { color: #93C5FD; }
+body[data-mode='tnns'] .mode-label { color: #93C5FD; }
+body[data-mode='tnns'] .rank-section-title { color: #93C5FD; }
+body[data-mode='tnns'] .th-tier { border-color: #93C5FD; color: #93C5FD; }
+body[data-mode='tnns'] .seed-badge { border-color: #93C5FD; color: #93C5FD; }
+body[data-mode='tnns'] .set.win { color: #4ADE80; }
+body[data-mode='tnns'] .pname.winner::after { color: #4ADE80; }
+body[data-mode='tnns'] .r-move.up { color: #4ADE80; }
+body[data-mode='tnns'] .r-move.down { color: #FA0A6C; }
+/* controles rosa vive (look TNNS live) con texto blanco */
+body[data-mode='tnns'] .seg-btn.active,
+body[data-mode='tnns'] .lv-btn.active {
+  background: #FA0A6C;
+  color: #ffffff;
+  font-weight: 700;
+}
+body[data-mode='tnns'] .nav-item.active {
+  color: #FA0A6C;
+  border-top-color: #FA0A6C;
+  background: rgba(250, 10, 108, 0.14);
+}
+body[data-mode='tnns'] .round-chip.active,
+body[data-mode='tnns'] .h2h-go {
+  background: #FA0A6C;
+  color: #ffffff;
+}
+body[data-mode='tnns'] .btn-refresh {
+  background: #FA0A6C;
+  color: #ffffff;
+  font-weight: 800;
+}
+body[data-mode='tnns'] .btn-refresh:hover {
+  background: #C80757;
+  border-color: #C80757;
+  color: #ffffff;
+}
+/* tarjetas navy #0F1826 como las tarjetas de TNNS */
+body[data-mode='tnns'] .match {
+  background: #0F1826;
+  border-color: var(--hairline);
+}
+body[data-mode='tnns'] .match.live {
+  background: linear-gradient(90deg, rgba(250, 10, 108, 0.16), #0F1826 45%);
+  border-left-color: #FA0A6C;
+}
+body[data-mode='tnns'] .badge.live {
+  background: #FA0A6C;
+  color: #fff;
+}
+body[data-mode='tnns'] .wc-live-badge {
+  background: #FA0A6C;
+  color: #fff;
+}
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
