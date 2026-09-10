@@ -1,5 +1,5 @@
 {
-  "time": "2026-09-10T13:29:44Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -37,7 +37,7 @@
           "teId": "3320539",
           "p1": "Chan",
           "p2": "Voloshchuk",
-          "time": "15:25",
+          "time": "15:45",
           "round": "R16",
           "h2h": "0-0",
           "finished": false
@@ -964,15 +964,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320375",
-          "p1": "Pieri",
-          "p2": "Argyrokastriti",
-          "time": "13:40",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320299",
           "p1": "Martinez Cirez",
           "p2": "Roura Llaverias",
@@ -989,6 +980,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320375",
+          "p1": "Argyrokastriti",
+          "p2": "Pieri",
+          "round": "round of 16",
+          "date": "10.09.",
+          "time": "13:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3320373",
@@ -4372,7 +4382,7 @@
           "teId": "3320915",
           "p1": "Tomase",
           "p2": "Schaefer",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5287,5 +5297,5 @@
       ]
     }
   ],
-  "ok": true
+  "time": "2026-09-10T13:45:30Z"
 }
