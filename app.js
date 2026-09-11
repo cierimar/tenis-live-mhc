@@ -811,6 +811,8 @@
     }
     return { ok: true, p1: name1, p2: name2, h2h: score, source: 'tennisexplorer', meetings: meetings };
   }
+
+  async function fetchTAH2HWeb(nameA, nameB) {
     const rp1 = resolveNameClient(nameA);
     const rp2 = resolveNameClient(nameB);
     if (!rp1) throw new Error('no-encontrado:' + nameA);
