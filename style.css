@@ -2019,6 +2019,105 @@ body[data-mode='tenipo'] .match.live {
 body[data-mode='tenipo'] .th-logo { filter: none; }
 body[data-mode='tenipo'] ::selection { background: #bb4; color: #1b2935; }
 body[data-mode='tenipo'] a { color: #2278b5; }
+body[data-mode='black'] {
+  --paper: #000000;
+  --paper-2: #000000;
+  --paper-3: #000000;
+  --ink: #f2efe9;
+  --ink-2: #f2efe9;
+  --muted: #c9c6bf;
+  --hairline: #f2efe9;
+  --hairline-dark: #f2efe9;
+  --red: #f2efe9;
+  --red-dark: #f2efe9;
+  --red-vivo: #f2efe9;
+  --red-soft: rgba(242, 239, 233, 0.10);
+  --green: #f2efe9;
+  --amber: #f2efe9;
+  --blue: #f2efe9;
+  --shadow: none;
+  --live: #f2efe9;
+  --warn: #f2efe9;
+  --bg: #000000;
+}
+body[data-mode='black'] .sb-logo {
+  color: #f2efe9;
+  -webkit-text-fill-color: #f2efe9;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='black'] .sb-logo-sub { color: #f2efe9; }
+body[data-mode='black'] .mode-label { color: #f2efe9; }
+body[data-mode='black'] .nav-item { color: #f2efe9; }
+body[data-mode='black'] .nav-item .ic { color: #f2efe9; }
+body[data-mode='black'] .nav-item .lb { color: #f2efe9; }
+body[data-mode='black'] .nav-item.active {
+  border-left-color: #f2efe9;
+  color: #f2efe9;
+  background: rgba(242, 239, 233, 0.10);
+}
+body[data-mode='black'] .seg-btn.active,
+body[data-mode='black'] .lv-btn.active,
+body[data-mode='black'] .round-chip.active,
+body[data-mode='black'] .h2h-go,
+body[data-mode='black'] .btn-refresh {
+  background: #f2efe9;
+  color: #000000;
+  border-color: #f2efe9;
+  font-weight: 700;
+}
+body[data-mode='black'] .badge.live,
+body[data-mode='black'] .set.live-set,
+body[data-mode='black'] .wc-live-badge {
+  background: #f2efe9;
+  color: #000000;
+  border-color: #f2efe9;
+}
+body[data-mode='black'] .badge.final {
+  background: #000000;
+  color: #f2efe9;
+  border: 2px solid #f2efe9;
+}
+body[data-mode='black'] .seed-badge {
+  background: #f2efe9;
+  color: #000000;
+  border: 2px solid #f2efe9;
+  font-weight: 700;
+}
+body[data-mode='black'] .set.win,
+body[data-mode='black'] .pname.winner::after,
+body[data-mode='black'] .rank-section-title {
+  color: #f2efe9;
+}
+body[data-mode='black'] .r-move.up { color: #f2efe9; }
+body[data-mode='black'] .r-move.down { color: #f2efe9; }
+body[data-mode='black'] .th-tier { color: #f2efe9; }
+body[data-mode='black'] h2,
+body[data-mode='black'] h4 { font-weight: 700; }
+body[data-mode='black'] .match,
+body[data-mode='black'] .draw-board,
+body[data-mode='black'] .news-card,
+body[data-mode='black'] .video-card,
+body[data-mode='black'] .wc-res-card,
+body[data-mode='black'] .col-card,
+body[data-mode='black'] .ct-card,
+body[data-mode='black'] .stats-board,
+body[data-mode='black'] .calendar,
+body[data-mode='black'] .cal-block,
+body[data-mode='black'] .h2h-block,
+body[data-mode='black'] .rank-table-wrap,
+body[data-mode='black'] .tour-block {
+  border: 6px solid #f2efe9;
+}
+body[data-mode='black'] .match.live {
+  border-color: #f2efe9;
+  background: linear-gradient(90deg, rgba(242, 239, 233, 0.12), transparent 45%);
+}
+body[data-mode='black'] .th-logo { filter: none; }
+body[data-mode='black'] ::selection { background: #f2efe9; color: #000000; }
+body[data-mode='black'] a { color: #f2efe9; }
 
 /* ============================================================ */
 
@@ -2416,7 +2515,7 @@ body {
   background: var(--live); color: #fff; border-color: transparent;
   font-size: 14px;
 }
-.tb { font-size: 8px; color: var(--muted); }
+.tb { font-size: 8px; color: var(--ink); }
 
 .scores { font-family: var(--mono); font-size: 9px; color: var(--muted); }
 .scores .time { display: inline-block; padding: 1px 5px; border: 1px solid var(--hairline-dark); border-radius: 999px; font-size: 8.5px; }
