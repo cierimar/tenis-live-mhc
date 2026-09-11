@@ -1477,9 +1477,13 @@ body[data-mode='live'] .r-move.down { color: #aa0001; }
 body[data-mode='live'] .seed-badge,
 body[data-mode='live'] .rank-section-title { color: #0075ff; }
 body[data-mode='live'] .th-tier { color: #0075ff; }
+body[data-mode='live'] .match,
+body[data-mode='live'] .draw-board {
+  border: 6px solid #ff6b00;
+}
 body[data-mode='live'] .match.live {
-  border-left-color: #ff6b00;
-  background: linear-gradient(90deg, rgba(255, 107, 0, 0.06), #fff 40%);
+  border-color: #ff6b00;
+  background: linear-gradient(90deg, rgba(255, 107, 0, 0.08), #fff 42%);
 }
 body[data-mode='live'] .wc-live-badge {
   background: #aa0001;
