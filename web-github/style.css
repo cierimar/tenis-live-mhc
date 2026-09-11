@@ -1709,6 +1709,102 @@ body[data-mode='superfluo'] .wc-live-badge {
 body[data-mode='superfluo'] .live-pill { color: #ff1744; text-shadow: 0 0 8px #ff1744; }
 body[data-mode='superfluo'] .th-logo { filter: none; }
 
+/* ================== ring (salzburgring.com) ================== */
+body[data-mode='ring'] {
+  --paper: #f2f2f2;
+  --paper-2: #ffffff;
+  --paper-3: #e6e6e6;
+  --ink: #000000;
+  --ink-2: #1a1a1a;
+  --muted: #555555;
+  --hairline: #bfbfbf;
+  --hairline-dark: #ff0514;
+  --red: #ff0514;
+  --red-dark: #d1000d;
+  --red-vivo: #ff0514;
+  --red-soft: rgba(255, 5, 20, 0.08);
+  --green: #ff0514;
+  --amber: #ffe600;
+  --blue: #2196f3;
+  --shadow: none;
+  --live: #ff0514;
+  --warn: #ffe600;
+  --bg: #f2f2f2;
+  --display: 'Orbitron', 'Archivo Black', sans-serif;
+  --serif: 'Orbitron', 'Playfair Display', serif;
+  --mono: 'Orbitron', 'IBM Plex Mono', monospace;
+}
+body[data-mode='ring'] .sb-logo {
+  font-family: var(--display);
+  font-weight: 900;
+  color: #000000;
+  -webkit-text-fill-color: #000000;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  letter-spacing: 0.04em;
+}
+body[data-mode='ring'] .sb-logo-sub {
+  font-family: var(--display);
+  color: #ff0514;
+  letter-spacing: 0.22em;
+}
+body[data-mode='ring'] .mode-label { color: #ff0514; font-family: var(--display); letter-spacing: 0.18em; }
+body[data-mode='ring'] .nav-item.active {
+  border-left-color: #ff0514;
+  color: #ff0514;
+  background: rgba(255, 5, 20, 0.08);
+}
+body[data-mode='ring'] .seg-btn.active,
+body[data-mode='ring'] .round-chip.active,
+body[data-mode='ring'] .h2h-go,
+body[data-mode='ring'] .btn-refresh {
+  background: #ff0514;
+  color: #ffffff;
+  border-color: #ff0514;
+}
+body[data-mode='ring'] .btn-refresh:hover { background: #d1000d; }
+body[data-mode='ring'] .lv-btn.active,
+body[data-mode='ring'] .badge.live,
+body[data-mode='ring'] .set.live-set,
+body[data-mode='ring'] .wc-live-badge {
+  background: #ff0514;
+  color: #ffffff;
+  border-color: #ff0514;
+}
+body[data-mode='ring'] .seed-badge {
+  background: #ffe600;
+  color: #000000;
+  border-color: #ffe600;
+  font-weight: 900;
+}
+body[data-mode='ring'] .set.win,
+body[data-mode='ring'] .pname.winner::after,
+body[data-mode='ring'] .rank-section-title {
+  color: #ff0514;
+}
+body[data-mode='ring'] .r-move.up { color: #ff0514; }
+body[data-mode='ring'] .r-move.down { color: #d1000d; }
+body[data-mode='ring'] .th-tier { color: #2196f3; }
+body[data-mode='ring'] .cal-m,
+body[data-mode='ring'] h2,
+body[data-mode='ring'] h4 { font-family: var(--display); letter-spacing: 0.06em; }
+body[data-mode='ring'] .match {
+  border: 2px solid #ff0514;
+  background: #ffffff;
+}
+body[data-mode='ring'] .draw-board {
+  border: 2px solid #ff0514;
+  background: #ffffff;
+}
+body[data-mode='ring'] .match.live {
+  border-color: #d1000d;
+  background: linear-gradient(90deg, rgba(255, 5, 20, 0.06), transparent 40%);
+}
+body[data-mode='ring'] .th-logo { filter: none; }
+body[data-mode='ring'] ::selection { background: #ff0514; color: #ffffff; }
+body[data-mode='ring'] a { color: #2196f3; }
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
