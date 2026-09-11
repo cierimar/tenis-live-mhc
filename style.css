@@ -1347,8 +1347,12 @@ body[data-mode='wtt'] .set.win { color: #00b87a; }
 body[data-mode='wtt'] .pname.winner::after { color: #00b87a; }
 body[data-mode='wtt'] .r-move.up { color: #00b87a; }
 body[data-mode='wtt'] .r-move.down { color: #FF4C62; }
+body[data-mode='wtt'] .match,
+body[data-mode='wtt'] .draw-board {
+  border: 4px solid #00D6FD;
+}
 body[data-mode='wtt'] .match.live {
-  border-left-color: #00D6FD;
+  border-color: #00D6FD;
   background: linear-gradient(90deg, rgba(0, 214, 253, 0.08), #fff 42%);
 }
 body[data-mode='wtt'] .appbar { border-bottom: 2px solid #d5d8e2; }
