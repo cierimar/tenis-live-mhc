@@ -1302,6 +1302,100 @@ body[data-mode='tnns'] .wc-live-badge {
   color: #fff;
 }
 
+/* ============================================================
+   MODO WTT - World Tennis Tour (itftennis.com)
+   Look oficial: blanco limpio + navy #000037 dominante,
+   acentos: verde menta #51F29A, cian #00D6FD, coral #FF4C62
+   ============================================================ */
+body[data-mode='wtt'] {
+  --paper: #ffffff;
+  --paper-2: #f7f9fc;
+  --paper-3: #eef1f5;
+  --ink: #000037;
+  --ink-2: #1a2055;
+  --muted: #6b7094;
+  --hairline: #d5d8e2;
+  --hairline-dark: #000037;
+  --red: #000037;
+  --red-dark: #001a33;
+  --red-vivo: #00D6FD;
+  --red-soft: rgba(0, 214, 253, 0.12);
+  --green: #00b87a;
+  --amber: #FF4C62;
+  --blue: #0077c8;
+  --shadow: none;
+  --live: #00D6FD;
+  --warn: #FF4C62;
+  --bg: #ffffff;
+}
+body[data-mode='wtt'] ::selection { background: #00D6FD; color: #000037; }
+body[data-mode='wtt'] a { color: #0077c8; }
+body[data-mode='wtt'] .sb-logo {
+  color: #000037;
+  -webkit-text-fill-color: #000037;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='wtt'] .sb-logo-sub { color: #00D6FD; }
+body[data-mode='wtt'] .mode-label { color: #00D6FD; }
+body[data-mode='wtt'] .rank-section-title { color: #000037; }
+body[data-mode='wtt'] .th-tier { border-color: #51F29A; color: #000037; }
+body[data-mode='wtt'] .seed-badge { border-color: #FF4C62; color: #FF4C62; }
+body[data-mode='wtt'] .set.win { color: #00b87a; }
+body[data-mode='wtt'] .pname.winner::after { color: #00b87a; }
+body[data-mode='wtt'] .r-move.up { color: #00b87a; }
+body[data-mode='wtt'] .r-move.down { color: #FF4C62; }
+body[data-mode='wtt'] .match.live {
+  border-left-color: #00D6FD;
+  background: linear-gradient(90deg, rgba(0, 214, 253, 0.08), #fff 42%);
+}
+body[data-mode='wtt'] .appbar { border-bottom: 2px solid #d5d8e2; }
+body[data-mode='wtt'] .tabbar { border-top: 2px solid #d5d8e2; }
+body[data-mode='wtt'] .seg-btn.active,
+body[data-mode='wtt'] .lv-btn.active {
+  background: #00D6FD;
+  color: #000037;
+  border-color: #00D6FD;
+}
+body[data-mode='wtt'] .badge.live {
+  background: #00D6FD;
+  color: #000037;
+}
+body[data-mode='wtt'] .badge.upcoming {
+  background: #eef1f5;
+  color: #6b7094;
+}
+body[data-mode='wtt'] .round-chip.active,
+body[data-mode='wtt'] .h2h-go {
+  background: #000037;
+  color: #fff;
+  border-color: #000037;
+}
+body[data-mode='wtt'] .btn-refresh {
+  background: #000037;
+  color: #fff;
+  font-weight: 800;
+}
+body[data-mode='wtt'] .btn-refresh:hover {
+  background: #001a33;
+}
+body[data-mode='wtt'] .set.live-set {
+  background: #00D6FD;
+  color: #000037;
+}
+body[data-mode='wtt'] .wc-live-badge {
+  background: #FF4C62;
+  color: #fff;
+}
+body[data-mode='wtt'] .live-pill {
+  color: #00D6FD;
+}
+body[data-mode='wtt'] .th-logo {
+  filter: none;
+}
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
