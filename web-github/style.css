@@ -1591,6 +1591,124 @@ body[data-mode='now'] .wc-live-badge {
 body[data-mode='now'] .live-pill { color: #c8102e; }
 body[data-mode='now'] .th-logo { filter: none; }
 
+/* ============================================================
+   MODO SUPERFLUO - fondo NEGRO ABSOLUTO + 8 colores
+   fluorescentes neón + BORDES BIEN GRUESOS en todo el diseño
+   Paleta 8 neones: verde #39ff14, amarillo #efff00, naranja
+   #ff8c00, rosa #ff00e6, violeta #bf00ff, cian #00f5ff,
+   azul #00bfff, rojo #ff1744
+   ============================================================ */
+body[data-mode='superfluo'] {
+  --paper: #000000;
+  --paper-2: #05060a;
+  --paper-3: #0a0c12;
+  --ink: #ffffff;
+  --ink-2: #e6e8f0;
+  --muted: #8b93a7;
+  --hairline: #2a2e3a;
+  --hairline-dark: #ffffff;
+  --red: #39ff14;
+  --red-dark: #00e676;
+  --red-vivo: #00f5ff;
+  --red-soft: rgba(57, 255, 20, 0.14);
+  --green: #00f5ff;
+  --amber: #efff00;
+  --blue: #00bfff;
+  --shadow: none;
+  --live: #ff00e6;
+  --warn: #efff00;
+  --bg: #000000;
+}
+body[data-mode='superfluo'] ::selection { background: #ff00e6; color: #000; }
+body[data-mode='superfluo'] a { color: #00f5ff; }
+body[data-mode='superfluo'] .sb-logo {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+  text-shadow: 0 0 8px #39ff14, 0 0 20px #00f5ff;
+}
+body[data-mode='superfluo'] .sb-logo-sub { color: #39ff14; }
+body[data-mode='superfluo'] .mode-label { color: #00f5ff; text-shadow: 0 0 8px #00f5ff; }
+body[data-mode='superfluo'] .nav-item.active {
+  border-left-color: #39ff14;
+  background: rgba(57, 255, 20, 0.10);
+  font-weight: 800;
+}
+body[data-mode='superfluo'] .seg-btn.active,
+body[data-mode='superfluo'] .lv-btn.active {
+  background: #ff00e6;
+  color: #000;
+  border-color: #ff00e6;
+}
+body[data-mode='superfluo'] .round-chip.active,
+body[data-mode='superfluo'] .h2h-go {
+  background: #00f5ff;
+  color: #000;
+  border-color: #00f5ff;
+}
+body[data-mode='superfluo'] .btn-refresh {
+  background: #efff00;
+  color: #000;
+  border-color: #efff00;
+  font-weight: 800;
+}
+body[data-mode='superfluo'] .btn-refresh:hover { background: #39ff14; }
+body[data-mode='superfluo'] .badge.live {
+  background: #ff1744;
+  color: #fff;
+  border: 2px solid #ff1744;
+  text-shadow: 0 0 6px #ff1744;
+}
+body[data-mode='superfluo'] .badge.final {
+  background: #0a0c12;
+  color: #efff00;
+  border: 2px solid #efff00;
+}
+body[data-mode='superfluo'] .set.live-set {
+  background: #ff1744;
+  color: #fff;
+  border: 2px solid #ff1744;
+}
+body[data-mode='superfluo'] .set.win,
+body[data-mode='superfluo'] .pname.winner::after { color: #39ff14; text-shadow: 0 0 8px #39ff14; }
+body[data-mode='superfluo'] .r-move.up { color: #39ff14; }
+body[data-mode='superfluo'] .r-move.down { color: #ff1744; }
+body[data-mode='superfluo'] .seed-badge,
+body[data-mode='superfluo'] .rank-section-title { color: #efff00; text-shadow: 0 0 8px #efff00; }
+body[data-mode='superfluo'] .th-tier { color: #00f5ff; }
+body[data-mode='superfluo'] .match,
+body[data-mode='superfluo'] .draw-board,
+body[data-mode='superfluo'] .news-card,
+body[data-mode='superfluo'] .video-card,
+body[data-mode='superfluo'] .wc-res-card,
+body[data-mode='superfluo'] .col-card,
+body[data-mode='superfluo'] .ct-card,
+body[data-mode='superfluo'] .stats-board,
+body[data-mode='superfluo'] .calendar,
+body[data-mode='superfluo'] .cal-block,
+body[data-mode='superfluo'] .h2h-block,
+body[data-mode='superfluo'] .rank-table-wrap,
+body[data-mode='superfluo'] .tour-block {
+  border: 5px solid #00f5ff;
+}
+body[data-mode='superfluo'] .match.live {
+  border-color: #ff00e6;
+  background: linear-gradient(90deg, rgba(255, 0, 230, 0.12), transparent 45%);
+}
+body[data-mode='superfluo'] .tour-block {
+  border: 5px solid #39ff14;
+}
+body[data-mode='superfluo'] .wc-live-badge {
+  background: #ff1744;
+  color: #fff;
+  text-shadow: 0 0 6px #ff1744;
+}
+body[data-mode='superfluo'] .live-pill { color: #ff1744; text-shadow: 0 0 8px #ff1744; }
+body[data-mode='superfluo'] .th-logo { filter: none; }
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
