@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-11T11:42:32Z",
+  "time": "2026-09-11T11:53:40Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -28,7 +29,7 @@
           "teId": "3321027",
           "p1": "Voloshchuk",
           "p2": "Ito",
-          "time": "13:50",
+          "time": "14:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -3362,15 +3363,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320981",
-          "p1": "Oliver Sanchez",
-          "p2": "Lukosiute",
-          "time": "10:30",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3320979",
           "p1": "Ansari",
           "p2": "Haddad",
@@ -3390,12 +3382,41 @@
         },
         {
           "teId": "3320903",
-          "p1": "Belkova",
-          "p2": "Cirotte",
+          "p1": "Cirotte",
+          "p2": "Belkova",
+          "round": "quarterfinal",
+          "date": "11.09.",
           "time": "10:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320981",
+          "p1": "Lukosiute",
+          "p2": "Oliver Sanchez",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320357",
@@ -5967,6 +5988,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
