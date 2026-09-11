@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -24,18 +25,18 @@
           "finished": false
         },
         {
-          "teId": "3321027",
-          "p1": "Voloshchuk",
-          "p2": "Ito",
-          "time": "12:40",
+          "teId": "3320973",
+          "p1": "Jorge",
+          "p2": "Gasanova",
+          "time": "12:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3320973",
-          "p1": "Jorge",
-          "p2": "Gasanova",
+          "teId": "3321027",
+          "p1": "Voloshchuk",
+          "p2": "Ito",
           "time": "12:40",
           "round": "QF",
           "h2h": "0-0",
@@ -1105,6 +1106,15 @@
           "finished": false
         },
         {
+          "teId": "3321227",
+          "p1": "Cortez Llorca",
+          "p2": "Argyrokastriti",
+          "time": "10:00",
+          "round": "SF",
+          "h2h": "1-0",
+          "finished": false
+        },
+        {
           "teId": "3320905",
           "p1": "Cortez Llorca",
           "p2": "Yesypchuk",
@@ -1646,6 +1656,15 @@
           "p2": "Garnevska",
           "time": "10:30",
           "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3321219",
+          "p1": "Bojica",
+          "p2": "Biro",
+          "time": "",
+          "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
@@ -2744,6 +2763,24 @@
       "name": "Hurghada 10 ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3321225",
+          "p1": "Mdlulwa",
+          "p2": "Breen",
+          "time": "",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3321223",
+          "p1": "Perapekhina",
+          "p2": "Ezzat",
+          "time": "",
+          "round": "SF",
+          "h2h": "1-2",
+          "finished": false
+        },
         {
           "teId": "3320857",
           "p1": "Ezzat",
@@ -5847,6 +5884,5 @@
       ]
     }
   ],
-  "time": "2026-09-11T10:12:51Z",
-  "ok": true
+  "time": "2026-09-11T10:29:35Z"
 }
