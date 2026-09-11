@@ -740,7 +740,77 @@
     return s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
   }
 
-  async function fetchTAH2HWeb(nameA, nameB) {
+  async function teSearch(jina, q) {
+    const u = 'https://r.jina.ai/https://www.tennisexplorer.com/res/ajax/search.php?s=' + encodeURIComponent(q) + '&t=p';
+    const r = await fetch(u, { headers: { 'X-Return-Format': 'text' } });
+    if (!r.ok) return null;
+    const t = await r.text();
+    const jj = JSON.parse(t);
+    if (!jj || !jj.links || !Array.isArray(jj.links)) return null;
+    return jj.links.find(l => l && l.type === 'p') || null;
+  }
+
+  async function fetchTeH2HWeb(nameA, nameB) {
+    const s1 = await teSearch(null, nameA);
+    if (!s1) return { ok: false, error: 'Jugador no encontrado en TennisExplorer: <b>' + esc(nameA) + '</b>' };
+    const s2 = await teSearch(null, nameB);
+    if (!s2) return { ok: false, error: 'Jugador no encontrado en TennisExplorer: <b>' + esc(nameB) + '</b>' };
+    let html = null;
+    try {
+      const r = await fetch('https://r.jina.ai/https://www.tennisexplorer.com/mutual/' + s1.url + '/' + s2.url + '/', { headers: { 'X-Return-Format': 'html' } });
+      if (r.ok) html = await r.text();
+    } catch (_) { html = null; }
+    if (!html) return { ok: false, error: 'No se pudo obtener el H2H de TennisExplorer.' };
+    const name1 = s1.name.replace(/\s*\([A-Z]+\)\s*$/, '').trim();
+    const name2 = s2.name.replace(/\s*\([A-Z]+\)\s*$/, '').trim();
+    const scoreM = html.match(/class="gScore"[^>]*>\s*(\d+)\s*-\s*(\d+)\s*<\/td>/);
+    const score = scoreM ? scoreM[1] + '-' + scoreM[2] : '0-0';
+    const meetings = [];
+    const tables = html.match(/<table[^>]*class="result"[^>]*>([\s\S]*?)<\/table>/g) || [];
+    let tableContent = '';
+    for (const tg of tables) {
+      const inner = tg.replace(/^<table[^>]*>/, '').replace(/<\/table>$/, '');
+      if (/<th[^>]*>Year<\/th>/.test(inner)) { tableContent = inner; break; }
+    }
+    if (tableContent) {
+      const tbodyM = tableContent.match(/<tbody>([\s\S]*?)<\/tbody>/);
+      if (tbodyM) {
+        const allTrs = tbodyM[1].match(/<tr[^>]*>([\s\S]*?)<\/tr>/g) || [];
+        for (let i = 0; i + 1 < allTrs.length; i += 2) {
+          const tr1 = allTrs[i].replace(/^<tr[^>]*>/, '').replace(/<\/tr>$/, '').replace(/^.*?>(?=<td)/, '');
+          const tr2 = allTrs[i + 1].replace(/^<tr[^>]*>/, '').replace(/<\/tr>$/, '').replace(/^.*?>(?=<td)/, '');
+          const n1M = tr1.match(/class="t-name"[^>]*>[\s\S]*?<strong>([^<]+)<\/strong>/);
+          const n2M = tr2.match(/class="t-name"[^>]*>([^<]+)<\/td>/);
+          const winner = n1M ? n1M[1].trim() : '';
+          const loser = n2M ? n2M[1].trim() : '';
+          let tournM = tr1.match(/class="t-name"[^>]*>[\s\S]*?<a[^>]*>([^<]+)<\/a>/);
+          if (!tournM) tournM = tr1.match(/<a[^>]*href="\/[^"]*">([^<]+)<\/a>/);
+          let surfM = tr1.match(/class="sColorLong"[^>]*>[\s\S]*?title="([^"]*)"/);
+          if (!surfM) surfM = tr1.match(/class="s-color"[^>]*>[\s\S]*?title="([^"]*)"/);
+          const sets1 = [];
+          for (const sm of tr1.match(/class="score"[^>]*>([\s\S]*?)<\/td>/g) || []) {
+            const v = sm.replace(/class="score"[^>]*>([\s\S]*?)<\/td>/, '$1').replace(/<[^>]+>/g, '').trim();
+            if (v && v !== '&nbsp;') sets1.push(v);
+          }
+          const sets2 = [];
+          for (const sm of tr2.match(/class="score"[^>]*>([\s\S]*?)<\/td>/g) || []) {
+            const v = sm.replace(/class="score"[^>]*>([\s\S]*?)<\/td>/, '$1').replace(/<[^>]+>/g, '').trim();
+            if (v && v !== '&nbsp;') sets2.push(v);
+          }
+          const roundM = tr1.match(/class="round"[^>]*>([\s\S]*?)<\/td>/);
+          const yearM = tr1.match(/class="first"[^>]*>\s*(\d{4})\s*<\/td>/);
+          const tourn = tournM ? tournM[1].replace(/<[^>]+>/g, '').trim() : '';
+          const surface = surfM ? surfM[1] : '';
+          const round = roundM ? roundM[1].replace(/<[^>]+>/g, '').trim() : '';
+          const year = yearM ? yearM[1] : '';
+          if (winner || loser) {
+            meetings.push({ year: year, tournament: tourn, surface: surface, round: round, winner: winner, loser: loser, sets1: sets1, sets2: sets2 });
+          }
+        }
+      }
+    }
+    return { ok: true, p1: name1, p2: name2, h2h: score, source: 'tennisexplorer', meetings: meetings };
+  }
     const rp1 = resolveNameClient(nameA);
     const rp2 = resolveNameClient(nameB);
     if (!rp1) throw new Error('no-encontrado:' + nameA);
@@ -759,6 +829,18 @@
         }
       }
     } catch (e0) { result = null; }
+    if (!result) {
+      // jsmatches: mas cobertura que jsfrags (mujeres incluidas).
+      let jsText = null;
+      try {
+        const rj = await fetch('https://r.jina.ai/https://www.tennisabstract.com/jsmatches/' + slug + '.js', { headers: { 'X-Return-Format': 'html' } });
+        if (rj.ok) jsText = await rj.text();
+      } catch (ej) { jsText = null; }
+      if (jsText && jsText.indexOf('matchmx') > -1 && jsText.indexOf('var fullname') > -1) {
+        const pj = parseMatchmxClient(jsText, rp1, q2norm, 'matchmx = ');
+        if (pj && pj.meetings && pj.meetings.length) result = pj;
+      }
+    }
     if (!result) {
       let text = null;
       try {
@@ -2895,8 +2977,8 @@ async function refreshWcLive() {
 
   /* ---------------- H2H SEARCH (TennisAbstract) ---------------- */
 
-  function parseMatchmxClient(html, p1, q2norm) {
-    const marker = 'var matchmx = ';
+  function parseMatchmxClient(html, p1, q2norm, markerAlt) {
+    const marker = markerAlt || 'var matchmx = ';
     const idx = html.indexOf(marker);
     if (idx < 0) return null;
     let depth = 0, end = -1;
@@ -2910,7 +2992,11 @@ async function refreshWcLive() {
     try { arr = JSON.parse(html.slice(idx + marker.length, end)); } catch (_) { return null; }
     const norm = s => s.toLowerCase().replace(/[^a-z\u00C0-\u024F\s]/g, '').replace(/\s+/g, ' ').trim();
     const fnM = html.match(/Tennis Abstract:\s*(.+?)\s+Match Results/);
-    const realName = fnM ? fnM[1].trim() : p1;
+    let realName = fnM ? fnM[1].trim() : p1;
+    if (!fnM) {
+      const fnF = html.match(/var\s+fullname\s*=\s*'([^']+)'/);
+      if (fnF) realName = fnF[1].trim();
+    }
     const sur1 = norm(realName || p1).split(' ').pop();
     const nq1 = norm(p1);
     const meetings = [];
@@ -2919,6 +3005,7 @@ async function refreshWcLive() {
       const no = norm(opp);
       if (!no || !(no.indexOf(q2norm) > -1 || q2norm.indexOf(no) > -1)) continue;
       const isWin = String(m[4]) === 'W';
+      if (String(m[9]) === '') continue;
       const nw = norm(isWin ? (realName || p1) : opp);
       const iAmWinner = nw === sur1 || nw === nq1;
       meetings.push({
@@ -2968,15 +3055,31 @@ async function refreshWcLive() {
     try {
       let j;
       if (useLocalBackend()) {
-        j = await fetchJson('api/h2h/ta?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
-      } else {
-        const res = await fetchTAH2HWeb(p1, p2);
-        const mtAll = res.meetings;
-        if (!mtAll.length) {
-          j = { ok: false, error: 'No se encontraron partidos entre ellos.' };
+        // TennisExplorer primero (carrera completa ATP/WTA). Fallback a TennisAbstract.
+        let te = null;
+        try {
+          te = await fetchJson('api/h2h/byname?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+        } catch (_) { te = null; }
+        if (te && te.ok) {
+          j = { ok: true, p1: te.p1 || p1, p2: te.p2 || p2, h2h: te.h2h || '0-0', source: 'tennisexplorer', meetings: te.meetings || [] };
         } else {
-          const wins = taCountWins(mtAll, res.p1);
-          j = { ok: true, p1: res.p1, p2: res.p2, h2h: wins + '-' + (mtAll.length - wins), source: 'tennisabstract', meetings: mtAll };
+          j = await fetchJson('api/h2h/ta?p1=' + encodeURIComponent(p1) + '&p2=' + encodeURIComponent(p2));
+        }
+      } else {
+        // TennisExplorer (universal, carrera completa) primero; fallback TennisAbstract.
+        let jte = null;
+        try { jte = await fetchTeH2HWeb(p1, p2); } catch (_) { jte = null; }
+        if (jte && jte.ok && jte.meetings && jte.meetings.length) {
+          j = { ok: true, p1: jte.p1 || p1, p2: jte.p2 || p2, h2h: jte.h2h || '0-0', source: 'tennisexplorer', meetings: jte.meetings };
+        } else {
+          const res = await fetchTAH2HWeb(p1, p2);
+          const mtAll = res.meetings;
+          if (!mtAll.length) {
+            j = { ok: false, error: 'No se encontraron partidos entre ellos.' };
+          } else {
+            const wins = taCountWins(mtAll, res.p1);
+            j = { ok: true, p1: res.p1, p2: res.p2, h2h: wins + '-' + (mtAll.length - wins), source: 'tennisabstract', meetings: mtAll };
+          }
         }
       }
       state.h2hSearch.data = j;
@@ -3086,17 +3189,19 @@ async function refreshWcLive() {
       content.innerHTML = '<div class="error-box">' + esc((j && j.error) || 'Sin resultados') + '</div>';
       return;
     }
-    const rows = j.meetings.map(mc =>
-      '<tr><td>' + esc(mc.date) + '</td><td>' + esc(mc.tournament) + '</td>' +
-      '<td>' + esc(mc.round) + '</td><td>' + esc(mc.surface) + '</td>' +
-      '<td><span class="h2h-win">' + esc(mc.winner) + '</span> ' + esc(mc.loser) + '</td>' +
-      '<td class="h2h-set">' + esc(mc.score) + '</td></tr>'
-    ).join('');
+    const rows = j.meetings.map(mc => {
+      const dateCell = mc.date || mc.year || '';
+      const scoreCell = mc.score || (Array.isArray(mc.sets1) ? mc.sets1.map((s, i) => s + '-' + (mc.sets2[i] || '')).join(', ') : '');
+      return '<tr><td>' + esc(dateCell) + '</td><td>' + esc(mc.tournament) + '</td>' +
+        '<td>' + esc(mc.round) + '</td><td>' + esc(mc.surface) + '</td>' +
+        '<td><span class="h2h-win">' + esc(mc.winner) + '</span> ' + esc(mc.loser) + '</td>' +
+        '<td class="h2h-set">' + esc(scoreCell) + '</td></tr>';
+    }).join('');
     content.innerHTML =
       '<div class="h2h-search-result">' +
         '<div class="h2h-title">' + esc(j.p1) + ' <span class="h2h-vs">vs</span> ' + esc(j.p2) +
         ' <span class="h2h-count">' + esc(j.h2h) + '</span></div>' +
-        '<div class="h2h-source">Fuente: TennisAbstract &middot; ' + j.meetings.length + ' partidos</div>' +
+        '<div class="h2h-source">Fuente: ' + (j.source === 'tennisexplorer' ? 'TennisExplorer' : 'TennisAbstract') + ' &middot; ' + j.meetings.length + ' partidos</div>' +
         '<div class="h2h-table-wrap"><table class="h2h-table"><thead><tr>' +
         '<th>Fecha</th><th>Torneo</th><th>Ronda</th><th>Superficie</th><th>Ganador</th><th>Marcador</th>' +
         '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
