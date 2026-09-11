@@ -3378,10 +3378,10 @@ async function refreshWcLive() {
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'art', 'atp', 'wta', 'tnns', 'wtt', 'live', 'claro'];
-      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', art: '&#127912;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', wtt: '&#127760;', live: '&#128250;', claro: '&#9788;' };
-      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', art: 'Modo art', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', wtt: 'Modo WTT', live: 'Modo Live', claro: 'Modo claro' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', art: '#000000', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', wtt: '#000037', live: '#fdfdfd', claro: '#faf7f2' };
+      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'art', 'atp', 'wta', 'tnns', 'wtt', 'live', 'now', 'claro'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', art: '&#127912;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', wtt: '&#127760;', live: '&#128250;', now: '&#127941;', claro: '&#9788;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', art: 'Modo art', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', wtt: 'Modo WTT', live: 'Modo Live', now: 'Modo Now', claro: 'Modo claro' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', art: '#000000', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', wtt: '#000037', live: '#fdfdfd', now: '#001d67', claro: '#faf7f2' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
