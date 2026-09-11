@@ -1911,6 +1911,114 @@ body[data-mode='premier'] .nav-item .lb { color: #ffffff; font-weight: 400; }
 body[data-mode='premier'] .nav-item:hover { color: #ffffff; background: rgba(255, 255, 255, 0.08); }
 body[data-mode='premier'] .nav-item:hover .ic { color: #ffffff; }
 body[data-mode='premier'] .nav-item:hover .lb { color: #ffffff; }
+body[data-mode='tenipo'] {
+  --paper: #243544;
+  --paper-2: #1f2e3c;
+  --paper-3: #2e4456;
+  --ink: #e6ecf2;
+  --ink-2: #bbb;
+  --muted: #647280;
+  --hairline: #334250;
+  --hairline-dark: #3d5f81;
+  --red: #bb4;
+  --red-dark: #8a7610;
+  --red-vivo: #eb4d4b;
+  --red-soft: rgba(187, 187, 68, 0.12);
+  --green: #6ab04c;
+  --amber: #bb4;
+  --blue: #2278b5;
+  --shadow: none;
+  --live: #eb4d4b;
+  --warn: #8a8f98;
+  --bg: #1b2935;
+  --display: 'Roboto', 'Inter', sans-serif;
+  --serif: 'Roboto', 'Playfair Display', serif;
+  --mono: 'Roboto', 'IBM Plex Mono', monospace;
+}
+body[data-mode='tenipo'] .sb-logo {
+  font-family: var(--display);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+body[data-mode='tenipo'] .sb-logo-sub {
+  font-family: var(--display);
+  color: #bb4;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+body[data-mode='tenipo'] .mode-label { color: #bb4; font-family: var(--display); letter-spacing: 0.18em; text-transform: uppercase; }
+body[data-mode='tenipo'] .nav-item { color: #bbb; }
+body[data-mode='tenipo'] .nav-item .lb { color: #bbb; }
+body[data-mode='tenipo'] .nav-item.active {
+  border-left-color: #bb4;
+  color: #fff;
+  background: rgba(187, 187, 68, 0.12);
+}
+body[data-mode='tenipo'] .seg-btn.active,
+body[data-mode='tenipo'] .round-chip.active,
+body[data-mode='tenipo'] .h2h-go,
+body[data-mode='tenipo'] .btn-refresh {
+  background: #bb4;
+  color: #1b2935;
+  border-color: #bb4;
+  text-transform: uppercase;
+}
+body[data-mode='tenipo'] .lv-btn.active,
+body[data-mode='tenipo'] .badge.live,
+body[data-mode='tenipo'] .wc-live-badge {
+  background: #eb4d4b;
+  color: #fff;
+  border-color: #eb4d4b;
+}
+body[data-mode='tenipo'] .set.live-set {
+  background: #bb4;
+  color: #1b2935;
+  border-color: #bb4;
+}
+body[data-mode='tenipo'] .badge.final {
+  background: #334250;
+  color: #bbb;
+  border-color: #3d5f81;
+}
+body[data-mode='tenipo'] .seed-badge {
+  background: #bb4;
+  color: #1b2935;
+  border-color: #bb4;
+  font-weight: 700;
+}
+body[data-mode='tenipo'] .set.win,
+body[data-mode='tenipo'] .pname.winner::after,
+body[data-mode='tenipo'] .rank-section-title {
+  color: #6ab04c;
+}
+body[data-mode='tenipo'] .r-move.up { color: #6ab04c; }
+body[data-mode='tenipo'] .r-move.down { color: #eb4d4b; }
+body[data-mode='tenipo'] .th-tier { color: #2278b5; }
+body[data-mode='tenipo'] .cal-m,
+body[data-mode='tenipo'] h2,
+body[data-mode='tenipo'] h4 { font-family: var(--serif); letter-spacing: 0.05em; }
+body[data-mode='tenipo'] .match {
+  border: 2px solid #3d5f81;
+  background: #243544;
+  border-radius: 8px;
+}
+body[data-mode='tenipo'] .draw-board {
+  border: 2px solid #3d5f81;
+  background: #243544;
+  border-radius: 8px;
+}
+body[data-mode='tenipo'] .match.live {
+  border-color: #bb4;
+  background: linear-gradient(90deg, rgba(187, 187, 68, 0.14), transparent 45%);
+}
+body[data-mode='tenipo'] .th-logo { filter: none; }
+body[data-mode='tenipo'] ::selection { background: #bb4; color: #1b2935; }
+body[data-mode='tenipo'] a { color: #2278b5; }
 
 /* ============================================================ */
 
