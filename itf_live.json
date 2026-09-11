@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -576,7 +577,7 @@
           "teId": "3321209",
           "p1": "Shubladze",
           "p2": "Kokkinis",
-          "time": "05:30",
+          "time": "05:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1711,7 +1712,7 @@
           "teId": "3321241",
           "p1": "Todoni",
           "p2": "Popa",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1720,7 +1721,7 @@
           "teId": "3321219",
           "p1": "Bojica",
           "p2": "Biro",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2271,15 +2272,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320899",
-          "p1": "Iliev",
-          "p2": "Soriano Santiago",
-          "time": "13:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320969",
           "p1": "Tran",
           "p2": "Mpetshi Perricard",
@@ -2287,6 +2279,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320899",
+          "p1": "Iliev",
+          "p2": "Soriano Santiago",
+          "round": "semifinal",
+          "date": "11.09.",
+          "time": "13:00",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "4",
+            "6",
+            "4"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320351",
@@ -2845,7 +2858,7 @@
           "teId": "3321225",
           "p1": "Mdlulwa",
           "p2": "Breen",
-          "time": "23:00",
+          "time": "09:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2854,7 +2867,7 @@
           "teId": "3321223",
           "p1": "Perapekhina",
           "p2": "Ezzat",
-          "time": "",
+          "time": "09:00",
           "round": "SF",
           "h2h": "1-2",
           "finished": false
@@ -3416,7 +3429,7 @@
           "p2": "Cirotte",
           "time": "",
           "round": "SF",
-          "h2h": "-",
+          "h2h": "1-0",
           "finished": false
         },
         {
@@ -6124,6 +6137,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-11T13:20:25Z"
+  "time": "2026-09-11T13:48:25Z"
 }
