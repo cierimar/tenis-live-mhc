@@ -1,5 +1,5 @@
 {
-  "ok": true,
+  "time": "2026-09-11T15:47:23Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -7,18 +7,18 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321307",
-          "p1": "Gasanova",
-          "p2": "Ito",
-          "time": "",
-          "round": "SF",
-          "h2h": "-",
-          "finished": false
-        },
-        {
           "teId": "3321267",
           "p1": "Johnson",
           "p2": "Jorge",
+          "time": "01:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3321307",
+          "p1": "Gasanova",
+          "p2": "Ito",
           "time": "11:00",
           "round": "SF",
           "h2h": "0-0",
@@ -2294,9 +2294,9 @@
           "teId": "3321305",
           "p1": "Iliev",
           "p2": "Mpetshi Perricard",
-          "time": "",
+          "time": "10:00",
           "round": "F",
-          "h2h": "-",
+          "h2h": "1-1",
           "finished": false
         },
         {
@@ -2896,7 +2896,7 @@
           "teId": "3321225",
           "p1": "Mdlulwa",
           "p2": "Breen",
-          "time": "09:00",
+          "time": "08:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2905,7 +2905,7 @@
           "teId": "3321223",
           "p1": "Perapekhina",
           "p2": "Ezzat",
-          "time": "09:00",
+          "time": "08:00",
           "round": "SF",
           "h2h": "1-2",
           "finished": false
@@ -4533,14 +4533,14 @@
           "p2": "Petruzelova",
           "time": "10:30",
           "round": "SF",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3321271",
           "p1": "Adams",
           "p2": "Kmiecik",
-          "time": "12:30",
+          "time": "12:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -5110,7 +5110,7 @@
           "teId": "3321255",
           "p1": "Alvisi",
           "p2": "Voracek",
-          "time": "10:00",
+          "time": "10:30",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -5119,7 +5119,7 @@
           "teId": "3321253",
           "p1": "Fumagalli",
           "p2": "Lombardini",
-          "time": "10:00",
+          "time": "10:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5128,7 +5128,7 @@
           "teId": "3321243",
           "p1": "Shapatava",
           "p2": "Raggi",
-          "time": "10:00",
+          "time": "10:30",
           "round": "QF",
           "h2h": "1-0",
           "finished": false
@@ -6194,5 +6194,5 @@
       ]
     }
   ],
-  "time": "2026-09-11T15:17:54Z"
+  "ok": true
 }
