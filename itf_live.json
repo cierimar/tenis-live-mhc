@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-11T16:33:02Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -6,19 +7,19 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321267",
-          "p1": "Johnson",
-          "p2": "Jorge",
-          "time": "01:00",
+          "teId": "3321307",
+          "p1": "Gasanova",
+          "p2": "Ito",
+          "time": "11:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3321307",
-          "p1": "Gasanova",
-          "p2": "Ito",
-          "time": "11:00",
+          "teId": "3321267",
+          "p1": "Johnson",
+          "p2": "Jorge",
+          "time": "11:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4028,15 +4029,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321111",
-          "p1": "Britez Risso",
-          "p2": "Ayala",
-          "time": "16:00",
-          "round": "QF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3321089",
           "p1": "Cabezas Dominguez",
           "p2": "Gobbi Monllau",
@@ -4062,6 +4054,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321111",
+          "p1": "Ayala",
+          "p2": "Britez Risso",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3320595",
@@ -6193,6 +6204,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-11T15:57:57Z"
+  "ok": true
 }
