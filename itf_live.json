@@ -1,6 +1,5 @@
 {
-  "ok": true,
-  "time": "2026-09-11T09:29:10Z",
+  "time": "2026-09-11T09:44:45Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -11,7 +10,7 @@
           "teId": "3320971",
           "p1": "Jorge",
           "p2": "Swan",
-          "time": "11:30",
+          "time": "11:40",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -20,7 +19,7 @@
           "teId": "3320883",
           "p1": "Cross",
           "p2": "Johnson",
-          "time": "11:30",
+          "time": "11:40",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -29,7 +28,7 @@
           "teId": "3321027",
           "p1": "Voloshchuk",
           "p2": "Ito",
-          "time": "12:30",
+          "time": "12:40",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -38,7 +37,7 @@
           "teId": "3320973",
           "p1": "Jorge",
           "p2": "Gasanova",
-          "time": "12:30",
+          "time": "12:40",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1128,7 +1127,7 @@
           "teId": "3321043",
           "p1": "Martinez Cirez",
           "p2": "Pace",
-          "time": "11:30",
+          "time": "11:50",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1613,15 +1612,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320967",
-          "p1": "Sakellaridi",
-          "p2": "Bojica",
-          "time": "09:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320841",
           "p1": "Popa",
           "p2": "Garnevska",
@@ -1645,6 +1635,25 @@
           ],
           "sets2": [
             "1",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320967",
+          "p1": "Bojica",
+          "p2": "Sakellaridi",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "09:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
             "2"
           ],
           "finished": true
@@ -2707,22 +2716,44 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320875",
-          "p1": "Reguer",
-          "p2": "Breen",
+          "teId": "3320857",
+          "p1": "Ezzat",
+          "p2": "Betova",
+          "round": "quarterfinal",
+          "date": "11.09.",
           "time": "08:00",
-          "round": "QF",
-          "h2h": "1-0",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "3",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "4"
+          ],
+          "finished": true
         },
         {
-          "teId": "3320857",
-          "p1": "Betova",
-          "p2": "Ezzat",
+          "teId": "3320875",
+          "p1": "Breen",
+          "p2": "Reguer",
+          "round": "quarterfinal",
+          "date": "11.09.",
           "time": "08:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320885",
@@ -5204,7 +5235,7 @@
           "teId": "3321213",
           "p1": "Kim",
           "p2": "Tsao",
-          "time": "03:00",
+          "time": "10:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -5776,5 +5807,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
