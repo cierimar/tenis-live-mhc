@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1146,21 +1145,21 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321251",
-          "p1": "Geerlings",
-          "p2": "Pace",
-          "time": "10:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321227",
           "p1": "Cortez Llorca",
           "p2": "Argyrokastriti",
           "time": "10:00",
           "round": "SF",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3321251",
+          "p1": "Geerlings",
+          "p2": "Pace",
+          "time": "11:00",
+          "round": "SF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -3437,7 +3436,7 @@
           "teId": "3321277",
           "p1": "Haddad",
           "p2": "Cirotte",
-          "time": "",
+          "time": "11:00",
           "round": "SF",
           "h2h": "1-0",
           "finished": false
@@ -3446,7 +3445,7 @@
           "teId": "3321269",
           "p1": "Lukosiute",
           "p2": "Kikawada",
-          "time": "",
+          "time": "11:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -5073,7 +5072,7 @@
           "teId": "3321255",
           "p1": "Alvisi",
           "p2": "Voracek",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -5082,7 +5081,7 @@
           "teId": "3321253",
           "p1": "Fumagalli",
           "p2": "Lombardini",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5091,7 +5090,7 @@
           "teId": "3321243",
           "p1": "Shapatava",
           "p2": "Raggi",
-          "time": "",
+          "time": "10:00",
           "round": "QF",
           "h2h": "1-0",
           "finished": false
@@ -6157,5 +6156,6 @@
       ]
     }
   ],
-  "time": "2026-09-11T13:58:40Z"
+  "ok": true,
+  "time": "2026-09-11T14:18:14Z"
 }
