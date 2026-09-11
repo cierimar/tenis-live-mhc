@@ -1790,11 +1790,11 @@ body[data-mode='ring'] .cal-m,
 body[data-mode='ring'] h2,
 body[data-mode='ring'] h4 { font-family: var(--display); letter-spacing: 0.06em; }
 body[data-mode='ring'] .match {
-  border: 2px solid #ff0514;
+  border: 6px solid #ff0514;
   background: #ffffff;
 }
 body[data-mode='ring'] .draw-board {
-  border: 2px solid #ff0514;
+  border: 6px solid #ff0514;
   background: #ffffff;
 }
 body[data-mode='ring'] .match.live {
