@@ -1096,10 +1096,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320985",
-          "p1": "Hesse",
-          "p2": "Geerlings",
-          "time": "10:00",
+          "teId": "3321043",
+          "p1": "Martinez Cirez",
+          "p2": "Pace",
+          "time": "12:15",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1108,19 +1108,20 @@
           "teId": "3320905",
           "p1": "Cortez Llorca",
           "p2": "Yesypchuk",
+          "round": "quarterfinal",
+          "date": "11.09.",
           "time": "10:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3321043",
-          "p1": "Martinez Cirez",
-          "p2": "Pace",
-          "time": "12:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320983",
@@ -1138,6 +1139,25 @@
           "sets2": [
             "3",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320985",
+          "p1": "Geerlings",
+          "p2": "Hesse",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "2"
           ],
           "finished": true
         },
@@ -4810,15 +4830,6 @@
           "finished": false
         },
         {
-          "teId": "3320489",
-          "p1": "Giambelli",
-          "p2": "Voracek",
-          "time": "10:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320395",
           "p1": "Shapatava",
           "p2": "Fornasieri",
@@ -4844,6 +4855,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320489",
+          "p1": "Voracek",
+          "p2": "Giambelli",
+          "round": "round of 16",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320303",
@@ -5817,6 +5847,6 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-11T09:56:10Z"
+  "time": "2026-09-11T10:12:51Z",
+  "ok": true
 }
