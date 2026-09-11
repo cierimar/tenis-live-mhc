@@ -694,29 +694,46 @@
     const map = new Map();
     await Promise.all(days.map(async d => {
       try {
-        let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/1');
+        let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-events/' + d);
         if (!r.ok) return;
-        const tours = [];
-        for (let pg = 1; pg <= 4; pg++) {
-          if (pg > 1) r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/' + pg);
-          if (!r.ok) break;
-          const jp = await r.json();
-          const list = (jp && jp.tournaments) || [];
-          if (!list.length) break;
-          tours.push(...list);
-          if (list.length < 20) break;
-        }
-        for (const tt of tours) {
-          for (const ev of ((tt && tt.events) || [])) {
-            const hN = taNorm((ev.homeTeam || {}).name || '');
-            const aN = taNorm((ev.awayTeam || {}).name || '');
-            if (!hN || !aN) continue;
-            map.set(hN + '|' + aN, String(ev.id));
-            map.set(aN + '|' + hN, String(ev.id));
-          }
+        const jp = await r.json();
+        const evs = (jp && jp.events) || [];
+        for (const ev of evs) {
+          const hN = taNorm((ev.homeTeam || {}).name || '');
+          const aN = taNorm((ev.awayTeam || {}).name || '');
+          if (!hN || !aN) continue;
+          map.set(hN + '|' + aN, String(ev.id));
+          map.set(aN + '|' + hN, String(ev.id));
         }
       } catch (e) { /* noop */ }
     }));
+    if (!map.size) {
+      await Promise.all(days.map(async d => {
+        try {
+          let r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/1');
+          if (!r.ok) return;
+          const tours = [];
+          for (let pg = 1; pg <= 4; pg++) {
+            if (pg > 1) r = await fetch('https://api.sofascore.com/api/v1/sport/tennis/scheduled-tournaments/' + d + '/page/' + pg);
+            if (!r.ok) break;
+            const jp = await r.json();
+            const list = (jp && (jp.scheduled || jp.tournaments)) || [];
+            if (!list.length) break;
+            tours.push(...list);
+            if (list.length < 20) break;
+          }
+          for (const tt of tours) {
+            for (const ev of ((tt && tt.events) || [])) {
+              const hN = taNorm((ev.homeTeam || {}).name || '');
+              const aN = taNorm((ev.awayTeam || {}).name || '');
+              if (!hN || !aN) continue;
+              map.set(hN + '|' + aN, String(ev.id));
+              map.set(aN + '|' + hN, String(ev.id));
+            }
+          }
+        } catch (e) { /* noop */ }
+      }));
+    }
     if (map.size) { sofaIdMap = map; sofaIdMapAt = Date.now(); }
     return sofaIdMap;
   }
@@ -2069,11 +2086,12 @@
     const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
     const cls = m.state === 'in' ? 'match live' : m.state === 'post' ? 'match finished' : 'match upcoming';
     const period = m.state === 'in' && m.period ? '<span class="period">SET ' + m.period + '</span>' : '';
-    let pts = livePoints(m);
-    if (!pts && m.state === 'in' && m.sofaPts && Date.now() - (m.sofaPtsAt || 0) < 90000) {
+    let pts = null;
+    if (m.state === 'in' && m.sofaPts && Date.now() - (m.sofaPtsAt || 0) < 90000) {
       const lab = gameScoreLabel(m.sofaPts.s1, m.sofaPts.s2);
       if (lab[0] || lab[1]) pts = { g0: lab[0], g1: lab[1], serverName: '', serverIdx: m.sofaPts.server1 };
     }
+    if (!pts) pts = livePoints(m);
     if (!pts && m.state === 'in' && (m.pts0 || m.pts1)) pts = { g0: m.pts0, g1: m.pts1, serverName: '' };
     const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
