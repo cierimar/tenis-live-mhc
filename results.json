@@ -1,65 +1,55 @@
 {
   "ok": true,
-  "updated": "2026-09-10T23:14:38Z",
   "count": 1,
+  "updated": "2026-09-11T00:44:03Z",
   "matches": [
     {
-      "id": "te-3319519",
+      "id": "te-3320077",
       "state": "post",
       "tour": "atp",
       "type": "Men's Singles",
       "round": "",
-      "tournamentId": "te-3319519",
+      "tournamentId": "te-3320077",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
           "flag": "",
+          "flagAlt": "",
+          "name": "Sabalenka A.",
+          "homeAway": "home",
           "linescores": [
             {
-              "tiebreak": null,
               "winner": true,
-              "value": 6
+              "value": 7,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
-              "winner": false,
-              "value": 4
-            },
-            {
-              "tiebreak": null,
               "winner": true,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             }
           ],
-          "homeAway": "home",
-          "name": "Sekulic P.",
-          "winner": false,
-          "flagAlt": ""
+          "winner": true
         },
         {
           "flag": "",
+          "flagAlt": "",
+          "name": "Pegula J.",
+          "homeAway": "away",
           "linescores": [
             {
-              "tiebreak": null,
               "winner": false,
-              "value": 2
+              "value": 5,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
-              "winner": true,
-              "value": 6
-            },
-            {
-              "tiebreak": null,
               "winner": false,
-              "value": 5
+              "value": 2,
+              "tiebreak": null
             }
           ],
-          "homeAway": "away",
-          "name": "Matsuda K.",
-          "winner": true,
-          "flagAlt": ""
+          "winner": false
         }
       ]
     }
