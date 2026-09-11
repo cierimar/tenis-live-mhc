@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -526,15 +525,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320807",
-          "p1": "Inoue",
-          "p2": "Ren",
-          "time": "04:20",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320783",
           "p1": "Shi",
           "p2": "Kokkinis",
@@ -547,10 +537,31 @@
           "teId": "3320753",
           "p1": "Yao",
           "p2": "Shubladze",
-          "time": "06:50",
+          "time": "06:55",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3320807",
+          "p1": "Ren",
+          "p2": "Inoue",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "04:20",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "1",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320809",
@@ -5654,5 +5665,6 @@
       ]
     }
   ],
-  "time": "2026-09-11T04:47:04Z"
+  "ok": true,
+  "time": "2026-09-11T04:58:08Z"
 }
