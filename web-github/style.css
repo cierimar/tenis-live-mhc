@@ -966,6 +966,95 @@ body[data-mode='cyber'] .btn-refresh:hover {
 }
 
 /* ============================================================
+   MODO ART - arte neobrutalista: negro absoluto + gris
+   perlado / violeta / plateado / blanco
+   Paleta: negro puro #000, gris perlado #c9c7c2, violeta
+   #8b5cf6, plateado #b9c1c9, blanco #ffffff
+   ============================================================ */
+body[data-mode='art'] {
+  --paper: #000000;
+  --paper-2: #0c0c0e;
+  --paper-3: #161619;
+  --ink: #ffffff;
+  --ink-2: #e6e4df;
+  --muted: #b9b6ae;
+  --hairline: #3a3a3d;
+  --hairline-dark: #5c5c61;
+  --red: #8b5cf6;             /* violeta - acento principal */
+  --red-dark: #7c3aed;
+  --red-vivo: #a78bfa;        /* violeta claro vivo */
+  --red-soft: rgba(139, 92, 246, 0.16);
+  --green: #c9c7c2;           /* gris perlado - victorias / subidas */
+  --amber: #b9c1c9;           /* plateado - siembras */
+  --blue: #a78bfa;            /* violeta claro - links */
+  --shadow: 4px 4px 0 #000;
+  --live: #a78bfa;            /* re-define compuesta :root -> violeta */
+  --warn: #b9c1c9;            /* re-define compuesta :root -> plateado */
+  --bg: #000000;              /* negro absoluto */
+}
+body[data-mode='art'] ::selection { background: #8b5cf6; color: #000; }
+body[data-mode='art'] a { color: #a78bfa; }
+body[data-mode='art'] .sb-logo {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='art'] .sb-logo-sub { color: #a78bfa; }
+body[data-mode='art'] .mode-label { color: #a78bfa; }
+body[data-mode='art'] .rank-section-title { color: #b9c1c9; }
+body[data-mode='art'] .th-tier { border-color: #8b5cf6; color: #a78bfa; }
+body[data-mode='art'] .seed-badge { border-color: #b9c1c9; color: #b9c1c9; }
+body[data-mode='art'] .set.win { color: #c9c7c2; }
+body[data-mode='art'] .pname.winner::after { color: #c9c7c2; }
+body[data-mode='art'] .match.live {
+  border-left-color: #8b5cf6;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.22), #000 42%);
+}
+body[data-mode='art'] .appbar { border-bottom: 2px solid #3a3a3d; }
+body[data-mode='art'] .tabbar { border-top: 2px solid #3a3a3d; }
+body[data-mode='art'] .match,
+body[data-mode='art'] .news-card,
+body[data-mode='art'] .video-card,
+body[data-mode='art'] .wc-res-card,
+body[data-mode='art'] .col-card,
+body[data-mode='art'] .ct-card,
+body[data-mode='art'] .stats-board {
+  border: 2px solid #3a3a3d;
+}
+body[data-mode='art'] .seg-btn,
+body[data-mode='art'] .lv-btn,
+body[data-mode='art'] .round-chip,
+body[data-mode='art'] .h2h-go,
+body[data-mode='art'] .btn-refresh {
+  border: 2px solid #3a3a3d;
+}
+body[data-mode='art'] .seg-btn.active,
+body[data-mode='art'] .lv-btn.active,
+body[data-mode='art'] .h2h-go,
+body[data-mode='art'] .round-chip.active,
+body[data-mode='art'] .badge.live,
+body[data-mode='art'] .set.live-set {
+  background: #8b5cf6;
+  color: #fff;
+  border-color: #8b5cf6;
+}
+body[data-mode='art'] .btn-refresh {
+  background: #a78bfa;
+  color: #000;
+  font-weight: 800;
+}
+body[data-mode='art'] .btn-refresh:hover {
+  background: #8b5cf6;
+  color: #fff;
+}
+body[data-mode='art'] .cal-now,
+body[data-mode='art'] .wc-live-badge,
+body[data-mode='art'] .live-pill { color: #a78bfa; }
+
+/* ============================================================
    MODO ATP - navy + oro (brand clasico atptour.com)
    Referencia: www.atptour.com
    Paleta: navy #050053/#112065 (atp-navy-1000/900), oro #E4B443
