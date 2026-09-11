@@ -12,46 +12,46 @@
       "competitors": [
         {
           "name": "Sabalenka A.",
-          "winner": true,
-          "homeAway": "home",
+          "flagAlt": "",
           "flag": "",
+          "homeAway": "home",
+          "winner": true,
           "linescores": [
             {
-              "value": 7,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 7
             },
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             }
-          ],
-          "flagAlt": ""
+          ]
         },
         {
           "name": "Pegula J.",
-          "winner": false,
-          "homeAway": "away",
+          "flagAlt": "",
           "flag": "",
+          "homeAway": "away",
+          "winner": false,
           "linescores": [
             {
-              "value": 5,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 5
             },
             {
-              "value": 2,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 2
             }
-          ],
-          "flagAlt": ""
+          ]
         }
       ]
     }
   ],
-  "count": 1,
-  "updated": "2026-09-11T00:58:23Z",
-  "ok": true
+  "ok": true,
+  "updated": "2026-09-11T01:16:16Z",
+  "count": 1
 }
