@@ -1,6 +1,6 @@
 {
-  "time": "2026-09-11T18:52:38Z",
   "ok": true,
+  "time": "2026-09-11T19:19:12Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -4030,15 +4030,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321109",
-          "p1": "Cinalli",
-          "p2": "Urrutia",
-          "time": "17:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321353",
           "p1": "Romero",
           "p2": "Cabezas Dominguez",
@@ -4046,6 +4037,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321109",
+          "p1": "Cinalli",
+          "p2": "Urrutia",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "17:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3321087",
