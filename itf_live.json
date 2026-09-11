@@ -546,7 +546,7 @@
           "teId": "3320753",
           "p1": "Yao",
           "p2": "Shubladze",
-          "time": "05:55",
+          "time": "06:40",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
@@ -5107,15 +5107,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320827",
-          "p1": "Yoshioka",
-          "p2": "Lee",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320823",
           "p1": "Kim",
           "p2": "Sawashiro",
@@ -5140,6 +5131,27 @@
           "sets2": [
             "5",
             "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320827",
+          "p1": "Lee",
+          "p2": "Yoshioka",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "6"
           ],
           "finished": true
         },
@@ -5641,6 +5653,6 @@
       ]
     }
   ],
-  "time": "2026-09-11T03:57:50Z",
-  "ok": true
+  "ok": true,
+  "time": "2026-09-11T04:33:00Z"
 }
