@@ -15,6 +15,15 @@
           "finished": false
         },
         {
+          "teId": "3321267",
+          "p1": "Johnson",
+          "p2": "Jorge",
+          "time": "11:00",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
           "teId": "3320973",
           "p1": "Gasanova",
           "p2": "Jorge",
@@ -3411,11 +3420,11 @@
           "finished": false
         },
         {
-          "teId": "3320921",
-          "p1": "Kikawada",
-          "p2": "Mansouri",
-          "time": "10:30",
-          "round": "QF",
+          "teId": "3321269",
+          "p1": "Lukosiute",
+          "p2": "Kikawada",
+          "time": "",
+          "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
@@ -3435,6 +3444,25 @@
           "sets2": [
             "4",
             "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320921",
+          "p1": "Kikawada",
+          "p2": "Mansouri",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "5",
+            "6"
           ],
           "finished": true
         },
@@ -4434,6 +4462,15 @@
           "time": "13:30",
           "round": "QF",
           "h2h": "1-1",
+          "finished": false
+        },
+        {
+          "teId": "3321271",
+          "p1": "Adams",
+          "p2": "Kmiecik",
+          "time": "",
+          "round": "SF",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -6066,6 +6103,6 @@
       ]
     }
   ],
-  "time": "2026-09-11T12:32:18Z",
+  "time": "2026-09-11T13:00:58Z",
   "ok": true
 }
