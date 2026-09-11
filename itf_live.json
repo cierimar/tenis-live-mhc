@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-11T07:40:48Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -2678,15 +2677,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320901",
-          "p1": "Atay",
-          "p2": "Perapekhina",
-          "time": "08:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320885",
           "p1": "Mdlulwa",
           "p2": "Marinkovic",
@@ -2712,6 +2702,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320901",
+          "p1": "Perapekhina",
+          "p2": "Atay",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3320237",
@@ -5718,5 +5727,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-11T07:53:49Z"
 }
