@@ -1,6 +1,6 @@
 {
+  "updated": "2026-09-11T02:23:09Z",
   "ok": true,
-  "count": 1,
   "matches": [
     {
       "id": "te-3320077",
@@ -16,42 +16,142 @@
           "linescores": [
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 7
+              "value": 7,
+              "tiebreak": null
             },
             {
               "winner": true,
-              "tiebreak": null,
-              "value": 6
+              "value": 6,
+              "tiebreak": null
             }
           ],
           "flagAlt": "",
-          "homeAway": "home",
+          "winner": true,
           "flag": "",
           "name": "Sabalenka A.",
-          "winner": true
+          "homeAway": "home"
         },
         {
           "linescores": [
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 5
+              "value": 5,
+              "tiebreak": null
             },
             {
               "winner": false,
-              "tiebreak": null,
-              "value": 2
+              "value": 2,
+              "tiebreak": null
             }
           ],
           "flagAlt": "",
-          "homeAway": "away",
+          "winner": false,
           "flag": "",
           "name": "Pegula J.",
-          "winner": false
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3320743",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3320743",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            },
+            {
+              "winner": true,
+              "value": 7,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
+          "name": "Jeanjean L.",
+          "homeAway": "home"
+        },
+        {
+          "linescores": [
+            {
+              "winner": false,
+              "value": 1,
+              "tiebreak": null
+            },
+            {
+              "winner": false,
+              "value": 6,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
+          "name": "Lee C.",
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3320755",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3320755",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            },
+            {
+              "winner": true,
+              "value": 6,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "winner": true,
+          "flag": "",
+          "name": "Blinkova A.",
+          "homeAway": "home"
+        },
+        {
+          "linescores": [
+            {
+              "winner": false,
+              "value": 2,
+              "tiebreak": null
+            },
+            {
+              "winner": false,
+              "value": 2,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "winner": false,
+          "flag": "",
+          "name": "Riera J.",
+          "homeAway": "away"
         }
       ]
     }
   ],
-  "updated": "2026-09-11T01:31:21Z"
+  "count": 3
 }
