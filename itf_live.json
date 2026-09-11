@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-11T16:33:02Z",
+  "ok": true,
+  "time": "2026-09-11T16:47:10Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -10,7 +11,7 @@
           "teId": "3321307",
           "p1": "Gasanova",
           "p2": "Ito",
-          "time": "11:00",
+          "time": "11:30",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2294,7 +2295,7 @@
           "teId": "3321305",
           "p1": "Iliev",
           "p2": "Mpetshi Perricard",
-          "time": "10:00",
+          "time": "11:00",
           "round": "F",
           "h2h": "1-1",
           "finished": false
@@ -4029,10 +4030,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321089",
-          "p1": "Cabezas Dominguez",
-          "p2": "Gobbi Monllau",
-          "time": "16:00",
+          "teId": "3321109",
+          "p1": "Cinalli",
+          "p2": "Urrutia",
+          "time": "17:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -4041,19 +4042,39 @@
           "teId": "3321087",
           "p1": "Romero",
           "p2": "Estevez",
+          "round": "quarterfinal",
+          "date": "11.09.",
           "time": "16:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
+          ],
+          "finished": true
         },
         {
-          "teId": "3321109",
-          "p1": "Cinalli",
-          "p2": "Urrutia",
-          "time": "17:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3321089",
+          "p1": "Cabezas Dominguez",
+          "p2": "Gobbi Monllau",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "16:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3321111",
@@ -4541,7 +4562,7 @@
           "teId": "3321311",
           "p1": "Sucha",
           "p2": "Petruzelova",
-          "time": "10:30",
+          "time": "10:45",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4550,7 +4571,7 @@
           "teId": "3321271",
           "p1": "Adams",
           "p2": "Kmiecik",
-          "time": "12:00",
+          "time": "12:45",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -6203,6 +6224,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
