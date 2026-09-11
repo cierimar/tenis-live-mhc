@@ -1,6 +1,5 @@
 {
-  "ok": true,
-  "time": "2026-09-11T10:56:26Z",
+  "time": "2026-09-11T11:12:42Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -29,7 +28,7 @@
           "teId": "3321027",
           "p1": "Voloshchuk",
           "p2": "Ito",
-          "time": "13:00",
+          "time": "13:15",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1660,15 +1659,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320841",
-          "p1": "Popa",
-          "p2": "Garnevska",
-          "time": "10:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321219",
           "p1": "Bojica",
           "p2": "Biro",
@@ -1676,6 +1666,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320841",
+          "p1": "Popa",
+          "p2": "Garnevska",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "7",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320873",
@@ -4348,15 +4359,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320877",
-          "p1": "Chiesa",
-          "p2": "Kmiecik",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320987",
           "p1": "Adams",
           "p2": "Husar",
@@ -4382,6 +4384,27 @@
           "round": "QF",
           "h2h": "1-1",
           "finished": false
+        },
+        {
+          "teId": "3320877",
+          "p1": "Kmiecik",
+          "p2": "Chiesa",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "0",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320301",
@@ -4876,15 +4899,6 @@
           "finished": false
         },
         {
-          "teId": "3320395",
-          "p1": "Shapatava",
-          "p2": "Fornasieri",
-          "time": "10:00",
-          "round": "R16",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320675",
           "p1": "Maines",
           "p2": "Lombardini",
@@ -4901,6 +4915,27 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320395",
+          "p1": "Shapatava",
+          "p2": "Fornasieri",
+          "round": "round of 16",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "0",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "3",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3320489",
@@ -5892,5 +5927,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
