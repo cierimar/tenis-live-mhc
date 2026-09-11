@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-11T07:07:44Z",
+  "ok": true,
+  "time": "2026-09-11T07:40:48Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -526,15 +527,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320753",
-          "p1": "Yao",
-          "p2": "Shubladze",
-          "time": "06:55",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3321187",
           "p1": "Ren",
           "p2": "Khomutsianskaya",
@@ -542,6 +534,27 @@
           "round": "SF",
           "h2h": "0-2",
           "finished": false
+        },
+        {
+          "teId": "3320753",
+          "p1": "Shubladze",
+          "p2": "Yao",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "06:55",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320783",
@@ -5139,15 +5152,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320823",
-          "p1": "Kim",
-          "p2": "Sawashiro",
-          "time": "11:00",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3321195",
           "p1": "Lee",
           "p2": "Kim",
@@ -5155,6 +5159,27 @@
           "round": "SF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3320823",
+          "p1": "Kim",
+          "p2": "Sawashiro",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "11:00",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320825",
@@ -5693,6 +5718,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
