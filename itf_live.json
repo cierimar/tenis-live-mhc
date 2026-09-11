@@ -7,15 +7,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321027",
-          "p1": "Voloshchuk",
-          "p2": "Ito",
-          "time": "14:25",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321267",
           "p1": "Johnson",
           "p2": "Jorge",
@@ -23,6 +14,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321027",
+          "p1": "Ito",
+          "p2": "Voloshchuk",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "14:25",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320973",
@@ -4490,15 +4500,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320989",
-          "p1": "Kolonus",
-          "p2": "Petruzelova",
-          "time": "13:30",
-          "round": "QF",
-          "h2h": "1-1",
-          "finished": false
-        },
-        {
           "teId": "3321271",
           "p1": "Adams",
           "p2": "Kmiecik",
@@ -4506,6 +4507,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320989",
+          "p1": "Petruzelova",
+          "p2": "Kolonus",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "13:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "3",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3320907",
@@ -6137,5 +6157,5 @@
       ]
     }
   ],
-  "time": "2026-09-11T13:48:25Z"
+  "time": "2026-09-11T13:58:40Z"
 }
