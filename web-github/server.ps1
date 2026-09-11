@@ -1665,18 +1665,54 @@ function Get-TAH2H([string]$p1Name, [string]$p2Name) {
     if ($html -and $html -match 'var matchmx = \[') {
         $fnM = [regex]::Match($html, 'Tennis Abstract:\s*(.+?)\s+Match Results')
         if ($fnM.Success) { $realName = $fnM.Groups[1].Value.Trim() }
-        $arr = Extract-TAMatchmx $html 'var matchmx = '
+        # Anti-junk: TA redirige slugs invalidos/mujeres a pagina de otro jugador (ej. Benoit Paire).
+        $pageIsPlayer = $false
+        if ($realName) {
+            $nrReal = Normalize-Name $realName
+            $pageIsPlayer = ($nrReal -eq $nr1 -or $nrReal.Contains($nr1) -or $nr1.Contains($nrReal) -or $nrReal -eq $sur1)
+        }
+        if (-not $pageIsPlayer) {
+            $realName = ''
+            $arr = @()
+        } else {
+            $arr = Extract-TAMatchmx $html 'var matchmx = '
+        }
         if ($arr) {
             foreach ($m in $arr) {
                 $opp = [string]$m[11]
                 $no = Normalize-Name $opp
                 if (-not $no -or -not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
                 $isWin = ([string]$m[4]) -eq 'W'
+                if ([string]$m[9] -eq '') { continue }
                 $meetings += @{
                     date = [string]$m[0]; tournament = [string]$m[1]; surface = [string]$m[2]
                     round = [string]$m[8]; score = [string]$m[9]
                     winner = if ($isWin) { $realName } else { $opp }
                     loser = if ($isWin) { $opp } else { $realName }
+                }
+            }
+        }
+    }
+
+    if (-not $meetings -or $meetings.Count -eq 0) {
+        $js = Get-WebFile "https://www.tennisabstract.com/jsmatches/$slug.js"
+        if ($js) {
+            $fnM2 = [regex]::Match($js, "var\s+fullname\s*=\s*'([^']+)'")
+            if ($fnM2.Success) { $realName = $fnM2.Groups[1].Value.Trim() }
+            $arr2 = Extract-TAMatchmx $js 'matchmx = '
+            if ($arr2) {
+                foreach ($m in $arr2) {
+                    $opp = [string]$m[11]
+                    $no = Normalize-Name $opp
+                    if (-not $no -or -not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
+                    $isWin = ([string]$m[4]) -eq 'W'
+                    if ([string]$m[9] -eq '') { continue }
+                    $meetings += @{
+                        date = [string]$m[0]; tournament = [string]$m[1]; surface = [string]$m[2]
+                        round = [string]$m[8]; score = [string]$m[9]
+                        winner = if ($isWin) { $realName } else { $opp }
+                        loser = if ($isWin) { $opp } else { $realName }
+                    }
                 }
             }
         }
@@ -1699,29 +1735,6 @@ function Get-TAH2H([string]$p1Name, [string]$p2Name) {
                 }
             }
             if ($meetings.Count -gt 0 -and -not $realName) { $realName = $rp1 }
-        }
-    }
-
-    if (-not $meetings -or $meetings.Count -eq 0) {
-        $js = Get-WebFile "https://www.tennisabstract.com/jsmatches/$slug.js"
-        if ($js) {
-            $fnM2 = [regex]::Match($js, "var\s+fullname\s*=\s*'([^']+)'")
-            if ($fnM2.Success) { $realName = $fnM2.Groups[1].Value.Trim() }
-            $arr2 = Extract-TAMatchmx $js 'matchmx = '
-            if ($arr2) {
-                foreach ($m in $arr2) {
-                    $opp = [string]$m[11]
-                    $no = Normalize-Name $opp
-                    if (-not $no -or -not ($no.Contains($q1) -or $q1.Contains($no))) { continue }
-                    $isWin = ([string]$m[4]) -eq 'W'
-                    $meetings += @{
-                        date = [string]$m[0]; tournament = [string]$m[1]; surface = [string]$m[2]
-                        round = [string]$m[8]; score = [string]$m[9]
-                        winner = if ($isWin) { $realName } else { $opp }
-                        loser = if ($isWin) { $opp } else { $realName }
-                    }
-                }
-            }
         }
     }
 
