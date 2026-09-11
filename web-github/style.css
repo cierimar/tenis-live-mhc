@@ -1492,6 +1492,105 @@ body[data-mode='live'] .wc-live-badge {
 body[data-mode='live'] .live-pill { color: #ff6b00; }
 body[data-mode='live'] .th-logo { filter: none; }
 
+/* ============================================================
+   MODO NOW - usopen.org (Grand Slam US Open)
+   Look US Open: blanco #fff, navy #00288c/#001d67,
+   amarillo #ffd400, rojo #c8102e, azul links #2478cc,
+   gris #4a4a4a. Plano, bordes gruesos navy.
+   ============================================================ */
+body[data-mode='now'] {
+  --paper: #ffffff;
+  --paper-2: #f3f3f3;
+  --paper-3: #e5e7e8;
+  --ink: #121619;
+  --ink-2: #4a4a4a;
+  --muted: #888b8d;
+  --hairline: #c1c6c8;
+  --hairline-dark: #00288c;
+  --red: #00288c;
+  --red-dark: #001d67;
+  --red-vivo: #c8102e;
+  --red-soft: rgba(0, 40, 140, 0.10);
+  --green: #2478cc;
+  --amber: #ffd400;
+  --blue: #2478cc;
+  --shadow: none;
+  --live: #c8102e;
+  --warn: #ffd400;
+  --bg: #ffffff;
+}
+body[data-mode='now'] ::selection { background: #00288c; color: #ffd400; }
+body[data-mode='now'] a { color: #2478cc; }
+body[data-mode='now'] .sb-logo {
+  color: #001d67;
+  -webkit-text-fill-color: #001d67;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='now'] .sb-logo-sub,
+body[data-mode='now'] .mode-label { color: #c8102e; }
+body[data-mode='now'] .nav-item.active {
+  border-left-color: #00288c;
+  background: rgba(0, 40, 140, 0.08);
+  font-weight: 800;
+}
+body[data-mode='now'] .seg-btn.active {
+  background: #00288c;
+  color: #fff;
+  border-color: #00288c;
+}
+body[data-mode='now'] .lv-btn.active {
+  background: #c8102e;
+  color: #fff;
+  border-color: #c8102e;
+}
+body[data-mode='now'] .badge.live {
+  background: #c8102e;
+  color: #fff;
+}
+body[data-mode='now'] .set.live-set {
+  background: #c8102e;
+  color: #fff;
+}
+body[data-mode='now'] .round-chip.active,
+body[data-mode='now'] .h2h-go {
+  background: #00288c;
+  color: #fff;
+  border-color: #00288c;
+}
+body[data-mode='now'] .btn-refresh {
+  background: #00288c;
+  color: #fff;
+  font-weight: 800;
+}
+body[data-mode='now'] .btn-refresh:hover { background: #001d67; }
+body[data-mode='now'] .set.win,
+body[data-mode='now'] .pname.winner::after,
+body[data-mode='now'] .r-move.up { color: #00288c; }
+body[data-mode='now'] .r-move.down { color: #c8102e; }
+body[data-mode='now'] .seed-badge {
+  background: #ffd400;
+  color: #001d67;
+}
+body[data-mode='now'] .rank-section-title { color: #00288c; }
+body[data-mode='now'] .th-tier { color: #2478cc; }
+body[data-mode='now'] .match,
+body[data-mode='now'] .draw-board {
+  border: 6px solid #00288c;
+}
+body[data-mode='now'] .match.live {
+  border-color: #c8102e;
+  background: linear-gradient(90deg, rgba(200, 16, 46, 0.06), #fff 40%);
+}
+body[data-mode='now'] .wc-live-badge {
+  background: #c8102e;
+  color: #fff;
+}
+body[data-mode='now'] .live-pill { color: #c8102e; }
+body[data-mode='now'] .th-logo { filter: none; }
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
