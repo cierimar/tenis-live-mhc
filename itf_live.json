@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-11T11:12:42Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -28,7 +27,7 @@
           "teId": "3321027",
           "p1": "Voloshchuk",
           "p2": "Ito",
-          "time": "13:15",
+          "time": "13:25",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1658,6 +1657,15 @@
       "name": "Campulung ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3321241",
+          "p1": "Todoni",
+          "p2": "Popa",
+          "time": "",
+          "round": "SF",
+          "h2h": "0-0",
+          "finished": false
+        },
         {
           "teId": "3321219",
           "p1": "Bojica",
@@ -4908,6 +4916,15 @@
           "finished": false
         },
         {
+          "teId": "3321243",
+          "p1": "Shapatava",
+          "p2": "Raggi",
+          "time": "",
+          "round": "QF",
+          "h2h": "1-0",
+          "finished": false
+        },
+        {
           "teId": "3320915",
           "p1": "Tomase",
           "p2": "Schaefer",
@@ -5928,5 +5945,6 @@
       ]
     }
   ],
-  "ok": true
+  "ok": true,
+  "time": "2026-09-11T11:28:06Z"
 }
