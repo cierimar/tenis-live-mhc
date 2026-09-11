@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-11T08:07:39Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1101,7 +1099,7 @@
           "teId": "3320983",
           "p1": "Argyrokastriti",
           "p2": "Paoletti",
-          "time": "10:00",
+          "time": "10:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -1110,7 +1108,7 @@
           "teId": "3320905",
           "p1": "Cortez Llorca",
           "p2": "Yesypchuk",
-          "time": "10:00",
+          "time": "10:10",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -2678,15 +2676,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320885",
-          "p1": "Mdlulwa",
-          "p2": "Marinkovic",
-          "time": "08:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320875",
           "p1": "Reguer",
           "p2": "Breen",
@@ -2703,6 +2692,25 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320885",
+          "p1": "Mdlulwa",
+          "p2": "Marinkovic",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "08:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3320901",
@@ -5165,7 +5173,7 @@
           "teId": "3321195",
           "p1": "Lee",
           "p2": "Kim",
-          "time": "",
+          "time": "03:00",
           "round": "SF",
           "h2h": "1-0",
           "finished": false
@@ -5728,5 +5736,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-11T08:26:26Z"
 }
