@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-11T10:44:57Z",
   "ok": true,
   "tournaments": [
     {
@@ -7,28 +8,10 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320971",
-          "p1": "Jorge",
-          "p2": "Swan",
-          "time": "11:40",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320883",
           "p1": "Cross",
           "p2": "Johnson",
           "time": "11:40",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320973",
-          "p1": "Jorge",
-          "p2": "Gasanova",
-          "time": "12:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -41,6 +24,32 @@
           "round": "QF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3320973",
+          "p1": "Jorge",
+          "p2": "Gasanova",
+          "time": "12:50",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
+        {
+          "teId": "3320971",
+          "p1": "Jorge",
+          "p2": "Swan",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "11:40",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "4"
+          ],
+          "sets2": [
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3320539",
@@ -5883,6 +5892,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-11T10:29:35Z"
+  ]
 }
