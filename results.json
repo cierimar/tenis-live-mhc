@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "count": 1,
   "matches": [
     {
       "id": "te-3320077",
@@ -11,47 +13,45 @@
       "surface": "",
       "competitors": [
         {
-          "name": "Sabalenka A.",
-          "flagAlt": "",
-          "flag": "",
-          "homeAway": "home",
-          "winner": true,
           "linescores": [
             {
-              "tiebreak": null,
               "winner": true,
+              "tiebreak": null,
               "value": 7
             },
             {
-              "tiebreak": null,
               "winner": true,
+              "tiebreak": null,
               "value": 6
             }
-          ]
+          ],
+          "flagAlt": "",
+          "homeAway": "home",
+          "flag": "",
+          "name": "Sabalenka A.",
+          "winner": true
         },
         {
-          "name": "Pegula J.",
-          "flagAlt": "",
-          "flag": "",
-          "homeAway": "away",
-          "winner": false,
           "linescores": [
             {
-              "tiebreak": null,
               "winner": false,
+              "tiebreak": null,
               "value": 5
             },
             {
-              "tiebreak": null,
               "winner": false,
+              "tiebreak": null,
               "value": 2
             }
-          ]
+          ],
+          "flagAlt": "",
+          "homeAway": "away",
+          "flag": "",
+          "name": "Pegula J.",
+          "winner": false
         }
       ]
     }
   ],
-  "ok": true,
-  "updated": "2026-09-11T01:16:16Z",
-  "count": 1
+  "updated": "2026-09-11T01:31:21Z"
 }
