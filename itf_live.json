@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-11T02:33:03Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -5101,15 +5099,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320829",
-          "p1": "Kim",
-          "p2": "Choi",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320827",
           "p1": "Yoshioka",
           "p2": "Lee",
@@ -5135,6 +5124,25 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3320829",
+          "p1": "Kim",
+          "p2": "Choi",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3319441",
@@ -5614,5 +5622,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-11T02:47:22Z"
 }
