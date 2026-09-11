@@ -1905,6 +1905,12 @@ body[data-mode='premier'] .match.live {
 body[data-mode='premier'] .th-logo { filter: none; }
 body[data-mode='premier'] ::selection { background: #b49058; color: #000000; }
 body[data-mode='premier'] a { color: #216ba5; }
+body[data-mode='premier'] .nav-item { color: #ffffff; font-weight: 700; }
+body[data-mode='premier'] .nav-item .ic { color: #f5efe4; }
+body[data-mode='premier'] .nav-item .lb { color: #ffffff; }
+body[data-mode='premier'] .nav-item:hover { color: #ffffff; background: rgba(255, 255, 255, 0.08); }
+body[data-mode='premier'] .nav-item:hover .ic { color: #ffffff; }
+body[data-mode='premier'] .nav-item:hover .lb { color: #ffffff; }
 
 /* ============================================================ */
 
