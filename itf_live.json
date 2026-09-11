@@ -1,6 +1,4 @@
 {
-  "time": "2026-09-11T18:02:14Z",
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -5150,16 +5148,25 @@
           "teId": "3321255",
           "p1": "Alvisi",
           "p2": "Voracek",
-          "time": "10:30",
+          "time": "10:00",
           "round": "QF",
           "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3320915",
+          "p1": "Tomase",
+          "p2": "Schaefer",
+          "time": "10:00",
+          "round": "QF",
+          "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3321253",
           "p1": "Fumagalli",
           "p2": "Lombardini",
-          "time": "10:30",
+          "time": "11:30",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -5168,18 +5175,9 @@
           "teId": "3321243",
           "p1": "Shapatava",
           "p2": "Raggi",
-          "time": "10:30",
+          "time": "11:30",
           "round": "QF",
           "h2h": "1-0",
-          "finished": false
-        },
-        {
-          "teId": "3320915",
-          "p1": "Tomase",
-          "p2": "Schaefer",
-          "time": "10:30",
-          "round": "QF",
-          "h2h": "0-0",
           "finished": false
         },
         {
@@ -6233,5 +6231,7 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-11T18:23:15Z",
+  "ok": true
 }
