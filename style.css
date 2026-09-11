@@ -2115,6 +2115,7 @@ body[data-mode='black'] .match.live {
   border-color: #f2efe9;
   background: linear-gradient(90deg, rgba(242, 239, 233, 0.12), transparent 45%);
 }
+body[data-mode='black'] .tb { color: #ff2020; }
 body[data-mode='black'] .th-logo { filter: none; }
 body[data-mode='black'] ::selection { background: #f2efe9; color: #000000; }
 body[data-mode='black'] a { color: #f2efe9; }
@@ -2515,7 +2516,7 @@ body {
   background: var(--live); color: #fff; border-color: transparent;
   font-size: 14px;
 }
-.tb { font-size: 8px; color: var(--ink); }
+.tb { font-size: 8px; color: #ffffff; }
 
 .scores { font-family: var(--mono); font-size: 9px; color: var(--muted); }
 .scores .time { display: inline-block; padding: 1px 5px; border: 1px solid var(--hairline-dark); border-radius: 999px; font-size: 8.5px; }
