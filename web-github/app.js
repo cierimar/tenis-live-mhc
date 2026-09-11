@@ -2230,11 +2230,12 @@
         const comps = m.competitors.slice().sort((a, b) => (a.homeAway === 'home' ? -1 : 1) - (b.homeAway === 'home' ? -1 : 1));
         const rows = comps.map(p => {
           const name = p.name && p.name !== 'TBD' ? esc(p.name) : '<span class="dm-tbd">TBD</span>';
-          const sc = p.linescores.map(ls => (ls.value != null ? ls.value : '')).join(' ');
-          const tb = p.linescores.map(ls => (ls.tiebreak ? '(' + ls.tiebreak + ')' : '')).join(' ');
+          const sc = p.linescores.map(ls => (ls.value != null || ls.tiebreak)
+            ? '<span class="dp-set">' + (ls.value != null ? esc(String(ls.value)) : '&nbsp;') + (ls.tiebreak ? '<span class="tb">(' + esc(String(ls.tiebreak)) + ')</span>' : '') + '</span>'
+            : '').join('');
           return '<div class="draw-player' + (p.winner ? ' winner' : '') + '">' +
             '<span class="dp-name">' + flagImg(p.flag, p.flagAlt) + name + '</span>' +
-            '<span class="dp-score">' + sc + (tb ? '<span class="tb">' + tb + '</span>' : '') + '</span></div>';
+            '<span class="dp-score">' + sc + '</span></div>';
         }).join('');
         const st = m.suspended ? '<div class="dm-status" style="color:var(--warn)">&#9209; SUSPENDIDO</div>'
           : m.state === 'in' ? '<div class="dm-status" style="color:var(--live)">● EN VIVO SET ' + (m.period || '') + '</div>'
