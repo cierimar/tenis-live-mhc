@@ -1,5 +1,4 @@
 {
-  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -7,31 +6,53 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320883",
-          "p1": "Cross",
-          "p2": "Johnson",
-          "time": "11:40",
+          "teId": "3321027",
+          "p1": "Voloshchuk",
+          "p2": "Ito",
+          "time": "14:25",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
         },
         {
           "teId": "3320973",
-          "p1": "Jorge",
-          "p2": "Gasanova",
+          "p1": "Gasanova",
+          "p2": "Jorge",
+          "round": "quarterfinal",
+          "date": "11.09.",
           "time": "12:50",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
-          "teId": "3321027",
-          "p1": "Voloshchuk",
-          "p2": "Ito",
-          "time": "14:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3320883",
+          "p1": "Johnson",
+          "p2": "Cross",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "11:40",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "5",
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "7",
+            "3",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3320971",
@@ -1105,11 +1126,11 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321043",
-          "p1": "Martinez Cirez",
+          "teId": "3321251",
+          "p1": "Geerlings",
           "p2": "Pace",
-          "time": "12:15",
-          "round": "QF",
+          "time": "10:00",
+          "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
@@ -1121,6 +1142,25 @@
           "round": "SF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3321043",
+          "p1": "Pace",
+          "p2": "Martinez Cirez",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "12:15",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "1",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3320905",
@@ -4388,24 +4428,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320987",
-          "p1": "Adams",
-          "p2": "Husar",
-          "time": "11:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3320907",
-          "p1": "Svatikova",
-          "p2": "Sucha",
-          "time": "12:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320989",
           "p1": "Kolonus",
           "p2": "Petruzelova",
@@ -4413,6 +4435,44 @@
           "round": "QF",
           "h2h": "1-1",
           "finished": false
+        },
+        {
+          "teId": "3320907",
+          "p1": "Sucha",
+          "p2": "Svatikova",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "12:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "5"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3320987",
+          "p1": "Adams",
+          "p2": "Husar",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320877",
@@ -4918,6 +4978,24 @@
       "name": "Viserba ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3321255",
+          "p1": "Alvisi",
+          "p2": "Voracek",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3321253",
+          "p1": "Fumagalli",
+          "p2": "Lombardini",
+          "time": "",
+          "round": "QF",
+          "h2h": "0-0",
+          "finished": false
+        },
         {
           "teId": "3321243",
           "p1": "Shapatava",
@@ -5988,5 +6066,6 @@
       ]
     }
   ],
-  "time": "2026-09-11T12:10:33Z"
+  "time": "2026-09-11T12:32:18Z",
+  "ok": true
 }
