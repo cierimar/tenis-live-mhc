@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-11T02:57:50Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -527,15 +525,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3320809",
-          "p1": "Khomutsianskaya",
-          "p2": "Astakhova",
-          "time": "04:10",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3320807",
           "p1": "Inoue",
           "p2": "Ren",
@@ -548,7 +537,7 @@
           "teId": "3320783",
           "p1": "Shi",
           "p2": "Kokkinis",
-          "time": "05:10",
+          "time": "05:20",
           "round": "QF",
           "h2h": "0-0",
           "finished": false
@@ -557,10 +546,27 @@
           "teId": "3320753",
           "p1": "Yao",
           "p2": "Shubladze",
-          "time": "05:10",
+          "time": "05:40",
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3320809",
+          "p1": "Khomutsianskaya",
+          "p2": "Astakhova",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "04:10",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "5"
+          ],
+          "sets2": [
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320087",
@@ -5110,15 +5116,6 @@
           "finished": false
         },
         {
-          "teId": "3320825",
-          "p1": "Naklo",
-          "p2": "Tsao",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3320823",
           "p1": "Kim",
           "p2": "Sawashiro",
@@ -5126,6 +5123,25 @@
           "round": "QF",
           "h2h": "0-1",
           "finished": false
+        },
+        {
+          "teId": "3320825",
+          "p1": "Tsao",
+          "p2": "Naklo",
+          "round": "quarterfinal",
+          "date": "11.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3320829",
@@ -5624,5 +5640,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-11T03:32:25Z"
 }
