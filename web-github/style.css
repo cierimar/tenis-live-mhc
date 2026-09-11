@@ -1805,6 +1805,107 @@ body[data-mode='ring'] .th-logo { filter: none; }
 body[data-mode='ring'] ::selection { background: #ff0514; color: #ffffff; }
 body[data-mode='ring'] a { color: #2196f3; }
 
+/* ================== premier (premierpadel.com) ================== */
+body[data-mode='premier'] {
+  --paper: #12070b;
+  --paper-2: #1c0d12;
+  --paper-3: #26141a;
+  --ink: #ffffff;
+  --ink-2: #e8e0d5;
+  --muted: #a0a0a0;
+  --hairline: #3a1d24;
+  --hairline-dark: #4b330d;
+  --red: #b49058;
+  --red-dark: #4b330d;
+  --red-vivo: #cd8032;
+  --red-soft: rgba(180, 144, 88, 0.12);
+  --green: #cd8032;
+  --amber: #b49058;
+  --blue: #216ba5;
+  --shadow: none;
+  --live: #b49058;
+  --warn: #cd8032;
+  --bg: #10070a;
+  --display: 'Bebas Neue', 'Archivo Black', sans-serif;
+  --serif: 'Bebas Neue', 'Playfair Display', serif;
+  --mono: 'Bebas Neue', 'IBM Plex Mono', monospace;
+}
+body[data-mode='premier'] .sb-logo {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #b49058;
+  -webkit-text-fill-color: #b49058;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+}
+body[data-mode='premier'] .sb-logo-sub {
+  font-family: var(--serif);
+  color: #cd8032;
+  letter-spacing: 0.28em;
+}
+body[data-mode='premier'] .mode-label { color: #b49058; font-family: var(--serif); letter-spacing: 0.2em; }
+body[data-mode='premier'] .nav-item.active {
+  border-left-color: #b49058;
+  color: #b49058;
+  background: rgba(180, 144, 88, 0.1);
+}
+body[data-mode='premier'] .seg-btn.active,
+body[data-mode='premier'] .round-chip.active,
+body[data-mode='premier'] .h2h-go,
+body[data-mode='premier'] .btn-refresh {
+  background: #b49058;
+  color: #000000;
+  border-color: #b49058;
+}
+body[data-mode='premier'] .btn-refresh:hover { background: #cd8032; }
+body[data-mode='premier'] .lv-btn.active,
+body[data-mode='premier'] .badge.live,
+body[data-mode='premier'] .set.live-set,
+body[data-mode='premier'] .wc-live-badge {
+  background: #cd8032;
+  color: #000000;
+  border-color: #cd8032;
+}
+body[data-mode='premier'] .badge.final {
+  background: #4b330d;
+  color: #e8e0d5;
+  border-color: #b49058;
+}
+body[data-mode='premier'] .seed-badge {
+  background: #b49058;
+  color: #000000;
+  border-color: #b49058;
+  font-weight: 700;
+}
+body[data-mode='premier'] .set.win,
+body[data-mode='premier'] .pname.winner::after,
+body[data-mode='premier'] .rank-section-title {
+  color: #b49058;
+}
+body[data-mode='premier'] .r-move.up { color: #b49058; }
+body[data-mode='premier'] .r-move.down { color: #cd8032; }
+body[data-mode='premier'] .th-tier { color: #216ba5; }
+body[data-mode='premier'] .cal-m,
+body[data-mode='premier'] h2,
+body[data-mode='premier'] h4 { font-family: var(--serif); letter-spacing: 0.05em; }
+body[data-mode='premier'] .match {
+  border: 6px solid #b49058;
+  background: #1c0d12;
+}
+body[data-mode='premier'] .draw-board {
+  border: 6px solid #b49058;
+  background: #1c0d12;
+}
+body[data-mode='premier'] .match.live {
+  border-color: #cd8032;
+  background: linear-gradient(90deg, rgba(180, 144, 88, 0.14), transparent 45%);
+}
+body[data-mode='premier'] .th-logo { filter: none; }
+body[data-mode='premier'] ::selection { background: #b49058; color: #000000; }
+body[data-mode='premier'] a { color: #216ba5; }
+
 /* ============================================================ */
 
 ::selection { background: var(--red); color: #fff; }
