@@ -1,5 +1,7 @@
 {
-  "updated": "2026-09-11T08:33:40Z",
+  "ok": true,
+  "count": 29,
+  "updated": "2026-09-11T08:51:20Z",
   "matches": [
     {
       "id": "te-3320809",
@@ -12,32 +14,32 @@
       "surface": "",
       "competitors": [
         {
+          "flagAlt": "",
+          "name": "Khomutsianskaya D.",
           "flag": "",
           "linescores": [
             {
               "winner": true,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             }
           ],
-          "flagAlt": "",
-          "name": "Khomutsianskaya D.",
-          "homeAway": "home",
-          "winner": true
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Astakhova D.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             }
           ],
-          "flagAlt": "",
-          "name": "Astakhova D.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -52,52 +54,52 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": false,
-              "value": 4,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Ren Y.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Inoue H.",
           "flag": "",
           "linescores": [
             {
               "winner": true,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             },
             {
               "winner": false,
-              "value": 4,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 4
             }
           ],
-          "flagAlt": "",
-          "name": "Inoue H.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -112,42 +114,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Kokkinis T.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Shi H.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 3,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             },
             {
               "winner": false,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             }
           ],
-          "flagAlt": "",
-          "name": "Shi H.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -162,52 +164,152 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": false,
-              "value": 4,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Shubladze A.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Yao X.",
           "flag": "",
           "linescores": [
             {
               "winner": true,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             },
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             }
           ],
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3320873",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3320873",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
           "flagAlt": "",
-          "name": "Yao X.",
-          "homeAway": "away",
-          "winner": false
+          "name": "Todoni C.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "flagAlt": "",
+          "name": "Craciun G.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 1
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 2
+            }
+          ],
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3321035",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3321035",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Biro M.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "flagAlt": "",
+          "name": "Goina P.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 1
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 2
+            }
+          ],
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -222,42 +324,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Perapekhina Y.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Atay S.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             },
             {
               "winner": false,
-              "value": 0,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 0
             }
           ],
-          "flagAlt": "",
-          "name": "Atay S.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -272,42 +374,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Mdlulwa W.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Marinkovic I.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 4,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 4
             },
             {
               "winner": false,
-              "value": 4,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 4
             }
           ],
-          "flagAlt": "",
-          "name": "Marinkovic I.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -322,42 +424,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Ekstrand M.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Poling L.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 4,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 4
             },
             {
               "winner": false,
-              "value": 3,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             }
           ],
-          "flagAlt": "",
-          "name": "Poling L.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -372,42 +474,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Cavalle-R / Salden L.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Salkova D / Semenista",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             },
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             }
           ],
-          "flagAlt": "",
-          "name": "Salkova D / Semenista",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -422,20 +524,20 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [],
           "flagAlt": "",
           "name": "Strakhova / Tikhonova",
-          "homeAway": "home",
-          "winner": true
-        },
-        {
           "flag": "",
           "linescores": [],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
           "flagAlt": "",
           "name": "Jacquemot / Quevedo K",
-          "homeAway": "away",
-          "winner": false
+          "flag": "",
+          "linescores": [],
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -450,20 +552,20 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [],
           "flagAlt": "",
           "name": "Mcadoo R. / Rogers A.",
-          "homeAway": "home",
-          "winner": true
-        },
-        {
           "flag": "",
           "linescores": [],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
           "flagAlt": "",
           "name": "Strakhova / Tikhonova",
-          "homeAway": "away",
-          "winner": false
+          "flag": "",
+          "linescores": [],
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -478,42 +580,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Kim D. / Kim N.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Kosaka R. / Leykina P",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             },
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             }
           ],
-          "flagAlt": "",
-          "name": "Kosaka R. / Leykina P",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -528,42 +630,142 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Choi S. / Lee H.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Naklo T. / Yodpetch",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             },
             {
               "winner": false,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             }
           ],
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3320881",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3320881",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
           "flagAlt": "",
-          "name": "Naklo T. / Yodpetch",
-          "homeAway": "away",
-          "winner": false
+          "name": "Ivashka I.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "flagAlt": "",
+          "name": "Zhou Y.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 3
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 3
+            }
+          ],
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3320925",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3320925",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "flagAlt": "",
+          "name": "Castelnuovo L.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "flagAlt": "",
+          "name": "Nam J.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            }
+          ],
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -578,52 +780,52 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": false,
-              "value": 5,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Shimizu Y.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 5
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Moriya H.",
           "flag": "",
           "linescores": [
             {
               "winner": true,
-              "value": 7,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 7
             },
             {
               "winner": false,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             },
             {
               "winner": false,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             }
           ],
-          "flagAlt": "",
-          "name": "Moriya H.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -638,52 +840,52 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": false,
-              "value": 4,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Sekulic P.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Matsuda K.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             },
             {
               "winner": true,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             }
           ],
-          "flagAlt": "",
-          "name": "Matsuda K.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -698,42 +900,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Weber A.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Peliwo F.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             }
           ],
-          "flagAlt": "",
-          "name": "Peliwo F.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -748,42 +950,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Simakin I.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Sekulic P.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 4,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 4
             },
             {
               "winner": false,
-              "value": 3,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             }
           ],
-          "flagAlt": "",
-          "name": "Sekulic P.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -798,42 +1000,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Purcell M.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Hewitt C.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             },
             {
               "winner": false,
-              "value": 3,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             }
           ],
-          "flagAlt": "",
-          "name": "Hewitt C.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -848,42 +1050,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Beale J.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Andrews O.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 3,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             },
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             }
           ],
-          "flagAlt": "",
-          "name": "Andrews O.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -898,42 +1100,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Braund A.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Estephan J.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 4,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 4
             },
             {
               "winner": false,
-              "value": 2,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 2
             }
           ],
-          "flagAlt": "",
-          "name": "Estephan J.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -948,42 +1150,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Bulte A.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Ito K.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             },
             {
               "winner": false,
-              "value": 0,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 0
             }
           ],
-          "flagAlt": "",
-          "name": "Ito K.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -998,52 +1200,52 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            },
-            {
-              "winner": false,
-              "value": 0,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Girdler J.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 0
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Burton C.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             },
             {
               "winner": true,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             }
           ],
-          "flagAlt": "",
-          "name": "Burton C.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -1058,42 +1260,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Jones S.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Burton M.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 0,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 0
             },
             {
               "winner": false,
-              "value": 5,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 5
             }
           ],
-          "flagAlt": "",
-          "name": "Burton M.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -1108,42 +1310,42 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 6,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Cham E.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Tripathi E.",
           "flag": "",
           "linescores": [
             {
               "winner": false,
-              "value": 1,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 1
             },
             {
               "winner": false,
-              "value": 3,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 3
             }
           ],
-          "flagAlt": "",
-          "name": "Tripathi E.",
-          "homeAway": "away",
-          "winner": false
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
@@ -1158,56 +1360,104 @@
       "surface": "",
       "competitors": [
         {
-          "flag": "",
-          "linescores": [
-            {
-              "winner": false,
-              "value": 4,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 7,
-              "tiebreak": null
-            },
-            {
-              "winner": true,
-              "value": 10,
-              "tiebreak": null
-            }
-          ],
           "flagAlt": "",
           "name": "Sueoka Y. / Tajima N.",
-          "homeAway": "home",
-          "winner": true
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 7
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 10
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
         },
         {
+          "flagAlt": "",
+          "name": "Ianin N. / Sharma A.",
           "flag": "",
           "linescores": [
             {
               "winner": true,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             },
             {
               "winner": false,
-              "value": 6,
-              "tiebreak": null
+              "tiebreak": null,
+              "value": 6
             }
           ],
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3320821",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3320821",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
           "flagAlt": "",
-          "name": "Ianin N. / Sharma A.",
-          "homeAway": "away",
-          "winner": false
+          "name": "Bittoun K / Dev S.",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 6
+            },
+            {
+              "winner": true,
+              "tiebreak": null,
+              "value": 4
+            }
+          ],
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "flagAlt": "",
+          "name": "Ellis B. / Shimizu Y",
+          "flag": "",
+          "linescores": [
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 4
+            },
+            {
+              "winner": false,
+              "tiebreak": null,
+              "value": 3
+            }
+          ],
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     }
-  ],
-  "count": 24,
-  "ok": true
+  ]
 }
