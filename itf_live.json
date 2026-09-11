@@ -1,6 +1,5 @@
 {
   "ok": true,
-  "time": "2026-09-11T05:55:59Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -533,6 +532,15 @@
           "time": "06:55",
           "round": "QF",
           "h2h": "0-1",
+          "finished": false
+        },
+        {
+          "teId": "3321187",
+          "p1": "Ren",
+          "p2": "Khomutsianskaya",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -5140,6 +5148,15 @@
           "finished": false
         },
         {
+          "teId": "3321195",
+          "p1": "Lee",
+          "p2": "Kim",
+          "time": "",
+          "round": "SF",
+          "h2h": "-",
+          "finished": false
+        },
+        {
           "teId": "3320825",
           "p1": "Tsao",
           "p2": "Naklo",
@@ -5676,5 +5693,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-11T06:15:28Z"
 }
