@@ -2181,12 +2181,13 @@ body {
 .draw-match.live { border-color: var(--red); }
 .draw-player { display: flex; align-items: center; gap: 2px; padding: 1px 0; font-size: 11px; }
 .draw-player .flag { width: 16px; height: 11px; }
-.dp-name { display: inline-flex; align-items: center; gap: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dp-name { flex: 1 1 auto; min-width: 0; display: inline-flex; align-items: center; gap: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dp-name * { min-width: 0; }
 .draw-player.winner .dp-name, .dp-name.winner { font-weight: 700; color: var(--ink); }
-.dp-score { margin-left: auto; font-family: var(--mono); font-size: 10.5px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-2); }
-.draw-player.winner .dp-score { color: var(--live); }
-.dp-score .tb { font-size: 8px; }
+.dp-score { margin-left: auto; font-family: var(--mono); font-size: 10.5px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--ink-2); display: flex; align-items: center; justify-content: flex-end; gap: 3px; white-space: nowrap; }
+.dp-set { min-width: 17px; text-align: right; }
+.dp-set .tb { font-size: 8px; margin-left: 1px; }
+.draw-player.winner .dp-score, .dp-score.winner { color: var(--live); }
 .dm-status { font-family: var(--mono); font-size: 8.5px; color: var(--muted); margin-top: 2px; }
 .dm-tbd { color: var(--muted); font-style: italic; }
 .draw-empty { font-family: var(--mono); font-size: 10px; color: var(--muted); text-align: center; padding: 10px 0; }
