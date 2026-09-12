@@ -3420,6 +3420,23 @@ async function refreshWcLive() {
         applyMode(next);
         try { localStorage.setItem('mhc-mode', next); } catch (e) {}
       });
+
+  const modeSelect = document.getElementById('modeSelect');
+  if (modeSelect) {
+    for (const m of MODES) {
+      const opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = (ICONS[m] ? ICONS[m].replace(/&#(\d+);/g, (_, c) => String.fromCharCode(+c)) + ' ' : '') + (TITLES[m] || m);
+      modeSelect.appendChild(opt);
+    }
+    modeSelect.addEventListener('change', () => {
+      const m = modeSelect.value;
+      applyMode(m);
+      try { localStorage.setItem('mhc-mode', m); } catch (e) {}
+      try { localStorage.setItem('mhc-mode', m); } catch (e) {}
+    });
+  }
+
     }
 
     refreshAll(true);
