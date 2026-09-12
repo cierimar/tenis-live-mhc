@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-12T13:51:27Z",
   "ok": true,
   "tournaments": [
     {
@@ -4179,15 +4178,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321589",
-          "p1": "Schaefer",
-          "p2": "Voracek",
-          "time": "14:30",
-          "round": "SF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3321761",
           "p1": "Raggi",
           "p2": "Lombardini",
@@ -4195,6 +4185,25 @@
           "round": "SF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3321589",
+          "p1": "Voracek",
+          "p2": "Schaefer",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "14:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3321243",
@@ -5356,5 +5365,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-12T14:02:48Z"
 }
