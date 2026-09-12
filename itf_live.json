@@ -1,6 +1,4 @@
 {
-  "ok": true,
-  "time": "2026-09-12T09:53:22Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1771,12 +1769,22 @@
       "matches": [
         {
           "teId": "3321219",
-          "p1": "Bojica",
-          "p2": "Biro",
+          "p1": "Biro",
+          "p2": "Bojica",
+          "round": "semifinal",
+          "date": "12.09.",
           "time": "09:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "4",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3321241",
@@ -2950,7 +2958,7 @@
           "p2": "Mdlulwa",
           "time": "",
           "round": "F",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5257,15 +5265,6 @@
           "finished": false
         },
         {
-          "teId": "3320915",
-          "p1": "Tomase",
-          "p2": "Schaefer",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321253",
           "p1": "Fumagalli",
           "p2": "Lombardini",
@@ -5282,6 +5281,25 @@
           "round": "QF",
           "h2h": "1-0",
           "finished": false
+        },
+        {
+          "teId": "3320915",
+          "p1": "Schaefer",
+          "p2": "Tomase",
+          "round": "quarterfinal",
+          "date": "12.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320675",
@@ -6367,5 +6385,7 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true,
+  "time": "2026-09-12T10:06:45Z"
 }
