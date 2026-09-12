@@ -1,20 +1,12 @@
 {
-  "time": "2026-09-12T11:44:34Z",
+  "time": "2026-09-12T11:55:11Z",
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
       "name": "Evora ITF",
       "cat": "w",
       "matches": [
-        {
-          "teId": "3321307",
-          "p1": "Gasanova",
-          "p2": "Ito",
-          "time": "11:40",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
         {
           "teId": "3321267",
           "p1": "Johnson",
@@ -23,6 +15,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321307",
+          "p1": "Gasanova",
+          "p2": "Ito",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "11:40",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3321027",
@@ -1189,10 +1200,20 @@
           "teId": "3321251",
           "p1": "Geerlings",
           "p2": "Pace",
+          "round": "semifinal",
+          "date": "12.09.",
           "time": "11:55",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "2",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3321227",
@@ -5844,6 +5865,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
