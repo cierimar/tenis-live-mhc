@@ -1,6 +1,6 @@
 {
+  "time": "2026-09-12T10:33:50Z",
   "ok": true,
-  "time": "2026-09-12T10:21:39Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1775,7 +1775,7 @@
           "p2": "Popa",
           "time": "",
           "round": "F",
-          "h2h": "-",
+          "h2h": "0-2",
           "finished": false
         },
         {
@@ -2365,10 +2365,22 @@
           "teId": "3321305",
           "p1": "Iliev",
           "p2": "Mpetshi Perricard",
+          "round": "final",
+          "date": "12.09.",
           "time": "10:00",
-          "round": "F",
-          "h2h": "1-1",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "2",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "2",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3320969",
@@ -2967,7 +2979,7 @@
           "teId": "3321583",
           "p1": "Ezzat",
           "p2": "Mdlulwa",
-          "time": "",
+          "time": "16:00",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -5267,15 +5279,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321255",
-          "p1": "Alvisi",
-          "p2": "Voracek",
-          "time": "10:00",
-          "round": "QF",
-          "h2h": "0-1",
-          "finished": false
-        },
-        {
           "teId": "3321253",
           "p1": "Fumagalli",
           "p2": "Lombardini",
@@ -5309,6 +5312,25 @@
           "sets2": [
             "2",
             "1"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3321255",
+          "p1": "Voracek",
+          "p2": "Alvisi",
+          "round": "quarterfinal",
+          "date": "12.09.",
+          "time": "10:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "4",
+            "3"
           ],
           "finished": true
         },
