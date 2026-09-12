@@ -1,5 +1,6 @@
 {
   "ok": true,
+  "time": "2026-09-12T09:53:22Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1186,22 +1187,32 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321227",
-          "p1": "Cortez Llorca",
-          "p2": "Argyrokastriti",
-          "time": "10:10",
-          "round": "SF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3321251",
           "p1": "Geerlings",
           "p2": "Pace",
-          "time": "11:45",
+          "time": "11:55",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321227",
+          "p1": "Cortez Llorca",
+          "p2": "Argyrokastriti",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "10:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3321043",
@@ -2933,6 +2944,15 @@
       "name": "Hurghada 10 ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3321583",
+          "p1": "Ezzat",
+          "p2": "Mdlulwa",
+          "time": "",
+          "round": "F",
+          "h2h": "-",
+          "finished": false
+        },
         {
           "teId": "3321223",
           "p1": "Ezzat",
@@ -6347,6 +6367,5 @@
         }
       ]
     }
-  ],
-  "time": "2026-09-12T09:43:07Z"
+  ]
 }
