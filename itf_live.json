@@ -1,6 +1,5 @@
 {
-  "ok": true,
-  "time": "2026-09-12T08:22:49Z",
+  "time": "2026-09-12T08:36:36Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -1760,15 +1759,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321241",
-          "p1": "Todoni",
-          "p2": "Popa",
-          "time": "09:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321219",
           "p1": "Bojica",
           "p2": "Biro",
@@ -1776,6 +1766,25 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321241",
+          "p1": "Popa",
+          "p2": "Todoni",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "09:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3320841",
@@ -6326,5 +6335,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ok": true
 }
