@@ -1,4 +1,7 @@
 {
+  "count": 3,
+  "updated": "2026-09-12T03:18:25Z",
+  "ok": true,
   "matches": [
     {
       "id": "te-3321147",
@@ -12,8 +15,10 @@
       "competitors": [
         {
           "homeAway": "home",
-          "flagAlt": "",
+          "winner": true,
+          "flag": "",
           "name": "Burton C.",
+          "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
@@ -25,14 +30,14 @@
               "winner": true,
               "value": 6
             }
-          ],
-          "flag": "",
-          "winner": true
+          ]
         },
         {
           "homeAway": "away",
-          "flagAlt": "",
+          "winner": false,
+          "flag": "",
           "name": "Boniel N.",
+          "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
@@ -44,9 +49,7 @@
               "winner": false,
               "value": 1
             }
-          ],
-          "flag": "",
-          "winner": false
+          ]
         }
       ]
     },
@@ -62,8 +65,10 @@
       "competitors": [
         {
           "homeAway": "home",
-          "flagAlt": "",
+          "winner": true,
+          "flag": "",
           "name": "Tripathi E.",
+          "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
@@ -75,14 +80,14 @@
               "winner": true,
               "value": 6
             }
-          ],
-          "flag": "",
-          "winner": true
+          ]
         },
         {
           "homeAway": "away",
-          "flagAlt": "",
+          "winner": false,
+          "flag": "",
           "name": "Girdler J.",
+          "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
@@ -94,9 +99,7 @@
               "winner": false,
               "value": 4
             }
-          ],
-          "flag": "",
-          "winner": false
+          ]
         }
       ]
     },
@@ -112,8 +115,10 @@
       "competitors": [
         {
           "homeAway": "home",
-          "flagAlt": "",
+          "winner": true,
+          "flag": "",
           "name": "Braund A.",
+          "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
@@ -125,14 +130,14 @@
               "winner": true,
               "value": 7
             }
-          ],
-          "flag": "",
-          "winner": true
+          ]
         },
         {
           "homeAway": "away",
-          "flagAlt": "",
+          "winner": false,
+          "flag": "",
           "name": "Andrews O.",
+          "flagAlt": "",
           "linescores": [
             {
               "tiebreak": null,
@@ -144,14 +149,9 @@
               "winner": false,
               "value": 6
             }
-          ],
-          "flag": "",
-          "winner": false
+          ]
         }
       ]
     }
-  ],
-  "updated": "2026-09-12T02:59:44Z",
-  "count": 3,
-  "ok": true
+  ]
 }
