@@ -1,4 +1,6 @@
 {
+  "ok": true,
+  "time": "2026-09-12T07:17:56Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -2923,15 +2925,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321225",
-          "p1": "Mdlulwa",
-          "p2": "Breen",
-          "time": "08:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321223",
           "p1": "Perapekhina",
           "p2": "Ezzat",
@@ -2939,6 +2932,25 @@
           "round": "SF",
           "h2h": "1-2",
           "finished": false
+        },
+        {
+          "teId": "3321225",
+          "p1": "Mdlulwa",
+          "p2": "Breen",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "08:00",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "0"
+          ],
+          "sets2": [
+            "2",
+            "0"
+          ],
+          "finished": true
         },
         {
           "teId": "3320857",
@@ -6314,7 +6326,5 @@
         }
       ]
     }
-  ],
-  "ok": true,
-  "time": "2026-09-12T07:02:00Z"
+  ]
 }
