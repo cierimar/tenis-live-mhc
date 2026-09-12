@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-12T06:51:15Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -589,7 +588,7 @@
           "p2": "Shubladze",
           "time": "04:00",
           "round": "F",
-          "h2h": "-",
+          "h2h": "0-0",
           "finished": false
         },
         {
@@ -5707,6 +5706,15 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3321545",
+          "p1": "Kim",
+          "p2": "Kim",
+          "time": "",
+          "round": "F",
+          "h2h": "0-2",
+          "finished": false
+        },
+        {
           "teId": "3321195",
           "p1": "Kim",
           "p2": "Lee",
@@ -6307,5 +6315,6 @@
       ]
     }
   ],
-  "ok": true
+  "ok": true,
+  "time": "2026-09-12T07:02:00Z"
 }
