@@ -1,7 +1,4 @@
 {
-  "count": 3,
-  "ok": true,
-  "updated": "2026-09-12T02:32:02Z",
   "matches": [
     {
       "id": "te-3321147",
@@ -14,42 +11,42 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flag": "",
-          "flagAlt": "",
           "homeAway": "home",
+          "flagAlt": "",
+          "name": "Burton C.",
           "linescores": [
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             },
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             }
           ],
-          "name": "Burton C."
+          "flag": "",
+          "winner": true
         },
         {
-          "winner": false,
-          "flag": "",
-          "flagAlt": "",
           "homeAway": "away",
+          "flagAlt": "",
+          "name": "Boniel N.",
           "linescores": [
             {
-              "value": 4,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 4
             },
             {
-              "value": 1,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 1
             }
           ],
-          "name": "Boniel N."
+          "flag": "",
+          "winner": false
         }
       ]
     },
@@ -64,42 +61,42 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flag": "",
-          "flagAlt": "",
           "homeAway": "home",
+          "flagAlt": "",
+          "name": "Tripathi E.",
           "linescores": [
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             },
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             }
           ],
-          "name": "Tripathi E."
+          "flag": "",
+          "winner": true
         },
         {
-          "winner": false,
-          "flag": "",
-          "flagAlt": "",
           "homeAway": "away",
+          "flagAlt": "",
+          "name": "Girdler J.",
           "linescores": [
             {
-              "value": 4,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 4
             },
             {
-              "value": 4,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 4
             }
           ],
-          "name": "Girdler J."
+          "flag": "",
+          "winner": false
         }
       ]
     },
@@ -114,44 +111,47 @@
       "surface": "",
       "competitors": [
         {
-          "winner": true,
-          "flag": "",
-          "flagAlt": "",
           "homeAway": "home",
+          "flagAlt": "",
+          "name": "Braund A.",
           "linescores": [
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 6
             },
             {
-              "value": 7,
+              "tiebreak": null,
               "winner": true,
-              "tiebreak": null
+              "value": 7
             }
           ],
-          "name": "Braund A."
+          "flag": "",
+          "winner": true
         },
         {
-          "winner": false,
-          "flag": "",
-          "flagAlt": "",
           "homeAway": "away",
+          "flagAlt": "",
+          "name": "Andrews O.",
           "linescores": [
             {
-              "value": 4,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 4
             },
             {
-              "value": 6,
+              "tiebreak": null,
               "winner": false,
-              "tiebreak": null
+              "value": 6
             }
           ],
-          "name": "Andrews O."
+          "flag": "",
+          "winner": false
         }
       ]
     }
-  ]
+  ],
+  "updated": "2026-09-12T02:59:44Z",
+  "count": 3,
+  "ok": true
 }
