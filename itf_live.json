@@ -4084,15 +4084,6 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321311",
-          "p1": "Sucha",
-          "p2": "Petruzelova",
-          "time": "10:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3321271",
           "p1": "Adams",
           "p2": "Kmiecik",
@@ -4100,6 +4091,27 @@
           "round": "SF",
           "h2h": "0-0",
           "finished": false
+        },
+        {
+          "teId": "3321311",
+          "p1": "Petruzelova",
+          "p2": "Sucha",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "5",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3320989",
@@ -4678,6 +4690,15 @@
           "time": "11:30",
           "round": "QF",
           "h2h": "1-0",
+          "finished": false
+        },
+        {
+          "teId": "3321589",
+          "p1": "Schaefer",
+          "p2": "Voracek",
+          "time": "13:45",
+          "round": "SF",
+          "h2h": "-",
           "finished": false
         },
         {
@@ -5803,6 +5824,6 @@
       ]
     }
   ],
-  "time": "2026-09-12T11:08:30Z",
-  "ok": true
+  "ok": true,
+  "time": "2026-09-12T11:22:27Z"
 }
