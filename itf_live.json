@@ -1,5 +1,6 @@
 {
-  "time": "2026-09-12T13:28:09Z",
+  "ok": true,
+  "time": "2026-09-12T13:41:01Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -3011,22 +3012,44 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321277",
-          "p1": "Haddad",
-          "p2": "Cirotte",
-          "time": "10:30",
-          "round": "SF",
-          "h2h": "1-0",
-          "finished": false
-        },
-        {
           "teId": "3321269",
           "p1": "Lukosiute",
           "p2": "Kikawada",
+          "round": "semifinal",
+          "date": "12.09.",
           "time": "10:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "2"
+          ],
+          "sets2": [
+            "6",
+            "2"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3321277",
+          "p1": "Haddad",
+          "p2": "Cirotte",
+          "round": "semifinal",
+          "date": "12.09.",
+          "time": "10:30",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "7",
+            "2",
+            "1"
+          ],
+          "finished": true
         },
         {
           "teId": "3320903",
@@ -4138,7 +4161,7 @@
           "teId": "3321759",
           "p1": "Adams",
           "p2": "Petruzelova",
-          "time": "",
+          "time": "11:00",
           "round": "F",
           "h2h": "1-0",
           "finished": false
@@ -4748,7 +4771,7 @@
           "teId": "3321589",
           "p1": "Schaefer",
           "p2": "Voracek",
-          "time": "13:00",
+          "time": "14:30",
           "round": "SF",
           "h2h": "1-0",
           "finished": false
@@ -5922,6 +5945,5 @@
         }
       ]
     }
-  ],
-  "ok": true
+  ]
 }
