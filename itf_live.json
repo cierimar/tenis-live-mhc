@@ -1,4 +1,5 @@
 {
+  "time": "2026-09-12T11:44:34Z",
   "tournaments": [
     {
       "id": "itf-evora2026wta-women",
@@ -4675,31 +4676,51 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3321253",
-          "p1": "Fumagalli",
-          "p2": "Lombardini",
-          "time": "11:30",
-          "round": "QF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3321243",
-          "p1": "Shapatava",
-          "p2": "Raggi",
-          "time": "11:30",
-          "round": "QF",
+          "teId": "3321589",
+          "p1": "Schaefer",
+          "p2": "Voracek",
+          "time": "13:00",
+          "round": "SF",
           "h2h": "1-0",
           "finished": false
         },
         {
-          "teId": "3321589",
-          "p1": "Schaefer",
-          "p2": "Voracek",
-          "time": "13:45",
-          "round": "SF",
-          "h2h": "-",
-          "finished": false
+          "teId": "3321243",
+          "p1": "Raggi",
+          "p2": "Shapatava",
+          "round": "quarterfinal",
+          "date": "12.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "0",
+            "3"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3321253",
+          "p1": "Lombardini",
+          "p2": "Fumagalli",
+          "round": "quarterfinal",
+          "date": "12.09.",
+          "time": "11:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3320915",
@@ -5824,6 +5845,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-12T11:22:27Z"
+  "ok": true
 }
