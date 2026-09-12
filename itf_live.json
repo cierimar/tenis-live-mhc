@@ -10,7 +10,7 @@
           "teId": "3321307",
           "p1": "Gasanova",
           "p2": "Ito",
-          "time": "11:30",
+          "time": "11:40",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -19,7 +19,7 @@
           "teId": "3321267",
           "p1": "Johnson",
           "p2": "Jorge",
-          "time": "11:30",
+          "time": "11:40",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1198,7 +1198,7 @@
           "teId": "3321251",
           "p1": "Geerlings",
           "p2": "Pace",
-          "time": "11:30",
+          "time": "11:45",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2935,12 +2935,24 @@
       "matches": [
         {
           "teId": "3321223",
-          "p1": "Perapekhina",
-          "p2": "Ezzat",
+          "p1": "Ezzat",
+          "p2": "Perapekhina",
+          "round": "semifinal",
+          "date": "12.09.",
           "time": "08:00",
-          "round": "SF",
-          "h2h": "1-2",
-          "finished": false
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3321225",
@@ -6336,5 +6348,5 @@
       ]
     }
   ],
-  "time": "2026-09-12T09:30:42Z"
+  "time": "2026-09-12T09:43:07Z"
 }
