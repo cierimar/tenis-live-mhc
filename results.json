@@ -1,5 +1,7 @@
 {
   "ok": true,
+  "updated": "2026-09-14T01:45:06Z",
+  "count": 3,
   "matches": [
     {
       "id": "te-3322525",
@@ -12,46 +14,144 @@
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "homeAway": "home",
           "winner": true,
+          "homeAway": "home",
           "flag": "",
+          "name": "Nakashima B.",
           "linescores": [
             {
-              "value": 7,
               "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "value": 7
             },
             {
-              "value": 6,
               "tiebreak": null,
-              "winner": true
+              "winner": true,
+              "value": 6
             }
           ],
-          "name": "Nakashima B."
+          "flagAlt": ""
         },
         {
-          "flagAlt": "",
-          "homeAway": "away",
           "winner": false,
+          "homeAway": "away",
           "flag": "",
+          "name": "Bigun K.",
           "linescores": [
             {
-              "value": 5,
               "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "value": 5
             },
             {
-              "value": 0,
               "tiebreak": null,
-              "winner": false
+              "winner": false,
+              "value": 0
             }
           ],
-          "name": "Bigun K."
+          "flagAlt": ""
+        }
+      ]
+    },
+    {
+      "id": "te-3322535",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3322535",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "winner": true,
+          "homeAway": "home",
+          "flag": "",
+          "name": "Ostapenkov D.",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "winner": true,
+              "value": 6
+            },
+            {
+              "tiebreak": null,
+              "winner": true,
+              "value": 6
+            }
+          ],
+          "flagAlt": ""
+        },
+        {
+          "winner": false,
+          "homeAway": "away",
+          "flag": "",
+          "name": "Grumet G.",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "winner": false,
+              "value": 2
+            },
+            {
+              "tiebreak": null,
+              "winner": false,
+              "value": 2
+            }
+          ],
+          "flagAlt": ""
+        }
+      ]
+    },
+    {
+      "id": "te-3321471",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3321471",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "winner": true,
+          "homeAway": "home",
+          "flag": "",
+          "name": "Bucsa C.",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "winner": true,
+              "value": 6
+            },
+            {
+              "tiebreak": null,
+              "winner": true,
+              "value": 6
+            }
+          ],
+          "flagAlt": ""
+        },
+        {
+          "winner": false,
+          "homeAway": "away",
+          "flag": "",
+          "name": "Andreescu B.",
+          "linescores": [
+            {
+              "tiebreak": null,
+              "winner": false,
+              "value": 4
+            },
+            {
+              "tiebreak": null,
+              "winner": false,
+              "value": 3
+            }
+          ],
+          "flagAlt": ""
         }
       ]
     }
-  ],
-  "updated": "2026-09-13T23:41:02Z",
-  "count": 1
+  ]
 }
