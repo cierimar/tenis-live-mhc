@@ -98,7 +98,66 @@ body[data-mode='naranja'] .seed-badge { background: #e65100; color: #fff; }
 body[data-mode='naranja'] .rank-section-title, body[data-mode='naranja'] .th-tier, body[data-mode='naranja'] .wc-live-badge, body[data-mode='naranja'] .mode-label { color: #e65100; }
 body[data-mode='naranja'] .pname.winner::after, body[data-mode='naranja'] .set.win { color: #ff6a00; }
 body[data-mode='naranja']::selection { background: #e65100; color: #fff; }
-body[data-mode='naranja'] .sb-logo-sub, body[data-mode='naranja'] .sb-logo-tag { color: #e65100; }body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
+body[data-mode='naranja'] .sb-logo-sub, body[data-mode='naranja'] .sb-logo-tag { color: #e65100; }body[data-mode='instinct'] {
+  --paper: #000000;
+  --paper-2: #000000;
+  --paper-3: #000000;
+  --ink: #9EC9E0;
+  --ink-2: #B8D9E9;
+  --muted: #7C8A94;
+  --hairline: #3A3A3A;
+  --hairline-dark: #555555;
+  --red: #E6212B;
+  --red-vivo: #FF2D3A;
+  --red-soft: rgba(230, 33, 43, 0.10);
+  --green: #9EC9E0;
+  --amber: #E6212B;
+  --blue: #9EC9E0;
+  --warn: #E6212B;
+  --live: #FF2D3A;
+  --shadow: none;
+  --bg: #000000;
+}
+body[data-mode='instinct'] {
+  background-color: #000000;
+  background-image: radial-gradient(rgba(230, 33, 43, 0.07) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+}
+body[data-mode='instinct'] .tb { color: #E6212B; }
+body[data-mode='instinct'] .dp-set .tb { color: #E6212B; }
+body[data-mode='instinct'] .set { color: #E6212B; }
+body[data-mode='instinct'] .match { border: 3px solid #E6212B; }
+body[data-mode='instinct'] .match.live { border-color: #FF2D3A; }
+body[data-mode='instinct'] .seg-btn.active, body[data-mode='instinct'] .lv-btn.active, body[data-mode='instinct'] .round-chip.active, body[data-mode='instinct'] .h2h-go, body[data-mode='instinct'] .btn-refresh, body[data-mode='instinct'] .nav-item.active, body[data-mode='instinct'] .badge.live, body[data-mode='instinct'] .set.live-set { background: #E6212B; color: #fff; }
+body[data-mode='instinct'] .seed-badge { background: #E6212B; color: #fff; }
+body[data-mode='instinct'] .rank-section-title, body[data-mode='instinct'] .th-tier, body[data-mode='instinct'] .wc-live-badge, body[data-mode='instinct'] .mode-label { color: #E6212B; }
+body[data-mode='instinct'] .pname.winner::after, body[data-mode='instinct'] .set.win { color: #FF2D3A; }
+body[data-mode='instinct']::selection { background: #E6212B; color: #fff; }
+body[data-mode='instinct'] .sb-logo-sub, body[data-mode='instinct'] .sb-logo-tag { color: #E6212B; }
+body[data-mode='instinct'] .pname,
+body[data-mode='instinct'] .seed-badge,
+body[data-mode='instinct'] .set,
+body[data-mode='instinct'] .score,
+body[data-mode='instinct'] .number,
+body[data-mode='instinct'] .rank,
+body[data-mode='instinct'] .titles,
+body[data-mode='instinct'] .clock,
+body[data-mode='instinct'] h2,
+body[data-mode='instinct'] h4,
+body[data-mode='instinct'] .sb-logo,
+body[data-mode='instinct'] .sb-logo-sub {
+  text-shadow: 2px 2px 0 #555555, 4px 4px 0 rgba(128,128,128,0.45);
+}
+body[data-mode='instinct'] .match,
+body[data-mode='instinct'] .draw-board,
+body[data-mode='instinct'] .tour-block,
+body[data-mode='instinct'] .news-card,
+body[data-mode='instinct'] .video-card,
+body[data-mode='instinct'] .col-card,
+body[data-mode='instinct'] .ct-card,
+body[data-mode='instinct'] .wc-res-card {
+  box-shadow: 6px 6px 0 #333333, 10px 10px 0 rgba(128,128,128,0.30);
+}body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
 
 /* ============================================================
    MODO COLORS - fondo negro absoluto + 10 colores
