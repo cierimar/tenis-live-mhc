@@ -323,11 +323,11 @@
     if (/atp finals|nitto/.test(n) && !isW) return 'ATP FINALS';
     if (/wta finals/.test(n)) return 'WTA FINALS';
     if (/united cup|billie jean king|davis cup/.test(n)) return 'EQUIPOS';
-    const m1000 = /indian wells|miami|monte.?carlo|madrid|\brome\b|\broma\b|canada|canadian|national bank|cincinnati|shanghai|paris|doha|dubai|beijing|wuhan|guadalajara|toronto|montreal|western.*southern/;
-    if (m1000.test(n)) return isW ? 'WTA 1000' : 'MASTERS 1000';
-    const m500 = /rotterdam|acapulco|rio de janeiro|barcelona|halle|queen.?s|washington|tokyo|vienna|basel|hamburg|estoril|munich|lyon|geneva|doha|dubai|eastbourne|s.hertogenbosch|stuttgart|beijing|chengdu|zhuhai|antwerp|metz|moselle|korea|seoul|japan open|china open/;
-    if (m500.test(n)) return isW ? 'WTA 500' : 'ATP 500';
     if (/challeng/.test(n) || circuit === 'chall') return 'CHALLENGER';
+    const m1000 = /indian wells|miami|monte.?carlo|madrid|\brome\b|\broma\b|canada|canadian|national bank|cincinnati|shanghai|paris|doha|dubai|beijing|wuhan|toronto|montreal|western.*southern/;
+    if (m1000.test(n)) return isW ? 'WTA 1000' : 'MASTERS 1000';
+    const m500 = /guadalajara|rotterdam|acapulco|rio de janeiro|barcelona|halle\b|queen.?s|washington|tokyo|vienna|basel|hamburg|estoril|munich|lyon|geneva|doha|dubai|eastbourne|s.hertogenbosch|stuttgart|beijing|chengdu|zhuhai|antwerp|metz|moselle|korea|seoul|japan open|china open/;
+    if (m500.test(n)) return isW ? 'WTA 500' : 'ATP 500';
     if (/itf/.test(n) || circuit === 'itf') return 'ITF';
     if (/\b250\b|open/.test(n)) return isW ? 'WTA 250' : 'ATP 250';
     return isW ? 'WTA 250' : 'ATP 250';
@@ -3397,10 +3397,10 @@ async function refreshWcLive() {
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'art', 'atp', 'wta', 'tnns', 'wtt', 'live', 'now', 'superfluo', 'ring', 'premier', 'tenipo', 'black', 'claro'];
-      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', art: '&#127912;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', wtt: '&#127760;', live: '&#128250;', now: '&#127941;', superfluo: '&#10024;', ring: '&#128663;', premier: '&#129351;', tenipo: '&#127934;', black: '&#9632;', claro: '&#9788;' };
-      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', art: 'Modo art', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', wtt: 'Modo WTT', live: 'Modo Live', now: 'Modo Now', superfluo: 'Modo superfluo', ring: 'Modo ring', premier: 'Modo premier', tenipo: 'Modo tenipo', black: 'Modo black', claro: 'Modo claro' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', art: '#000000', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', wtt: '#000037', live: '#fdfdfd', now: '#001d67', superfluo: '#000000', ring: '#f2f2f2', premier: '#10070a', tenipo: '#1b2935', black: '#000000', claro: '#faf7f2' };
+      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'art', 'atp', 'wta', 'tnns', 'wtt', 'live', 'now', 'superfluo', 'ring', 'premier', 'tenipo', 'black', 'claro','naranja'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', art: '&#127912;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', wtt: '&#127760;', live: '&#128250;', now: '&#127941;', superfluo: '&#10024;', ring: '&#128663;', premier: '&#129351;', tenipo: '&#127934;', black: '&#9632;', claro: '&#9788;', naranja: '&#128992;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', art: 'Modo art', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', wtt: 'Modo WTT', live: 'Modo Live', now: 'Modo Now', superfluo: 'Modo superfluo', ring: 'Modo ring', premier: 'Modo premier', tenipo: 'Modo tenipo', black: 'Modo black', claro: 'Modo claro', naranja: 'Modo naranja' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', art: '#000000', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', wtt: '#000037', live: '#fdfdfd', now: '#001d67', superfluo: '#000000', ring: '#f2f2f2', premier: '#10070a', tenipo: '#1b2935', black: '#000000', claro: '#faf7f2', naranja: '#f7f3ec' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
