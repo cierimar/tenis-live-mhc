@@ -62,7 +62,43 @@ body[data-mode='claro'] {
   --shadow: 0 1px 3px rgba(25, 21, 18, 0.07);
   --bg: #faf7f2;
 }
-body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
+
+body[data-mode='naranja'] {
+  --paper: #f7f3ec;
+  --paper-2: #f2ecdf;
+  --paper-3: #ebe2d1;
+  --ink: #5c2300;
+  --ink-2: #7a3a10;
+  --muted: #8a5a35;
+  --hairline: #e0b88f;
+  --hairline-dark: #c8905a;
+  --red: #e65100;
+  --red-vivo: #ff6a00;
+  --red-soft: rgba(230, 81, 0, 0.10);
+  --green: #ff6a00;
+  --amber: #ff8f00;
+  --blue: #ff6a00;
+  --warn: #ff8f00;
+  --live: #ff6a00;
+  --shadow: none;
+  --bg: #f7f3ec;
+}
+body[data-mode='naranja'] {
+  background-color: #f7f3ec;
+  background-image: radial-gradient(rgba(230, 81, 0, 0.07) 1px, transparent 1.4px);
+  background-size: 14px 14px;
+}
+body[data-mode='naranja'] .tb { color: #e65100; }
+body[data-mode='naranja'] .dp-set .tb { color: #e65100; }
+body[data-mode='naranja'] .set { color: #e65100; }
+body[data-mode='naranja'] .match { border: 3px solid #e65100; }
+body[data-mode='naranja'] .match.live { border-color: #ff6a00; }
+body[data-mode='naranja'] .seg-btn.active, body[data-mode='naranja'] .lv-btn.active, body[data-mode='naranja'] .round-chip.active, body[data-mode='naranja'] .h2h-go, body[data-mode='naranja'] .btn-refresh, body[data-mode='naranja'] .nav-item.active, body[data-mode='naranja'] .badge.live, body[data-mode='naranja'] .set.live-set { background: #e65100; color: #fff; }
+body[data-mode='naranja'] .seed-badge { background: #e65100; color: #fff; }
+body[data-mode='naranja'] .rank-section-title, body[data-mode='naranja'] .th-tier, body[data-mode='naranja'] .wc-live-badge, body[data-mode='naranja'] .mode-label { color: #e65100; }
+body[data-mode='naranja'] .pname.winner::after, body[data-mode='naranja'] .set.win { color: #ff6a00; }
+body[data-mode='naranja']::selection { background: #e65100; color: #fff; }
+body[data-mode='naranja'] .sb-logo-sub, body[data-mode='naranja'] .sb-logo-tag { color: #e65100; }body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
 
 /* ============================================================
    MODO COLORS - fondo negro absoluto + 10 colores
@@ -736,6 +772,7 @@ body[data-mode='tennis'] {
   --shadow: none;
   --bg: #f2efe9;
 }
+body[data-mode='tennis'] .tb { color: #000000; }
 body[data-mode='tennis'] ::selection { background: #000000; color: #f2efe9; }
 body[data-mode='tennis'] a { color: #000000; }
 body[data-mode='tennis'] .mode-label { color: #000000; }
