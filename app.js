@@ -29,10 +29,6 @@
     news: { items: [], loaded: false, error: '' },
     videos: { items: [], loaded: false, error: '' },
     elo: { atp: null, wta: null, loaded: false },
-    wheelchair: { data: null, loaded: false, tab: 'menSingles' },
-    wcSearch: '',
-    wcLive: { events: [], loaded: false, error: '' },
-    wcVideos: { items: [], loaded: false },
     seeds: { singles: {}, doubles: {}, loaded: false },
     seedMap: {},
     seedMapATP: {},
@@ -564,8 +560,7 @@
     for (const ev of allEvents) {
       const cat = ((((ev.tournament || {}).category || {}).name) || ev.__catName || '').toLowerCase();
       let circuit = '';
-      if (/wheelchair|silla/.test(cat)) circuit = 'wc';
-      else if (/chall/.test(cat)) circuit = 'chall';
+      if (/chall/.test(cat)) circuit = 'chall';
       else if (/itf/.test(cat)) circuit = 'itf';
       else if (/atp/.test(cat)) circuit = 'atp';
       else if (/wta|women|femen/.test(cat)) circuit = 'wta';
@@ -583,8 +578,7 @@
       const isDbl = hN.indexOf('/') > -1 || aN.indexOf('/') > -1;
       const fem = /wta|women|femen/.test(cat) || (/itf/.test(cat) && /women|femen/.test(cat));
       let typeTxt;
-      if (circuit === 'wc') typeTxt = isDbl ? "Wheelchair Doubles" : "Wheelchair Singles";
-      else if (circuit === 'chall') typeTxt = (isDbl ? "Men's Doubles" : "Men's Singles");
+      if (circuit === 'chall') typeTxt = (isDbl ? "Men's Doubles" : "Men's Singles");
       else if (circuit === 'itf') typeTxt = (isDbl ? (fem ? "Women's Doubles" : "Men's Doubles") : (fem ? "Women's Singles" : "Men's Singles"));
       else typeTxt = circuit === 'wta' ? (isDbl ? "Women's Doubles" : "Women's Singles") : (isDbl ? "Men's Doubles" : "Men's Singles");
       const hc = (ev.homeScore || {}).current || 0;
@@ -1766,10 +1760,9 @@
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshWheelchair(), refreshMixed(), refreshLiveAll()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshMixed(), refreshLiveAll()]);
       await refreshSofaPoints();
       refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
-      if (state.wheelchair && state.wheelchair.tab === 'live') refreshWcLive();
       applySuspensions();
       detectDisappearedMatches();
       stampFinished();
@@ -2525,237 +2518,6 @@
     }).join('');
   }
 
-  /* ---------------- ESTADÍSTICAS ATP/WTA ---------------- */
-
-  async function refreshWheelchair() {
-    try {
-      const url = useLocalBackend() ? 'api/wheelchair' : 'wheelchair.json';
-      const j = await fetchJson(url).catch(() => null);
-      if (j && (j.ok || j.rankings)) { state.wheelchair = { ...state.wheelchair, data: j, loaded: true }; }
-      else { state.wheelchair = { ...state.wheelchair, loaded: true }; }
-    } catch (_) { state.wheelchair = { ...state.wheelchair, loaded: true }; }
-    if (state.tab === 'wheelchair') {
-      if (state.wheelchair.tab === 'live' && !state.wcLive.loaded) refreshWcLive();
-      else if (state.wheelchair.tab === 'videos' && !state.wcVideos.loaded) refreshWcVideos();
-      render();
-    }
-  }
-
-async function refreshWcLive() {
-    try {
-      const url = 'https://api.tnnslive.com/v1/matches';
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error(resp.status);
-      const j = await resp.json();
-      const events = [];
-      const sids = j.sids || {};
-      const wcSids = {};
-      Object.keys(sids).forEach(sid => {
-        const d = sids[sid].d || {};
-        const cat = String(d.category || '').toLowerCase();
-        const tn = String(sids[sid].t || '').toLowerCase();
-        if (cat.indexOf('wheel') > -1 || tn.indexOf('wheel') > -1) wcSids[sid] = sids[sid];
-      });
-      (j.all_matches || []).forEach(m => {
-        const tr = wcSids[String(m.sid)];
-        if (!tr) return;
-        const p = m.p || [];
-        const p0 = p[0] || {}, p1 = p[1] || {};
-        const fs = m.fs || [];
-        const isLive = fs.indexOf('l') > -1;
-        const isFinished = fs.indexOf('c') > -1;
-        events.push({
-          id: String(m.k),
-          tournament: tr.t || '',
-          category: (tr.d || {}).category || '',
-          home: p0.n || '',
-          away: p1.n || '',
-          status: isLive ? 1 : (isFinished ? 2 : 0),
-          statusDesc: (m.d_st || {}).t || '',
-          homeScore: typeof p0.s === 'number' ? p0.s : '',
-          awayScore: typeof p1.s === 'number' ? p1.s : '',
-          startTimestamp: parseInt(m.start_time_timestamp || 0, 10) || 0
-        });
-      });
-      events.sort((a, b) => b.startTimestamp - a.startTimestamp);
-      state.wcLive = { events: events, loaded: true, error: '' };
-    } catch (e) {
-      state.wcLive = { events: [], loaded: true, error: e.message || 'Error loading live scores' };
-    }
-    if (state.tab === 'wheelchair' && state.wheelchair.tab === 'live') renderWheelchair();
-  }
-
-  async function refreshWcVideos() {
-    try {
-      const j = await fetchJson('wheelchair-videos.json').catch(() => null);
-      if (j && j.ok) { state.wcVideos = { items: j.videos || [], loaded: true }; }
-      else { state.wcVideos = { items: [], loaded: true }; }
-    } catch (_) { state.wcVideos = { items: [], loaded: true }; }
-    if (state.tab === 'wheelchair' && state.wheelchair.tab === 'videos') renderWheelchair();
-  }
-
-  function renderWheelchair() {
-    const el = $('wcContent');
-    const meta = $('wcMeta');
-    const wc = state.wheelchair;
-    const tab = wc.tab;
-    const sw = $('wcSearchWrap'); if (sw) sw.style.display = 'none';
-
-    if (tab === 'live') {
-      const wcLive = state.wcLive;
-      if (!wcLive.loaded) { el.innerHTML = '<div class="loading">Cargando partidos en vivo...</div>'; return; }
-      if (wcLive.error) {
-        el.innerHTML = '<div class="error-box">No se pudieron cargar los partidos en vivo de TNNS.<br><small>' + esc(wcLive.error) + '</small></div>' +
-          '<div style="margin-top:12px"><a href="https://tnnslive.com/" target="_blank" class="ta-link">Ver en TNNS &rarr;</a></div>';
-        return;
-      }
-      if (!wcLive.events.length) {
-        el.innerHTML = '<div class="loading">No hay partidos de wheelchair tennis en vivo ahora.</div>' +
-          '<div style="margin-top:12px"><a href="https://tnnslive.com/" target="_blank" class="ta-link">Ver calendario completo en TNNS &rarr;</a></div>';
-        return;
-      }
-      const liveRows = wcLive.events.map(ev => {
-        const isLive = ev.status === 1;
-        const isFinished = ev.status === 2;
-        const statusBadge = isLive ? '<span class="wc-live-badge">LIVE</span>' : (isFinished ? '<span class="wc-finished-badge">FT</span>' : '');
-        const scoreHtml = ev.homeScore ? '<span class="wc-score">' + esc(ev.homeScore) + ' - ' + esc(ev.awayScore) + '</span>' : '';
-        return '<tr class="' + (isLive ? 'wc-row-live' : '') + '">' +
-          '<td>' + esc(ev.tournament) + '</td>' +
-          '<td>' + esc(ev.home) + '</td>' +
-          '<td>' + esc(ev.away) + '</td>' +
-          '<td>' + scoreHtml + '</td>' +
-          '<td>' + statusBadge + (ev.statusDesc && !isLive ? ' ' + esc(ev.statusDesc) : '') + '</td>' +
-          '</tr>';
-      }).join('');
-      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
-        '<thead><tr><th>Torneo</th><th>Jugador 1</th><th>Jugador 2</th><th>Marcador</th><th>Estado</th></tr></thead>' +
-        '<tbody>' + liveRows + '</tbody></table></div>' +
-        '<div style="margin-top:12px"><a href="https://tnnslive.com/" target="_blank" class="ta-link">Ver todos los partidos en TNNS &rarr;</a></div>';
-      if (meta) meta.textContent = 'Partidos en vivo de wheelchair tennis (TNNS)';
-      return;
-    }
-
-    if (tab === 'videos') {
-      const wcVideos = state.wcVideos;
-      if (!wcVideos.loaded) { el.innerHTML = '<div class="loading">Cargando videos...</div>'; return; }
-      if (!wcVideos.items.length) {
-        el.innerHTML = '<div class="loading">No hay videos disponibles.</div>';
-        return;
-      }
-      let html = '<div class="wc-videos-grid">';
-      wcVideos.items.forEach(v => {
-        const thumb = 'https://img.youtube.com/vi/' + v.youtubeId + '/hqdefault.jpg';
-        html += '<a href="https://www.youtube.com/watch?v=' + v.youtubeId + '" target="_blank" rel="noopener" class="wc-video-card">';
-        html += '<div class="wc-video-thumb"><img src="' + thumb + '" alt="' + esc(v.title) + '" loading="lazy"><div class="wc-video-play">&#9654;</div></div>';
-        html += '<div class="wc-video-info">';
-        html += '<div class="wc-video-title">' + esc(v.title) + '</div>';
-        html += '<div class="wc-video-event">' + esc(v.event) + '</div>';
-        html += '<div class="wc-video-desc">' + esc(v.description) + '</div>';
-        html += '</div></a>';
-      });
-      html += '</div>';
-      html += '<div style="margin-top:16px"><a href="https://www.youtube.com/results?search_query=wheelchair+tennis+2026+highlights" target="_blank" class="ta-link">Ver más highlights en YouTube &rarr;</a></div>';
-    el.innerHTML = html;
-      if (meta) meta.textContent = 'Videos de wheelchair tennis · Highlights y Torneos';
-      return;
-    }
-
-    if (!wc.loaded || !wc.data) { el.innerHTML = '<div class="loading">Cargando datos wheelchair...</div>'; return; }
-    const d = wc.data;
-    const flagEmoji = c => { const m = { JPN: '\u{1F1EF}\u{1F1F5}', GBR: '\u{1F1EC}\u{1F1E7}', ESP: '\u{1F1EA}\u{1F1F8}', ARG: '\u{1F1E6}\u{1F1F7}', FRA: '\u{1F1EB}\u{1F1F7}', NED: '\u{1F1F3}\u{1F1F1}', USA: '\u{1F1FA}\u{1F1F8}', BRA: '\u{1F1E7}\u{1F1F7}', CHN: '\u{1F1E8}\u{1F1F3}', RSA: '\u{1F1FF}\u{1F1E6}', ISR: '\u{1F1EE}\u{1F1F1}', COL: '\u{1F1E8}\u{1F1F4}', GER: '\u{1F1E9}\u{1F1EA}', TUR: '\u{1F1F9}\u{1F1F7}', CHI: '\u{1F1E8}\u{1F1F8}', AUS: '\u{1F1E6}\u{1F1FA}', MAS: '\u{1F1F2}\u{1F1FE}' }; return m[c] || ''; };
-
-    if (tab === 'calendar') {
-      if (!d.calendar || !d.calendar.length) { el.innerHTML = '<div class="error-box">No hay datos de calendario.</div>'; return; }
-      const rows = d.calendar.map(t => {
-        const statusCls = t.status === 'Live' ? 'wc-live' : '';
-        return '<tr class="' + statusCls + '">' +
-          '<td>' + esc(t.date) + '</td>' +
-          '<td><b>' + esc(t.name) + '</b></td>' +
-          '<td>' + esc(t.location) + '</td>' +
-          '<td><span class="wc-cat">' + esc(t.category) + '</span></td>' +
-          '<td>' + esc(t.surface) + '</td>' +
-          '<td>' + (t.status ? '<span class="wc-status-live">' + esc(t.status) + '</span>' : '') + '</td>' +
-          '</tr>';
-      }).join('');
-      el.innerHTML = '<div class="rank-table-wrap"><table class="rank-table">' +
-        '<thead><tr><th>Fecha</th><th>Torneo</th><th>Ubicación</th><th>Categoría</th><th>Superficie</th><th></th></tr></thead>' +
-        '<tbody>' + rows + '</tbody></table></div>';
-      if (meta) meta.textContent = 'Calendario UNIQLO Wheelchair Tennis Tour 2026';
-      return;
-    }
-
-    if (tab === 'results') {
-      if (!d.recentResults || !d.recentResults.length) { el.innerHTML = '<div class="error-box">No hay resultados recientes.</div>'; return; }
-      const searchBox = $('wcSearchWrap');
-      if (searchBox) searchBox.style.display = 'block';
-      const cats = [
-        { k: 'menSingles', lbl: 'Singles M' },
-        { k: 'womenSingles', lbl: 'Singles W' },
-        { k: 'menDoubles', lbl: 'Dobles M' },
-        { k: 'womenDoubles', lbl: 'Dobles W' }
-      ];
-      const q = state.wcSearch;
-      const list = q ? d.recentResults.filter(r => {
-        const full = (r.tournament || '') + ' ' + cats.map(c => r[c.k]).join(' ');
-        return full.toLowerCase().indexOf(q) > -1;
-      }) : d.recentResults;
-      const cards = list.map(r => {
-        const items = cats.filter(c => r[c.k]).map(c =>
-          '<div class="wc-res-cat"><span class="wc-res-lbl">' + c.lbl + '</span><span class="wc-res-win">' + esc(r[c.k]) + '</span></div>'
-        ).join('');
-        if (!items) return '';
-        return '<div class="wc-res-card"><div class="wc-res-head"><span class="wc-res-date">' + esc(r.date) + '</span><span class="wc-res-tour">' + esc(r.tournament) + '</span></div>' + items + '</div>';
-      }).join('');
-      el.innerHTML = '<div class="wc-res-grid">' + (cards || '<div class="error-box">No se encontraron resultados que coincidan con "' + esc(q) + '".</div>') + '</div>';
-      if (meta) meta.textContent = 'Resultados recientes de torneos UNIQLO Wheelchair Tennis Tour' + (q ? ' · buscando "' + esc(q) + '"' : '');
-      return;
-    }
-
-    const rankData = d.rankings && d.rankings[tab];
-    const labels = { menSingles: 'Singles Men', womenSingles: 'Singles Women', menDoubles: 'Doubles Men', womenDoubles: 'Doubles Women', quad: 'Quad Singles', quadDoubles: 'Quad Doubles' };
-    if (!rankData || !rankData.length) { el.innerHTML = '<div class="error-box">No hay ranking disponible para esta categoría.</div>'; return; }
-    const wq = state.wcSearch;
-    const filtered = wq ? rankData.filter(r => (r.name || '').toLowerCase().indexOf(wq) > -1) : rankData;
-    const hasPoints = rankData[0] && rankData[0].points != null;
-    const hasRecord = rankData[0] && rankData[0].record2026;
-    const hasTitles = rankData[0] && rankData[0].titles2026 != null;
-    const hasMove = rankData[0] && rankData[0].movement != null;
-    const thPoints = hasPoints ? '<th style="text-align:right">Puntos</th>' : '';
-    const thRecord = hasRecord ? '<th>W-L 2026</th>' : '';
-    const thTitles = hasTitles ? '<th>Títulos</th>' : '';
-    const rows = filtered.map(r => {
-      const pts = r.points != null ? r.points.toLocaleString('es') : '—';
-      const rankCls = r.rank === 1 ? 'r-rank top1' : 'r-rank';
-      let mvCell = '';
-      if (hasMove) {
-        const mv = parseInt(r.movement, 10) || 0;
-        const mvCls = mv > 0 ? 'up' : (mv < 0 ? 'down' : 'flat');
-        const mvTxt = mv > 0 ? ('▲' + mv) : (mv < 0 ? ('▼' + Math.abs(mv)) : '·');
-        mvCell = '<td class="r-move ' + mvCls + '">' + mvTxt + '</td>';
-      }
-      return '<tr>' +
-        '<td class="' + rankCls + '">' + esc(r.rank) + '</td>' +
-        '<td class="r-name">' + flagEmoji(r.country) + ' ' + esc(r.name) + ' <span class="wc-country">(' + esc(r.country) + ')</span></td>' +
-        mvCell +
-        (hasTitles ? '<td class="r-r">' + esc(r.titles2026 != null ? r.titles2026 : '—') + '</td>' : '') +
-        (hasRecord ? '<td>' + esc(r.record2026 || '—') + '</td>' : '') +
-        (hasPoints ? '<td class="r-pts">' + pts + '<span> pts</span></td>' : '') +
-        '</tr>';
-    }).join('');
-    const searchBox = $('wcSearchWrap');
-    if (searchBox) searchBox.style.display = 'block';
-    el.innerHTML = '<div class="rank-section-title">' + (labels[tab] || tab) + ' Rankings</div>' +
-      (wq && !filtered.length ? '<div class="error-box">No se encontraron jugadores que coincidan con "' + esc(wq) + '".</div>' : '') +
-      '<div class="rank-table-wrap"><table class="rank-table">' +
-      '<thead><tr><th>#</th><th>Jugador</th>' +
-      (hasMove ? '<th>Mov.</th>' : '') +
-      (hasTitles ? '<th>Títulos</th>' : '') +
-      (hasRecord ? '<th>W-L 2026</th>' : '') +
-      (hasPoints ? '<th style="text-align:right">Puntos</th>' : '<th></th>') +
-      '</tr></thead>' +
-      '<tbody>' + rows + '</tbody></table></div>';
-    if (meta) meta.textContent = 'UNIQLO Wheelchair Tennis Tour · ' + (labels[tab] || tab) + ' · Actualizado: ' + (d.updated || '--') + (wq ? ' · buscando "' + esc(wq) + '"' : '');
-  }
 
   /* ---------------- render dispatcher ---------------- */
 
@@ -2771,7 +2533,6 @@ async function refreshWcLive() {
     else if (state.tab === 'argentina') renderArgentina();
     else if (state.tab === 'h2hsearch') renderH2HSearch();
     else if (state.tab === 'calendar') renderCalendar();
-    else if (state.tab === 'wheelchair') renderWheelchair();
   }
 
   function setTab(tab) {
@@ -2782,7 +2543,6 @@ async function refreshWcLive() {
     document.body.classList.toggle('tab-argentina', tab === 'argentina');
   document.body.classList.toggle('tab-news', tab === 'news');
   document.body.classList.toggle('tab-videos', tab === 'videos');
-    document.body.classList.toggle('tab-wheelchair', tab === 'wheelchair');
     if (tab === 'calendar' && !state.cal.loaded) {
       render();
       refreshCalendar();
@@ -2796,11 +2556,6 @@ async function refreshWcLive() {
     if (tab === 'h2hsearch' && !state.elo.loaded) {
       render();
       refreshElo();
-      return;
-    }
-    if (tab === 'wheelchair' && !state.wheelchair.loaded) {
-      render();
-      refreshWheelchair();
       return;
     }
     render();
@@ -3324,32 +3079,6 @@ async function refreshWcLive() {
       });
     }
 
-    const segWC = document.getElementById('segWC');
-    if (segWC) {
-      segWC.addEventListener('click', e => {
-        const b = e.target.closest('.seg-btn');
-        if (!b) return;
-        state.wheelchair.tab = b.dataset.wc;
-        document.querySelectorAll('#segWC .seg-btn').forEach(x => x.classList.toggle('active', x === b));
-        if (b.dataset.wc === 'live') { refreshWcLive(); return; }
-        if (b.dataset.wc === 'videos') { refreshWcVideos(); return; }
-        renderWheelchair();
-      });
-    }
-    const wcSearch = $('wcSearch');
-    if (wcSearch) {
-      wcSearch.addEventListener('input', () => {
-        state.wcSearch = wcSearch.value.toLowerCase().trim();
-        renderWheelchair();
-      });
-      const wcClear = $('wcSearchClear');
-      if (wcClear) wcClear.addEventListener('click', () => {
-        wcSearch.value = '';
-        state.wcSearch = '';
-        renderWheelchair();
-        wcSearch.focus();
-      });
-    }
     const h2hGo = $('h2hSearchBtn');
     if (h2hGo) h2hGo.addEventListener('click', runH2HSearch);
 
@@ -3397,10 +3126,10 @@ async function refreshWcLive() {
 
     const themeToggle = $('themeToggle');
     if (themeToggle) {
-      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'art', 'atp', 'wta', 'tnns', 'wtt', 'live', 'now', 'superfluo', 'ring', 'premier', 'tenipo', 'black', 'claro','naranja','instinct','flash'];
-      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', art: '&#127912;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', wtt: '&#127760;', live: '&#128250;', now: '&#127941;', superfluo: '&#10024;', ring: '&#128663;', premier: '&#129351;', tenipo: '&#127934;', black: '&#9632;', claro: '&#9788;', naranja: '&#128992;', instinct: '&#9889;', flash: '&#128640;' };
-      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', art: 'Modo art', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', wtt: 'Modo WTT', live: 'Modo Live', now: 'Modo Now', superfluo: 'Modo superfluo', ring: 'Modo ring', premier: 'Modo premier', tenipo: 'Modo tenipo', black: 'Modo black', claro: 'Modo claro', naranja: 'Modo naranja', instinct: 'Modo instinct', flash: 'Modo flash' };
-      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', art: '#000000', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', wtt: '#000037', live: '#fdfdfd', now: '#001d67', superfluo: '#000000', ring: '#f2f2f2', premier: '#10070a', tenipo: '#1b2935', black: '#000000', claro: '#faf7f2', naranja: '#f7f3ec', instinct: '#000000', flash: '#010a0f' };
+      const MODES = ['broadcast', 'colors', 'verde', 'amarillo', 'titanio', 'fuego', 'oliva', 'tennis', 'argentina', 'cyber', 'art', 'atp', 'wta', 'tnns', 'wtt', 'live', 'now', 'superfluo', 'ring', 'premier', 'tenipo', 'black', 'claro','naranja','instinct','flash','fox'];
+      const ICONS = { broadcast: '&#9679;', colors: '&#127752;', verde: '&#128154;', amarillo: '&#128993;', titanio: '&#9633;', fuego: '&#128293;', oliva: '&#129490;', tennis: '&#127934;', argentina: '&#11088;', cyber: '&#127918;', art: '&#127912;', atp: '&#127934;', wta: '&#127969;', tnns: '&#128225;', wtt: '&#127760;', live: '&#128250;', now: '&#127941;', superfluo: '&#10024;', ring: '&#128663;', premier: '&#129351;', tenipo: '&#127934;', black: '&#9632;', claro: '&#9788;', naranja: '&#128992;', instinct: '&#9889;', flash: '&#128640;', fox: '&#129418;' };
+      const TITLES = { broadcast: 'Modo broadcast', colors: 'Modo colors', verde: 'Modo verde', amarillo: 'Modo amarillo', titanio: 'Modo titanio', fuego: 'Modo fuego', oliva: 'Modo oliva', tennis: 'Modo tennis', argentina: 'Modo argentina', cyber: 'Modo cyber', art: 'Modo art', atp: 'Modo ATP', wta: 'Modo WTA', tnns: 'Modo TNNS', wtt: 'Modo WTT', live: 'Modo Live', now: 'Modo Now', superfluo: 'Modo superfluo', ring: 'Modo ring', premier: 'Modo premier', tenipo: 'Modo tenipo', black: 'Modo black', claro: 'Modo claro', naranja: 'Modo naranja', instinct: 'Modo instinct', flash: 'Modo flash', fox: 'Modo fox' };
+      const METACOLORS = { broadcast: '#0b0e14', colors: '#000000', verde: '#000000', amarillo: '#000000', titanio: '#f2efe9', fuego: '#000000', oliva: '#333c12', tennis: '#f2efe9', argentina: '#000000', cyber: '#030712', art: '#000000', atp: '#050053', wta: '#2D0046', tnns: '#0D0D10', wtt: '#000037', live: '#fdfdfd', now: '#001d67', superfluo: '#000000', ring: '#f2f2f2', premier: '#10070a', tenipo: '#1b2935', black: '#000000', claro: '#faf7f2', naranja: '#f7f3ec', instinct: '#000000', flash: '#010a0f', fox: '#ffffff' };
       let mode = 'broadcast';
       try { mode = localStorage.getItem('mhc-mode') || 'broadcast'; } catch (e) {}
       if (MODES.indexOf(mode) === -1) mode = 'broadcast';
