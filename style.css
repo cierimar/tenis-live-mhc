@@ -157,7 +157,59 @@ body[data-mode='instinct'] .col-card,
 body[data-mode='instinct'] .ct-card,
 body[data-mode='instinct'] .wc-res-card {
   box-shadow: 6px 6px 0 #333333, 10px 10px 0 rgba(128,128,128,0.30);
-}body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
+}
+/* ---------------- modo flash (flashscore.com.ar, oscuro) ---------------- */
+@font-face { font-family: 'LivesportFinderLatin'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://static.flashscore.com/res/font/LivesportFinderLatin-Regular_Static.woff2') format('woff2'); }
+@font-face { font-family: 'LivesportFinderLatin'; font-style: normal; font-weight: 700; font-display: swap; src: url('https://static.flashscore.com/res/font/LivesportFinderLatin-Bold_Static.woff2') format('woff2'); }
+@font-face { font-family: 'LivesportFinderLatin'; font-style: normal; font-weight: 800; font-display: swap; src: url('https://static.flashscore.com/res/font/LivesportFinderLatin-Extrabold.woff2') format('woff2'); }
+
+body[data-mode='flash'] {
+  --sans: 'LivesportFinderLatin', 'Adjusted Arial Fallback', Arial, sans-serif;
+  --display: 'LivesportFinderLatin', 'Arial Black', sans-serif;
+  --serif: 'LivesportFinderLatin', Arial, sans-serif;
+  --mono: 'LivesportFinderLatin', 'Consolas', monospace;
+  --paper: #00141e;
+  --paper-2: #001e28;
+  --paper-3: #0f2d37;
+  --ink: #f1f1f1;
+  --ink-2: #d9d9d9;
+  --muted: #9aa7ac;
+  --hairline: #0f2d37;
+  --hairline-dark: #555e61;
+  --red: #e80040;
+  --red-dark: #c80037;
+  --red-vivo: #ff0046;
+  --red-soft: rgba(232, 0, 64, 0.14);
+  --green: #00a83f;
+  --amber: #ffcd00;
+  --blue: #0787fa;
+  --warn: #f3a000;
+  --live: #e80040;
+  --shadow: none;
+  --bg: #010a0f;
+}
+body[data-mode='flash'] {
+  background-color: #010a0f;
+  background-image: none;
+  font-family: 'LivesportFinderLatin', Arial, sans-serif;
+}
+body[data-mode='flash'] .appbar { background: #001e28; border-bottom: 1px solid #0f2d37; }
+body[data-mode='flash'] .tabbar { background: #001e28; border-top: 1px solid #0f2d37; }
+body[data-mode='flash'] .subbar { background: #001e28; border-bottom: 1px solid #0f2d37; }
+body[data-mode='flash'] .sb-logo { color: #f1f1f1; }
+body[data-mode='flash'] .sb-logo-sub, body[data-mode='flash'] .sb-logo-tag, body[data-mode='flash'] .mode-label { color: #e80040; }
+body[data-mode='flash'] .nav-item.active, body[data-mode='flash'] .seg-btn.active, body[data-mode='flash'] .lv-btn.active, body[data-mode='flash'] .round-chip.active, body[data-mode='flash'] .h2h-go, body[data-mode='flash'] .btn-refresh { background: #e80040; color: #fff; }
+body[data-mode='flash'] .badge.live, body[data-mode='flash'] .set.live-set { background: #e80040; color: #fff; }
+body[data-mode='flash'] .seed-badge { background: #ffcd00; color: #001e28; }
+body[data-mode='flash'] .rank-section-title, body[data-mode='flash'] .th-tier, body[data-mode='flash'] .wc-live-badge { color: #e80040; }
+body[data-mode='flash'] .pname.winner::after, body[data-mode='flash'] .set.win { color: #00a83f; }
+body[data-mode='flash'] .tb, body[data-mode='flash'] .dp-set .tb { color: #e80040; }
+body[data-mode='flash'] .set { color: #f1f1f1; }
+body[data-mode='flash'] .match { background: #00141e; border: 1px solid #0f2d37; border-left: 4px solid #555e61; }
+body[data-mode='flash'] .match.live { border-left: 4px solid #ff0046; background: linear-gradient(90deg, #3d0314, #00141e 46%); }
+body[data-mode='flash'] .draw-board, body[data-mode='flash'] .news-card, body[data-mode='flash'] .video-card, body[data-mode='flash'] .col-card, body[data-mode='flash'] .ct-card, body[data-mode='flash'] .wc-res-card { background: #00141e; border-color: #0f2d37; }
+body[data-mode='flash']::selection { background: #e80040; color: #fff; }
+body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
 
 /* ============================================================
    MODO COLORS - fondo negro absoluto + 10 colores
