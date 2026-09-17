@@ -1191,6 +1191,105 @@ body[data-mode='cyber'] .btn-refresh:hover {
   color: #000;
 }
 
+/* ---------------- modo cyberfluo (cyber + 6 colores fluorescentes) ---------------- */
+body[data-mode='cyberfluo'] {
+  --paper: #0b0f19;           /* superficie */
+  --paper-2: #111827;         /* cards */
+  --paper-3: #1e293b;
+  --ink: #f8fafc;
+  --ink-2: #cbd5e1;
+  --muted: #94a3b8;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-dark: rgba(255, 255, 255, 0.2);
+  --red: #39ff14;             /* verde fluor - boton principal */
+  --red-dark: #00e676;
+  --red-vivo: #00f5ff;        /* cian fluor vivo */
+  --red-soft: rgba(0, 245, 255, 0.14);
+  --green: #00f5ff;           /* victorias / subidas */
+  --amber: #efff00;           /* amarillo fluor - siembras / estrellas */
+  --blue: #00f5ff;            /* links */
+  --shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
+  --live: #00f5ff;            /* re-define compuesta :root -> cian */
+  --warn: #ff8c00;            /* re-define compuesta :root -> naranja */
+  --bg: #030712;              /* base oscura cyber */
+}
+/* fondo con grilla 40px + radiales cian/violeta + verde (fluorescente) */
+body[data-mode='cyberfluo'] {
+  background-image:
+    radial-gradient(at 8% 6%, rgba(0, 245, 255, 0.08) 0, transparent 50%),
+    radial-gradient(at 92% 12%, rgba(191, 0, 255, 0.08) 0, transparent 50%),
+    radial-gradient(at 50% 88%, rgba(57, 255, 20, 0.05) 0, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+body[data-mode='cyberfluo'] ::selection { background: #ff00e6; color: #000; }
+body[data-mode='cyberfluo'] a { color: #00f5ff; }
+body[data-mode='cyberfluo'] .sb-logo {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  font-weight: 900;
+}
+body[data-mode='cyberfluo'] .sb-logo-sub { color: #00f5ff; }
+body[data-mode='cyberfluo'] .mode-label { color: #ff00e6; }
+body[data-mode='cyberfluo'] .rank-section-title { color: #ff8c00; }
+body[data-mode='cyberfluo'] .th-tier { border-color: #00f5ff; color: #00f5ff; }
+body[data-mode='cyberfluo'] .seed-badge { border-color: #efff00; color: #efff00; }
+body[data-mode='cyberfluo'] .set.win { color: #39ff14; }
+body[data-mode='cyberfluo'] .pname.winner::after { color: #39ff14; }
+
+/* tarjetas: borde negro grueso + sombra offset dura (neo-brutalismo) */
+body[data-mode='cyberfluo'] .appbar { border-bottom: 2px solid #000; }
+body[data-mode='cyberfluo'] .tabbar { border-top: 2px solid #000; }
+body[data-mode='cyberfluo'] .match,
+body[data-mode='cyberfluo'] .news-card,
+body[data-mode='cyberfluo'] .video-card,
+body[data-mode='cyberfluo'] .wc-res-card,
+body[data-mode='cyberfluo'] .col-card,
+body[data-mode='cyberfluo'] .ct-card,
+body[data-mode='cyberfluo'] .stats-board {
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+}
+body[data-mode='cyberfluo'] .rank-table-wrap,
+body[data-mode='cyberfluo'] .draw-board,
+body[data-mode='cyberfluo'] .h2h-block,
+body[data-mode='cyberfluo'] .cal-block,
+body[data-mode='cyberfluo'] .controls .seg {
+  box-shadow: 4px 4px 0 #000;
+}
+/* pills y botones: borde + sombra + "se hunden" al clickear (fiel a la pagina) */
+body[data-mode='cyberfluo'] .seg-btn,
+body[data-mode='cyberfluo'] .lv-btn,
+body[data-mode='cyberfluo'] .round-chip,
+body[data-mode='cyberfluo'] .h2h-go,
+body[data-mode='cyberfluo'] .btn-refresh {
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+}
+body[data-mode='cyberfluo'] .seg-btn:active,
+body[data-mode='cyberfluo'] .lv-btn:active,
+body[data-mode='cyberfluo'] .round-chip:active,
+body[data-mode='cyberfluo'] .h2h-go:active,
+body[data-mode='cyberfluo'] .btn-refresh:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 #000;
+}
+/* boton principal verde fluor con texto negro (CTA "Ir al Juego") */
+body[data-mode='cyberfluo'] .btn-refresh {
+  background: #39ff14;
+  color: #000;
+  font-weight: 800;
+}
+body[data-mode='cyberfluo'] .btn-refresh:hover {
+  background: #00e676;
+  border-color: #000;
+  color: #000;
+}
+
 /* ============================================================
    MODO ART - arte neobrutalista: negro absoluto + gris
    perlado / violeta / plateado / blanco
