@@ -1191,7 +1191,7 @@ body[data-mode='cyber'] .btn-refresh:hover {
   color: #000;
 }
 
-/* ---------------- modo cyberfluo (cyber + 6 colores fluorescentes) ---------------- */
+/* ---------------- modo cyberfluo (cyber + 8 colores fluorescentes) ---------------- */
 body[data-mode='cyberfluo'] {
   --paper: #0b0f19;           /* superficie */
   --paper-2: #111827;         /* cards */
@@ -1201,30 +1201,30 @@ body[data-mode='cyberfluo'] {
   --muted: #94a3b8;
   --hairline: rgba(255, 255, 255, 0.08);
   --hairline-dark: rgba(255, 255, 255, 0.2);
-  --red: #39ff14;             /* verde fluor - boton principal */
-  --red-dark: #00e676;
-  --red-vivo: #00f5ff;        /* cian fluor vivo */
-  --red-soft: rgba(0, 245, 255, 0.14);
-  --green: #00f5ff;           /* victorias / subidas */
-  --amber: #efff00;           /* amarillo fluor - siembras / estrellas */
-  --blue: #00f5ff;            /* links */
+  --red: #39ff14;             /* verde neon - boton principal */
+  --red-dark: #1f51ff;        /* azul electrico - hover CTA */
+  --red-vivo: #00ffff;        /* cian electrico vivo */
+  --red-soft: rgba(0, 255, 255, 0.14);
+  --green: #39ff14;           /* victorias / subidas */
+  --amber: #ffff00;           /* amarillo fluorescente - siembras / estrellas */
+  --blue: #1f51ff;            /* links */
   --shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
-  --live: #00f5ff;            /* re-define compuesta :root -> cian */
-  --warn: #ff8c00;            /* re-define compuesta :root -> naranja */
+  --live: #ff1493;            /* re-define compuesta :root -> rosa neon */
+  --warn: #ff5f1f;            /* re-define compuesta :root -> naranja neon */
   --bg: #030712;              /* base oscura cyber */
 }
-/* fondo con grilla 40px + radiales cian/violeta + verde (fluorescente) */
+/* fondo con grilla 40px + radiales cian/purpura/fucsia (fluorescente) */
 body[data-mode='cyberfluo'] {
   background-image:
-    radial-gradient(at 8% 6%, rgba(0, 245, 255, 0.08) 0, transparent 50%),
+    radial-gradient(at 8% 6%, rgba(0, 255, 255, 0.08) 0, transparent 50%),
     radial-gradient(at 92% 12%, rgba(191, 0, 255, 0.08) 0, transparent 50%),
-    radial-gradient(at 50% 88%, rgba(57, 255, 20, 0.05) 0, transparent 50%),
+    radial-gradient(at 50% 88%, rgba(255, 0, 255, 0.06) 0, transparent 50%),
     linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
 }
-body[data-mode='cyberfluo'] ::selection { background: #ff00e6; color: #000; }
-body[data-mode='cyberfluo'] a { color: #00f5ff; }
+body[data-mode='cyberfluo'] ::selection { background: #ff00ff; color: #000; }
+body[data-mode='cyberfluo'] a { color: #1f51ff; }
 body[data-mode='cyberfluo'] .sb-logo {
   color: #ffffff;
   -webkit-text-fill-color: #ffffff;
@@ -1233,11 +1233,11 @@ body[data-mode='cyberfluo'] .sb-logo {
   background-clip: initial;
   font-weight: 900;
 }
-body[data-mode='cyberfluo'] .sb-logo-sub { color: #00f5ff; }
-body[data-mode='cyberfluo'] .mode-label { color: #ff00e6; }
-body[data-mode='cyberfluo'] .rank-section-title { color: #ff8c00; }
-body[data-mode='cyberfluo'] .th-tier { border-color: #00f5ff; color: #00f5ff; }
-body[data-mode='cyberfluo'] .seed-badge { border-color: #efff00; color: #efff00; }
+body[data-mode='cyberfluo'] .sb-logo-sub { color: #00ffff; }
+body[data-mode='cyberfluo'] .mode-label { color: #ff00ff; }
+body[data-mode='cyberfluo'] .rank-section-title { color: #ff5f1f; }
+body[data-mode='cyberfluo'] .th-tier { border-color: #00ffff; color: #00ffff; }
+body[data-mode='cyberfluo'] .seed-badge { border-color: #ffff00; color: #ffff00; }
 body[data-mode='cyberfluo'] .set.win { color: #39ff14; }
 body[data-mode='cyberfluo'] .pname.winner::after { color: #39ff14; }
 
@@ -1261,6 +1261,16 @@ body[data-mode='cyberfluo'] .cal-block,
 body[data-mode='cyberfluo'] .controls .seg {
   box-shadow: 4px 4px 0 #000;
 }
+/* bordes izquierdos de partido rotativos 8n: un fluor por tarjeta */
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+1) { border-left: 6px solid #ff00ff; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+2) { border-left: 6px solid #39ff14; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+3) { border-left: 6px solid #ffff00; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+4) { border-left: 6px solid #00ffff; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+5) { border-left: 6px solid #ff5f1f; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+6) { border-left: 6px solid #bf00ff; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+7) { border-left: 6px solid #1f51ff; }
+body[data-mode='cyberfluo'] .tour-block .match:nth-of-type(8n+8) { border-left: 6px solid #ff1493; }
+body[data-mode='cyberfluo'] .match.live { border-left: 6px solid #ff1493; }
 /* pills y botones: borde + sombra + "se hunden" al clickear (fiel a la pagina) */
 body[data-mode='cyberfluo'] .seg-btn,
 body[data-mode='cyberfluo'] .lv-btn,
@@ -1278,16 +1288,16 @@ body[data-mode='cyberfluo'] .btn-refresh:active {
   transform: translate(2px, 2px);
   box-shadow: 0 0 0 #000;
 }
-/* boton principal verde fluor con texto negro (CTA "Ir al Juego") */
+/* boton principal verde neon con texto negro (CTA "Ir al Juego") */
 body[data-mode='cyberfluo'] .btn-refresh {
   background: #39ff14;
   color: #000;
   font-weight: 800;
 }
 body[data-mode='cyberfluo'] .btn-refresh:hover {
-  background: #00e676;
+  background: #1f51ff;
   border-color: #000;
-  color: #000;
+  color: #fff;
 }
 
 /* ============================================================
