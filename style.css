@@ -209,6 +209,59 @@ body[data-mode='flash'] .match { background: #00141e; border: 1px solid #0f2d37;
 body[data-mode='flash'] .match.live { border-left: 4px solid #ff0046; background: linear-gradient(90deg, #3d0314, #00141e 46%); }
 body[data-mode='flash'] .draw-board, body[data-mode='flash'] .news-card, body[data-mode='flash'] .video-card, body[data-mode='flash'] .col-card, body[data-mode='flash'] .ct-card, body[data-mode='flash'] .wc-res-card { background: #00141e; border-color: #0f2d37; }
 body[data-mode='flash']::selection { background: #e80040; color: #fff; }
+
+/* ---------------- modo fox (foxdeportes.com, claro azul) ---------------- */
+@font-face { font-family: 'FANtasticFOX'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://www.foxdeportes.com/assets/webfonts/FANtasticFOX-Regular.otf') format('opentype'); }
+@font-face { font-family: 'FANtasticFOX'; font-style: normal; font-weight: 700; font-display: swap; src: url('https://www.foxdeportes.com/assets/webfonts/FANtasticFOX-Bold.otf') format('opentype'); }
+@font-face { font-family: 'HaasGrotDisplay'; font-style: normal; font-weight: 400; font-display: swap; src: url('https://www.foxdeportes.com/assets/webfonts/HaasGrotDisplay-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'HaasGrotDisplay'; font-style: normal; font-weight: 900; font-display: swap; src: url('https://www.foxdeportes.com/assets/webfonts/HaasGrotDisplay-Black.ttf') format('truetype'); }
+
+body[data-mode='fox'] {
+  --sans: 'DM Sans', 'Inter', 'Segoe UI', Arial, sans-serif;
+  --display: 'HaasGrotDisplay', 'Arial Black', sans-serif;
+  --serif: 'FANtasticFOX', 'Arial Black', sans-serif;
+  --mono: 'HaasGrotDisplay', 'Consolas', monospace;
+  --paper: #ffffff;
+  --paper-2: #f0f0f0;
+  --paper-3: #f9f9f9;
+  --ink: #001f3d;
+  --ink-2: #0a2f55;
+  --muted: #8c929a;
+  --hairline: #cfd5dc;
+  --hairline-dark: #757575;
+  --red: #025cb2;
+  --red-dark: #001f3d;
+  --red-vivo: #1389ff;
+  --red-soft: rgba(2, 92, 178, 0.12);
+  --green: #009944;
+  --amber: #ff4b44;
+  --blue: #1389ff;
+  --warn: #ff4b44;
+  --live: #ff4b44;
+  --shadow: none;
+  --bg: #ffffff;
+}
+body[data-mode='fox'] {
+  background-color: #ffffff;
+  background-image: none;
+  font-family: 'DM Sans', 'Inter', Arial, sans-serif;
+}
+body[data-mode='fox'] .appbar { background: #ffffff; border-bottom: 1px solid #cfd5dc; }
+body[data-mode='fox'] .tabbar { background: #ffffff; border-top: 1px solid #cfd5dc; }
+body[data-mode='fox'] .subbar { background: #f0f0f0; border-bottom: 1px solid #cfd5dc; }
+body[data-mode='fox'] .sb-logo { color: #001f3d; font-family: 'HaasGrotDisplay', 'Arial Black', sans-serif; font-weight: 900; letter-spacing: 0.02em; }
+body[data-mode='fox'] .sb-logo-sub, body[data-mode='fox'] .sb-logo-tag, body[data-mode='fox'] .mode-label { color: #1389ff; }
+body[data-mode='fox'] .nav-item.active, body[data-mode='fox'] .seg-btn.active, body[data-mode='fox'] .lv-btn.active, body[data-mode='fox'] .round-chip.active, body[data-mode='fox'] .h2h-go, body[data-mode='fox'] .btn-refresh { background: #025cb2; color: #fff; }
+body[data-mode='fox'] .badge.live, body[data-mode='fox'] .set.live-set { background: #ff4b44; color: #fff; }
+body[data-mode='fox'] .seed-badge { background: #ff4b44; color: #fff; }
+body[data-mode='fox'] .rank-section-title, body[data-mode='fox'] .th-tier, body[data-mode='fox'] .wc-live-badge { color: #1389ff; }
+body[data-mode='fox'] .pname.winner::after, body[data-mode='fox'] .set.win { color: #009944; }
+body[data-mode='fox'] .tb, body[data-mode='fox'] .dp-set .tb { color: #ff4b44; }
+body[data-mode='fox'] .set { color: #001f3d; }
+body[data-mode='fox'] .match { background: #ffffff; border: 1px solid #cfd5dc; border-left: 4px solid #025cb2; }
+body[data-mode='fox'] .match.live { border-left: 4px solid #ff4b44; background: linear-gradient(90deg, #e3effc, #ffffff 46%); }
+body[data-mode='fox'] .draw-board, body[data-mode='fox'] .news-card, body[data-mode='fox'] .video-card, body[data-mode='fox'] .col-card, body[data-mode='fox'] .ct-card, body[data-mode='fox'] .wc-res-card { background: #ffffff; border-color: #cfd5dc; }
+body[data-mode='fox']::selection { background: #ff4b44; color: #fff; }
 body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
 
 /* ============================================================
