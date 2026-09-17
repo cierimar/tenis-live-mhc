@@ -1,474 +1,103 @@
 {
-  "singles": {
-    "WTA::Bandecchi": 6,
-    "WTA::Stusek": 1,
-    "WTA::Sato": 8,
-    "ATP::Sekulic": 7,
-    "WTA::Farzami": 8,
-    "WTA::Bucsa": 6,
-    "WTA::Saigo": 4,
-    "ATP::Harris": 3,
-    "ATP::Galarneau": 6,
-    "ATP::Boyer": 5,
-    "WTA::Romero Gormaz": 6,
-    "WTA::Jamshidi": 6,
-    "WTA::Bassols Ribera": 4,
-    "WTA::Tjen": 5,
-    "WTA::Matoula": 7,
-    "WTA::Kubka": 2,
-    "WTA::Britez Risso": 4,
-    "ATP::Cadenasso": 1,
-    "WTA::Bouzas Maneiro": 6,
-    "ATP::Chidekh": 8,
-    "WTA::Kurt": 3,
-    "WTA::Jones": 1,
-    "WTA::Semenistaja": 9,
-    "WTA::Ibiraba Melleiro Junior": 8,
-    "ATP::Pacheco Mendez": 3,
-    "WTA::Badosa": 2,
-    "ATP::Barrena": 4,
-    "WTA::Avdeeva": 3,
-    "ATP::Napolitano": 3,
-    "ATP::Basilashvili": 2,
-    "WTA::Oliver Sanchez": 4,
-    "ATP::Clarke": 6,
-    "WTA::Bejlek": 3,
-    "WTA::Kostyuk": 1,
-    "WTA::Lukosiute": 2,
-    "ATP::Pavlovic": 2,
-    "ATP::Zheng": 1,
-    "WTA::Vandromme": 5,
-    "WTA::Kawaguchi": 6,
-    "WTA::Hosogi": 2,
-    "WTA::Yesypchuk": 8,
-    "ATP::Tomic": 4,
-    "ATP::Dellavedova": 5,
-    "ATP::Mannarino": 1,
-    "WTA::Shubladze": 1,
-    "WTA::Frech": 7,
-    "ATP::Lajovic": 6,
-    "WTA::Parry": 4,
-    "WTA::Masarova": 7,
-    "ATP::Mmoh": 4,
-    "WTA::Sierra": 3,
-    "WTA::Ryser": 6,
-    "WTA::Lys": 5,
-    "WTA::Noha Akugue": 4,
-    "WTA::Lu": 4,
-    "WTA::Selekhmeteva": 1,
-    "WTA::Inoue": 1,
-    "ATP::Ymer": 7,
-    "ATP::Smith": 7,
-    "WTA::Golovina": 6,
-    "ATP::Agamenone": 8,
-    "WTA::Gorgodze": 5,
-    "ATP::Gomez": 3,
-    "WTA::Papamichail": 8,
-    "WTA::Pawlikowska": 3,
-    "ATP::Cecchinato": 5,
-    "WTA::Samson": 2,
-    "WTA::Rajecki": 5,
-    "WTA::Janicijevic": 3,
-    "WTA::Galfi": 4,
-    "WTA::Ristic": 7,
-    "WTA::Quevedo": 7,
-    "ATP::Diaz Acosta": 1,
-    "ATP::Trungelliti": 2,
-    "WTA::Vidal": 7,
-    "WTA::Ansari": 1,
-    "WTA::Karatancheva": 8,
-    "WTA::Pigato": 3,
-    "ATP::Cina": 5,
-    "WTA::Abe": 3,
-    "WTA::Palicova": 8,
-    "ATP::Basavareddy": 2,
-    "ATP::Schoolkate": 7,
-    "WTA::Hennemann": 2,
-    "WTA::Samsonova": 8,
-    "WTA::Teixido Garcia": 5,
-    "WTA::Steiner": 2,
-    "ATP::Kolar": 7,
-    "WTA::Jimenez Kasintseva": 2,
-    "WTA::Bai": 2,
-    "WTA::Encheva": 7,
-    "WTA::Mi": 1,
-    "WTA::Shi": 3,
-    "ATP::Gentzsch": 3,
-    "ATP::Ilagan": 6,
-    "WTA::Jovic": 2,
-    "WTA::Samir": 4,
-    "WTA::Zaar": 6,
-    "WTA::Paganetti": 6,
-    "WTA::Leonard": 8,
-    "ATP::Kouame": 1,
-    "WTA::Crawley": 5,
-    "WTA::Bertea": 4,
-    "WTA::Lopez": 6,
-    "ATP::Noguchi": 8,
-    "WTA::Yang": 8,
-    "WTA::Blinkova": 4,
-    "ATP::Moro Canas": 5,
-    "ATP::Mikrut": 8,
-    "ATP::Tabur": 3,
-    "ATP::Travaglia": 4,
-    "WTA::Kuzmova": 2,
-    "WTA::Yaneva": 1,
-    "WTA::Lazaro Garcia": 5,
-    "WTA::Konishi Camargo Silva": 1,
-    "WTA::Appleton": 7,
-    "WTA::Podrez": 1,
-    "WTA::Cinalli": 2,
-    "ATP::Shick": 8,
-    "WTA::Siskova": 4,
-    "ATP::Simakin": 4,
-    "WTA::Erjavec": 2,
-    "WTA::Khomutsianskaya": 6,
-    "WTA::Cross": 7,
-    "WTA::Shapatava": 4,
-    "ATP::Gojo": 5,
-    "WTA::Radivojevic": 3,
-    "WTA::Yao": 5,
-    "ATP::Bax": 6,
-    "WTA::Knutson": 8,
-    "WTA::Estevez": 3,
-    "WTA::Milovanovic": 5,
-    "ATP::Hewitt": 8,
-    "WTA::Dapkute": 7,
-    "WTA::Charaeva": 8,
-    "ATP::Maestrelli": 6,
-    "WTA::Dourado Zimermman": 5,
-    "WTA::Okutoyi": 5,
-    "WTA::Zanolini": 3,
-    "WTA::Nepliy": 8,
-    "WTA::Sobolieva": 6,
-    "WTA::Ren": 7,
-    "WTA::Turini": 7,
-    "WTA::Shimizu": 7,
-    "WTA::Kawa": 3,
-    "ATP::Mochizuki": 1,
-    "WTA::Kraus": 1,
-    "ATP::Gill": 2,
-    "ATP::Droguet": 2
+  "ok": true,
+  "doubles": {
+    "WTA::Maduzzi / Zeltina": 4,
+    "ATP::Charlton / Shimizu": 1,
+    "ATP::Ichikawa / Imamura": 4,
+    "ATP::Bayldon / Kadhe": 3,
+    "WTA::Kozyreva / Lumsden": 4,
+    "WTA::Dabrowski / Stefani": 1,
+    "ATP::Galloway / King": 1,
+    "ATP::Cervantes / Molchanov": 4,
+    "WTA::Corley / Corley": 3,
+    "ATP::Arends / Stevens": 1,
+    "WTA::Luciano / Mariani": 2,
+    "ATP::Cash / Seggerman": 2,
+    "ATP::Fancutt / Watanabe": 4,
+    "WTA::Li / Yao": 2,
+    "WTA::Alvisi / Chiesa": 3,
+    "WTA::Huang / Nugroho": 3,
+    "ATP::Forti / Romano": 1,
+    "ATP::Cook / Sach": 3,
+    "WTA::Kubka / Siskova": 1,
+    "WTA::Akli / Cross": 2,
+    "ATP::Reymond / Sanchez": 2,
+    "WTA::Lemaitre / Matoula": 2,
+    "WTA::Rogers / Zamarripa": 4,
+    "ATP::Stevenson / Vocel": 3,
+    "WTA::Zhang / Zheng": 1,
+    "WTA::Gimbrere / Shinde": 4,
+    "WTA::Sato / Yamazaki": 3,
+    "WTA::Hennemann / Zaar": 2,
+    "WTA::Kurt / Mi": 1,
+    "WTA::Allen / Leon": 4,
+    "WTA::Ansari / Samir": 3,
+    "WTA::Szabo / Yesypchuk": 1,
+    "WTA::Mdlulwa / Mdlulwa": 4,
+    "ATP::Bianchi / Pearson": 2,
+    "WTA::Abe / Rajecki": 2,
+    "WTA::Okutoyi / Sawant": 2,
+    "WTA::Cascino / Feng": 1,
+    "WTA::Miyamoto / Yoshioka": 4,
+    "WTA::Jakupovic / Karamoko": 1,
+    "ATP::Agostini / Forejtek": 4,
+    "WTA::Muhammad / Olmos": 2,
+    "ATP::Loof / Uesugi": 2,
+    "ATP::Rojer / Winegar": 4,
+    "WTA::Bhosale / Micic": 4,
+    "WTA::Falkowska / Gorgodze": 2,
+    "WTA::Gleason / Piter": 3,
+    "ATP::Gonzalez / Smith": 3,
+    "WTA::Adams / Hoedt": 3,
+    "WTA::Desai / Golovina": 2,
+    "WTA::Kuwata / Shimizu": 1
   },
+  "updated": "2026-09-17T16:06:14Z",
   "tournaments": [
     {
-      "name": "Kyoto Itf",
-      "url": "/kyoto-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Inoue": 1,
-        "Abe": 3,
-        "Rajecki": 5,
-        "Shimizu": 7,
-        "Lu": 4,
-        "Sato": 8,
-        "Hosogi": 2,
-        "Kawaguchi": 6
-      },
-      "doubles": {
-        "Abe / Rajecki": 2,
-        "Miyamoto / Yoshioka": 4,
-        "Kuwata / Shimizu": 1,
-        "Sato / Yamazaki": 3
-      }
-    },
-    {
-      "name": "Valencia Wta",
-      "url": "/valencia-wta/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Selekhmeteva": 1,
-        "Romero Gormaz": 6,
-        "Papamichail": 8,
-        "Lazaro Garcia": 5,
-        "Masarova": 7,
-        "Bassols Ribera": 4,
-        "Erjavec": 2,
-        "Kawa": 3
-      },
-      "doubles": {
-        "Jakupovic / Karamoko": 1
-      }
-    },
-    {
-      "name": "Davis Cup",
-      "url": "/davis-cup/2026/atp-men/",
-      "circuit": "ATP",
-      "singles": {},
-      "doubles": {}
-    },
-    {
-      "name": "Monastir 50 Itf",
-      "url": "/monastir-50-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Teixido Garcia": 5,
-        "Jamshidi": 6,
-        "Lukosiute": 2,
-        "Mi": 1,
-        "Kurt": 3,
-        "Oliver Sanchez": 4,
-        "Farzami": 8,
-        "Dapkute": 7
-      },
-      "doubles": {
-        "Luciano / Mariani": 2,
-        "Kurt / Mi": 1,
-        "Mdlulwa / Mdlulwa": 4
-      }
-    },
-    {
-      "name": "Hurghada 11 Itf",
-      "url": "/hurghada-11-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Ansari": 1,
-        "Kuzmova": 2,
-        "Pawlikowska": 3,
-        "Nepliy": 8,
-        "Appleton": 7,
-        "Milovanovic": 5,
-        "Golovina": 6,
-        "Samir": 4
-      },
-      "doubles": {
-        "Ansari / Samir": 3,
-        "Desai / Golovina": 2
-      }
-    },
-    {
-      "name": "Utr Pro Tennis Series 3",
-      "url": "/utr-pro-tennis-series-3/2026/atp-men/",
-      "circuit": "ATP",
-      "singles": {},
-      "doubles": {}
-    },
-    {
-      "name": "Utr Pro Match Series",
-      "url": "/utr-pro-match-series/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {},
-      "doubles": {}
-    },
-    {
-      "name": "Le Neubourg Itf",
-      "url": "/le-neubourg-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Ryser": 6,
-        "Kubka": 2,
-        "Siskova": 4,
-        "Leonard": 8,
-        "Crawley": 5,
-        "Matoula": 7,
-        "Podrez": 1,
-        "Avdeeva": 3
-      },
-      "doubles": {
-        "Kubka / Siskova": 1,
-        "Lemaitre / Matoula": 2,
-        "Gimbrere / Shinde": 4
-      }
-    },
-    {
-      "name": "Biella Challenger",
-      "url": "/biella-challenger/2026/atp-men/",
-      "circuit": "ATP",
-      "singles": {
-        "Napolitano": 3,
-        "Clarke": 6,
-        "Cadenasso": 1,
-        "Barrena": 4,
-        "Gill": 2,
-        "Agamenone": 8,
-        "Moro Canas": 5
-      },
-      "doubles": {
-        "Agostini / Forejtek": 4,
-        "Forti / Romano": 1,
-        "Bianchi / Pearson": 2
-      }
-    },
-    {
-      "name": "Ljubljana Wta",
-      "url": "/ljubljana-wta/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Palicova": 8,
-        "Sobolieva": 6,
-        "Samson": 2,
-        "Galfi": 4,
-        "Gorgodze": 5,
-        "Radivojevic": 3,
-        "Ristic": 7,
-        "Jones": 1
-      },
-      "doubles": {
-        "Falkowska / Gorgodze": 2,
-        "Cascino / Feng": 1
-      }
-    },
-    {
       "name": "Utr Pro Tennis Series 5",
-      "url": "/utr-pro-tennis-series-5/2026/wta-women/",
-      "circuit": "WTA",
+      "url": "/utr-pro-tennis-series-5/2026/atp-men/",
+      "circuit": "ATP",
       "singles": {},
       "doubles": {}
-    },
-    {
-      "name": "Sao Paulo Wta",
-      "url": "/sao-paulo-wta/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Semenistaja": 9,
-        "Charaeva": 8,
-        "Badosa": 2,
-        "Lys": 5,
-        "Sierra": 3,
-        "Bouzas Maneiro": 6,
-        "Blinkova": 4,
-        "Quevedo": 7
-      },
-      "doubles": {
-        "Dabrowski / Stefani": 1,
-        "Rogers / Zamarripa": 4
-      }
-    },
-    {
-      "name": "Tiburon Challenger",
-      "url": "/tiburon-challenger/2026/atp-men/",
-      "circuit": "ATP",
-      "singles": {
-        "Boyer": 5,
-        "Ilagan": 6,
-        "Smith": 7,
-        "Gomez": 3,
-        "Zheng": 1,
-        "Mmoh": 4,
-        "Basavareddy": 2,
-        "Shick": 8
-      },
-      "doubles": {
-        "Galloway / King": 1,
-        "Cash / Seggerman": 2,
-        "Gonzalez / Smith": 3,
-        "Rojer / Winegar": 4
-      }
-    },
-    {
-      "name": "Shenyang Itf",
-      "url": "/shenyang-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Yao": 5,
-        "Saigo": 4,
-        "Shi": 3,
-        "Shubladze": 1,
-        "Bai": 2,
-        "Khomutsianskaya": 6,
-        "Yang": 8,
-        "Ren": 7
-      },
-      "doubles": {
-        "Zhang / Zheng": 1,
-        "Huang / Nugroho": 3,
-        "Li / Yao": 2
-      }
-    },
-    {
-      "name": "Sao Luis Do Maranhao Itf",
-      "url": "/sao-luis-do-maranhao-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Ibiraba Melleiro Junior": 8,
-        "Dourado Zimermman": 5,
-        "Lopez": 6,
-        "Britez Risso": 4,
-        "Vidal": 7,
-        "Estevez": 3,
-        "Cinalli": 2,
-        "Konishi Camargo Silva": 1
-      },
-      "doubles": {}
-    },
-    {
-      "name": "Rennes Challenger",
-      "url": "/rennes-challenger/2026/atp-men/",
-      "circuit": "ATP",
-      "singles": {
-        "Tabur": 3,
-        "Gojo": 5,
-        "Mannarino": 1,
-        "Schoolkate": 7,
-        "Harris": 4,
-        "Droguet": 2,
-        "Chidekh": 8,
-        "Maestrelli": 6
-      },
-      "doubles": {
-        "Stevenson / Vocel": 3,
-        "Arends / Stevens": 1,
-        "Reymond / Sanchez": 2
-      }
     },
     {
       "name": "Pazardzhik Itf",
       "url": "/pazardzhik-itf/2026/wta-women/",
       "circuit": "WTA",
       "singles": {
+        "Hennemann": 2,
+        "Bertea": 4,
+        "Yaneva": 1,
+        "Encheva": 7,
         "Karatancheva": 8,
         "Zaar": 6,
-        "Yaneva": 1,
-        "Hennemann": 2,
-        "Encheva": 7,
-        "Janicijevic": 3,
-        "Bertea": 4
+        "Janicijevic": 3
       },
       "doubles": {
         "Adams / Hoedt": 3,
-        "Maduzzi / Zeltina": 4,
-        "Hennemann / Zaar": 2
+        "Hennemann / Zaar": 2,
+        "Maduzzi / Zeltina": 4
       }
     },
     {
-      "name": "Caldas Da Rainha",
-      "url": "/caldas-da-rainha/2026/wta-women/",
+      "name": "Le Neubourg Itf",
+      "url": "/le-neubourg-itf/2026/wta-women/",
       "circuit": "WTA",
       "singles": {
-        "Cross": 7,
-        "Pigato": 3,
-        "Knutson": 8,
-        "Vandromme": 5,
-        "Bandecchi": 6,
-        "Noha Akugue": 4,
-        "Jimenez Kasintseva": 2,
-        "Kraus": 1
+        "Podrez": 1,
+        "Ryser": 6,
+        "Avdeeva": 3,
+        "Siskova": 4,
+        "Matoula": 7,
+        "Leonard": 8,
+        "Crawley": 5,
+        "Kubka": 2
       },
       "doubles": {
-        "Corley / Corley": 3,
-        "Bhosale / Micic": 4,
-        "Akli / Cross": 2
-      }
-    },
-    {
-      "name": "Santa Margherita Di Pula 11 Itf",
-      "url": "/santa-margherita-di-pula-11-itf/2026/wta-women/",
-      "circuit": "WTA",
-      "singles": {
-        "Paganetti": 6,
-        "Stusek": 1,
-        "Turini": 7,
-        "Okutoyi": 5,
-        "Zanolini": 3,
-        "Shapatava": 4,
-        "Yesypchuk": 8,
-        "Steiner": 2
-      },
-      "doubles": {
-        "Okutoyi / Sawant": 2,
-        "Allen / Leon": 4,
-        "Szabo / Yesypchuk": 1,
-        "Alvisi / Chiesa": 3
+        "Gimbrere / Shinde": 4,
+        "Lemaitre / Matoula": 2,
+        "Kubka / Siskova": 1
       }
     },
     {
@@ -479,38 +108,178 @@
       "doubles": {}
     },
     {
-      "name": "Utr Pro Tennis Series",
-      "url": "/utr-pro-tennis-series/2026/wta-women/",
+      "name": "Valencia Wta",
+      "url": "/valencia-wta/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Lazaro Garcia": 5,
+        "Papamichail": 8,
+        "Masarova": 7,
+        "Kawa": 3,
+        "Selekhmeteva": 1,
+        "Romero Gormaz": 6,
+        "Bassols Ribera": 4,
+        "Erjavec": 2
+      },
+      "doubles": {
+        "Jakupovic / Karamoko": 1
+      }
+    },
+    {
+      "name": "Sao Luis Do Maranhao Itf",
+      "url": "/sao-luis-do-maranhao-itf/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Estevez": 3,
+        "Konishi Camargo Silva": 1,
+        "Cinalli": 2,
+        "Vidal": 7,
+        "Dourado Zimermman": 5,
+        "Britez Risso": 4,
+        "Ibiraba Melleiro Junior": 8,
+        "Lopez": 6
+      },
+      "doubles": {}
+    },
+    {
+      "name": "Tiburon Challenger",
+      "url": "/tiburon-challenger/2026/atp-men/",
+      "circuit": "ATP",
+      "singles": {
+        "Basavareddy": 2,
+        "Mmoh": 4,
+        "Smith": 7,
+        "Zheng": 1,
+        "Boyer": 5,
+        "Shick": 8,
+        "Ilagan": 6,
+        "Gomez": 3
+      },
+      "doubles": {
+        "Gonzalez / Smith": 3,
+        "Galloway / King": 1,
+        "Cash / Seggerman": 2,
+        "Rojer / Winegar": 4
+      }
+    },
+    {
+      "name": "Sao Paulo Wta",
+      "url": "/sao-paulo-wta/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Semenistaja": 9,
+        "Quevedo": 7,
+        "Badosa": 2,
+        "Lys": 5,
+        "Charaeva": 8,
+        "Bouzas Maneiro": 6,
+        "Blinkova": 4,
+        "Sierra": 3
+      },
+      "doubles": {
+        "Dabrowski / Stefani": 1,
+        "Rogers / Zamarripa": 4
+      }
+    },
+    {
+      "name": "Utr Pro Match Series",
+      "url": "/utr-pro-match-series/2026/wta-women/",
       "circuit": "WTA",
       "singles": {},
       "doubles": {}
     },
     {
-      "name": "Utr Pro Tennis Series 5",
-      "url": "/utr-pro-tennis-series-5/2026/atp-men/",
+      "name": "Szczecin Challenger",
+      "url": "/szczecin-challenger/2026/atp-men/",
+      "circuit": "ATP",
+      "singles": {
+        "Mikrut": 8,
+        "Cecchinato": 5,
+        "Gentzsch": 3,
+        "Kolar": 7,
+        "Diaz Acosta": 1,
+        "Travaglia": 4,
+        "Trungelliti": 2,
+        "Lajovic": 6
+      },
+      "doubles": {
+        "Cervantes / Molchanov": 4
+      }
+    },
+    {
+      "name": "Davis Cup",
+      "url": "/davis-cup/2026/atp-men/",
       "circuit": "ATP",
       "singles": {},
       "doubles": {}
     },
     {
-      "name": "Guadalajara 2 Wta",
-      "url": "/guadalajara-2-wta/2026/wta-women/",
-      "circuit": "WTA",
+      "name": "Guangzhou 2 Challenger",
+      "url": "/guangzhou-2-challenger/2026/atp-men/",
+      "circuit": "ATP",
       "singles": {
-        "Jovic": 2,
-        "Kostyuk": 1,
-        "Parry": 4,
-        "Tjen": 5,
-        "Samsonova": 8,
-        "Frech": 7,
-        "Bejlek": 3,
-        "Bucsa": 6
+        "Tomic": 4,
+        "Cina": 5,
+        "Basilashvili": 2,
+        "Mochizuki": 1,
+        "Ymer": 7,
+        "Noguchi": 8,
+        "Harris": 3,
+        "Galarneau": 6
       },
       "doubles": {
-        "Kozyreva / Lumsden": 4,
-        "Gleason / Piter": 3,
-        "Muhammad / Olmos": 2
+        "Fancutt / Watanabe": 4,
+        "Bayldon / Kadhe": 3,
+        "Loof / Uesugi": 2
       }
+    },
+    {
+      "name": "Kyoto Itf",
+      "url": "/kyoto-itf/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Inoue": 1,
+        "Abe": 3,
+        "Sato": 8,
+        "Shimizu": 7,
+        "Rajecki": 5,
+        "Lu": 4,
+        "Hosogi": 2,
+        "Kawaguchi": 6
+      },
+      "doubles": {
+        "Miyamoto / Yoshioka": 4,
+        "Kuwata / Shimizu": 1,
+        "Sato / Yamazaki": 3,
+        "Abe / Rajecki": 2
+      }
+    },
+    {
+      "name": "Shenyang Itf",
+      "url": "/shenyang-itf/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Yang": 8,
+        "Yao": 5,
+        "Khomutsianskaya": 6,
+        "Saigo": 4,
+        "Ren": 7,
+        "Shubladze": 1,
+        "Bai": 2,
+        "Shi": 3
+      },
+      "doubles": {
+        "Zhang / Zheng": 1,
+        "Huang / Nugroho": 3,
+        "Li / Yao": 2
+      }
+    },
+    {
+      "name": "Utr Pro Tennis Series 5",
+      "url": "/utr-pro-tennis-series-5/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {},
+      "doubles": {}
     },
     {
       "name": "Futures 2026",
@@ -520,116 +289,347 @@
       "doubles": {}
     },
     {
-      "name": "Szczecin Challenger",
-      "url": "/szczecin-challenger/2026/atp-men/",
+      "name": "Utr Pro Tennis Series 3",
+      "url": "/utr-pro-tennis-series-3/2026/atp-men/",
       "circuit": "ATP",
-      "singles": {
-        "Gentzsch": 3,
-        "Trungelliti": 2,
-        "Travaglia": 4,
-        "Kolar": 7,
-        "Diaz Acosta": 1,
-        "Cecchinato": 5,
-        "Mikrut": 8,
-        "Lajovic": 6
-      },
-      "doubles": {
-        "Cervantes / Molchanov": 4
-      }
+      "singles": {},
+      "doubles": {}
     },
     {
       "name": "Phan Thiet 4 Challenger",
       "url": "/phan-thiet-4-challenger/2026/atp-men/",
       "circuit": "ATP",
       "singles": {
+        "Pacheco Mendez": 3,
+        "Pavlovic": 2,
         "Dellavedova": 5,
-        "Bax": 6,
+        "Simakin": 4,
         "Hewitt": 8,
         "Kouame": 1,
         "Sekulic": 7,
-        "Simakin": 4,
-        "Pacheco Mendez": 3,
-        "Pavlovic": 2
+        "Bax": 6
       },
       "doubles": {
         "Charlton / Shimizu": 1,
-        "Cook / Sach": 3,
-        "Ichikawa / Imamura": 4
+        "Ichikawa / Imamura": 4,
+        "Cook / Sach": 3
       }
     },
     {
-      "name": "Guangzhou 2 Challenger",
-      "url": "/guangzhou-2-challenger/2026/atp-men/",
-      "circuit": "ATP",
+      "name": "Utr Pro Tennis Series",
+      "url": "/utr-pro-tennis-series/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {},
+      "doubles": {}
+    },
+    {
+      "name": "Ljubljana Wta",
+      "url": "/ljubljana-wta/2026/wta-women/",
+      "circuit": "WTA",
       "singles": {
-        "Ymer": 7,
-        "Galarneau": 6,
-        "Harris": 3,
-        "Noguchi": 8,
-        "Mochizuki": 1,
-        "Basilashvili": 2,
-        "Cina": 5,
-        "Tomic": 4
+        "Ristic": 7,
+        "Jones": 1,
+        "Sobolieva": 6,
+        "Radivojevic": 3,
+        "Gorgodze": 5,
+        "Samson": 2,
+        "Galfi": 4,
+        "Palicova": 8
       },
       "doubles": {
-        "Loof / Uesugi": 2,
-        "Bayldon / Kadhe": 3,
-        "Fancutt / Watanabe": 4
+        "Cascino / Feng": 1,
+        "Falkowska / Gorgodze": 2
+      }
+    },
+    {
+      "name": "Monastir 50 Itf",
+      "url": "/monastir-50-itf/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Oliver Sanchez": 4,
+        "Jamshidi": 6,
+        "Dapkute": 7,
+        "Mi": 1,
+        "Teixido Garcia": 5,
+        "Kurt": 3,
+        "Lukosiute": 2,
+        "Farzami": 8
+      },
+      "doubles": {
+        "Mdlulwa / Mdlulwa": 4,
+        "Kurt / Mi": 1,
+        "Luciano / Mariani": 2
+      }
+    },
+    {
+      "name": "Guadalajara 2 Wta",
+      "url": "/guadalajara-2-wta/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Kostyuk": 1,
+        "Bucsa": 6,
+        "Bejlek": 3,
+        "Frech": 7,
+        "Samsonova": 8,
+        "Tjen": 5,
+        "Jovic": 2,
+        "Parry": 4
+      },
+      "doubles": {
+        "Muhammad / Olmos": 2,
+        "Kozyreva / Lumsden": 4,
+        "Gleason / Piter": 3
+      }
+    },
+    {
+      "name": "Rennes Challenger",
+      "url": "/rennes-challenger/2026/atp-men/",
+      "circuit": "ATP",
+      "singles": {
+        "Tabur": 3,
+        "Gojo": 5,
+        "Mannarino": 1,
+        "Chidekh": 8,
+        "Schoolkate": 7,
+        "Maestrelli": 6,
+        "Harris": 4,
+        "Droguet": 2
+      },
+      "doubles": {
+        "Stevenson / Vocel": 3,
+        "Arends / Stevens": 1,
+        "Reymond / Sanchez": 2
+      }
+    },
+    {
+      "name": "Caldas Da Rainha",
+      "url": "/caldas-da-rainha/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Jimenez Kasintseva": 2,
+        "Noha Akugue": 4,
+        "Knutson": 8,
+        "Pigato": 3,
+        "Cross": 7,
+        "Kraus": 1,
+        "Vandromme": 5,
+        "Bandecchi": 6
+      },
+      "doubles": {
+        "Bhosale / Micic": 4,
+        "Akli / Cross": 2,
+        "Corley / Corley": 3
+      }
+    },
+    {
+      "name": "Santa Margherita Di Pula 11 Itf",
+      "url": "/santa-margherita-di-pula-11-itf/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Okutoyi": 5,
+        "Paganetti": 6,
+        "Yesypchuk": 8,
+        "Turini": 7,
+        "Zanolini": 3,
+        "Stusek": 1,
+        "Steiner": 2,
+        "Shapatava": 4
+      },
+      "doubles": {
+        "Szabo / Yesypchuk": 1,
+        "Okutoyi / Sawant": 2,
+        "Alvisi / Chiesa": 3,
+        "Allen / Leon": 4
+      }
+    },
+    {
+      "name": "Hurghada 11 Itf",
+      "url": "/hurghada-11-itf/2026/wta-women/",
+      "circuit": "WTA",
+      "singles": {
+        "Appleton": 7,
+        "Pawlikowska": 3,
+        "Golovina": 6,
+        "Nepliy": 8,
+        "Ansari": 1,
+        "Milovanovic": 5,
+        "Kuzmova": 2,
+        "Samir": 4
+      },
+      "doubles": {
+        "Desai / Golovina": 2,
+        "Ansari / Samir": 3
+      }
+    },
+    {
+      "name": "Biella Challenger",
+      "url": "/biella-challenger/2026/atp-men/",
+      "circuit": "ATP",
+      "singles": {
+        "Moro Canas": 5,
+        "Clarke": 6,
+        "Napolitano": 3,
+        "Cadenasso": 1,
+        "Agamenone": 8,
+        "Gill": 2,
+        "Barrena": 4
+      },
+      "doubles": {
+        "Agostini / Forejtek": 4,
+        "Bianchi / Pearson": 2,
+        "Forti / Romano": 1
       }
     }
   ],
-  "doubles": {
-    "ATP::Loof / Uesugi": 2,
-    "WTA::Cascino / Feng": 1,
-    "WTA::Adams / Hoedt": 3,
-    "ATP::Cash / Seggerman": 2,
-    "ATP::Bayldon / Kadhe": 3,
-    "WTA::Luciano / Mariani": 2,
-    "ATP::Reymond / Sanchez": 2,
-    "ATP::Stevenson / Vocel": 3,
-    "WTA::Okutoyi / Sawant": 2,
-    "WTA::Bhosale / Micic": 4,
-    "ATP::Cervantes / Molchanov": 4,
-    "WTA::Falkowska / Gorgodze": 2,
-    "WTA::Gleason / Piter": 3,
-    "WTA::Desai / Golovina": 2,
-    "WTA::Kurt / Mi": 1,
-    "WTA::Maduzzi / Zeltina": 4,
-    "WTA::Kuwata / Shimizu": 1,
-    "WTA::Zhang / Zheng": 1,
-    "ATP::Arends / Stevens": 1,
-    "ATP::Rojer / Winegar": 4,
-    "WTA::Huang / Nugroho": 3,
-    "ATP::Agostini / Forejtek": 4,
-    "WTA::Miyamoto / Yoshioka": 4,
-    "WTA::Szabo / Yesypchuk": 1,
-    "ATP::Ichikawa / Imamura": 4,
-    "WTA::Corley / Corley": 3,
-    "WTA::Mdlulwa / Mdlulwa": 4,
-    "WTA::Akli / Cross": 2,
-    "WTA::Abe / Rajecki": 2,
-    "ATP::Bianchi / Pearson": 2,
-    "ATP::Forti / Romano": 1,
-    "ATP::Gonzalez / Smith": 3,
-    "WTA::Li / Yao": 2,
-    "WTA::Lemaitre / Matoula": 2,
-    "WTA::Allen / Leon": 4,
-    "WTA::Gimbrere / Shinde": 4,
-    "WTA::Jakupovic / Karamoko": 1,
-    "ATP::Charlton / Shimizu": 1,
-    "ATP::Galloway / King": 1,
-    "ATP::Cook / Sach": 3,
-    "WTA::Alvisi / Chiesa": 3,
-    "WTA::Rogers / Zamarripa": 4,
-    "WTA::Ansari / Samir": 3,
-    "WTA::Muhammad / Olmos": 2,
-    "ATP::Fancutt / Watanabe": 4,
-    "WTA::Kozyreva / Lumsden": 4,
-    "WTA::Kubka / Siskova": 1,
-    "WTA::Hennemann / Zaar": 2,
-    "WTA::Dabrowski / Stefani": 1,
-    "WTA::Sato / Yamazaki": 3
-  },
-  "ok": true,
-  "updated": "2026-09-17T10:51:38Z"
+  "singles": {
+    "WTA::Hosogi": 2,
+    "WTA::Cinalli": 2,
+    "WTA::Charaeva": 8,
+    "WTA::Ren": 7,
+    "WTA::Samir": 4,
+    "WTA::Kawa": 3,
+    "WTA::Bandecchi": 6,
+    "WTA::Golovina": 6,
+    "WTA::Rajecki": 5,
+    "WTA::Gorgodze": 5,
+    "WTA::Turini": 7,
+    "WTA::Encheva": 7,
+    "ATP::Lajovic": 6,
+    "ATP::Diaz Acosta": 1,
+    "WTA::Sobolieva": 6,
+    "WTA::Lys": 5,
+    "WTA::Knutson": 8,
+    "WTA::Bejlek": 3,
+    "ATP::Sekulic": 7,
+    "ATP::Maestrelli": 6,
+    "WTA::Selekhmeteva": 1,
+    "WTA::Palicova": 8,
+    "WTA::Noha Akugue": 4,
+    "WTA::Inoue": 1,
+    "ATP::Boyer": 5,
+    "ATP::Basavareddy": 2,
+    "WTA::Bucsa": 6,
+    "WTA::Blinkova": 4,
+    "WTA::Lu": 4,
+    "ATP::Shick": 8,
+    "WTA::Okutoyi": 5,
+    "WTA::Quevedo": 7,
+    "WTA::Pigato": 3,
+    "WTA::Vandromme": 5,
+    "WTA::Dourado Zimermman": 5,
+    "ATP::Galarneau": 6,
+    "WTA::Teixido Garcia": 5,
+    "WTA::Samsonova": 8,
+    "WTA::Appleton": 7,
+    "WTA::Hennemann": 2,
+    "WTA::Crawley": 5,
+    "ATP::Gentzsch": 3,
+    "WTA::Ansari": 1,
+    "WTA::Estevez": 3,
+    "ATP::Simakin": 4,
+    "WTA::Sato": 8,
+    "WTA::Kubka": 2,
+    "WTA::Bassols Ribera": 4,
+    "WTA::Steiner": 2,
+    "WTA::Podrez": 1,
+    "WTA::Sierra": 3,
+    "WTA::Bertea": 4,
+    "ATP::Moro Canas": 5,
+    "WTA::Abe": 3,
+    "ATP::Mikrut": 8,
+    "WTA::Pawlikowska": 3,
+    "ATP::Basilashvili": 2,
+    "WTA::Mi": 1,
+    "WTA::Nepliy": 8,
+    "WTA::Farzami": 8,
+    "WTA::Samson": 2,
+    "WTA::Radivojevic": 3,
+    "WTA::Karatancheva": 8,
+    "ATP::Mmoh": 4,
+    "WTA::Galfi": 4,
+    "ATP::Kolar": 7,
+    "WTA::Dapkute": 7,
+    "ATP::Dellavedova": 5,
+    "ATP::Gojo": 5,
+    "WTA::Frech": 7,
+    "WTA::Bouzas Maneiro": 6,
+    "ATP::Gomez": 3,
+    "WTA::Kurt": 3,
+    "ATP::Napolitano": 3,
+    "WTA::Cross": 7,
+    "ATP::Hewitt": 8,
+    "WTA::Shi": 3,
+    "WTA::Yesypchuk": 8,
+    "WTA::Khomutsianskaya": 6,
+    "WTA::Zanolini": 3,
+    "WTA::Jimenez Kasintseva": 2,
+    "ATP::Cecchinato": 5,
+    "WTA::Yaneva": 1,
+    "ATP::Cadenasso": 1,
+    "ATP::Smith": 7,
+    "ATP::Kouame": 1,
+    "WTA::Ibiraba Melleiro Junior": 8,
+    "WTA::Janicijevic": 3,
+    "WTA::Papamichail": 8,
+    "ATP::Noguchi": 8,
+    "WTA::Tjen": 5,
+    "ATP::Trungelliti": 2,
+    "WTA::Britez Risso": 4,
+    "WTA::Badosa": 2,
+    "ATP::Ymer": 7,
+    "WTA::Shubladze": 1,
+    "WTA::Saigo": 4,
+    "WTA::Semenistaja": 9,
+    "WTA::Lopez": 6,
+    "WTA::Bai": 2,
+    "ATP::Schoolkate": 7,
+    "WTA::Masarova": 7,
+    "ATP::Harris": 4,
+    "WTA::Jovic": 2,
+    "WTA::Jamshidi": 6,
+    "WTA::Kawaguchi": 6,
+    "WTA::Yao": 5,
+    "WTA::Konishi Camargo Silva": 1,
+    "ATP::Barrena": 4,
+    "ATP::Tabur": 3,
+    "ATP::Ilagan": 6,
+    "ATP::Chidekh": 8,
+    "WTA::Jones": 1,
+    "WTA::Shimizu": 7,
+    "WTA::Erjavec": 2,
+    "ATP::Bax": 6,
+    "WTA::Paganetti": 6,
+    "ATP::Agamenone": 8,
+    "ATP::Zheng": 1,
+    "ATP::Gill": 2,
+    "ATP::Mannarino": 1,
+    "ATP::Travaglia": 4,
+    "WTA::Siskova": 4,
+    "WTA::Lazaro Garcia": 5,
+    "WTA::Kostyuk": 1,
+    "WTA::Avdeeva": 3,
+    "WTA::Romero Gormaz": 6,
+    "WTA::Oliver Sanchez": 4,
+    "WTA::Zaar": 6,
+    "WTA::Lukosiute": 2,
+    "WTA::Ristic": 7,
+    "WTA::Stusek": 1,
+    "ATP::Pacheco Mendez": 3,
+    "ATP::Droguet": 2,
+    "WTA::Ryser": 6,
+    "WTA::Leonard": 8,
+    "WTA::Kraus": 1,
+    "WTA::Matoula": 7,
+    "WTA::Milovanovic": 5,
+    "WTA::Parry": 4,
+    "WTA::Vidal": 7,
+    "ATP::Pavlovic": 2,
+    "ATP::Cina": 5,
+    "WTA::Kuzmova": 2,
+    "WTA::Yang": 8,
+    "WTA::Shapatava": 4,
+    "ATP::Mochizuki": 1,
+    "ATP::Clarke": 6,
+    "ATP::Tomic": 4
+  }
 }
