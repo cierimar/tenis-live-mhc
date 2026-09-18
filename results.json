@@ -1,107 +1,363 @@
 {
+  "updated": "2026-09-18T01:36:11Z",
   "matches": [
     {
-      "id": "te-3325903",
+      "id": "te-3325883",
       "state": "post",
       "tour": "atp",
       "type": "Men's Doubles",
       "round": "",
-      "tournamentId": "te-3325903",
+      "tournamentId": "te-3325883",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "name": "Bucsa C. / Melichar",
-          "flag": "",
-          "homeAway": "home",
           "linescores": [
             {
-              "tiebreak": null,
-              "value": 7,
-              "winner": true
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
-              "value": 0,
-              "winner": false
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
             }
           ],
-          "winner": true
+          "flagAlt": "",
+          "flag": "",
+          "name": "Gonzalez / Smith J.",
+          "winner": true,
+          "homeAway": "home"
         },
         {
-          "flagAlt": "",
-          "name": "Kozyreva / Lumsden M",
-          "flag": "",
-          "homeAway": "away",
           "linescores": [
             {
-              "tiebreak": null,
-              "value": 6,
-              "winner": false
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
-              "value": 0,
-              "winner": true
+              "value": 6,
+              "winner": false,
+              "tiebreak": null
             }
           ],
-          "winner": false
+          "flagAlt": "",
+          "flag": "",
+          "name": "Gomez F. / Martinez",
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     },
     {
-      "id": "te-3321787",
+      "id": "te-3325895",
       "state": "post",
       "tour": "atp",
-      "type": "Men's Singles",
+      "type": "Men's Doubles",
       "round": "",
-      "tournamentId": "te-3321787",
+      "tournamentId": "te-3325895",
       "tournamentName": "",
       "surface": "",
       "competitors": [
         {
-          "flagAlt": "",
-          "name": "Tripathi E.",
-          "flag": "",
-          "homeAway": "home",
           "linescores": [
             {
-              "tiebreak": null,
-              "value": 7,
-              "winner": true
+              "value": 6,
+              "winner": false,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
-              "value": 6,
-              "winner": true
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 10,
+              "winner": true,
+              "tiebreak": null
             }
           ],
-          "winner": true
+          "flagAlt": "",
+          "flag": "",
+          "name": "Cash R. / Seggerman",
+          "winner": true,
+          "homeAway": "home"
         },
         {
-          "flagAlt": "",
-          "name": "Braund A.",
-          "flag": "",
-          "homeAway": "away",
           "linescores": [
             {
-              "tiebreak": null,
-              "value": 5,
-              "winner": false
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
             },
             {
-              "tiebreak": null,
-              "value": 4,
-              "winner": false
+              "value": 5,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 5,
+              "winner": false,
+              "tiebreak": null
             }
           ],
-          "winner": false
+          "flagAlt": "",
+          "flag": "",
+          "name": "Ilagan A. / Zhu E.",
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3325907",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3325907",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [
+            {
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Braga B. / Tosetto R",
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "linescores": [
+            {
+              "value": 6,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Garcia Fi / Meneguett",
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3325905",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3325905",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [
+            {
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 7,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Becerra O / Nunez D.",
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "linescores": [
+            {
+              "value": 5,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Scheneken / Souza Pin",
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3325567",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Singles",
+      "round": "",
+      "tournamentId": "te-3325567",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [
+            {
+              "value": 0,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Lollia M.",
+          "winner": false,
+          "homeAway": "home"
+        },
+        {
+          "linescores": [
+            {
+              "value": 0,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Matoula M.",
+          "winner": true,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3322273",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3322273",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            },
+            {
+              "value": 6,
+              "winner": true,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Stoiana M / Valdmanno",
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "linescores": [
+            {
+              "value": 3,
+              "winner": false,
+              "tiebreak": null
+            },
+            {
+              "value": 1,
+              "winner": false,
+              "tiebreak": null
+            }
+          ],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Ovcharenk / Pigossi L",
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3323013",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3323013",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Cascino E / Feng S.",
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "linescores": [],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Basiletti / Zantedesc",
+          "winner": false,
+          "homeAway": "away"
+        }
+      ]
+    },
+    {
+      "id": "te-3326045",
+      "state": "post",
+      "tour": "atp",
+      "type": "Men's Doubles",
+      "round": "",
+      "tournamentId": "te-3326045",
+      "tournamentName": "",
+      "surface": "",
+      "competitors": [
+        {
+          "linescores": [],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Huang Y. / Nugroho P",
+          "winner": true,
+          "homeAway": "home"
+        },
+        {
+          "linescores": [],
+          "flagAlt": "",
+          "flag": "",
+          "name": "Li Y. / Yao X.",
+          "winner": false,
+          "homeAway": "away"
         }
       ]
     }
   ],
-  "ok": true,
-  "count": 2,
-  "updated": "2026-09-17T23:41:45Z"
+  "count": 8,
+  "ok": true
 }
