@@ -262,6 +262,58 @@ body[data-mode='fox'] .match { background: #ffffff; border: 1px solid #cfd5dc; b
 body[data-mode='fox'] .match.live { border-left: 4px solid #ff4b44; background: linear-gradient(90deg, #e3effc, #ffffff 46%); }
 body[data-mode='fox'] .draw-board, body[data-mode='fox'] .news-card, body[data-mode='fox'] .video-card, body[data-mode='fox'] .col-card, body[data-mode='fox'] .ct-card, body[data-mode='fox'] .wc-res-card { background: #ffffff; border-color: #cfd5dc; }
 body[data-mode='fox']::selection { background: #ff4b44; color: #fff; }
+
+/* ---------------- modo davis (daviscup.com, navy + verde esmeralda/neon) ---------------- */
+body[data-mode='davis'] {
+  --sans: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --display: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  --serif: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  --mono: 'Barlow Condensed', 'Consolas', monospace;
+  --paper: #092e24;
+  --paper-2: #051c16;
+  --paper-3: #0d3a2c;
+  --ink: #f2f2f2;
+  --ink-2: #ffffff;
+  --muted: #b3b3b3;
+  --hairline: #15523d;
+  --hairline-dark: #1f7a5c;
+  --red: #008f70;
+  --red-dark: #005643;
+  --red-vivo: #28fb6b;
+  --red-soft: rgba(40, 251, 107, 0.14);
+  --green: #00e4ab;
+  --amber: #ffb400;
+  --blue: #28fb6b;
+  --warn: #ffb400;
+  --live: #28fb6b;
+  --shadow: none;
+  --bg: #021c35;
+}
+body[data-mode='davis'] {
+  background-color: #021c35;
+  background-image: none;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+body[data-mode='davis'] .appbar { background: #092e24; border-bottom: 1px solid #15523d; }
+body[data-mode='davis'] .tabbar { background: #092e24; border-top: 1px solid #15523d; }
+body[data-mode='davis'] .subbar { background: #051c16; border-bottom: 1px solid #15523d; }
+body[data-mode='davis'] .sb-logo { color: #ffffff; font-family: 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; letter-spacing: 0.06em; }
+body[data-mode='davis'] .sb-logo-sub, body[data-mode='davis'] .sb-logo-tag, body[data-mode='davis'] .mode-label { color: #28fb6b; }
+body[data-mode='davis'] .nav-item.active, body[data-mode='davis'] .seg-btn.active, body[data-mode='davis'] .lv-btn.active, body[data-mode='davis'] .round-chip.active, body[data-mode='davis'] .h2h-go, body[data-mode='davis'] .btn-refresh { background: #008f70; color: #fff; }
+body[data-mode='davis'] .nav-item.active { background: transparent; color: #28fb6b; border-top-color: #28fb6b; }
+body[data-mode='davis'] .badge.live, body[data-mode='davis'] .set.live-set, body[data-mode='davis'] .wc-live-badge { background: #28fb6b; color: #021c35; }
+body[data-mode='davis'] .seed-badge { background: #ffb400; color: #021c35; }
+body[data-mode='davis'] .rank-section-title, body[data-mode='davis'] .th-tier { color: #28fb6b; }
+body[data-mode='davis'] .pname.winner::after, body[data-mode='davis'] .set.win, body[data-mode='davis'] .r-move.up { color: #00e4ab; }
+body[data-mode='davis'] .r-move.down { color: #ff3a49; }
+body[data-mode='davis'] .tb, body[data-mode='davis'] .dp-set .tb { color: #28fb6b; }
+body[data-mode='davis'] .set { color: #ffffff; }
+body[data-mode='davis'] a { color: #28fb6b; }
+body[data-mode='davis'] .match { background: #092e24; border: 1px solid #15523d; border-left: 4px solid #008f70; }
+body[data-mode='davis'] .match.live { border-left: 4px solid #28fb6b; background: linear-gradient(90deg, #0d3a2c, #092e24 46%); }
+body[data-mode='davis'] .draw-board, body[data-mode='davis'] .news-card, body[data-mode='davis'] .video-card, body[data-mode='davis'] .col-card, body[data-mode='davis'] .ct-card, body[data-mode='davis'] .wc-res-card, body[data-mode='davis'] .h2h-block, body[data-mode='davis'] .cal-block, body[data-mode='davis'] .stats-board, body[data-mode='davis'] .rank-table-wrap { background: #092e24; border-color: #15523d; }
+body[data-mode='davis'] .th-logo { filter: none; }
+body[data-mode='davis']::selection { background: #28fb6b; color: #021c35; }
 body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
 
 /* ============================================================
