@@ -314,6 +314,66 @@ body[data-mode='davis'] .match.live { border-left: 4px solid #28fb6b; background
 body[data-mode='davis'] .draw-board, body[data-mode='davis'] .news-card, body[data-mode='davis'] .video-card, body[data-mode='davis'] .col-card, body[data-mode='davis'] .ct-card, body[data-mode='davis'] .wc-res-card, body[data-mode='davis'] .h2h-block, body[data-mode='davis'] .cal-block, body[data-mode='davis'] .stats-board, body[data-mode='davis'] .rank-table-wrap { background: #092e24; border-color: #15523d; }
 body[data-mode='davis'] .th-logo { filter: none; }
 body[data-mode='davis']::selection { background: #28fb6b; color: #021c35; }
+
+@font-face {
+  font-family: 'Organetto-Variable';
+  src: url('Organetto-Variable.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------------- modo fed (billiejeankingcup.com, navy + azul electrico + lima) ---------------- */
+body[data-mode='fed'] {
+  --sans: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --display: 'Organetto-Variable', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  --serif: 'Organetto-Variable', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif;
+  --mono: 'Organetto-Variable', 'Barlow Condensed', 'Consolas', monospace;
+  --paper: #033093;
+  --paper-2: #021d58;
+  --paper-3: #01133b;
+  --ink: #f2f2f2;
+  --ink-2: #ffffff;
+  --muted: #b3b3b3;
+  --hairline: #2951a8;
+  --hairline-dark: #4f71be;
+  --red: #0031e5;
+  --red-dark: #001d89;
+  --red-vivo: #c7f732;
+  --red-soft: rgba(199, 247, 50, 0.14);
+  --green: #20d8de;
+  --amber: #ffb400;
+  --blue: #c7f732;
+  --warn: #ffb400;
+  --live: #c7f732;
+  --shadow: none;
+  --bg: #001020;
+}
+body[data-mode='fed'] {
+  background-color: #001020;
+  background-image: none;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+body[data-mode='fed'] .appbar { background: #021c35; border-bottom: 1px solid #2951a8; }
+body[data-mode='fed'] .tabbar { background: #021c35; border-top: 1px solid #2951a8; }
+body[data-mode='fed'] .subbar { background: #01133b; border-bottom: 1px solid #2951a8; }
+body[data-mode='fed'] .sb-logo { color: #ffffff; font-family: 'Organetto-Variable', 'Barlow Condensed', 'Arial Narrow', Arial, sans-serif; font-weight: 800; letter-spacing: 0.06em; }
+body[data-mode='fed'] .sb-logo-sub, body[data-mode='fed'] .sb-logo-tag, body[data-mode='fed'] .mode-label { color: #c7f732; }
+body[data-mode='fed'] .nav-item.active, body[data-mode='fed'] .seg-btn.active, body[data-mode='fed'] .lv-btn.active, body[data-mode='fed'] .round-chip.active, body[data-mode='fed'] .h2h-go, body[data-mode='fed'] .btn-refresh { background: #0031e5; color: #fff; }
+body[data-mode='fed'] .nav-item.active { background: transparent; color: #c7f732; border-top-color: #c7f732; }
+body[data-mode='fed'] .badge.live, body[data-mode='fed'] .set.live-set, body[data-mode='fed'] .wc-live-badge { background: #c7f732; color: #021c35; }
+body[data-mode='fed'] .seed-badge { background: #ffb400; color: #021c35; }
+body[data-mode='fed'] .rank-section-title, body[data-mode='fed'] .th-tier { color: #c7f732; }
+body[data-mode='fed'] .pname.winner::after, body[data-mode='fed'] .set.win, body[data-mode='fed'] .r-move.up { color: #20d8de; }
+body[data-mode='fed'] .r-move.down { color: #ff3a49; }
+body[data-mode='fed'] .tb, body[data-mode='fed'] .dp-set .tb { color: #c7f732; }
+body[data-mode='fed'] .set { color: #ffffff; }
+body[data-mode='fed'] a { color: #c7f732; }
+body[data-mode='fed'] .match { background: #033093; border: 1px solid #2951a8; border-left: 4px solid #0031e5; }
+body[data-mode='fed'] .match.live { border-left: 4px solid #c7f732; background: linear-gradient(90deg, #00497a, #033093 46%); }
+body[data-mode='fed'] .draw-board, body[data-mode='fed'] .news-card, body[data-mode='fed'] .video-card, body[data-mode='fed'] .col-card, body[data-mode='fed'] .ct-card, body[data-mode='fed'] .wc-res-card, body[data-mode='fed'] .h2h-block, body[data-mode='fed'] .cal-block, body[data-mode='fed'] .stats-board, body[data-mode='fed'] .rank-table-wrap { background: #033093; border-color: #2951a8; }
+body[data-mode='fed'] .th-logo { filter: none; }
+body[data-mode='fed']::selection { background: #c7f732; color: #021c35; }
 body[data-mode='claro'] .gender-badge.gender-m { border-color: #2456a6; color: #2456a6; }
 
 /* ============================================================
