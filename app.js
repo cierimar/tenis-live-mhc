@@ -17,6 +17,7 @@
     itfLive: { tournaments: [], matches: [] },
     mixedLive: { matches: [], loaded: false },
     ttLive: { matches: [], tournaments: [], loaded: false },
+    tnnsLive: { matches: [], tournaments: [], loaded: false, at: 0 },
     cal: { atp: [], wta: [], chall: [], itf: [], loaded: false, tab: 'todos', month: 'todos' },
     rankSingles: { atp: null, wta: null },
     rankView: 'oficial',
@@ -145,6 +146,8 @@
   }
   function norm(s) { return String(s || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
   function typeFor(tour, mode) {
+    if (tour === 'davis') return mode === 'doubles' ? "Men's Doubles" : "Men's Singles";
+    if (tour === 'fed') return mode === 'doubles' ? "Women's Doubles" : "Women's Singles";
     const men = tour === 'atp' || tour === 'chall';
     return mode === 'doubles'
       ? (men ? "Men's Doubles" : "Women's Doubles")
@@ -172,6 +175,8 @@
   }
   function tourOf(m) {
     if (m.tour === 'mixto') return 'mixto';
+    if (m.tour === 'davis') return 'davis';
+    if (m.tour === 'fed') return 'fed';
     if (m.tour === 'chall') return 'chall';
     if (m.tour === 'itf') return 'itf';
     if (m.tour === 'atp' || m.tour === 'wta') return m.tour;
@@ -182,6 +187,8 @@
     const t = tourOf(m);
     if (t === 'chall') return 'CHALL';
     if (t === 'mixto') return 'MIXTO';
+    if (t === 'davis') return 'DAVIS';
+    if (t === 'fed') return 'FED';
     if (t === 'itf') return m.cat === 'w' ? 'ITF W' : 'ITF M';
     return t === 'atp' ? 'ATP' : 'WTA';
   }
@@ -202,7 +209,9 @@
     me: 'mne', mk: 'mkd', mt: 'mlt', mx: 'mex', my: 'mas', nc: 'ncl', nl: 'ned',
     no: 'nor', nz: 'nzl', pe: 'per', pl: 'pol', pt: 'por', ro: 'rou', rs: 'srb',
     ru: 'rus', se: 'swe', si: 'slo', sk: 'svk', th: 'tha', tr: 'tur', tw: 'tpe',
-    ua: 'ukr', us: 'usa', uy: 'uru', uz: 'uzb', ve: 'ven', xk: 'kos', za: 'rsa'
+    ua: 'ukr', us: 'usa', uy: 'uru', uz: 'uzb', ve: 'ven', xk: 'kos', za: 'rsa',
+    mc: 'mco', no: 'nor', cn: 'chn', lu: 'lux', hu: 'hun', dk: 'den', bg: 'bul', fi: 'fin',
+    md: 'mda', mk: 'mkd', ae: 'uae', sa: 'ksa', qa: 'qat', kw: 'kwi', bh: 'brn', il: 'isr'
   };
   function flagImg(url, alt, size) {
     if (!url && alt) url = flagUrl(alt);
@@ -1755,12 +1764,119 @@
     }
   }
 
+  function parseTnns(j) {
+    const out = [];
+    const touts = [];
+    if (!j || !Array.isArray(j.all_matches)) return { matches: out, tournaments: touts };
+    const sids = (j.sids && typeof j.sids === 'object') ? j.sids : {};
+    for (const m of j.all_matches) {
+      if (!m || !Array.isArray(m.p) || m.p.length < 2) continue;
+      const sid = m.sid;
+      const info = (sid != null && sids[sid]) ? sids[sid] : {};
+      const tName = info.t || '';
+      const tCat = (info.d && info.d.category) || '';
+      if (!/davis|billie jean|fed/i.test(tName) && !/davis|billie jean|fed/i.test(tCat)) continue;
+      if (/ties/i.test(tName) || /ties/i.test(tCat)) continue;
+      const tour = /fed|billie jean/i.test(tName) || /fed|billie jean/i.test(tCat) ? 'fed' : 'davis';
+      const p0 = m.p[0], p1 = m.p[1];
+      const n0 = p0.n || '', n1 = p1.n || '';
+      if (!n0 || !n1) continue;
+      const isD = n0.indexOf(' / ') > -1 || n1.indexOf(' / ') > -1;
+      const type = tour === 'davis'
+        ? (isD ? "Men's Doubles" : "Men's Singles")
+        : (isD ? "Women's Doubles" : "Women's Singles");
+      const fs = Array.isArray(m.fs) ? String(m.fs.join('')) : '';
+      const state = (m.ka === 'dl' || fs.indexOf('l') > -1) ? 'in' : (m.ka === 'dc' || fs.indexOf('c') > -1 || fs.indexOf('h') > -1) ? 'post' : 'pre';
+      const setArr = Array.isArray(m.sc) ? m.sc.filter(s => Array.isArray(s) && s.length >= 2 && s[0] != null && s[1] != null) : [];
+      const ls0 = [], ls1 = [];
+      for (const s of setArr) {
+        const flag = s.length >= 3 ? s[2] : null;
+        ls0.push({ value: s[0], winner: flag === 1, tiebreak: false });
+        ls1.push({ value: s[1], winner: flag === 0, tiebreak: false });
+      }
+      let pts0 = '', pts1 = '';
+      let serverIdx = 0;
+      if (state === 'in' && Array.isArray(m.gs)) {
+        pts0 = (m.gs[0] == null ? '' : String(m.gs[0]));
+        pts1 = (m.gs[1] == null ? '' : String(m.gs[1]));
+        if (p0.sv === true) serverIdx = 1; else if (p1.sv === true) serverIdx = 2;
+      }
+      const period = state === 'in' ? setArr.length : 0;
+      const start = Number(m.start_time_timestamp || 0);
+      const date = start ? new Date(start).toISOString() : null;
+      const su = info.su || '';
+      const surf = String(su).split('·').pop().trim() || '';
+      const tid = 'tnns-' + String(sid);
+      if (!touts.some(t => t.id === tid)) {
+        touts.push({ id: tid, name: tName, tour: tour, cat: null, tier: 'EQUIPOS', logo: '', surface: surf, date: null });
+      }
+      out.push({
+        id: 'tnns-' + String(m.k || (p0.n + '|' + p1.n + '|' + start)),
+        date: date,
+        state: state,
+        period: period,
+        type: type,
+        round: '',
+        tournamentId: tid,
+        tournamentName: tName,
+        tour: tour,
+        cat: null,
+        venue: '',
+        notes: '',
+        postponed: false,
+        suspended: false,
+        live: state === 'in',
+        pts0: pts0,
+        pts1: pts1,
+        serverIdx: serverIdx,
+        competitors: [
+          { homeAway: 'home', winner: !!(p0.w), order: 1, name: n0, flag: flagUrl(Array.isArray(p0.f) && p0.f[0] ? p0.f[0] : ''), flagAlt: Array.isArray(p0.f) && p0.f[0] ? p0.f[0] : '', linescores: ls0 },
+          { homeAway: 'away', winner: !!(p1.w), order: 2, name: n1, flag: flagUrl(Array.isArray(p1.f) && p1.f[0] ? p1.f[0] : ''), flagAlt: Array.isArray(p1.f) && p1.f[0] ? p1.f[0] : '', linescores: ls1 }
+        ]
+      });
+    }
+    return { matches: out, tournaments: touts };
+  }
+
+  async function refreshTnnsLive() {
+    try {
+      const now = Date.now();
+      const last = state.tnnsLive.at || 0;
+      if (state.tnnsLive.loaded && now - last < 20000) return;
+      state.tnnsLive.at = now;
+      let raw = null;
+      try {
+        const r = await fetch('https://r.jina.ai/https://api.tnnslive.com/v1/matches', { headers: { 'X-Return-Format': 'text' } });
+        if (r.ok) {
+          const txt = await r.text();
+          const s = txt.indexOf('{');
+          if (s > -1) {
+            const parsed = JSON.parse(txt.slice(s));
+            if (parsed && Array.isArray(parsed.all_matches)) raw = parsed;
+          }
+        }
+      } catch (e1) {}
+      if (!raw) {
+        try {
+          const r2 = await fetch('https://api.tnnslive.com/v1/matches');
+          if (r2.ok) { raw = await r2.json(); }
+        } catch (e2) {}
+      }
+      if (raw) {
+        const parsed = parseTnns(raw);
+        state.tnnsLive.matches = parsed.matches;
+        state.tnnsLive.tournaments = parsed.tournaments;
+      }
+    } catch (e3) {}
+    state.tnnsLive.loaded = true;
+  }
+
   async function refreshAll(force) {
     if (state.refreshing) return;
     state.refreshing = true;
     try {
       snapshotLiveMatches();
-      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshMixed(), refreshLiveAll()]);
+      await Promise.allSettled([refreshScoreboards(), refreshRankingsSingles(force), refreshAtpLive(), refreshChallLive(), refreshNews(), refreshVideos(), refreshSeeds(), refreshElo(), refreshTennisExplorerResults(), refreshMixed(), refreshLiveAll(), refreshTnnsLive()]);
       await refreshSofaPoints();
       refreshRankingsLive().then(() => { if (state.tab === 'rankings' || state.tab === 'argentina') render(); });
       applySuspensions();
@@ -1906,16 +2022,20 @@
     const itf = state.itfLive && state.itfLive.matches ? state.itfLive.matches : [];
     const mix = state.mixedLive && state.mixedLive.matches ? state.mixedLive.matches : [];
     const tt = state.ttLive && state.ttLive.matches ? state.ttLive.matches : [];
-    return [...state.matches, ...chall, ...itf, ...mix, ...tt].filter(m => m && typeof m === 'object');
+    const tn = state.tnnsLive && state.tnnsLive.matches ? state.tnnsLive.matches : [];
+    return [...state.matches, ...chall, ...itf, ...mix, ...tt, ...tn].filter(m => m && typeof m === 'object');
   }
   function allTournaments() {
     const chall = state.challLive && state.challLive.tournaments ? state.challLive.tournaments : [];
     const itf = state.itfLive && state.itfLive.tournaments ? state.itfLive.tournaments : [];
     const tt = state.ttLive && state.ttLive.tournaments ? state.ttLive.tournaments : [];
-    return [...state.tournaments, ...chall, ...itf, ...tt];
+    const tn = state.tnnsLive && state.tnnsLive.tournaments ? state.tnnsLive.tournaments : [];
+    return [...state.tournaments, ...chall, ...itf, ...tt, ...tn];
   }
   function filteredMatches() {
     if (state.tour === 'mixto') return allMatches().filter(m => tourOf(m) === 'mixto');
+    if (state.tour === 'davis') return allMatches().filter(m => tourOf(m) === 'davis');
+    if (state.tour === 'fed') return allMatches().filter(m => tourOf(m) === 'fed');
     const types = new Set(selectedTypes());
     const tours = new Set(selectedTours());
     return allMatches().filter(m => types.has(m.type) && tours.has(tourOf(m)));
@@ -1938,13 +2058,16 @@
   }
 
   function renderLive() {
-    const allList = filteredMatches().filter(m => m.state !== 'post' || state.tour === 'mixto');
+    const allList = filteredMatches().filter(m => m.state !== 'post' || state.tour === 'mixto' || state.tour === 'davis' || state.tour === 'fed');
+    const isTeams = state.tour === 'davis' || state.tour === 'fed';
     const list = state.liveView === 'vivos'
       ? allList.filter(m => m.state === 'in')
-      : allList.filter(m => m.state === 'pre');
+      : state.liveView === 'resultados'
+        ? allList.filter(m => m.state === 'post')
+        : allList.filter(m => m.state === 'pre');
     const el = $('liveContent');
     if (!allMatches().length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
-    const lvBar = '<div class="live-view-bar"><button class="lv-btn' + (state.liveView === 'vivos' ? ' active' : '') + '" data-lv="vivos">EN VIVO</button><button class="lv-btn' + (state.liveView === 'proximos' ? ' active' : '') + '" data-lv="proximos">PRÓXIMOS</button></div>';
+    const lvBar = '<div class="live-view-bar"><button class="lv-btn' + (state.liveView === 'vivos' ? ' active' : '') + '" data-lv="vivos">EN VIVO</button><button class="lv-btn' + (state.liveView === 'proximos' ? ' active' : '') + '" data-lv="proximos">PRÓXIMOS</button>' + (isTeams ? '<button class="lv-btn' + (state.liveView === 'resultados' ? ' active' : '') + '" data-lv="resultados">RESULTADOS</button>' : '') + '</div>';
     if (!allMatches().length) { el.innerHTML = '<div class="loading">Cargando partidos...</div>'; return; }
     if (state.tour === 'itf') {
       if (!state.itfLive.matches.length && !state.matches.some(x => x.tour === 'itf')) {
@@ -2085,6 +2208,9 @@
       if (lab[0] || lab[1]) pts = { g0: lab[0], g1: lab[1], serverName: '', serverIdx: m.sofaPts.server1 };
     }
     if (!pts) pts = livePoints(m);
+    if (m.state === 'in' && (m.tour === 'davis' || m.tour === 'fed') && (m.pts0 || m.pts1)) {
+      pts = { g0: pointLabel(m.pts0), g1: pointLabel(m.pts1), serverName: '', serverIdx: m.serverIdx || 0 };
+    }
     if (!pts && m.state === 'in' && (m.pts0 || m.pts1)) pts = { g0: m.pts0, g1: m.pts1, serverName: '' };
     const rows = comps.map(p => playerRow(p, m, pts)).join('');
     const note = m.notes && m.state === 'post' ? '<div class="note">' + esc(m.notes) + '</div>' : '';
@@ -2175,8 +2301,8 @@
       if (!groups.has(g)) groups.set(g, []);
       groups.get(g).push(t);
     }
-    const order = ['atp', 'wta', 'chall', 'itf'];
-    const glabels = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF' };
+    const order = ['atp', 'wta', 'chall', 'itf', 'davis', 'fed'];
+    const glabels = { atp: 'ATP', wta: 'WTA', chall: 'CHALLENGER', itf: 'ITF', davis: 'DAVIS CUP', fed: 'FED CUP' };
     sel.innerHTML = order.filter(g => groups.has(g)).map(g =>
       '<optgroup label="' + glabels[g] + '">' +
       groups.get(g).sort((a, b) => String(a.name).localeCompare(String(b.name))).map(t => '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>').join('') +
@@ -3002,7 +3128,11 @@
       if (!b) return;
       state.tour = b.dataset.tour;
       document.querySelectorAll('#segTour .seg-btn').forEach(x => x.classList.toggle('active', x === b));
+      if (state.tour !== 'davis' && state.tour !== 'fed' && state.tour !== 'mixto') state.liveView = 'vivos';
       render();
+      if ((state.tour === 'davis' || state.tour === 'fed') && state.tab === 'live' && !state.tnnsLive.loaded) {
+        refreshTnnsLive().then(() => renderLive());
+      }
     });
 
     $('segMode').addEventListener('click', e => {
