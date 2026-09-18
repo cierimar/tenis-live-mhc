@@ -54,6 +54,7 @@ function Send-File([System.Net.HttpListenerResponse]$resp, [string]$path) {
         '.png'  { 'image/png' }
         '.jpg'  { 'image/jpeg' }
         '.ico'  { 'image/x-icon' }
+        '.ttf'  { 'font/ttf' }
         default { 'application/octet-stream' }
     }
     $bytes = [System.IO.File]::ReadAllBytes($path)
