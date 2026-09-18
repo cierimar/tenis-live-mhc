@@ -3252,7 +3252,7 @@ footer p {
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   padding: 8px 4px 7px;
   background: none; border: none; border-top: 2px solid transparent;
-  font-family: var(--mono); font-size: 8.5px; font-weight: 600;
+font-family: var(--mono); font-size: 7.5px; font-weight: 400;
   letter-spacing: 0.04em; color: var(--ink-2);
   transition: color 0.12s, background 0.12s;
 }
@@ -3261,7 +3261,7 @@ footer p {
 .nav-item:hover { color: var(--ink); background: var(--paper-2); }
 .nav-item:hover .ic { color: var(--ink); }
 .nav-item.active {
-  color: var(--live); font-weight: 800;
+  color: var(--live); font-weight: 600;
   border-top-color: var(--live);
   background: var(--red-soft);
 }
