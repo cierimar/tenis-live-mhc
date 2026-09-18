@@ -1,5 +1,4 @@
 {
-  "time": "2026-09-18T17:44:17Z",
   "ok": true,
   "tournaments": [
     {
@@ -11,7 +10,7 @@
           "teId": "3326583",
           "p1": "Crawley",
           "p2": "Leonard",
-          "time": "10:00",
+          "time": "16:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4041,22 +4040,32 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3326349",
-          "p1": "Vidal",
-          "p2": "Catanzarite",
-          "time": "17:00",
-          "round": "QF",
+          "teId": "3326718",
+          "p1": "Konishi Camargo Silva",
+          "p2": "Britez Risso",
+          "time": "15:30",
+          "round": "SF",
           "h2h": "0-0",
           "finished": false
         },
         {
-          "teId": "3326718",
-          "p1": "Konishi Camargo Silva",
-          "p2": "Britez Risso",
-          "time": "",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "teId": "3326349",
+          "p1": "Catanzarite",
+          "p2": "Vidal",
+          "round": "quarterfinal",
+          "date": "18.09.",
+          "time": "17:00",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "6"
+          ],
+          "sets2": [
+            "5",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3326237",
@@ -4577,5 +4586,6 @@
         }
       ]
     }
-  ]
+  ],
+  "time": "2026-09-18T19:59:24Z"
 }
