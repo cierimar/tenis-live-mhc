@@ -1,6 +1,6 @@
 {
-  "time": "2026-09-19T13:14:48Z",
   "ok": true,
+  "time": "2026-09-19T16:32:21Z",
   "tournaments": [
     {
       "id": "itf-le-neubourg2026wta-women",
@@ -8,22 +8,44 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3326786",
-          "p1": "Podrez",
-          "p2": "Siskova",
-          "time": "14:10",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
           "teId": "3326583",
           "p1": "Crawley",
           "p2": "Leonard",
-          "time": "16:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "16:55",
+          "res1": 1,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "2"
+          ],
+          "sets2": [
+            "3",
+            "0"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3326786",
+          "p1": "Siskova",
+          "p2": "Podrez",
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "14:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "6",
+            "5",
+            "5"
+          ],
+          "finished": true
         },
         {
           "teId": "3326577",
@@ -2998,7 +3020,7 @@
           "teId": "3326585",
           "p1": "Mi",
           "p2": "Mariani",
-          "time": "15:00",
+          "time": "16:00",
           "round": "SF",
           "h2h": "0-1",
           "finished": false
@@ -3007,7 +3029,7 @@
           "teId": "3326567",
           "p1": "Luciano",
           "p2": "Dmitrichenko",
-          "time": "15:00",
+          "time": "16:00",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -3576,12 +3598,22 @@
         },
         {
           "teId": "3326718",
-          "p1": "Konishi Camargo Silva",
-          "p2": "Britez Risso",
+          "p1": "Britez Risso",
+          "p2": "Konishi Camargo Silva",
+          "round": "semifinal",
+          "date": "19.09.",
           "time": "15:30",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "3"
+          ],
+          "finished": true
         },
         {
           "teId": "3326349",
