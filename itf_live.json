@@ -1748,22 +1748,44 @@
       "cat": "w",
       "matches": [
         {
-          "teId": "3326403",
-          "p1": "Matsuda",
-          "p2": "Abe",
-          "time": "03:00",
-          "round": "SF",
-          "h2h": "0-3",
-          "finished": false
-        },
-        {
           "teId": "3326495",
           "p1": "Lu",
           "p2": "Shibahara",
-          "time": "04:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "05:30",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "2",
+            "4"
+          ],
+          "finished": true
+        },
+        {
+          "teId": "3326403",
+          "p1": "Abe",
+          "p2": "Matsuda",
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "03:10",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "6",
+            "5",
+            "6"
+          ],
+          "sets2": [
+            "1",
+            "7",
+            "4"
+          ],
+          "finished": true
         },
         {
           "teId": "3326017",
@@ -2323,22 +2345,42 @@
       "cat": "w",
       "matches": [
         {
+          "teId": "3326405",
+          "p1": "Wei",
+          "p2": "Zhang",
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "04:20",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "6",
+            "7"
+          ],
+          "sets2": [
+            "3",
+            "6"
+          ],
+          "finished": true
+        },
+        {
           "teId": "3326519",
           "p1": "Sidorova",
           "p2": "Huang",
-          "time": "04:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
-        },
-        {
-          "teId": "3326405",
-          "p1": "Zhang",
-          "p2": "Wei",
-          "time": "04:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "04:10",
+          "res1": 2,
+          "res2": 0,
+          "sets1": [
+            "7",
+            "7"
+          ],
+          "sets2": [
+            "5",
+            "6"
+          ],
+          "finished": true
         },
         {
           "teId": "3326021",
@@ -4605,5 +4647,5 @@
     }
   ],
   "ok": true,
-  "time": "2026-09-18T22:28:40Z"
+  "time": "2026-09-19T04:58:28Z"
 }
