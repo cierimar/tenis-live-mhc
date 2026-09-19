@@ -1,4 +1,5 @@
 {
+  "ok": true,
   "tournaments": [
     {
       "id": "itf-le-neubourg2026wta-women",
@@ -576,7 +577,7 @@
           "teId": "3326569",
           "p1": "Yaneva",
           "p2": "Ebeling Koning",
-          "time": "09:00",
+          "time": "09:10",
           "round": "F",
           "h2h": "0-0",
           "finished": false
@@ -1182,7 +1183,7 @@
           "teId": "3326553",
           "p1": "Perelygina",
           "p2": "Pawlikowska",
-          "time": "08:00",
+          "time": "08:10",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -1191,10 +1192,22 @@
           "teId": "3326543",
           "p1": "Tupitsyna",
           "p2": "Kuzmova",
-          "time": "08:00",
-          "round": "SF",
-          "h2h": "0-0",
-          "finished": false
+          "round": "semifinal",
+          "date": "19.09.",
+          "time": "08:15",
+          "res1": 2,
+          "res2": 1,
+          "sets1": [
+            "4",
+            "6",
+            "6"
+          ],
+          "sets2": [
+            "6",
+            "4",
+            "2"
+          ],
+          "finished": true
         },
         {
           "teId": "3326039",
@@ -1747,6 +1760,15 @@
       "name": "Kyoto ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3327027",
+          "p1": "Abe",
+          "p2": "Lu",
+          "time": "03:30",
+          "round": "F",
+          "h2h": "0-0",
+          "finished": false
+        },
         {
           "teId": "3326495",
           "p1": "Lu",
@@ -2344,6 +2366,15 @@
       "name": "Shenyang ITF",
       "cat": "w",
       "matches": [
+        {
+          "teId": "3326823",
+          "p1": "Sidorova",
+          "p2": "Wei",
+          "time": "04:00",
+          "round": "F",
+          "h2h": "0-0",
+          "finished": false
+        },
         {
           "teId": "3326405",
           "p1": "Wei",
@@ -2947,7 +2978,7 @@
           "teId": "3326587",
           "p1": "Pistola",
           "p2": "Lombardini",
-          "time": "10:00",
+          "time": "10:05",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -2956,7 +2987,7 @@
           "teId": "3326573",
           "p1": "Sziedat",
           "p2": "Oktiabreva",
-          "time": "10:00",
+          "time": "10:05",
           "round": "SF",
           "h2h": "0-0",
           "finished": false
@@ -4646,6 +4677,5 @@
       ]
     }
   ],
-  "ok": true,
-  "time": "2026-09-19T04:58:28Z"
+  "time": "2026-09-19T09:22:07Z"
 }
